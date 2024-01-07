@@ -1,0 +1,54 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.607852299674065,
+        "y": 6.0
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.607852299674065,
+        "y": 4.898529705456358
+      },
+      "isLocked": false
+    },
+    {
+      "anchor": {
+        "x": 6.61,
+        "y": 1.7745910300980916
+      },
+      "prevControl": {
+        "x": 6.61,
+        "y": 3.2945910300980916
+      },
+      "nextControl": null,
+      "isLocked": false
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6,
+      "rotationDegrees": 90.0
+    },
+    {
+      "waypointRelativePos": 0.3,
+      "rotationDegrees": 0
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.5,
+    "maxAngularVelocity": 180.0,
+    "maxAngularAcceleration": 360.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "reversed": false,
+  "folder": "PID Tuning",
+  "previewStartingState": null
+}

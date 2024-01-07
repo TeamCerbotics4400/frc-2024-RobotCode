@@ -1,0 +1,44 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.0,
+        "y": 4.589459560598511
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.7409543826721245,
+        "y": 4.660851153763377
+      },
+      "isLocked": false
+    },
+    {
+      "anchor": {
+        "x": 2.1611759254052862,
+        "y": 4.589459560598511
+      },
+      "prevControl": {
+        "x": 4.119345337927317,
+        "y": 4.701646349857586
+      },
+      "nextControl": null,
+      "isLocked": false
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3,
+    "maxAcceleration": 3,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0
+  },
+  "reversed": false,
+  "folder": "Swerve auto testing"
+}

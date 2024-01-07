@@ -1,0 +1,62 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.883737569001856,
+        "y": 5.6399358600243925
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.883737569001856,
+        "y": 4.521901871274498
+      },
+      "isLocked": false
+    },
+    {
+      "anchor": {
+        "x": 5.88,
+        "y": 1.78
+      },
+      "prevControl": {
+        "x": 5.88,
+        "y": 3.3006906325745557
+      },
+      "nextControl": null,
+      "isLocked": false
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "IdleArm",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmIdle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 1.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "Drive Tuning"
+}

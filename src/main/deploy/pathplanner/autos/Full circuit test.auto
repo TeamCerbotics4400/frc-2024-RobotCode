@@ -1,0 +1,48 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Exit community top"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Travese pieces"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Back to Community"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Top to bottom Community"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Exit community bottom"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        }
+      ]
+    }
+  },
+  "folder": null
+}

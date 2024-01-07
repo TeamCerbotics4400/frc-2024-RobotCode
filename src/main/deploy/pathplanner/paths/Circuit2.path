@@ -1,0 +1,44 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.117792250851676,
+        "y": 4.660851153763377
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.117792250851676,
+        "y": 3.8344966490275163
+      },
+      "isLocked": false
+    },
+    {
+      "anchor": {
+        "x": 6.424273917250125,
+        "y": 1.0708738974729866
+      },
+      "prevControl": {
+        "x": 6.811828280145109,
+        "y": 2.3763201724876737
+      },
+      "nextControl": null,
+      "isLocked": false
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3,
+    "maxAcceleration": 3,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "reversed": false,
+  "folder": "Full circuit paths"
+}

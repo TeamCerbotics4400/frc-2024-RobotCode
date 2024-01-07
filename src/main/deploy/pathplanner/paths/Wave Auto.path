@@ -1,0 +1,45 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.49566551041499,
+        "y": 5.884707036589646
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.516063108462095,
+        "y": 4.977013923493496
+      },
+      "isLocked": false
+    },
+    {
+      "anchor": {
+        "x": 6.750635486003795,
+        "y": 3.9775316191853767
+      },
+      "prevControl": {
+        "x": 6.454870314320781,
+        "y": 4.864827134234421
+      },
+      "nextControl": null,
+      "isLocked": false
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3,
+    "maxAcceleration": 3,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0
+  },
+  "reversed": false,
+  "folder": "Fun Autos",
+  "previewStartingState": null
+}
