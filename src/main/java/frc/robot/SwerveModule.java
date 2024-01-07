@@ -170,7 +170,7 @@ public class SwerveModule {
 
     public void lockModule(){
         double targetAngle = -45;
-        //turnMotor.set(turnController.calculate(targetAngle));
+        turnMotor.setControl(anglePosition.withPosition(Units.degreesToRotations(targetAngle)));
     }
 
     //Invert if needed for odometry correction
