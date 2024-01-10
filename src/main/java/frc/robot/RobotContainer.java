@@ -12,9 +12,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.TeleopCommands.LowerCommand;
-import frc.robot.commands.TeleopCommands.UpperCommand;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
+
 
 
 /**
@@ -24,8 +23,7 @@ import frc.robot.subsystems.Shooter;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-
-  private final Shooter shooter = new Shooter();
+  Intake intake = new Intake();
   private final Joystick chassisDriver = new Joystick(0);
   private final Joystick subsystemsDriver = new Joystick(1);
 
@@ -46,8 +44,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-   new JoystickButton(chassisDriver, 4).whileTrue(new UpperCommand(shooter));
-   new JoystickButton(chassisDriver, 1).whileTrue(new LowerCommand(shooter));
+    new JoystickButton(chassisDriver, 1).whileTrue(new InstantCommand(() -> intake.startIntaking()));
+    new JoystickButton(chassisDriver, 2).whileTrue(new InstantCommand(() -> intake.startOutaking()));
+
   }
 
   /**
