@@ -29,15 +29,15 @@ public class Shooter extends SubsystemBase {
   private double upperVelocity = 0;
   private double lowerVelocity = 0;
 
-  double upperkP = 0.02, upperkI = 0, upperkD = 0.000190, upperkFF = 0.114,
-         lowerkP = 0.02, lowerkI = 0, lowerkD = 0.000190, lowerkFF = 0.114;
+  double upperkP = 0.000121, upperkI = 0, upperkD = 0, upperkFF = 0.0002,
+         lowerkP = 0.000121, lowerkI = 0, lowerkD = 0, lowerkFF = 0.0002;
   double upperSetPoint = 0, lowerSetPoint = 0;
 
   public Shooter() {
     upperFlyWheel.restoreFactoryDefaults();
     lowerFlyWheel.restoreFactoryDefaults();
 
-    lowerFlyWheel.setInverted(true);
+    lowerFlyWheel.setInverted(false);
     upperFlyWheel.setInverted(false);
 
     lowerFlyWheel.setIdleMode(IdleMode.kBrake);
