@@ -16,97 +16,97 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
-  
-  CANSparkMax upperFlyWheel = new CANSparkMax (1,MotorType.kBrushless);
-  CANSparkMax lowerFlyWheel = new CANSparkMax (6,MotorType.kBrushless);
+  //upper
+  CANSparkMax leftFlyWheel = new CANSparkMax (6,MotorType.kBrushless);
+  CANSparkMax rightFlyWheel = new CANSparkMax (1,MotorType.kBrushless);
+//lower
+  RelativeEncoder rightEncoder;
+  RelativeEncoder leftEncoder;
 
-  RelativeEncoder lowerEncoder;
-  RelativeEncoder upperEncoder;
+  SparkPIDController leftController; 
+  SparkPIDController rightController; 
 
-  SparkPIDController upperController; 
-  SparkPIDController lowerController; 
+  private double leftVelocity = 0;
+  private double rightVelocity = 0;
 
-  private double upperVelocity = 0;
-  private double lowerVelocity = 0;
-
-  double upperkP = 0.000121, upperkI = 0, upperkD = 0, upperkFF = 0.0002,
-         lowerkP = 0.000121, lowerkI = 0, lowerkD = 0, lowerkFF = 0.0002;
-  double upperSetPoint = 0, lowerSetPoint = 0;
+  double leftkP = 0.000121, leftkI = 0, leftkD = 0, leftkFF = 0.0002,
+         rightkP = 0.000121, rightkI = 0, rightkD = 0, rightkFF = 0.0002;
+  double leftSetPoint = 0, rightSetPoint = 0;
 
   public Shooter() {
-    upperFlyWheel.restoreFactoryDefaults();
-    lowerFlyWheel.restoreFactoryDefaults();
+    leftFlyWheel.restoreFactoryDefaults();
+    rightFlyWheel.restoreFactoryDefaults();
 
-    lowerFlyWheel.setInverted(false);
-    upperFlyWheel.setInverted(false);
+    rightFlyWheel.setInverted(true);
+    leftFlyWheel.setInverted(true);
 
-    lowerFlyWheel.setIdleMode(IdleMode.kBrake);
-    upperFlyWheel.setIdleMode(IdleMode.kBrake);
+    rightFlyWheel.setIdleMode(IdleMode.kBrake);
+    leftFlyWheel.setIdleMode(IdleMode.kBrake);
 
-    lowerFlyWheel.clearFaults();
-    upperFlyWheel.clearFaults();
+    rightFlyWheel.clearFaults();
+    leftFlyWheel.clearFaults();
 
-    upperController = upperFlyWheel.getPIDController();
-    lowerController = lowerFlyWheel.getPIDController();
+    leftController = leftFlyWheel.getPIDController();
+    rightController = rightFlyWheel.getPIDController();
 
-    upperEncoder = upperFlyWheel.getEncoder();
-    lowerEncoder = lowerFlyWheel.getEncoder();
+    leftEncoder = leftFlyWheel.getEncoder();
+    rightEncoder = rightFlyWheel.getEncoder();
 
-    SmartDashboard.putNumber("Upper kP", upperkP);   SmartDashboard.putNumber("Lower kP", lowerkP);
-    SmartDashboard.putNumber("Upper kI", upperkI);   SmartDashboard.putNumber("Lower kI", lowerkI);
-    SmartDashboard.putNumber("Upper kD", upperkD);   SmartDashboard.putNumber("Lower kD", lowerkD);
-    SmartDashboard.putNumber("Upper kFF", upperkFF);   SmartDashboard.putNumber("Lower kFF", lowerkFF);
+    SmartDashboard.putNumber("left kP", leftkP);   SmartDashboard.putNumber("right kP", rightkP);
+    SmartDashboard.putNumber("left kI", leftkI);   SmartDashboard.putNumber("right kI", rightkI);
+    SmartDashboard.putNumber("left kD", leftkD);   SmartDashboard.putNumber("right kD", rightkD);
+    SmartDashboard.putNumber("left kFF", leftkFF);   SmartDashboard.putNumber("right kFF", rightkFF);
 
-    SmartDashboard.putNumber("Upper RPM", upperSetPoint);   SmartDashboard.putNumber("Lower RPM", lowerSetPoint);
+    SmartDashboard.putNumber("left RPM", leftSetPoint);   SmartDashboard.putNumber("right RPM", rightSetPoint);
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-     double ukP = SmartDashboard.getNumber("Upper kP", 0.02),
-            ukI = SmartDashboard.getNumber("Upper kI", 0),
-            ukD = SmartDashboard.getNumber("Upper kD", 0.000190), 
-            lkP = SmartDashboard.getNumber("Lower kP", 0.02),
-            lkI = SmartDashboard.getNumber("Lower kI", 0),
-            lkD = SmartDashboard.getNumber("Lower kD", 0.000190),
-            ukFF = SmartDashboard.getNumber("Upper kFF",0.114),
-            lkFF = SmartDashboard.getNumber("Lower kFF",0.114); 
+     double ukP = SmartDashboard.getNumber("left kP", 0.02),
+            ukI = SmartDashboard.getNumber("left kI", 0),
+            ukD = SmartDashboard.getNumber("left kD", 0.000190), 
+            lkP = SmartDashboard.getNumber("right kP", 0.02),
+            lkI = SmartDashboard.getNumber("right kI", 0),
+            lkD = SmartDashboard.getNumber("right kD", 0.000190),
+            ukFF = SmartDashboard.getNumber("left kFF",0.114),
+            lkFF = SmartDashboard.getNumber("right kFF",0.114); 
 
-    if (upperkP != ukP){ upperkP = ukP; upperController.setP(upperkP); }
-    if (upperkI != ukI){ upperkI = ukI; upperController.setI(upperkI); }
-    if (upperkD != ukD){ upperkD = ukD; upperController.setD(upperkD); }
-    if (upperkFF != ukFF){ upperkFF = ukFF; upperController.setFF(upperkFF);}
-    if (lowerkP != lkP){ lowerkP = lkP; lowerController.setP(lowerkP); }
-    if (lowerkI != lkI){ lowerkI = lkI; lowerController.setI(lowerkI); }
-    if (lowerkD != lkD){ lowerkD = lkD; lowerController.setD(lowerkD);}
-    if (lowerkFF != lkFF){ lowerkFF = lkFF; lowerController.setFF(lowerkFF);}
+    if (leftkP != ukP){ leftkP = ukP; leftController.setP(leftkP); }
+    if (leftkI != ukI){ leftkI = ukI; leftController.setI(leftkI); }
+    if (leftkD != ukD){ leftkD = ukD; leftController.setD(leftkD); }
+    if (leftkFF != ukFF){ leftkFF = ukFF; leftController.setFF(leftkFF);}
+    if (rightkP != lkP){ rightkP = lkP; rightController.setP(rightkP); }
+    if (rightkI != lkI){ rightkI = lkI; rightController.setI(rightkI); }
+    if (rightkD != lkD){ rightkD = lkD; rightController.setD(rightkD);}
+    if (rightkFF != lkFF){ rightkFF = lkFF; rightController.setFF(rightkFF);}
 
-      double uRPM = SmartDashboard.getNumber("Upper RPM", 0),
-             lRPM = SmartDashboard.getNumber("Lower RPM", 0);
+      double uRPM = SmartDashboard.getNumber("left RPM", 0),
+             lRPM = SmartDashboard.getNumber("right RPM", 0);
 
-    if (upperSetPoint != uRPM){upperSetPoint = uRPM;}
-    if (lowerSetPoint != lRPM){lowerSetPoint = lRPM;}
+    if (leftSetPoint != uRPM){leftSetPoint = uRPM;}
+    if (rightSetPoint != lRPM){rightSetPoint = lRPM;}
 
-    SmartDashboard.putNumber("Current Upper RPM", upperEncoder.getVelocity());
-    SmartDashboard.putNumber("Current Lower RPM", lowerEncoder.getVelocity());
+    SmartDashboard.putNumber("Current left RPM", leftEncoder.getVelocity());
+    SmartDashboard.putNumber("Current right RPM", rightEncoder.getVelocity());
 
   }
 
 
-  public void setUpperSpeed(){
-    upperVelocity = upperSetPoint;
-    upperController.setReference(upperVelocity,ControlType.kVelocity);
+  public void setleftSpeed(){
+    leftVelocity = leftSetPoint;
+    leftController.setReference(leftVelocity,ControlType.kVelocity);
   }
-  public void setLowerSpeed(){
-    lowerVelocity = lowerSetPoint;
-    lowerController.setReference(lowerVelocity,ControlType.kVelocity);
+  public void setrightSpeed(){
+    rightVelocity = rightSetPoint;
+    rightController.setReference(rightVelocity,ControlType.kVelocity);
   }
-    public void stopUpper(){
-    upperFlyWheel.set(0);
+    public void stopleft(){
+    leftFlyWheel.set(0);
   }
 
-  public void stopLower(){
-    lowerFlyWheel.set(0);
+  public void stopright(){
+    rightFlyWheel.set(0);
   }
 }
