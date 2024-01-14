@@ -12,8 +12,12 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.TeleopCommands.TeleopControl;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.commands.TeleopCommands.IntakeCommand;
+import frc.robot.commands.TeleopCommands.OutakeCommand;
+import frc.robot.commands.TeleopCommands.UpperCommand;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,21 +27,13 @@ import frc.robot.subsystems.DriveTrain;
  */
 public class RobotContainer {
 
-  private final DriveTrain m_drive = new DriveTrain();
   
   private final Joystick chassisDriver = new Joystick(0);
   private final Joystick subsystemsDriver = new Joystick(1);
-
+  private final Intake intake = new Intake();
+  private final Shooter shooter =  new Shooter();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-
-    m_drive.setDefaultCommand(new TeleopControl
-    (m_drive, 
-    () -> chassisDriver.getRawAxis(1), 
-    () -> chassisDriver.getRawAxis(0), 
-    () -> -chassisDriver.getRawAxis(4), 
-    () -> !chassisDriver.getRawButton(4)));
-
     configureBindings();
   }
 
@@ -51,8 +47,10 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    new JoystickButton(chassisDriver, 1).onTrue(
-      new InstantCommand(() -> m_drive.zeroHeading()));
+   new JoystickButton(chassisDriver, 1).whileTrue(new UpperCommand(shooter));
+   new JoystickButton(chassisDriver, 4).whileTrue(new IntakeCommand(intake));
+   new JoystickButton(chassisDriver, 2).whileTrue(new OutakeCommand(intake));
+   //new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(outake));
   }
 
   /**
@@ -65,7 +63,4 @@ public class RobotContainer {
     return new PathPlannerAuto("Square Auto");//m_autoChooser.getSelected();
   }
 
-  public DriveTrain getDrive(){
-    return m_drive;
-  }
 }
