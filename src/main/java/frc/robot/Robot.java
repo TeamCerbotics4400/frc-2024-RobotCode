@@ -44,7 +44,6 @@ public class Robot extends TimedRobot {
 
     batteryVoltage = new DoubleLogEntry(log, "Battery Voltage");
 
-   m_robotContainer.getDrive().setAllianceForVision(DriverStation.getAlliance().get());
 
   }
 
