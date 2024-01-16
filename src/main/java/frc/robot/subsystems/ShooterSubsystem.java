@@ -12,7 +12,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Shooter extends SubsystemBase {
+public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new Shooter. */
   TalonFX upperFlyWheel = new TalonFX(3, "rio");
   TalonFX lowerFlyWheel = new TalonFX(13, "rio");
@@ -27,7 +27,7 @@ public class Shooter extends SubsystemBase {
          lowerkP = 0.02, lowerkI = 0, lowerkD = 0.000190, lowerkFF = 0.114;
   double upperSetPoint = 0, lowerSetPoint = 0;
 
-  public Shooter() {
+  public ShooterSubsystem() {
     upperConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;  //Chekc later motor direction
     lowerConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 

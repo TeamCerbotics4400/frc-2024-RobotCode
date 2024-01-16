@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.TeleopCommands.IntakeCommand;
 import frc.robot.commands.TeleopCommands.OutakeCommand;
-import frc.robot.commands.TeleopCommands.UpperCommand;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
+import frc.robot.commands.TeleopCommands.ShooterCommand;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 
 /**
@@ -30,8 +30,8 @@ public class RobotContainer {
   
   private final Joystick chassisDriver = new Joystick(0);
   private final Joystick subsystemsDriver = new Joystick(1);
-  private final Intake intake = new Intake();
-  private final Shooter shooter =  new Shooter();
+  private final IntakeSubsystem intake = new IntakeSubsystem();
+  private final ShooterSubsystem shooter =  new ShooterSubsystem();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     configureBindings();
@@ -47,9 +47,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-   new JoystickButton(chassisDriver, 1).whileTrue(new UpperCommand(shooter));
+   new JoystickButton(chassisDriver, 1).whileTrue(new ShooterCommand(shooter));
    new JoystickButton(chassisDriver, 4).whileTrue(new IntakeCommand(intake));
-   new JoystickButton(chassisDriver, 2).whileTrue(new OutakeCommand(intake));
+   new JoystickButton(chassisDriver, 1).whileTrue(new OutakeCommand(intake));
    //new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(outake));
   }
 

@@ -5,12 +5,12 @@
 package frc.robot.commands.TeleopCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeCommand extends Command {
   /** Creates a new IntakeCommand. */
-  Intake intake;
-  public IntakeCommand(Intake intake) {
+  IntakeSubsystem intake;
+  public IntakeCommand(IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
   }

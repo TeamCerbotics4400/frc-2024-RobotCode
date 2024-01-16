@@ -11,12 +11,12 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake extends SubsystemBase {
+public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new Intake. */
   CANSparkMax intake = new CANSparkMax(6,MotorType.kBrushless);
   public RelativeEncoder outakeVelocity = intake.getEncoder();
 
-  public Intake() {
+  public IntakeSubsystem() {
     intake.restoreFactoryDefaults();
     intake.setInverted(false);
 
@@ -27,6 +27,8 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Outake velocity", getOutakeVelocity());
+        SmartDashboard.putNumber("Outake position", getOutakePosition());
+
   }
 
   public void startIntaking(){
@@ -40,5 +42,11 @@ public class Intake extends SubsystemBase {
   }
   public double getOutakeVelocity(){
     return outakeVelocity.getVelocity();
+  }
+  public double getOutakePosition(){
+    return outakeVelocity.getPosition();
+  }
+  public void resetEncoder(){
+    outakeVelocity.setVelocityConversionFactor(0.0);
   }
 }
