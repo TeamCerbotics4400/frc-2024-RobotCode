@@ -170,6 +170,49 @@ public final class Constants {
                                rotationD = 0.0;
   }
 
+  public static final class ShooterConstants {
+    public static byte LEFT_MOTOR_ID =0;
+    public static byte RIGHT_MOTOR_ID = 0;
+
+    public static double kP = 0.02,
+                         kI = 0,
+                         kD = 0.000190,
+                         kFF = 0.144;
+
+  }
+
+  public static final class IntakeConstants {
+
+  }
+  public static final class ArmConstants {
+    public static byte LEFT_ARM_ID = 5; 
+    public static byte RIGHT_ARM_ID = 6;
+
+    public static double ARM_DEGREES_PER_MOTOR_ROTATION = 32.89;
+
+    public static double kP = 0.13821,//0.0011773,//0.012904,//4.3755E-09,
+                         kI = 0.0,
+                         kD = 0.021835,//0.00017643,//0.0024401,//8.274E-10,
+                         kFF = 0.0,//0.000156,
+                         kMaxVelocityRadPerSecond = 320,
+                         kMaxAccelerationMetersPerSecondSquared = 250,//320,
+                         kS = 0.94615,//0.82172,
+                         kV = 0.0021715,//0.0047927,
+                         kA = 0.0019641,//0.003212,
+                         kG = 0.12588;//0.44033;
+
+    public static double IDLE_POSITION = 90.0;
+    public static double SUBSTATION_POSITION = 130.5;
+    public static double SCORING_POSITION = 100;//115;
+    public static double BACK_FLOOR_POSITION = 1.15;
+    public static double FRONT_FLOOR_POSITION = 175.0;
+    public static double AVE_MARIA_SHOOT_POSITION = 120.0;
+    public static double COUNTER_BALANCE_POSITION = 60.0;
+    public static double TESTING_ANGLE = 90.0;
+
+    public static double ARM_THRESHOLD = 9.5;
+  }
+
   /*************** MISC ****************/
 
   public static final class VisionConstants {
