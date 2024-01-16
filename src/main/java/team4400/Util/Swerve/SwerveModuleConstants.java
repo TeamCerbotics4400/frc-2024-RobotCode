@@ -4,21 +4,19 @@
 
 package team4400.Util.Swerve;
 
-import com.ctre.phoenix6.signals.InvertedValue;
-
 /** Add your docs here. */
 /* Special class for helping us organize Swerve Module Constants */
 public class SwerveModuleConstants {
     public final int driveMotorID;
     public final int turnMotorID;
-    public final InvertedValue driveReversed;
-    public final InvertedValue turnReversed;
+    public final boolean driveReversed;
+    public final boolean turnReversed;
     public final int absoluteEncoderID;
     public final double angleOffset;
 
     public SwerveModuleConstants(int driveMotorID, int turnMotorID,
-    InvertedValue driveReversed, InvertedValue turnReversed, 
-    int absoluteEncoderID, double angleOffset) {
+    boolean driveReversed, boolean turnReversed, int absoluteEncoderID,
+    double angleOffset) {
         this.driveMotorID = driveMotorID;
         this.turnMotorID = turnMotorID;
         this.driveReversed = driveReversed;
