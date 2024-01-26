@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import frc.lib.util.limelightOffsets;
 import team4400.Util.Swerve.SwerveModuleConstants;
 
 /**
@@ -185,8 +186,8 @@ public final class Constants {
 
   }
   public static final class ArmConstants {
-    public static byte LEFT_ARM_ID = 5; 
-    public static byte RIGHT_ARM_ID = 6;
+    public static byte LEFT_ARM_ID = 0; 
+    public static byte RIGHT_ARM_ID = 0;
 
     public static double ARM_DEGREES_PER_MOTOR_ROTATION = 32.89;
 
@@ -211,8 +212,42 @@ public final class Constants {
     public static double TESTING_ANGLE = 90.0;
 
     public static double ARM_THRESHOLD = 9.5;
+
+  }
+  public static final class ArmExtentionConstants {
+    public static final int ARM_EXTENSION_GEAR_RATIO = 0;
+    public static final int NEO_COUNTS_PER_REV = 42;
+    public static double kP = 0,
+                         kI = 0,
+                         kD = 0,
+                         kFF = 0; 
   }
 
+     /**
+     * PID constants for the autoalign
+     */
+    public static final double kPdrive = 0.0;
+    public static final double kIdrive = 0;
+    public static final double kDdrive = 0;
+
+    public static final double kPstrafe = 0.0;
+    public static final double kIstrafe = 0;
+    public static final double kDstrafe = 0;
+
+    public static final double kProtation = 0.0;
+    public static final double kIrotation = 0;
+    public static final double kDrotation = 0;
+
+        public static final class aprilTag{
+
+            public static double driveOffset = 1;
+            public static double strafeOffset = -1;
+            public static double rotationOffset = 1;
+
+            public static final limelightOffsets offsets =  
+        new limelightOffsets(driveOffset, strafeOffset, rotationOffset);
+
+        }
   /*************** MISC ****************/
 
   public static final class VisionConstants {

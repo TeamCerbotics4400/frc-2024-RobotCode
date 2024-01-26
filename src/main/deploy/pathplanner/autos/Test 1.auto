@@ -1,6 +1,12 @@
 {
   "version": 1.0,
-  "startingPose": null,
+  "startingPose": {
+    "position": {
+      "x": 0.33723452062288894,
+      "y": 7.449541822160567
+    },
+    "rotation": 0
+  },
   "command": {
     "type": "sequential",
     "data": {
@@ -8,42 +14,48 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Back to Community"
+            "pathName": "Note1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Travese pieces"
+            "pathName": "Note 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Back to Community"
+            "pathName": "Put note 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Top to bottom Community"
+            "pathName": "Note 3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Exit community bottom"
+            "pathName": "Put note 3"
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 1.0
+            "pathName": "Note 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Put Note 4"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Crescendo",
   "choreoAuto": false
 }

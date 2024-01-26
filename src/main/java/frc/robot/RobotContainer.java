@@ -8,13 +8,14 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.TeleopCommands.IntakeCommand;
-import frc.robot.commands.TeleopCommands.OutakeCommand;
-import frc.robot.commands.TeleopCommands.ShooterCommand;
+import frc.robot.Constants.ArmConstants;
+import frc.robot.commands.ShooterCommand;
+import frc.robot.commands.IntakeCommands.IntakeCommand;
+import frc.robot.commands.IntakeCommands.OutakeCommand;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -32,6 +33,7 @@ public class RobotContainer {
   private final Joystick subsystemsDriver = new Joystick(1);
   private final IntakeSubsystem intake = new IntakeSubsystem();
   private final ShooterSubsystem shooter =  new ShooterSubsystem();
+  private final ArmSubsystem m_arm = new ArmSubsystem();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     configureBindings();
@@ -47,10 +49,15 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-   new JoystickButton(chassisDriver, 1).whileTrue(new ShooterCommand(shooter));
+   new JoystickButton(chassisDriver, 1).whileTrue(new ShooterCommand(shooter, m_arm));
    new JoystickButton(chassisDriver, 4).whileTrue(new IntakeCommand(intake));
    new JoystickButton(chassisDriver, 1).whileTrue(new OutakeCommand(intake));
-   //new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(outake));
+   //new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(outake));   Manual outake
+
+   new JoystickButton(subsystemsDriver, 5)
+   .onTrue(m_arm.goToPosition(ArmConstants.FRONT_FLOOR_POSITION))
+   .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_POSITION));
+
   }
 
   /**
@@ -60,7 +67,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Square Auto");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("Test 1");//m_autoChooser.getSelected();
   }
 
 }

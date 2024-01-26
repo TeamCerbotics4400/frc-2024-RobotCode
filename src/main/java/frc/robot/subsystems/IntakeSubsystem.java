@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new Intake. */
   CANSparkMax intake = new CANSparkMax(6,MotorType.kBrushless);
-  public RelativeEncoder outakeVelocity = intake.getEncoder();
+  public RelativeEncoder intakeEncoder = intake.getEncoder();
 
   public IntakeSubsystem() {
     intake.restoreFactoryDefaults();
@@ -26,8 +26,8 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Outake velocity", getOutakeVelocity());
-        SmartDashboard.putNumber("Outake position", getOutakePosition());
+    SmartDashboard.putNumber("Outake velocity", getIntakeVelocity());
+        SmartDashboard.putNumber("Outake position", getIntakePosition());
 
   }
 
@@ -40,13 +40,13 @@ public class IntakeSubsystem extends SubsystemBase {
   public void stopIntaking(){
     intake.set(0.0);
   }
-  public double getOutakeVelocity(){
-    return outakeVelocity.getVelocity();
+  public double getIntakeVelocity(){
+    return intakeEncoder.getVelocity();
   }
-  public double getOutakePosition(){
-    return outakeVelocity.getPosition();
+  public double getIntakePosition(){
+    return intakeEncoder.getPosition();
   }
   public void resetEncoder(){
-    outakeVelocity.setVelocityConversionFactor(0.0);
+    intakeEncoder.setPosition(0);
   }
 }

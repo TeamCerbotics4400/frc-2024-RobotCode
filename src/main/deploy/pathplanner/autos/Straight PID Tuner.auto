@@ -32,5 +32,6 @@
       ]
     }
   },
-  "folder": "PID Tuning"
+  "folder": "PID Tuning",
+  "choreoAuto": false
 }

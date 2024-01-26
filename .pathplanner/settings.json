@@ -1,12 +1,20 @@
 {
-  "robotWidth": 0.9,
-  "robotLength": 0.9,
+  "robotWidth": 0.635,
+  "robotLength": 0.6096,
   "holonomicMode": true,
   "pathFolders": [
+    "CrescendoTest1",
     "Fun Autos",
+    "CrescendoTest2",
     "PID Tuning"
   ],
   "autoFolders": [
+    "Crescendo",
     "PID Tuning"
-  ]
+  ],
+  "defaultMaxVel": 3.0,
+  "defaultMaxAccel": 3.0,
+  "defaultMaxAngVel": 540.0,
+  "defaultMaxAngAccel": 720.0,
+  "maxModuleSpeed": 4.5
 }

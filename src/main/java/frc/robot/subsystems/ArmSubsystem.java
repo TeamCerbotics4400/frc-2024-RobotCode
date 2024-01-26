@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
@@ -16,6 +18,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.util.datalog.DoubleArrayLogEntry;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.ArmExtentionConstants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -33,6 +36,14 @@ import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
 public class ArmSubsystem extends ProfiledPIDSubsystem {
   private final CANSparkMax leftMotor = new CANSparkMax(ArmConstants.LEFT_ARM_ID, MotorType.kBrushless);
   private final CANSparkMax rightMotor = new CANSparkMax(ArmConstants.RIGHT_ARM_ID, MotorType.kBrushless);
+
+  //For the telescope
+
+  private final CANSparkMax armExtendMotor = new CANSparkMax(0,MotorType.kBrushless);
+  private final RelativeEncoder telescopeEncoder = armExtendMotor.getEncoder();
+  private double actualArmExtensionPos;
+  private SparkPIDController armExtPID;
+
   private final DutyCycleEncoder m_encoder =
       new DutyCycleEncoder(2);
   private final ArmFeedforward m_feedforward =
@@ -65,15 +76,25 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
     leftMotor.restoreFactoryDefaults();
     rightMotor.restoreFactoryDefaults();
+    armExtendMotor.restoreFactoryDefaults();
 
     leftMotor.setInverted(false);
     rightMotor.follow(leftMotor, true);
+    armExtendMotor.setInverted(true);
 
     leftMotor.setSmartCurrentLimit(80);
     rightMotor.setSmartCurrentLimit(80);
+    armExtendMotor.setSmartCurrentLimit(80);
 
     leftMotor.setCANTimeout(0);
     rightMotor.setCANTimeout(0);
+    armExtendMotor.setCANTimeout(0);
+
+    armExtPID = armExtendMotor.getPIDController();
+     armExtPID.setP(ArmExtentionConstants.kP);
+     armExtPID.setI(ArmExtentionConstants.kI);
+     armExtPID.setD(ArmExtentionConstants.kD);
+     armExtPID.setFF(ArmExtentionConstants.kFF);
   }
 
 
@@ -81,6 +102,11 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public void periodic() {
       super.periodic();
       SmartDashboard.putNumber("Arm Angle", getMeasurement());
+     
+      actualArmExtensionPos = (telescopeEncoder.getPosition()
+      / ArmExtentionConstants.ARM_EXTENSION_GEAR_RATIO) / ArmExtentionConstants.NEO_COUNTS_PER_REV;
+
+  SmartDashboard.putNumber("Actual Arm Extension Position: ", actualArmExtensionPos);
 
       //SmartDashboard.putBoolean("Arm ready", isReady());
       //SmartDashboard.putBoolean("Is Intaking Pose", isInIntakingPos());
@@ -153,5 +179,21 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     } else {
       return false;
     }
+  }
+  // Arm Extention
+  
+  public void setSoftLimits(){
+    armExtendMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    armExtendMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+
+    armExtendMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 6);
+    armExtendMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);   
+}
+
+  public void extendArm(){
+   armExtendMotor.set(0.06);
+  }
+  public void retrackArm(){
+   armExtendMotor.set(-0.06);
   }
 }
