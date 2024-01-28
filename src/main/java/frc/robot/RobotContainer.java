@@ -8,6 +8,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -16,8 +17,10 @@ import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.commands.TeleopControl;
 
 
 /**
@@ -31,11 +34,20 @@ public class RobotContainer {
   
   private final Joystick chassisDriver = new Joystick(0);
   private final Joystick subsystemsDriver = new Joystick(1);
+  private final DriveTrain m_drive = new DriveTrain();
   private final IntakeSubsystem intake = new IntakeSubsystem();
   private final ShooterSubsystem shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    
+    m_drive.setDefaultCommand(new TeleopControl
+    (m_drive, 
+    () -> chassisDriver.getRawAxis(1), 
+    () -> chassisDriver.getRawAxis(0), 
+    () -> -chassisDriver.getRawAxis(4), 
+    () -> !chassisDriver.getRawButton(4)));
+
     configureBindings();
   }
 
@@ -49,10 +61,13 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-   new JoystickButton(chassisDriver, 1).whileTrue(new ShooterCommand(shooter, m_arm));
-   new JoystickButton(chassisDriver, 4).whileTrue(new IntakeCommand(intake));
-   new JoystickButton(chassisDriver, 1).whileTrue(new OutakeCommand(intake));
-   //new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(outake));   Manual outake
+
+      new JoystickButton(chassisDriver, 1).onTrue(
+      new InstantCommand(() -> m_drive.zeroHeading()));
+
+   new JoystickButton(subsystemsDriver, 1).whileTrue(new ShooterCommand(shooter, m_arm));
+   new JoystickButton(subsystemsDriver, 4).whileTrue(new IntakeCommand(intake));
+   new JoystickButton(subsystemsDriver, 1).whileTrue(new OutakeCommand(intake));
 
    new JoystickButton(subsystemsDriver, 5)
    .onTrue(m_arm.goToPosition(ArmConstants.FRONT_FLOOR_POSITION))
@@ -67,7 +82,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Test 1");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("Intake test");//m_autoChooser.getSelected();
   }
 
 }

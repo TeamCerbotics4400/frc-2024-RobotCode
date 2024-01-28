@@ -203,6 +203,7 @@ public final class Constants {
                          kG = 0.12588;//0.44033;
 
     public static double IDLE_POSITION = 90.0;
+    
     public static double SUBSTATION_POSITION = 130.5;
     public static double SCORING_POSITION = 100;//115;
     public static double BACK_FLOOR_POSITION = 1.15;
