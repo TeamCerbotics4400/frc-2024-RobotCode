@@ -183,7 +183,7 @@ public final class Constants {
   }
 
   public static final class IntakeConstants {
-
+    public static byte INTAKE_ID = 0;
   }
   public static final class ArmConstants {
     public static byte LEFT_ARM_ID = 0; 
@@ -215,7 +215,18 @@ public final class Constants {
     public static double ARM_THRESHOLD = 9.5;
 
   }
+  public static final class ClimberConstants{
+    public static byte CLIMBER_ID = 0; 
+
+    public static double kP = 0.03,
+                         kI = 0,
+                         kD = 0,
+                         kFF = 0.1,
+                         kMaxVelocityLinearPerSecond = 0,
+                         kMaxAccelerationMetersPerSecondSquared = 0;
+  }
   public static final class ArmExtentionConstants {
+    public static final byte TELESCOPE_ID = 0;
     public static final int ARM_EXTENSION_GEAR_RATIO = 0;
     public static final int NEO_COUNTS_PER_REV = 42;
     public static double kP = 0,

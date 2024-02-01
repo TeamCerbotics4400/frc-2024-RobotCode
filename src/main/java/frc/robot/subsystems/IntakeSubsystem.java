@@ -6,20 +6,24 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new Intake. */
-  CANSparkMax intake = new CANSparkMax(6,MotorType.kBrushless);
+  CANSparkMax intake = new CANSparkMax(IntakeConstants.INTAKE_ID,MotorType.kBrushless);
   public RelativeEncoder intakeEncoder = intake.getEncoder();
+  public DigitalInput isNoteIn = new DigitalInput(0); //Check what channel the sensor will be  on
 
   public IntakeSubsystem() {
     intake.restoreFactoryDefaults();
     intake.setInverted(false);
-
+    intake.setIdleMode(IdleMode.kBrake);
 
   }
 
@@ -27,8 +31,8 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Outake velocity", getIntakeVelocity());
-        SmartDashboard.putNumber("Outake position", getIntakePosition());
-
+    SmartDashboard.putNumber("Outake position", getIntakePosition());
+    SmartDashboard.putBoolean("Note inside robot", noteInside());
   }
 
   public void startIntaking(){
@@ -48,5 +52,8 @@ public class IntakeSubsystem extends SubsystemBase {
   }
   public void resetEncoder(){
     intakeEncoder.setPosition(0);
+  }
+  public boolean noteInside(){
+    return isNoteIn.get();
   }
 }

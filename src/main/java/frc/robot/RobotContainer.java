@@ -69,7 +69,7 @@ public class RobotContainer {
    new JoystickButton(subsystemsDriver, 4).whileTrue(new IntakeCommand(intake));
    new JoystickButton(subsystemsDriver, 1).whileTrue(new OutakeCommand(intake));
 
-   new JoystickButton(subsystemsDriver, 5)
+   new JoystickButton(subsystemsDriver, 2)
    .onTrue(m_arm.goToPosition(ArmConstants.FRONT_FLOOR_POSITION))
    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_POSITION));
 

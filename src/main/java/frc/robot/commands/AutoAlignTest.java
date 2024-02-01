@@ -1,4 +1,5 @@
-// Code stolen by me
+/* Code stolen by me, for now keeping it for future testing, just putting it this way
+so it doesnt give like 90e120983290 error messages
 
 package frc.robot.commands;
 
@@ -21,7 +22,7 @@ public class AutoAlignTest extends Command {
     private final limelightOffsets offsets;
     private final double driveOffset, strafeOffset, rotationOffset;
 
-  /** Creates a new AutoAlignTest. */
+  /* Creates a new AutoAlignTest. */ /* 
   public AutoAlignTest(DriveTrain driveTrain, LimelightHelpers limelight, boolean alingToAprilTag) {
     this.drivetrain = driveTrain;
     this.limelight = limelight;
@@ -75,3 +76,4 @@ public class AutoAlignTest extends Command {
     return false;
   }
 }
+*/ 

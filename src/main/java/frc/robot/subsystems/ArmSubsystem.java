@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
@@ -39,10 +38,11 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
   //For the telescope
 
-  private final CANSparkMax armExtendMotor = new CANSparkMax(0,MotorType.kBrushless);
+  private final CANSparkMax armExtendMotor = new CANSparkMax(ArmExtentionConstants.TELESCOPE_ID,MotorType.kBrushless);
   private final RelativeEncoder telescopeEncoder = armExtendMotor.getEncoder();
   private double actualArmExtensionPos;
-  private SparkPIDController armExtPID;
+  //Add PID CONTROLLER
+  //----
 
   private final DutyCycleEncoder m_encoder =
       new DutyCycleEncoder(2);
@@ -90,11 +90,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     rightMotor.setCANTimeout(0);
     armExtendMotor.setCANTimeout(0);
 
-    armExtPID = armExtendMotor.getPIDController();
-     armExtPID.setP(ArmExtentionConstants.kP);
-     armExtPID.setI(ArmExtentionConstants.kI);
-     armExtPID.setD(ArmExtentionConstants.kD);
-     armExtPID.setFF(ArmExtentionConstants.kFF);
+
   }
 
 
