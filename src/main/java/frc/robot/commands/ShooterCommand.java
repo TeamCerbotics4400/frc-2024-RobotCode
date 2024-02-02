@@ -6,19 +6,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterCommand extends Command {
-  /** Creates a new ShooterCommand. */
+
   ShooterSubsystem shooter;
-//ArmSubsystem m_arm;
+  IntakeSubsystem intake;
 
+  public ShooterCommand(ShooterSubsystem shooter, IntakeSubsystem intake) {
 
-  public ShooterCommand(ShooterSubsystem shooter, ArmSubsystem m_arm) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.shooter = shooter;
-    //this.m_arm = m_arm;
+    this.intake = intake;
+      
     addRequirements(shooter);
   }
 
@@ -31,7 +31,10 @@ public class ShooterCommand extends Command {
   public void execute() {
     shooter.setUpperSpeed();
     shooter.setLowerSpeed();
-
+     
+    if (shooter.getRPM() > 5000){   //check to change rpm
+      intake.startIntaking();
+    }
   }
 
   // Called once the command ends or is interrupted.

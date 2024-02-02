@@ -2,6 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+//CURRENTLY ITS A SEPARATE FILE, AFTER TESTING THE CLIMBER I WILL MERGE IT TO THE ARM SUBSYSTEM
+
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
@@ -44,9 +46,8 @@ public class ClimberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-  
 
-         double cRPM = SmartDashboard.getNumber("Climber RPM", 0);
+    double cRPM = SmartDashboard.getNumber("Climber RPM", 0);
 
     if (climberSetPoint != cRPM){climberSetPoint = cRPM;}
     if (descendSetPoint != cRPM){descendSetPoint= cRPM*-1;}
@@ -62,10 +63,9 @@ public class ClimberSubsystem extends SubsystemBase {
   public void setDescendingSpeed(){
     descendSpeed = descendSetPoint;
     climberPIDController.setReference(descendSpeed,ControlType.kVelocity);
-
   }
-  
   public void stopClimber(){
     climberMotor.set(0.0);
   }
+
 }

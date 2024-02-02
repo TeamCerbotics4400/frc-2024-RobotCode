@@ -67,16 +67,18 @@ public class ShooterSubsystem extends SubsystemBase {
     upperVelocity.Velocity = upperSetPoint / 60;
     upperFlyWheel.setControl(upperVelocity);
   }
-
   public void setLowerSpeed(){
     lowerVelocity.Velocity = lowerSetPoint / 60;
     lowerFlyWheel.setControl(lowerVelocity);
   }
-    public void stopUpper(){
+  public void stopUpper(){
     upperFlyWheel.set(0);
   }
 
   public void stopLower(){
     lowerFlyWheel.set(0);
+  }
+  public double getRPM(){
+    return lowerFlyWheel.getVelocity().getValueAsDouble()*60;
   }
 }

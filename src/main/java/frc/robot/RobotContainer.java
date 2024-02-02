@@ -17,10 +17,13 @@ import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.TeleopControl;
+import frc.robot.commands.ClimberCommands.ClimberCommand;
+import frc.robot.commands.ClimberCommands.DescendCommand;
 
 
 /**
@@ -38,6 +41,7 @@ public class RobotContainer {
   private final IntakeSubsystem intake = new IntakeSubsystem();
   private final ShooterSubsystem shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
+  private final ClimberSubsystem m_climber = new ClimberSubsystem();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     
@@ -65,13 +69,17 @@ public class RobotContainer {
       new JoystickButton(chassisDriver, 1).onTrue(
       new InstantCommand(() -> m_drive.zeroHeading()));
 
-   new JoystickButton(subsystemsDriver, 1).whileTrue(new ShooterCommand(shooter, m_arm));
+   new JoystickButton(subsystemsDriver, 1).whileTrue(new ShooterCommand(shooter, intake));
    new JoystickButton(subsystemsDriver, 4).whileTrue(new IntakeCommand(intake));
    new JoystickButton(subsystemsDriver, 1).whileTrue(new OutakeCommand(intake));
 
    new JoystickButton(subsystemsDriver, 2)
    .onTrue(m_arm.goToPosition(ArmConstants.FRONT_FLOOR_POSITION))
    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_POSITION));
+
+   //FOR NOW THEY ARE SEPPARATE COMMANDS FOR TESTING, LATER WILL MERGE THEM TOGETHER
+   new JoystickButton(subsystemsDriver, 5).whileTrue(new ClimberCommand(m_climber));
+   new JoystickButton(subsystemsDriver, 6).whileTrue(new DescendCommand(m_climber));
 
   }
 
