@@ -61,8 +61,7 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Current Lower RPM", lowerFlyWheel.getVelocity().getValueAsDouble() * 60);
 
   }
-
-
+  
   public void setUpperSpeed(){
     upperVelocity.Velocity = upperSetPoint / 60;
     upperFlyWheel.setControl(upperVelocity);

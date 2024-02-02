@@ -16,15 +16,18 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new Intake. */
-  CANSparkMax intake = new CANSparkMax(IntakeConstants.INTAKE_ID,MotorType.kBrushless);
-  public RelativeEncoder intakeEncoder = intake.getEncoder();
-  public DigitalInput isNoteIn = new DigitalInput(0); //Check what channel the sensor will be  on
+  CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_ID,MotorType.kBrushless);
+  public DigitalInput intakeSensor = new DigitalInput(0); //Check what channel the sensor will be  on
+  RelativeEncoder intakeEncoder;
 
   public IntakeSubsystem() {
-    intake.restoreFactoryDefaults();
-    intake.setInverted(false);
-    intake.setIdleMode(IdleMode.kBrake);
+    intakeMotor.restoreFactoryDefaults();
 
+    intakeMotor.setInverted(false);
+
+    intakeMotor.setIdleMode(IdleMode.kBrake);
+
+    intakeEncoder = intakeMotor.getEncoder();
   }
 
   @Override
@@ -36,24 +39,30 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void startIntaking(){
-    intake.set(-1);
+    intakeMotor.set(-1);
   }//change order
-    public void startOutaking(){
-    intake.set(1);
+
+  public void startOutaking(){
+    intakeMotor.set(1);
   }
+
   public void stopIntaking(){
-    intake.set(0.0);
+    intakeMotor.set(0.0);
   }
+
   public double getIntakeVelocity(){
     return intakeEncoder.getVelocity();
   }
+
   public double getIntakePosition(){
     return intakeEncoder.getPosition();
   }
+
   public void resetEncoder(){
     intakeEncoder.setPosition(0);
   }
+
   public boolean noteInside(){
-    return isNoteIn.get();
+    return intakeSensor.get();
   }
 }

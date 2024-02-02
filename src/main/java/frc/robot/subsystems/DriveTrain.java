@@ -14,11 +14,14 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SwerveModule;
@@ -36,16 +39,16 @@ public class DriveTrain extends SubsystemBase {
     new SwerveModule(3, DriveConstants.Module3.CONSTANTS)
   };
 
-  private final Pigeon2 imu = new Pigeon2(DriveConstants.IMU_ID, "rio");
+  private final Pigeon2 imu = new Pigeon2(DriveConstants.IMU_ID);
 
   private VisionSubsystem m_vision = new VisionSubsystem(this);  
 
-  //Project configured to use Encoder Odometry
-  private SwerveDriveOdometry encoderOdo = 
-  new SwerveDriveOdometry(
-    DriveConstants.kSwerveKinematics, 
-    getRotation2d(), 
-    getModulePositions());
+  ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
+
+  private GenericEntry speedEntry = 
+              driveTab.add("Drive Speed", 0)
+              .withWidget(BuiltInWidgets.kAccelerometer)
+              .getEntry();
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
@@ -57,7 +60,7 @@ public class DriveTrain extends SubsystemBase {
     }).start();
 
     AutoBuilder.configureHolonomic(
-      () -> encoderOdo.getPoseMeters(),
+      () -> m_vision.estimatedPose2d(),
       this::resetOdometryPose, 
       () -> getRobotRelativeSpeeds(), 
       this::setRobotRelativeSpeeds, 
@@ -78,7 +81,7 @@ public class DriveTrain extends SubsystemBase {
                     }
                     return false;
                 },
-    this);
+      this);
   }
 
   @Override
@@ -95,17 +98,18 @@ public class DriveTrain extends SubsystemBase {
        swerveModules[mod.moduleNumber].getDriveVelocity());
     }
 
-    encoderOdo.update(getRotation2d(), getModulePositions());
+    //SmartDashboard.putNumber("Average Drive Speed", getAverageDriveSpeed());
+
+    SmartDashboard.putNumber("Angular Acceleration", getAngularAcceleration());
 
     SmartDashboard.putNumber("Odometry X", m_vision.estimatedPose2d().getX());
     SmartDashboard.putNumber("Odometry Y", m_vision.estimatedPose2d().getY());
     SmartDashboard.putNumber("Odometry Rotation", 
                             m_vision.estimatedPose2d().getRotation().getDegrees());
 
-    //SmartDashboard.putDa
-
     SmartDashboard.putNumber("IMU Angle", getHeading());  
-  
+
+    speedEntry.setDouble(getAverageDriveSpeed());
   }
 
   public void zeroHeading(){
@@ -149,6 +153,20 @@ public class DriveTrain extends SubsystemBase {
     return states;
   }
 
+  public double getAverageDriveSpeed(){
+    double sumVelocities = 0.0;
+
+    for(SwerveModule mod : swerveModules){
+      sumVelocities += Math.abs(mod.getDriveVelocity());
+    }
+
+    return sumVelocities / swerveModules.length;
+  }
+
+  public double getAngularAcceleration(){
+    return imu.getAngularVelocityZWorld().getValueAsDouble();
+  }
+
   public SwerveModulePosition[] getModulePositions(){
     SwerveModulePosition[] positions = new SwerveModulePosition[4];
     for(SwerveModule mod : swerveModules){
@@ -179,8 +197,7 @@ public class DriveTrain extends SubsystemBase {
   }
   
   public void resetOdometryPose(Pose2d initPose){
-    encoderOdo.resetPosition(getRotation2d(), getModulePositions(), initPose);
-    //m_vision.resetPoseEstimator(pose);
+    m_vision.resetPoseEstimator(initPose);
   }
 
   //Debug

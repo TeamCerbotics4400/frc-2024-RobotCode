@@ -19,19 +19,21 @@ import frc.robot.Constants.ClimberConstants;
 
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
-      private final CANSparkMax climberMotor = new CANSparkMax(ClimberConstants.CLIMBER_ID,MotorType.kBrushless);
-      private final SparkPIDController climberPIDController;
-      private final RelativeEncoder climberEncoder;
-      private double climberSetPoint = 0;
-      private double climberSpeed = 0;
-      private double descendSetPoint = 0;
-      private double descendSpeed = 0;
+  private final CANSparkMax climberMotor = 
+                new CANSparkMax(ClimberConstants.CLIMBER_ID,MotorType.kBrushless);
+  private final SparkPIDController climberPIDController;
+  private final RelativeEncoder climberEncoder;
+
+  private double extendedClimber = 0.0;
+  private double retractedClimber = 0.0;
 
   public ClimberSubsystem() {
-
     climberMotor.clearFaults();
+
     climberMotor.restoreFactoryDefaults();
+
     climberMotor.setInverted(false);
+
     climberMotor.setIdleMode(IdleMode.kBrake);
 
     climberPIDController = climberMotor.getPIDController();
@@ -41,31 +43,29 @@ public class ClimberSubsystem extends SubsystemBase {
     climberPIDController.setI(ClimberConstants.kI);
     climberPIDController.setD(ClimberConstants.kD);
     climberPIDController.setFF(ClimberConstants.kFF);
+
+    climberEncoder.setPositionConversionFactor(ClimberConstants.CLIMBER_GEARBOX);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
-    double cRPM = SmartDashboard.getNumber("Climber RPM", 0);
-
-    if (climberSetPoint != cRPM){climberSetPoint = cRPM;}
-    if (descendSetPoint != cRPM){descendSetPoint= cRPM*-1;}
-
-    SmartDashboard.putNumber("Current Upper RPM",climberEncoder.getVelocity());
-
+    SmartDashboard.putNumber("Climber Position",getClimberPosition());
   }
 
-  public void setClimbingSpeed(){
-    climberSpeed = climberSetPoint;
-    climberPIDController.setReference(climberSpeed,ControlType.kVelocity);
+  public double getClimberPosition(){
+    return climberEncoder.getPosition();
   }
-  public void setDescendingSpeed(){
-    descendSpeed = descendSetPoint;
-    climberPIDController.setReference(descendSpeed,ControlType.kVelocity);
+
+  public void ExtendClimber(){
+    climberPIDController.setReference(extendedClimber, ControlType.kPosition);
   }
+
+  public void RetractClimber(){
+    climberPIDController.setReference(retractedClimber, ControlType.kPosition);
+  }
+
   public void stopClimber(){
-    climberMotor.set(0.0);
+    climberMotor.stopMotor();
   }
-
 }

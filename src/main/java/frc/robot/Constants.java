@@ -172,7 +172,7 @@ public final class Constants {
   }
 
   public static final class ShooterConstants {
-    public static byte LEFT_MOTOR_ID =0;
+    public static byte LEFT_MOTOR_ID = 0;
     public static byte RIGHT_MOTOR_ID = 0;
 
     public static double kP = 0.02,
@@ -185,11 +185,12 @@ public final class Constants {
   public static final class IntakeConstants {
     public static byte INTAKE_ID = 0;
   }
+
   public static final class ArmConstants {
     public static byte LEFT_ARM_ID = 0; 
     public static byte RIGHT_ARM_ID = 0;
 
-    public static double ARM_DEGREES_PER_MOTOR_ROTATION = 32.89;
+    public static double ARM_GEARBOX = 320.0 / 1.0;
 
     public static double kP = 0.13821,//0.0011773,//0.012904,//4.3755E-09,
                          kI = 0.0,
@@ -214,7 +215,14 @@ public final class Constants {
 
     public static double ARM_THRESHOLD = 9.5;
 
+    public static final byte TELESCOPE_ID = 0;
+    public static final int TELESCOPING_GEAR_RATIO = 0;
+    public static double kTP = 0,
+                         kTI = 0,
+                         kTD = 0,
+                         kTFF = 0; 
   }
+
   public static final class ClimberConstants{
     public static byte CLIMBER_ID = 0; 
 
@@ -224,31 +232,9 @@ public final class Constants {
                          kFF = 0.1,
                          kMaxVelocityLinearPerSecond = 0,
                          kMaxAccelerationMetersPerSecondSquared = 0;
+
+    public static double CLIMBER_GEARBOX = 0.0;
   }
-  public static final class ArmExtentionConstants {
-    public static final byte TELESCOPE_ID = 0;
-    public static final int ARM_EXTENSION_GEAR_RATIO = 0;
-    public static final int NEO_COUNTS_PER_REV = 42;
-    public static double kP = 0,
-                         kI = 0,
-                         kD = 0,
-                         kFF = 0; 
-  }
-
-     /**
-     * PID constants for the autoalign
-     */
-    public static final double kPdrive = 0.0;
-    public static final double kIdrive = 0;
-    public static final double kDdrive = 0;
-
-    public static final double kPstrafe = 0.0;
-    public static final double kIstrafe = 0;
-    public static final double kDstrafe = 0;
-
-    public static final double kProtation = 0.0;
-    public static final double kIrotation = 0;
-    public static final double kDrotation = 0;
 
         public static final class aprilTag{
 
