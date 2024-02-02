@@ -43,6 +43,12 @@
               "data": {
                 "name": "IntakeNote"
               }
+            },
+            {
+              "type": "race",
+              "data": {
+                "commands": []
+              }
             }
           ]
         }

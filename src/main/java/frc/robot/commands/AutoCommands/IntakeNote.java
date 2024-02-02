@@ -5,8 +5,7 @@
 package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.Constants.ArmConstants;
-import frc.robot.subsystems.ArmSubsystem;
+
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
 
@@ -16,15 +15,13 @@ import frc.robot.commands.IntakeCommands.IntakeCommand;
 public class IntakeNote extends ParallelCommandGroup {
   /** Creates a new IntakeCube. */
   IntakeSubsystem m_intake;
-  ArmSubsystem m_arm;
 
-  public IntakeNote(IntakeSubsystem m_intake, ArmSubsystem m_arm) {
+  public IntakeNote(IntakeSubsystem m_intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     this.m_intake = m_intake;
-    this.m_arm = m_arm;
 
-    addCommands(m_arm.goToPosition(ArmConstants.BACK_FLOOR_POSITION), 
-    new IntakeCommand(m_intake));
+    addCommands(new IntakeCommand(m_intake));
+
   }
 }
