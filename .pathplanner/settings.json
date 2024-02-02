@@ -4,8 +4,9 @@
   "holonomicMode": true,
   "pathFolders": [
     "CrescendoTest1",
-    "Fun Autos",
     "CrescendoTest2",
+    "Fun Autos",
+    "Pre-Defined Paths",
     "PID Tuning"
   ],
   "autoFolders": [
