@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
-import frc.lib.util.limelightOffsets;
 import team4400.Util.Swerve.SwerveModuleConstants;
 
 /**
@@ -236,16 +235,7 @@ public final class Constants {
     public static double CLIMBER_GEARBOX = 0.0;
   }
 
-        public static final class aprilTag{
-
-            public static double driveOffset = 1;
-            public static double strafeOffset = -1;
-            public static double rotationOffset = 1;
-
-            public static final limelightOffsets offsets =  
-        new limelightOffsets(driveOffset, strafeOffset, rotationOffset);
-
-        }
+ 
   /*************** MISC ****************/
 
   public static final class VisionConstants {

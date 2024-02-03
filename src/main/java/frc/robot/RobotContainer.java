@@ -74,7 +74,6 @@ public class RobotContainer {
    .onTrue(m_arm.goToPosition(ArmConstants.FRONT_FLOOR_POSITION))
    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_POSITION));
 
-   //FOR NOW THEY ARE SEPPARATE COMMANDS FOR TESTING, LATER WILL MERGE THEM TOGETHER
    /*new JoystickButton(subsystemsDriver, 5).whileTrue(new ClimberCommand(m_climber));
    new JoystickButton(subsystemsDriver, 6).whileTrue(new DescendCommand(m_climber));*/
 

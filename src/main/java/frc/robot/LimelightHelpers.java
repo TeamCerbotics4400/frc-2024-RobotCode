@@ -5,8 +5,6 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import frc.lib.util.limelightOffsets;
-import frc.robot.Constants.aprilTag;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -30,8 +28,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class LimelightHelpers {
 
-    private limelightOffsets offsets; 
-// private int pipelineNumber;
     
     public static class LimelightTarget_Retro {
 
@@ -784,19 +780,5 @@ public class LimelightHelpers {
     }
 
 
-        public limelightOffsets getOffsets(boolean alingToAprilTag){
 
-       if(alingToAprilTag){
-            offsets = aprilTag.offsets;
-        } 
-        return offsets;
-    }
-
-   /*  public void alingToAprilTag(boolean alingToAprilTag){
-        if(!alingToAprilTag){
-            pipelineNumber = 1;      
-        } else {
-            pipelineNumber = 0;
-        }
-    }*/
 }
