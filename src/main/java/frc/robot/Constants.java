@@ -211,7 +211,6 @@ public final class Constants {
     public static double AVE_MARIA_SHOOT_POSITION = 120.0;
     public static double COUNTER_BALANCE_POSITION = 60.0;
     public static double TESTING_ANGLE = 90.0;
-
     public static double ARM_THRESHOLD = 9.5;
 
     public static final byte TELESCOPE_ID = 0;

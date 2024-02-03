@@ -15,34 +15,34 @@ import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new Shooter. */
-  TalonFX upperFlyWheel = new TalonFX(ShooterConstants.LEFT_MOTOR_ID, "rio");
-  TalonFX lowerFlyWheel = new TalonFX(ShooterConstants.RIGHT_MOTOR_ID, "rio");
+  TalonFX leftFlyWheel = new TalonFX(ShooterConstants.LEFT_MOTOR_ID, "rio");
+  TalonFX rightFlyWheel = new TalonFX(ShooterConstants.RIGHT_MOTOR_ID, "rio");
 
-  TalonFXConfiguration upperConfig = new TalonFXConfiguration();
-  TalonFXConfiguration lowerConfig = new TalonFXConfiguration();
+  TalonFXConfiguration leftConfig = new TalonFXConfiguration();
+  TalonFXConfiguration rightConfig = new TalonFXConfiguration();
 
-  private final VelocityVoltage upperVelocity = new VelocityVoltage(0);
-  private final VelocityVoltage lowerVelocity = new VelocityVoltage(0);
+  private final VelocityVoltage leftVelocity = new VelocityVoltage(0);
+  private final VelocityVoltage rightVelocity = new VelocityVoltage(0);
 
-  double upperSetPoint = 0, lowerSetPoint = 0;
+  double leftSetPoint = 0, rightSetPoint = 0;
 
   public ShooterSubsystem() {
-    upperConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;  //Chekc later motor direction
-    lowerConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    leftConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;  //Chekc later motor direction
+    rightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
-    upperConfig.Slot0.kP = ShooterConstants.kP;
-    upperConfig.Slot0.kI = ShooterConstants.kI;
-    upperConfig.Slot0.kD = ShooterConstants.kD; 
-    upperConfig.Slot0.kV = ShooterConstants.kFF; 
-    lowerConfig.Slot0.kP = ShooterConstants.kP; 
-    lowerConfig.Slot0.kI = ShooterConstants.kI;
-    lowerConfig.Slot0.kD = ShooterConstants.kD; 
-    lowerConfig.Slot0.kV = ShooterConstants.kFF;
+    leftConfig.Slot0.kP = ShooterConstants.kP;
+    leftConfig.Slot0.kI = ShooterConstants.kI;
+    leftConfig.Slot0.kD = ShooterConstants.kD; 
+    leftConfig.Slot0.kV = ShooterConstants.kFF; 
+    rightConfig.Slot0.kP = ShooterConstants.kP; 
+    rightConfig.Slot0.kI = ShooterConstants.kI;
+    rightConfig.Slot0.kD = ShooterConstants.kD; 
+    rightConfig.Slot0.kV = ShooterConstants.kFF;
   
-    upperFlyWheel.getConfigurator().apply(upperConfig);
-    lowerFlyWheel.getConfigurator().apply(lowerConfig);
+    leftFlyWheel.getConfigurator().apply(leftConfig);
+    rightFlyWheel.getConfigurator().apply(rightConfig);
 
-    SmartDashboard.putNumber("Upper RPM", upperSetPoint);   SmartDashboard.putNumber("Lower RPM", lowerSetPoint);
+    SmartDashboard.putNumber("left RPM", leftSetPoint);   SmartDashboard.putNumber("right RPM", rightSetPoint);
 
   }
 
@@ -51,33 +51,33 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
 
 
-      double uRPM = SmartDashboard.getNumber("Upper RPM", 0),
-             lRPM = SmartDashboard.getNumber("Lower RPM", 0);
+      double uRPM = SmartDashboard.getNumber("left RPM", 0),
+             lRPM = SmartDashboard.getNumber("right RPM", 0);
 
-    if (upperSetPoint != uRPM){upperSetPoint = uRPM;}
-    if (lowerSetPoint != lRPM){lowerSetPoint = lRPM;}
+    if (leftSetPoint != uRPM){leftSetPoint = uRPM;}
+    if (rightSetPoint != lRPM){rightSetPoint = lRPM;}
 
-    SmartDashboard.putNumber("Current Upper RPM", upperFlyWheel.getVelocity().getValueAsDouble() * 60);
-    SmartDashboard.putNumber("Current Lower RPM", lowerFlyWheel.getVelocity().getValueAsDouble() * 60);
+    SmartDashboard.putNumber("Current left RPM", leftFlyWheel.getVelocity().getValueAsDouble() * 60);
+    SmartDashboard.putNumber("Current right RPM", rightFlyWheel.getVelocity().getValueAsDouble() * 60);
 
   }
   
-  public void setUpperSpeed(){
-    upperVelocity.Velocity = upperSetPoint / 60;
-    upperFlyWheel.setControl(upperVelocity);
+  public void setleftSpeed(){
+    leftVelocity.Velocity = leftSetPoint / 60;
+    leftFlyWheel.setControl(leftVelocity);
   }
-  public void setLowerSpeed(){
-    lowerVelocity.Velocity = lowerSetPoint / 60;
-    lowerFlyWheel.setControl(lowerVelocity);
+  public void setrightSpeed(){
+    rightVelocity.Velocity = rightSetPoint / 60;
+    rightFlyWheel.setControl(rightVelocity);
   }
-  public void stopUpper(){
-    upperFlyWheel.set(0);
+  public void stopleft(){
+    leftFlyWheel.set(0);
   }
 
-  public void stopLower(){
-    lowerFlyWheel.set(0);
+  public void stopright(){
+    rightFlyWheel.set(0);
   }
   public double getRPM(){
-    return lowerFlyWheel.getVelocity().getValueAsDouble()*60;
+    return rightFlyWheel.getVelocity().getValueAsDouble()*60;
   }
 }

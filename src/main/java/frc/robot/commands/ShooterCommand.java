@@ -29,8 +29,8 @@ public class ShooterCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setUpperSpeed();
-    shooter.setLowerSpeed();
+    shooter.setleftSpeed();
+    shooter.setrightSpeed();
      
     if (shooter.getRPM() > 5000){   //check to change rpm
       intake.startIntaking();
@@ -40,8 +40,8 @@ public class ShooterCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopUpper();
-    shooter.stopLower();
+    shooter.stopleft();
+    shooter.stopright();
   }
 
   // Returns true when the command should end.
