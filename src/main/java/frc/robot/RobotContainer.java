@@ -42,13 +42,13 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     
-   /* m_drive.setDefaultCommand(new TeleopControl
+   m_drive.setDefaultCommand(new TeleopControl
     (m_drive, 
     () -> chassisDriver.getRawAxis(1), 
     () -> chassisDriver.getRawAxis(0), 
-    () -> -chassisDriver.getRawAxis(4), 
+    () -> chassisDriver.getRawAxis(4), 
     () -> !chassisDriver.getRawButton(4)));
-*/ 
+
     configureBindings();
   }
   //Check why 2 encoders move at the same time with the same wheel
