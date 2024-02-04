@@ -32,9 +32,9 @@ public class ShooterCommand extends Command {
     shooter.setleftSpeed();
     shooter.setrightSpeed();
      
-    if (shooter.getRPM() > 5000){   //check to change rpm
+    /*if (shooter.getRPM() > 5000){   //check to change rpm
       intake.startIntaking();
-    }
+    } */
   }
 
   // Called once the command ends or is interrupted.

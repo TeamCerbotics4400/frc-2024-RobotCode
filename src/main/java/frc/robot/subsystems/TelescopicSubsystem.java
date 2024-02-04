@@ -54,7 +54,7 @@ public class TelescopicSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-  SmartDashboard.putNumber("Telescoping Arm Position", getTelescopingPosition());
+  //SmartDashboard.putNumber("Telescoping Arm Position", getTelescopingPosition()); for now
   }   
 
   public void setSoftLimits(){

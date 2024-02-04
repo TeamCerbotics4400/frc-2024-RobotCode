@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
@@ -76,7 +77,8 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     leftMotor.setCANTimeout(0);
     rightMotor.setCANTimeout(0);
 
-
+    rightMotor.setIdleMode(IdleMode.kBrake);
+    leftMotor.setIdleMode(IdleMode.kBrake);
   }
 
 

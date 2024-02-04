@@ -50,7 +50,7 @@ public class ClimberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Climber Position",getClimberPosition());
+    //SmartDashboard.putNumber("Climber Position",getClimberPosition()); //for now, just to make space on the shuffleboard
   }
 
   public double getClimberPosition(){

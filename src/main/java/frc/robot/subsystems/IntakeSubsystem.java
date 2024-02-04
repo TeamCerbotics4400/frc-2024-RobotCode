@@ -33,9 +33,11 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    /* 
     SmartDashboard.putNumber("Outake velocity", getIntakeVelocity());
-    SmartDashboard.putNumber("Outake position", getIntakePosition());
+    SmartDashboard.putNumber("Outake position", getIntakePosition());      //For now
     SmartDashboard.putBoolean("Note inside robot", noteInside());
+    */
   }
 
   public void startIntaking(){

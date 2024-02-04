@@ -38,14 +38,14 @@ public final class Constants {
     public static final double kDriveEncoderRot2Meter = 
                                 kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
     public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
-    public static final double kP = 0.0,
+    public static  double kP = 0.0,
                                kI = 0,
                                kD = 0,
                                kFF = 0.0,
                                kS = 0.0,
                                kV = 0.0,
                                kA = 0.0;
-    public static final double kPTurning = 0.5;
+    public static double kPTurning = 0.5;
   }
 
   public static final class DriveConstants{
@@ -72,13 +72,13 @@ public final class Constants {
      *   │ Mod 3 │                 │ Mod 2 │
      *   │       │                 │       │
      *   └───────┴─────────────────┴───────┘
-     *                   B
+     *     listo           B        listo
      */
 
      //Offsets are different in each robot and encoder;
-    public static final class Module0{
-      public static final int DRIVE_ID = 1;
-      public static final int TURN_ID = 2;
+    public static final class Module1{  // will change later
+      public static final int DRIVE_ID = 2;
+      public static final int TURN_ID = 1;
       public static final boolean driveReversed = true;
       public static final boolean turnReversed = true;
       public static final int ABSOLUTE_ID = 1; 
@@ -89,9 +89,9 @@ public final class Constants {
       turnReversed, ABSOLUTE_ID, encoderOffset);
     }
 
-    public static final class Module1{
-      public static final int DRIVE_ID = 3;
-      public static final int TURN_ID = 4;
+    public static final class Module3{
+      public static final int DRIVE_ID = 4;
+      public static final int TURN_ID = 3;
       public static final boolean driveReversed = true;
       public static final boolean turnReversed = true;
       public static final int ABSOLUTE_ID = 2;
@@ -102,9 +102,9 @@ public final class Constants {
       turnReversed, ABSOLUTE_ID, encoderOffset);
     }
 
-    public static final class Module2{
-      public static final int DRIVE_ID = 5;
-      public static final int TURN_ID = 6;
+    public static final class Module0{
+      public static final int DRIVE_ID = 6;
+      public static final int TURN_ID = 5;
       public static final boolean driveReversed = false;
       public static final boolean turnReversed = true;
       public static final int ABSOLUTE_ID = 3;
@@ -115,7 +115,7 @@ public final class Constants {
       turnReversed, ABSOLUTE_ID, encoderOffset);
     }
 
-    public static final class Module3{
+    public static final class Module2{
       public static final int DRIVE_ID = 7;
       public static final int TURN_ID = 8;
       public static final boolean driveReversed = false;
@@ -128,7 +128,7 @@ public final class Constants {
       turnReversed, ABSOLUTE_ID, encoderOffset);
     }
 
-    public static final int IMU_ID = 9;
+    public static final int IMU_ID = 15;
 
     //Distance between left and right wheels
     public static final double kTrackWidth = 0.0;
@@ -171,23 +171,23 @@ public final class Constants {
   }
 
   public static final class ShooterConstants {
-    public static byte LEFT_MOTOR_ID = 0;
-    public static byte RIGHT_MOTOR_ID = 0;
+    public static byte LEFT_MOTOR_ID = 14;
+    public static byte RIGHT_MOTOR_ID = 13;
 
-    public static double kP = 0.02,
+    public static double kP = 0.05,
                          kI = 0,
-                         kD = 0.000190,
-                         kFF = 0.144;
+                         kD = 0.00030,
+                         kFF = 0.133;
 
   }
 
   public static final class IntakeConstants {
-    public static byte INTAKE_ID = 0;
+    public static byte INTAKE_ID = 12;
   }
 
   public static final class ArmConstants {
-    public static byte LEFT_ARM_ID = 0; 
-    public static byte RIGHT_ARM_ID = 0;
+    public static byte LEFT_ARM_ID = 66;   //9
+    public static byte RIGHT_ARM_ID = 67;  //10
 
     public static double ARM_GEARBOX = 320.0 / 1.0;
 
@@ -213,7 +213,7 @@ public final class Constants {
     public static double TESTING_ANGLE = 90.0;
     public static double ARM_THRESHOLD = 9.5;
 
-    public static final byte TELESCOPE_ID = 0;
+    public static final byte TELESCOPE_ID = 11;
     public static final int TELESCOPING_GEAR_RATIO = 0;
     public static double kTP = 0,
                          kTI = 0,

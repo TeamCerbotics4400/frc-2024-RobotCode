@@ -26,6 +26,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SwerveModule;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.ModuleConstants;
+import frc.robot.Constants.ShooterConstants;
 
 public class DriveTrain extends SubsystemBase {
   public SwerveModule[] swerveModules = new SwerveModule[]{
@@ -82,6 +84,18 @@ public class DriveTrain extends SubsystemBase {
                     return false;
                 },
       this);
+
+      //Delete later
+      SmartDashboard.putNumber("Module kP", 0);
+      SmartDashboard.putNumber("Module kI", 0);
+      SmartDashboard.putNumber("Module kD", 0);
+      SmartDashboard.putNumber("Module kFF", 0);
+      SmartDashboard.putNumber("Module kS", 0);
+            SmartDashboard.putNumber("Module kV", 0);
+                  SmartDashboard.putNumber("Module kA", 0);
+                  SmartDashboard.putNumber("Module turn", 0);
+
+
   }
 
   @Override
@@ -108,6 +122,16 @@ public class DriveTrain extends SubsystemBase {
                             m_vision.estimatedPose2d().getRotation().getDegrees());
 
     SmartDashboard.putNumber("IMU Angle", getHeading());  
+
+             //Just to tune pid, will delete later
+      ModuleConstants.kP = SmartDashboard.getNumber("Module kP", 0);
+      ModuleConstants.kI = SmartDashboard.getNumber("Module kI", 0);
+      ModuleConstants.kD = SmartDashboard.getNumber("Module kD", 0);
+      ModuleConstants.kFF = SmartDashboard.getNumber("Module kFF", 0);
+      ModuleConstants.kS = SmartDashboard.getNumber("Module kS", 0);
+ModuleConstants.kV = SmartDashboard.getNumber("Module kV", 0);
+ModuleConstants.kA = SmartDashboard.getNumber("Module kA", 0);
+ModuleConstants.kPTurning = SmartDashboard.getNumber("Module turn",0);
 
     speedEntry.setDouble(getAverageDriveSpeed());
   }

@@ -42,15 +42,16 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     
-    m_drive.setDefaultCommand(new TeleopControl
+   /* m_drive.setDefaultCommand(new TeleopControl
     (m_drive, 
     () -> chassisDriver.getRawAxis(1), 
     () -> chassisDriver.getRawAxis(0), 
     () -> -chassisDriver.getRawAxis(4), 
     () -> !chassisDriver.getRawButton(4)));
-
+*/ 
     configureBindings();
   }
+  //Check why 2 encoders move at the same time with the same wheel
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -70,10 +71,10 @@ public class RobotContainer {
    new JoystickButton(subsystemsDriver, 4).whileTrue(new IntakeCommand(m_intake));
    new JoystickButton(subsystemsDriver, 1).whileTrue(new OutakeCommand(m_intake));
 
-   new JoystickButton(subsystemsDriver, 2)
+/*new JoystickButton(subsystemsDriver, 2)
    .onTrue(m_arm.goToPosition(ArmConstants.FRONT_FLOOR_POSITION))
    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_POSITION));
-
+*/
    /*new JoystickButton(subsystemsDriver, 5).whileTrue(new ClimberCommand(m_climber));
    new JoystickButton(subsystemsDriver, 6).whileTrue(new DescendCommand(m_climber));*/
 
