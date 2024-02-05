@@ -16,6 +16,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.util.datalog.DoubleArrayLogEntry;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmConstants;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -36,7 +37,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   private final CANSparkMax rightMotor = new CANSparkMax(ArmConstants.RIGHT_ARM_ID, MotorType.kBrushless);
 
   private final DutyCycleEncoder m_encoder =
-      new DutyCycleEncoder(2);
+      new DutyCycleEncoder(ArmConstants.ABSOLUTE_ENCODER_PORT);
   private final ArmFeedforward m_feedforward =
       new ArmFeedforward(
           ArmConstants.kS, ArmConstants.kG,
@@ -68,7 +69,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     leftMotor.restoreFactoryDefaults();
     rightMotor.restoreFactoryDefaults();
 
-    leftMotor.setInverted(false);
+    leftMotor.setInverted(true);
     rightMotor.follow(leftMotor, true);
 
     leftMotor.setSmartCurrentLimit(80);
@@ -81,10 +82,11 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     leftMotor.setIdleMode(IdleMode.kBrake);
   }
 
-
   @Override
   public void periodic() {
       super.periodic();
+
+      SmartDashboard.putNumber("Arm Angle", getMeasurement());
 
       //SmartDashboard.putBoolean("Arm ready", isReady());
       //SmartDashboard.putBoolean("Is Intaking Pose", isInIntakingPos());
@@ -102,7 +104,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return m_encoder.getDistance() - 70.5;
+    return m_encoder.getDistance() - 136.0;
   }
 
   public Command goToPosition(double position){

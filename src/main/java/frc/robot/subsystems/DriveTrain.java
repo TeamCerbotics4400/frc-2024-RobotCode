@@ -84,18 +84,6 @@ public class DriveTrain extends SubsystemBase {
                     return false;
                 },
       this);
-
-      //Delete later
-      SmartDashboard.putNumber("Module kP", 0);
-      SmartDashboard.putNumber("Module kI", 0);
-      SmartDashboard.putNumber("Module kD", 0);
-      SmartDashboard.putNumber("Module kFF", 0);
-      SmartDashboard.putNumber("Module kS", 0);
-            SmartDashboard.putNumber("Module kV", 0);
-                  SmartDashboard.putNumber("Module kA", 0);
-                  SmartDashboard.putNumber("Module turn", 0);
-
-
   }
 
   @Override
@@ -121,17 +109,7 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("Odometry Rotation", 
                             m_vision.estimatedPose2d().getRotation().getDegrees());
 
-    SmartDashboard.putNumber("IMU Angle", getHeading());  
-
-             //Just to tune pid, will delete later
-      ModuleConstants.kP = SmartDashboard.getNumber("Module kP", 0);
-      ModuleConstants.kI = SmartDashboard.getNumber("Module kI", 0);
-      ModuleConstants.kD = SmartDashboard.getNumber("Module kD", 0);
-      ModuleConstants.kFF = SmartDashboard.getNumber("Module kFF", 0);
-      ModuleConstants.kS = SmartDashboard.getNumber("Module kS", 0);
-ModuleConstants.kV = SmartDashboard.getNumber("Module kV", 0);
-ModuleConstants.kA = SmartDashboard.getNumber("Module kA", 0);
-ModuleConstants.kPTurning = SmartDashboard.getNumber("Module turn",0);
+    SmartDashboard.putNumber("IMU Angle", getHeading()); 
 
     speedEntry.setDouble(getAverageDriveSpeed());
   }

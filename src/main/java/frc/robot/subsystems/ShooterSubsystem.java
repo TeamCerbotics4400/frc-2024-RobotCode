@@ -28,8 +28,8 @@ public class ShooterSubsystem extends SubsystemBase {
   double pkP = 0, pKd = 0;
 
   public ShooterSubsystem() {
-    leftConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;  //Chekc later motor direction
-    rightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    leftConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;  //Chekc later motor direction
+    rightConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
     leftConfig.Slot0.kP = ShooterConstants.kP;
     leftConfig.Slot0.kI = ShooterConstants.kI;

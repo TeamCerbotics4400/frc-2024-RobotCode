@@ -13,9 +13,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.commands.ShooterCommand;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
+import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -67,16 +67,15 @@ public class RobotContainer {
       new JoystickButton(chassisDriver, 1).onTrue(
       new InstantCommand(() -> m_drive.zeroHeading()));
 
-   new JoystickButton(subsystemsDriver, 1).whileTrue(new ShooterCommand(m_shooter, m_intake));
-   new JoystickButton(subsystemsDriver, 4).whileTrue(new IntakeCommand(m_intake));
-   new JoystickButton(subsystemsDriver, 1).whileTrue(new OutakeCommand(m_intake));
+      new JoystickButton(chassisDriver, 5)
+      .whileTrue(m_arm.goToPosition(180).alongWith(new IntakeCommand(m_intake)))
+      .whileFalse(m_arm.goToPosition(90));
 
-/*new JoystickButton(subsystemsDriver, 2)
-   .onTrue(m_arm.goToPosition(ArmConstants.FRONT_FLOOR_POSITION))
-   .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_POSITION));
-*/
-   /*new JoystickButton(subsystemsDriver, 5).whileTrue(new ClimberCommand(m_climber));
-   new JoystickButton(subsystemsDriver, 6).whileTrue(new DescendCommand(m_climber));*/
+      /*new JoystickButton(subsystemsDriver, 6)
+      .whileTrue(m_arm.goToPosition(180).alongWith(new ShooterCommand(m_shooter, m_intake)))
+      .whileFalse(m_arm.goToPosition(90));*/
+
+      new JoystickButton(chassisDriver, 2).whileTrue(new ShooterCommand(m_shooter, m_intake).alongWith(new IntakeCommand(m_intake)));
 
   }
 

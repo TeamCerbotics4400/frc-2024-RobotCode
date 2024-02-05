@@ -159,7 +159,7 @@ public final class Constants {
     public static final double kTeleDriveMaxSpeedMetersPerSecond = 
                 kPhysicalMaxSpeedMetersPerSecond / 4; //TODO: TeleOp drive speed
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = 
-                kPhysicalMaxAngularSpeedRadiansPerSecond / 4; //TODO: TeleOp angle speed
+                kPhysicalMaxAngularSpeedRadiansPerSecond / 3; //TODO: TeleOp angle speed
     public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
     public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
     public static final double kDriveBaseRadius = 0.0;
@@ -174,10 +174,10 @@ public final class Constants {
     public static byte LEFT_MOTOR_ID = 14;
     public static byte RIGHT_MOTOR_ID = 13;
 
-    public static double kP = 0.05,
+    public static double kP = 0.040,
                          kI = 0,
                          kD = 0.00030,
-                         kFF = 0.133;
+                         kFF = 0.127;
 
   }
 
@@ -189,18 +189,20 @@ public final class Constants {
     public static byte LEFT_ARM_ID = 9;   //9
     public static byte RIGHT_ARM_ID = 10;  //10
 
+    public static int ABSOLUTE_ENCODER_PORT = 0;
+
     public static double ARM_GEARBOX = 320.0 / 1.0;
 
-    public static double kP = 0.13821,//0.0011773,//0.012904,//4.3755E-09,
+    public static double kP = 0.69,//0.0011773,//0.012904,//4.3755E-09,
                          kI = 0.0,
-                         kD = 0.021835,//0.00017643,//0.0024401,//8.274E-10,
+                         kD = 0.0001,//0.00017643,//0.0024401,//8.274E-10,
                          kFF = 0.0,//0.000156,
-                         kMaxVelocityRadPerSecond = 320,
-                         kMaxAccelerationMetersPerSecondSquared = 250,//320,
-                         kS = 0.94615,//0.82172,
-                         kV = 0.0021715,//0.0047927,
-                         kA = 0.0019641,//0.003212,
-                         kG = 0.12588;//0.44033;
+                         kMaxVelocityRadPerSecond = 150,
+                         kMaxAccelerationMetersPerSecondSquared = 150,
+                         kS = 0.013804,//0.82172,
+                         kV = 0.00028699,//0.0047927,
+                         kA = 0.00052411,//0.003212,
+                         kG = 0.93532;//0.44033;
 
     public static double IDLE_POSITION = 90.0;
     
