@@ -15,8 +15,8 @@ import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new Shooter. */
-  TalonFX leftFlyWheel = new TalonFX(ShooterConstants.LEFT_MOTOR_ID, "rio");
-  TalonFX rightFlyWheel = new TalonFX(ShooterConstants.RIGHT_MOTOR_ID, "rio");
+  TalonFX leftFlyWheel = new TalonFX(ShooterConstants.LEFT_MOTOR_ID, "rio"); //14  upper-left
+  TalonFX rightFlyWheel = new TalonFX(ShooterConstants.RIGHT_MOTOR_ID, "rio");  //13   down-RIGHT
 
   TalonFXConfiguration leftConfig = new TalonFXConfiguration();
   TalonFXConfiguration rightConfig = new TalonFXConfiguration();
@@ -28,65 +28,43 @@ public class ShooterSubsystem extends SubsystemBase {
   double pkP = 0, pKd = 0;
 
   public ShooterSubsystem() {
-    leftConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;  //Chekc later motor direction
+    leftConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;  
     rightConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
-    leftConfig.Slot0.kP = ShooterConstants.kP;
-    leftConfig.Slot0.kI = ShooterConstants.kI;
-    leftConfig.Slot0.kD = ShooterConstants.kD; 
-    leftConfig.Slot0.kV = ShooterConstants.kFF; 
-    rightConfig.Slot0.kP = ShooterConstants.kP; 
-    rightConfig.Slot0.kI = ShooterConstants.kI;
-    rightConfig.Slot0.kD = ShooterConstants.kD; 
-    rightConfig.Slot0.kV = ShooterConstants.kFF;
+    leftConfig.Slot0.kP = ShooterConstants.lkP;
+    leftConfig.Slot0.kI = ShooterConstants.lkI;
+    leftConfig.Slot0.kD = ShooterConstants.lkD; 
+    leftConfig.Slot0.kV = ShooterConstants.lkFF; 
+    rightConfig.Slot0.kP = ShooterConstants.rkP; 
+    rightConfig.Slot0.kI = ShooterConstants.rkI;
+    rightConfig.Slot0.kD = ShooterConstants.rkD; 
+    rightConfig.Slot0.kV = ShooterConstants.rkFF;
   
     leftFlyWheel.getConfigurator().apply(leftConfig);
     rightFlyWheel.getConfigurator().apply(rightConfig);
-
-    SmartDashboard.putNumber("left RPM", leftSetPoint);   SmartDashboard.putNumber("right RPM", rightSetPoint);
-    SmartDashboard.putNumber("Shooter kP", ShooterConstants.kP);
-    SmartDashboard.putNumber("Shooter kI",ShooterConstants.kI);
-    SmartDashboard.putNumber("Shooter kD",ShooterConstants.kD);
-    SmartDashboard.putNumber("Shooter kFF",ShooterConstants.kFF);
 
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-      //Delete later
-    double ukP = SmartDashboard.getNumber("Upper kP", 0.02),
-    ukI = SmartDashboard.getNumber("Upper kI", 0),
-    ukD = SmartDashboard.getNumber("Upper kD", 0.000190), 
-    lkP = SmartDashboard.getNumber("Lower kP", 0.02),
-    lkI = SmartDashboard.getNumber("Lower kI", 0),
-    lkD = SmartDashboard.getNumber("Lower kD", 0.000190),
-    ukFF = SmartDashboard.getNumber("Upper kFF",0.114),
-    lkFF = SmartDashboard.getNumber("Lower kFF",0.114); 
 
 
       double uRPM = SmartDashboard.getNumber("left RPM", 0),
              lRPM = SmartDashboard.getNumber("right RPM", 0);
 
-             //Just to tune pid, will delete later
-      pkP = SmartDashboard.getNumber("Shooter kP", 0);
-      ShooterConstants.kI = SmartDashboard.getNumber("Shooter kI", 0);
-      pKd = SmartDashboard.getNumber("Shooter kD", 0);
-      ShooterConstants.kFF = SmartDashboard.getNumber("Shooter kFF", 0);
+
 
 
     if (leftSetPoint != uRPM){leftSetPoint = uRPM;}
     if (rightSetPoint != lRPM){rightSetPoint = lRPM;}
 
-    if (ShooterConstants.kP != ukP){ ShooterConstants.kP = ukP; leftConfig.Slot0.kP = ShooterConstants.kP; leftFlyWheel.getConfigurator().apply(leftConfig);}
-    if (ShooterConstants.kD != ukD){ ShooterConstants.kD = ukD; leftConfig.Slot0.kD = ShooterConstants.kD; leftFlyWheel.getConfigurator().apply(leftConfig);}
-
-     if (ShooterConstants.kP != lkP){ ShooterConstants.kP = lkP; leftConfig.Slot0.kP = ShooterConstants.kP; leftFlyWheel.getConfigurator().apply(leftConfig);}
-    if (ShooterConstants.kD != lkD){ ShooterConstants.kD = lkD; leftConfig.Slot0.kD = ShooterConstants.kD; leftFlyWheel.getConfigurator().apply(leftConfig);}
-
+ 
     SmartDashboard.putNumber("Current left RPM", leftFlyWheel.getVelocity().getValueAsDouble() * 60);
     SmartDashboard.putNumber("Current right RPM", rightFlyWheel.getVelocity().getValueAsDouble() * 60);
 
+    SmartDashboard.putNumber("left RPM", leftSetPoint);
+    SmartDashboard.putNumber("right RPM", rightSetPoint);
   }
   
   public void setleftSpeed(){

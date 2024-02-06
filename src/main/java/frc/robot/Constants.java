@@ -174,11 +174,15 @@ public final class Constants {
     public static byte LEFT_MOTOR_ID = 14;
     public static byte RIGHT_MOTOR_ID = 13;
 
-    public static double kP = 0.040,
-                         kI = 0,
-                         kD = 0.00030,
-                         kFF = 0.127;
-
+    public static double lkP = 0.02,     //For low rpm: 0.046
+                         lkI = 0,         // 0
+                         lkD = 0.00019,    //0.0003
+                         lkFF = 0.115,    //0.128
+                         rkP = 0.01,     //0.004
+                         rkI = 0,         //0
+                         rkD = 0.00019,    //0.0005
+                         rkFF = 0.111;   //0.1175
+                         
   }
 
   public static final class IntakeConstants {
