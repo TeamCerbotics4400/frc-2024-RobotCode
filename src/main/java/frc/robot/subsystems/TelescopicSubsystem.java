@@ -1,3 +1,5 @@
+/*  Will not use the telescopic for Monterrey, keeping the code in case we use it in the future 
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -76,4 +78,4 @@ public class TelescopicSubsystem extends SubsystemBase {
   }
 }
 
-
+*/
