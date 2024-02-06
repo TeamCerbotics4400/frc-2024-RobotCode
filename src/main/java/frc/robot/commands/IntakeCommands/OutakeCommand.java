@@ -37,12 +37,15 @@ public class OutakeCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (intake.getIntakePosition() > 0.3){   // 40 rpm
+    /*
+    if (intake.getIntakePosition() > -0.3){   // 40 rpm
       intake.resetEncoder();
+      intake.stopIntaking();
+
       return true;
     }
-    else{
+     Roman's method*/
     return false;
-    }
+    
   }
 }

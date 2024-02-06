@@ -31,10 +31,10 @@ public class ShooterCommand extends Command {
   public void execute() {
     shooter.setleftSpeed();
     shooter.setrightSpeed();
-     
-    /*if (shooter.getRPM() > 5000){   //check to change rpm
+    /* 
+    if (shooter.getRPM() > 5000){   
       intake.startIntaking();
-    } */
+    } Roman's method*/ 
   }
 
   // Called once the command ends or is interrupted.
@@ -48,12 +48,7 @@ public class ShooterCommand extends Command {
   @Override
   public boolean isFinished() {
       if(DriverStation.isAutonomous()){
-      //Timer.delay(0.5);
-     /*  if(m_arm.isInShootingPos() && onRevs() && StateMachines.isShooting()){
-        return true;
-      } else {
-        return false;
-      }*/
+
     } 
     return false;
   }

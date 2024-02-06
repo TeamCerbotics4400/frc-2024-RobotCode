@@ -17,7 +17,7 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new Intake. */
   CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_ID,MotorType.kBrushless);
 
-  public DigitalInput intakeSensor = new DigitalInput(2); //Check what channel the sensor will be  on
+  public DigitalInput intakeSensor = new DigitalInput(0); //Check what channel the sensor will be  on
 
   RelativeEncoder intakeEncoder;
 
