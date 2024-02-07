@@ -48,7 +48,7 @@ public class IntakeCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (timer.get() > .01) { //Check best possible time for all cases
+    if (timer.get() > 0) { //Check best possible time for all cases
       return true;
       
     }

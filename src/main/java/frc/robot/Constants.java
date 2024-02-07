@@ -199,7 +199,7 @@ public final class Constants {
 
     public static double kP = 0.69,//0.0011773,//0.012904,//4.3755E-09,
                          kI = 0.0,
-                         kD = 0.0001,//0.00017643,//0.0024401,//8.274E-10,
+                         kD = 0.0039,//0.00017643,//0.0024401,//8.274E-10,
                          kFF = 0.0,//0.000156,
                          kMaxVelocityRadPerSecond = 150,
                          kMaxAccelerationMetersPerSecondSquared = 150,

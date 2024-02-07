@@ -48,13 +48,8 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
-
       double uRPM = SmartDashboard.getNumber("left RPM", 0),
              lRPM = SmartDashboard.getNumber("right RPM", 0);
-
-
-
 
     if (leftSetPoint != uRPM){leftSetPoint = uRPM;}
     if (rightSetPoint != lRPM){rightSetPoint = lRPM;}

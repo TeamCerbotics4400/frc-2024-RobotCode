@@ -96,11 +96,11 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       //SmartDashboard.putBoolean("Arm ready", isReady());
       //SmartDashboard.putBoolean("Is Intaking Pose", isInIntakingPos());
 
-      double akP = SmartDashboard.getNumber("Arm kP", 0.69),
+      /*double akP = SmartDashboard.getNumber("Arm kP", 0.69),
              akD = SmartDashboard.getNumber("Arm kD", 0.0001);
 
       if (ArmConstants.kP != akP) {ArmConstants.kP = akP; getController().setP(akP);}
-      if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}
+      if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}*/
 
   }
 
@@ -145,11 +145,10 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
   //For use in autonomous methods to shoot after the Arm is in position
   public boolean isWithinThreshold(double value, double target, double threshold){
-    return Math.abs(value-target)< threshold;
+    return Math.abs(value - target) < threshold;
   }
 
   public boolean isInPosition(){
-    return isWithinThreshold(getMeasurement(),getController().getGoal().position,ArmConstants.ARM_THRESHOLD);
+    return isWithinThreshold(getMeasurement(), getController().getGoal().position, ArmConstants.ARM_THRESHOLD);
   }
-  
 }
