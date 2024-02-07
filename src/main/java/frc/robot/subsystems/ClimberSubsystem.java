@@ -22,7 +22,7 @@ public class ClimberSubsystem extends SubsystemBase {
   private final SparkPIDController climberPIDController;
   private final RelativeEncoder climberEncoder;
 
-  private double extendedClimber = 0.0;
+  private double extendedClimber = 0.0;   //Test optimal hight to the chain
   private double retractedClimber = 0.0;
 
   public ClimberSubsystem() {
@@ -43,12 +43,15 @@ public class ClimberSubsystem extends SubsystemBase {
     climberPIDController.setFF(ClimberConstants.kFF);
 
     climberEncoder.setPositionConversionFactor(ClimberConstants.CLIMBER_GEARBOX);
+
+    setSoftLimits();
+    enableSoftLimit();
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     //SmartDashboard.putNumber("Climber Position",getClimberPosition()); //for now, just to make space on the shuffleboard
+    climberMotor.enableSoftLimit(null, false);
   }
 
   public double getClimberPosition(){
@@ -65,5 +68,14 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void stopClimber(){
     climberMotor.stopMotor();
+  }
+  public void setSoftLimits(){
+    //Check Encoder Max Pos
+    climberMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 8); //Test the limits
+    climberMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);   
+  }
+  public void enableSoftLimit(){
+    climberMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    climberMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);    
   }
 }

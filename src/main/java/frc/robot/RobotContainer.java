@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
+import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveTrain;
@@ -69,11 +70,13 @@ public class RobotContainer {
       .whileTrue(m_arm.goToPosition(180).alongWith(new IntakeCommand(m_intake)))
       .whileFalse(m_arm.goToPosition(90));
 
-      /*new JoystickButton(subsystemsDriver, 6)
-      .whileTrue(m_arm.goToPosition(180).alongWith(new ShooterCommand(m_shooter, m_intake)))
-      .whileFalse(m_arm.goToPosition(90));*/
+      new JoystickButton(subsystemsDriver, 6)
+      .whileTrue(m_arm.goToPosition(170).alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
+      .whileFalse(m_arm.goToPosition(90));
 
-      new JoystickButton(subsystemsDriver, 2).whileTrue(new ShooterCommand(m_shooter, m_intake).alongWith(new IntakeCommand(m_intake)));
+      new JoystickButton(subsystemsDriver, 2).whileTrue(new IntakeCommand(m_intake));
+      new JoystickButton(subsystemsDriver, 4).whileTrue(new OutakeCommand(m_intake));
+      new JoystickButton(subsystemsDriver, 3).whileTrue(new ShooterCommand(m_shooter, m_intake,m_arm));
       //Romans ver of shooting routine new JoystickButton(subsystemsDriver, 2).whileTrue(new ShooterCommand(m_shooter, m_intake).alongWith(new OutakeCommand(m_intake)));
   }
 

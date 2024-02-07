@@ -28,13 +28,17 @@ public class RomanShoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    m_shooter.setleftSpeed();
+    m_shooter.setrightSpeed();
+         
+    if (m_shooter.getRPM() > 5000){   
+      m_intake.startIntaking();
+    } 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_intake.stopIntaking();
     m_shooter.stopleft();
     m_shooter.stopright();
   }
