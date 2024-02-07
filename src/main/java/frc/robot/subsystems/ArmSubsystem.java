@@ -43,6 +43,8 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
           ArmConstants.kS, ArmConstants.kG,
           ArmConstants.kV, ArmConstants.kA);
 
+      double akP = 0, akD = 0;
+
   private static final Translation2d rootPosition = new Translation2d(0.0, 0.0);
 
   boolean onTarget;
@@ -80,6 +82,9 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
     rightMotor.setIdleMode(IdleMode.kBrake);
     leftMotor.setIdleMode(IdleMode.kBrake);
+
+    SmartDashboard.putNumber("Arm kP", akP);
+    SmartDashboard.putNumber("Arm kD",akD);
   }
 
   @Override
@@ -90,6 +95,13 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
       //SmartDashboard.putBoolean("Arm ready", isReady());
       //SmartDashboard.putBoolean("Is Intaking Pose", isInIntakingPos());
+
+      double akP = SmartDashboard.getNumber("Arm kP", 0.69),
+             akD = SmartDashboard.getNumber("Arm kD", 0.0001);
+
+      if (ArmConstants.kP != akP) {ArmConstants.kP = akP; getController().setP(akP);}
+      if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}
+
   }
 
   @Override
@@ -132,32 +144,12 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   }
 
   //For use in autonomous methods to shoot after the Arm is in position
-  public boolean isReady(){
-    if(getMeasurement() > getController().getGoal().position - ArmConstants.ARM_THRESHOLD 
-    && getMeasurement() < getController().getGoal().position + ArmConstants.ARM_THRESHOLD){
-      return true;
-    } else {
-      return false;
-    }
+  public boolean isWithinThreshold(double value, double target, double threshold){
+    return Math.abs(value-target)< threshold;
   }
 
-  public boolean isInIntakingPos(){
-    if(this.getController().getGoal().position == ArmConstants.BACK_FLOOR_POSITION && 
-    isReady() || this.getController().getGoal().position == ArmConstants.FRONT_FLOOR_POSITION && 
-    isReady()){
-      return true;
-    } else {
-      return false;
-    }
+  public boolean isInPosition(){
+    return isWithinThreshold(getMeasurement(),getController().getGoal().position,ArmConstants.ARM_THRESHOLD);
   }
-
-  public boolean isInShootingPos(){
-    if(this.getController().getGoal().position == ArmConstants.SCORING_POSITION && 
-    isReady() || this.getController().getGoal().position == ArmConstants.AVE_MARIA_SHOOT_POSITION && 
-    isReady()){
-      return true;
-    } else {
-      return false;
-    }
-  }
+  
 }

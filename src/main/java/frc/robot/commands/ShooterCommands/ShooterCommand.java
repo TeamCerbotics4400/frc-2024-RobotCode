@@ -22,7 +22,7 @@ public class ShooterCommand extends Command {
     this.intake = intake;
     this.arm = arm;
 
-    addRequirements(shooter, intake, arm);
+    addRequirements(shooter, intake);
   }
 
   // Called when the command is initially scheduled.
@@ -32,7 +32,7 @@ public class ShooterCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (arm.getMeasurement() <= 175 && arm.getMeasurement() >= 165){
+    if (arm.isInPosition()){
     shooter.setleftSpeed();
     shooter.setrightSpeed();
       if (shooter.getRPM() >= 4900){   

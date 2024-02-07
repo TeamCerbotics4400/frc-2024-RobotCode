@@ -66,17 +66,17 @@ public class RobotContainer {
       new JoystickButton(chassisDriver, 1).onTrue(
       new InstantCommand(() -> m_drive.zeroHeading()));
 
-      new JoystickButton(subsystemsDriver, 5)
+      new JoystickButton(chassisDriver, 5)
       .whileTrue(m_arm.goToPosition(180).alongWith(new IntakeCommand(m_intake)))
       .whileFalse(m_arm.goToPosition(90));
 
-      new JoystickButton(subsystemsDriver, 6)
-      .whileTrue(m_arm.goToPosition(170).alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
+      new JoystickButton(chassisDriver, 6)
+      .whileTrue(m_arm.goToPosition(160).alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
       .whileFalse(m_arm.goToPosition(90));
 
-      new JoystickButton(subsystemsDriver, 2).whileTrue(new IntakeCommand(m_intake));
-      new JoystickButton(subsystemsDriver, 4).whileTrue(new OutakeCommand(m_intake));
-      new JoystickButton(subsystemsDriver, 3).whileTrue(new ShooterCommand(m_shooter, m_intake,m_arm));
+      new JoystickButton(chassisDriver, 2).whileTrue(new IntakeCommand(m_intake));
+      new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(m_intake));
+      new JoystickButton(chassisDriver, 3).whileTrue(new ShooterCommand(m_shooter, m_intake,m_arm));
       //Romans ver of shooting routine new JoystickButton(subsystemsDriver, 2).whileTrue(new ShooterCommand(m_shooter, m_intake).alongWith(new OutakeCommand(m_intake)));
   }
 
