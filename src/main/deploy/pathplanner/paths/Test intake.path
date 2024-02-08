@@ -41,13 +41,20 @@
             {
               "type": "named",
               "data": {
-                "name": "IntakeNote"
+                "name": "ArmIntake"
               }
             },
             {
               "type": "race",
               "data": {
-                "commands": []
+                "commands": [
+                  {
+                    "type": "wait",
+                    "data": {
+                      "waitTime": 0
+                    }
+                  }
+                ]
               }
             }
           ]

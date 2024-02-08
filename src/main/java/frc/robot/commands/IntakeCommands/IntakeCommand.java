@@ -27,15 +27,9 @@ public class IntakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!intake.noteInside()){
       intake.startIntaking();
       intake.resetEncoder();
-    }
-    else{
-      timer.start();
-    }
-
-    System.out.println(timer.get());
+  
   }
 
   // Called once the command ends or is interrupted.
@@ -48,10 +42,6 @@ public class IntakeCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (timer.get() > 0) { //Check best possible time for all cases
-      return true;
-      
-    }
-    return false;
+   return intake.noteInside();
   }
 }

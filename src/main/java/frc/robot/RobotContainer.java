@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -48,6 +49,11 @@ public class RobotContainer {
     () -> chassisDriver.getRawAxis(4), 
     () -> !chassisDriver.getRawButton(4)));
 
+    NamedCommands.registerCommand("ArmIntake", m_arm.goToPosition(180).alongWith(new IntakeCommand(m_intake)));
+    NamedCommands.registerCommand("ArmShooter", m_arm.goToPosition(160).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)));
+    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(90));
+   
+   
     configureBindings();
   }
   //Check why 2 encoders move at the same time with the same wheel
@@ -67,7 +73,7 @@ public class RobotContainer {
       new InstantCommand(() -> m_drive.zeroHeading()));
 
       new JoystickButton(chassisDriver, 5)
-      .whileTrue(m_arm.goToPosition(180))//.alongWith(new IntakeCommand(m_intake)))
+      .whileTrue(m_arm.goToPosition(180).alongWith(new IntakeCommand(m_intake)))
       .whileFalse(m_arm.goToPosition(90));
 
       new JoystickButton(chassisDriver, 6)

@@ -11,7 +11,8 @@
         "x": 7.40335862351114,
         "y": 4.436218727399288
       },
-      "isLocked": false
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -26,7 +27,8 @@
         "x": 7.40335862351114,
         "y": 1.3826974872665865
       },
-      "isLocked": false
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -41,7 +43,8 @@
         "x": 5.5777735982952885,
         "y": 3.2592718538216365
       },
-      "isLocked": false
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -56,7 +59,8 @@
         "x": 5.58,
         "y": 6.136720236904333
       },
-      "isLocked": false
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -68,21 +72,25 @@
         "y": 5.456616325446392
       },
       "nextControl": null,
-      "isLocked": false
+      "isLocked": false,
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.55,
-      "rotationDegrees": -90.0
+      "rotationDegrees": -90.0,
+      "rotateFast": false
     },
     {
       "waypointRelativePos": 2.3,
-      "rotationDegrees": 180.0
+      "rotationDegrees": 180.0,
+      "rotateFast": false
     },
     {
       "waypointRelativePos": 3.35,
-      "rotationDegrees": 135.0
+      "rotationDegrees": 135.0,
+      "rotateFast": false
     }
   ],
   "constraintZones": [],
@@ -95,9 +103,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 90.0,
+    "rotateFast": false
   },
   "reversed": false,
   "folder": "PID Tuning",
-  "previewStartingState": null
+  "previewStartingState": null,
+  "useDefaultConstraints": false
 }
