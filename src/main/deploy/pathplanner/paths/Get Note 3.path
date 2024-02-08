@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.73,
-        "y": 6.97
+        "x": 2.6,
+        "y": 5.48
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4028643441902284,
-        "y": 6.956194681620133
+        "x": 3.6,
+        "y": 4.98
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.596764424298081,
-        "y": 5.476153259998827
+        "x": 7.905179656513163,
+        "y": 7.449541822160567
       },
       "prevControl": {
-        "x": 1.5114007151091242,
-        "y": 5.38735077470155
+        "x": 6.3264688067837715,
+        "y": 7.311404622809245
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "sequential",
         "data": {
@@ -62,9 +62,6 @@
   },
   "reversed": false,
   "folder": "CrescendoTest3",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 3.0
-  },
+  "previewStartingState": null,
   "useDefaultConstraints": false
 }

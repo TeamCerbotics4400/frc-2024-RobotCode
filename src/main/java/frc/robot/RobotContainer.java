@@ -20,6 +20,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.commands.AutoAim;
 import frc.robot.commands.TeleopControl;
 
 /**
@@ -52,7 +53,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ArmIntake", m_arm.goToPosition(180).alongWith(new IntakeCommand(m_intake)));
     NamedCommands.registerCommand("ArmShooter", m_arm.goToPosition(160).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)));
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(90));
-   
+    NamedCommands.registerCommand("AutoAim", new AutoAim(m_drive));
    
     configureBindings();
   }

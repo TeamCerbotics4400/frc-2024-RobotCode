@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.73,
-        "y": 6.97
+        "x": 7.91,
+        "y": 7.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4028643441902284,
-        "y": 6.956194681620133
+        "x": 7.347584259783904,
+        "y": 6.413971004865086
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.596764424298081,
-        "y": 5.476153259998827
+        "x": 3.839999218459977,
+        "y": 6.3345772845391854
       },
       "prevControl": {
-        "x": 1.5114007151091242,
-        "y": 5.38735077470155
+        "x": 3.589999218459977,
+        "y": 7.8345772845391854
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,25 +30,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.5,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ArmIntake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -62,9 +44,6 @@
   },
   "reversed": false,
   "folder": "CrescendoTest3",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 3.0
-  },
+  "previewStartingState": null,
   "useDefaultConstraints": false
 }

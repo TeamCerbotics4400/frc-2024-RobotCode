@@ -53,8 +53,6 @@ public class SwerveModule {
         driveMotor = new CANSparkMax(moduleConstants.driveMotorID, MotorType.kBrushless);
         turnMotor = new CANSparkMax(moduleConstants.turnMotorID, MotorType.kBrushless);
 
-
-
         absoluteEncoderOffset = moduleConstants.angleOffset;
         absoluteEncoder = new AnalogEncoder(moduleConstants.absoluteEncoderID);
 
@@ -66,6 +64,9 @@ public class SwerveModule {
 
         driveMotor.setIdleMode(IdleMode.kBrake);
         turnMotor.setIdleMode(IdleMode.kCoast);
+
+        driveMotor.setSmartCurrentLimit(40);
+        turnMotor.setSmartCurrentLimit(40);
 
         driveEncoder = driveMotor.getEncoder();
 

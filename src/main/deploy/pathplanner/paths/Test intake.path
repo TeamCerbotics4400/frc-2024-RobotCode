@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 1.679138742892872,
+        "y": 7.005529395674177
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.410259374013754,
-        "y": 6.874261052373746
+        "x": 3.089398116906626,
+        "y": 6.879790448047923
       },
       "isLocked": false,
       "linkedName": null
@@ -33,9 +33,9 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.55,
+      "waypointRelativePos": 0.35,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
@@ -45,16 +45,9 @@
               }
             },
             {
-              "type": "race",
+              "type": "named",
               "data": {
-                "commands": [
-                  {
-                    "type": "wait",
-                    "data": {
-                      "waitTime": 0
-                    }
-                  }
-                ]
+                "name": "ArmIdle"
               }
             }
           ]
