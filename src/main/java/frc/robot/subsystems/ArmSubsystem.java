@@ -43,7 +43,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
           ArmConstants.kS, ArmConstants.kG,
           ArmConstants.kV, ArmConstants.kA);
 
-      double akP = 0, akD = 0;
+      double akP = 0.69, akD = 0.0039;
 
   private static final Translation2d rootPosition = new Translation2d(0.0, 0.0);
 
@@ -97,7 +97,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       //SmartDashboard.putBoolean("Is Intaking Pose", isInIntakingPos());
 
       /*double akP = SmartDashboard.getNumber("Arm kP", 0.69),
-             akD = SmartDashboard.getNumber("Arm kD", 0.0001);
+             akD = SmartDashboard.getNumber("Arm kD", 0.0039);
 
       if (ArmConstants.kP != akP) {ArmConstants.kP = akP; getController().setP(akP);}
       if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}*/

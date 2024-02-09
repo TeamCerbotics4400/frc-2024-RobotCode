@@ -64,6 +64,24 @@
           "data": {
             "pathName": "Get Note 3"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Put note3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmShooter"
+          }
         }
       ]
     }

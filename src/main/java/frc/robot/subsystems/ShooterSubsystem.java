@@ -27,6 +27,7 @@ public class ShooterSubsystem extends SubsystemBase {
   double leftSetPoint = 1000, rightSetPoint = 1000;
   double pkP = 0, pKd = 0;
 
+
   public ShooterSubsystem() {
     leftConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;  
     rightConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
@@ -60,6 +61,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("left RPM", leftSetPoint);
     SmartDashboard.putNumber("right RPM", rightSetPoint);
+
+
   }
   
   public void setleftSpeed(){
@@ -80,4 +83,5 @@ public class ShooterSubsystem extends SubsystemBase {
   public double getRPM(){
     return rightFlyWheel.getVelocity().getValueAsDouble()*60;
   }
+
 }

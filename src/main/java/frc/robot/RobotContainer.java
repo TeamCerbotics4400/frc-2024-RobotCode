@@ -53,7 +53,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ArmIntake", m_arm.goToPosition(180).alongWith(new IntakeCommand(m_intake)));
     NamedCommands.registerCommand("ArmShooter", m_arm.goToPosition(160).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)));
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(90));
-    NamedCommands.registerCommand("AutoAim", new AutoAim(m_drive));
+  //  NamedCommands.registerCommand("AutoAim", new AutoAim(m_drive));
    
     configureBindings();
   }
@@ -73,9 +73,11 @@ public class RobotContainer {
       new JoystickButton(chassisDriver, 1).onTrue(
       new InstantCommand(() -> m_drive.zeroHeading()));
 
+
       new JoystickButton(chassisDriver, 5)
       .whileTrue(m_arm.goToPosition(180).alongWith(new IntakeCommand(m_intake)))
       .whileFalse(m_arm.goToPosition(90));
+      
 
       new JoystickButton(chassisDriver, 6)
       .whileTrue(m_arm.goToPosition(160).alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
@@ -96,5 +98,7 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return new PathPlannerAuto("Intake test");//m_autoChooser.getSelected();
   }
+
+
 
 }
