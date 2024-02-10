@@ -197,12 +197,12 @@ public final class Constants {
 
     public static double ARM_GEARBOX = 320.0 / 1.0;
 
-    public static double kP = 0.69,//0.0011773,//0.012904,//4.3755E-09,     //0.71
+    public static double kP = 0.25,//0.0011773,//0.012904,//4.3755E-09,     //0.71
                          kI = 0.0,
                          kD = 0.0039,//0.00017643,//0.0024401,//8.274E-10,   //0.0032
                          kFF = 0.0,//0.000156,
-                         kMaxVelocityRadPerSecond = 150,
-                         kMaxAccelerationMetersPerSecondSquared = 150,
+                         kMaxVelocityRadPerSecond = 500,
+                         kMaxAccelerationMetersPerSecondSquared = 500,
                          kS = 0.013804,//0.82172,
                          kV = 0.00028699,//0.0047927,
                          kA = 0.00052411,//0.003212,

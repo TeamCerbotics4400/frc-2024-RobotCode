@@ -50,7 +50,7 @@ public class RobotContainer {
     () -> chassisDriver.getRawAxis(4), 
     () -> !chassisDriver.getRawButton(4)));
 
-    NamedCommands.registerCommand("ArmIntake", m_arm.goToPosition(180).alongWith(new IntakeCommand(m_intake)));
+    NamedCommands.registerCommand("ArmIntake", m_arm.goToPosition(190).alongWith(new IntakeCommand(m_intake)));
     NamedCommands.registerCommand("ArmShooter", m_arm.goToPosition(160).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)));
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(90));
   //  NamedCommands.registerCommand("AutoAim", new AutoAim(m_drive));
@@ -80,7 +80,7 @@ public class RobotContainer {
       
 
       new JoystickButton(chassisDriver, 6)
-      .whileTrue(m_arm.goToPosition(160).alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
+      .whileTrue(m_arm.goToPosition(165).alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
       .whileFalse(m_arm.goToPosition(90));
 
       new JoystickButton(chassisDriver, 2).whileTrue(new IntakeCommand(m_intake));
