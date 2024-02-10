@@ -38,13 +38,13 @@ public final class Constants {
     public static final double kDriveEncoderRot2Meter = 
                                 kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
     public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
-    public static  double kP = 0.0,
-                               kI = 0,
+    public static  double kP = 0.12,
+                               kI = 0.001,
                                kD = 0,
                                kFF = 0.0,
-                               kS = 0.0,
-                               kV = 0.0,
-                               kA = 0.0;
+                               kS = 0.12858,
+                               kV = 0.41582,
+                               kA = 0.10791;
     public static double kPTurning = 0.5;
   }
 
@@ -162,11 +162,11 @@ public final class Constants {
                 kPhysicalMaxAngularSpeedRadiansPerSecond / 3; //TODO: TeleOp angle speed
     public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
     public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
-    public static final double kDriveBaseRadius = 0.0;
+    public static final double kDriveBaseRadius = 0.30;
 
     public static final double traslationP = 0.0,
                                traslationD = 0.0,
-                               rotationP = 0.0,
+                               rotationP = 0.4,
                                rotationD = 0.0;
   }
 

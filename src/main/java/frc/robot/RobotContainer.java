@@ -22,6 +22,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.TeleopControl;
+import frc.robot.commands.DebugCommands.DriveTuner;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -52,7 +53,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ArmIntake", m_arm.goToPosition(190).alongWith(new IntakeCommand(m_intake)));
     NamedCommands.registerCommand("ArmShooter", m_arm.goToPosition(160).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)));
-    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(90));
+    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(160));
   //  NamedCommands.registerCommand("AutoAim", new AutoAim(m_drive));
    
     configureBindings();
@@ -76,16 +77,18 @@ public class RobotContainer {
 
       new JoystickButton(chassisDriver, 5)
       .whileTrue(m_arm.goToPosition(180).alongWith(new IntakeCommand(m_intake)))
-      .whileFalse(m_arm.goToPosition(90));
+      .whileFalse(m_arm.goToPosition(160));
       
 
       new JoystickButton(chassisDriver, 6)
       .whileTrue(m_arm.goToPosition(165).alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
-      .whileFalse(m_arm.goToPosition(90));
+      .whileFalse(m_arm.goToPosition(160));
 
       new JoystickButton(chassisDriver, 2).whileTrue(new IntakeCommand(m_intake));
       new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(m_intake));
       new JoystickButton(chassisDriver, 3).whileTrue(new ShooterCommand(m_shooter, m_intake,m_arm));
+
+      new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));
       //Romans ver of shooting routine new JoystickButton(subsystemsDriver, 2).whileTrue(new ShooterCommand(m_shooter, m_intake).alongWith(new OutakeCommand(m_intake)));
   }
 
@@ -96,7 +99,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Intake test");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("Square Auto");//m_autoChooser.getSelected();
   }
 
 
