@@ -43,7 +43,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
           ArmConstants.kS, ArmConstants.kG,
           ArmConstants.kV, ArmConstants.kA);
 
-      double akP = 0.25, akD = 0.0039;
+      double akP = 0.25, akD = 0.0039; double akI = 0.03;
 
   private static final Translation2d rootPosition = new Translation2d(0.0, 0.0);
 
@@ -56,7 +56,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     super(
         new ProfiledPIDController(
             ArmConstants.kP,
-            0.03,
+            ArmConstants.kI,
             ArmConstants.kD,
             new TrapezoidProfile.Constraints(
                 ArmConstants.kMaxVelocityRadPerSecond,
@@ -85,6 +85,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
     SmartDashboard.putNumber("Arm kP", akP);
     SmartDashboard.putNumber("Arm kD",akD);
+    SmartDashboard.putNumber("Arm kI", akI);
   }
 
   @Override
@@ -97,10 +98,12 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       //SmartDashboard.putBoolean("Is Intaking Pose", isInIntakingPos());
 
       double akP = SmartDashboard.getNumber("Arm kP", 0.69),
-             akD = SmartDashboard.getNumber("Arm kD", 0.0039);
+             akD = SmartDashboard.getNumber("Arm kD", 0.0039),
+             akI = SmartDashboard.getNumber("Arm kI", 0.02);
 
       if (ArmConstants.kP != akP) {ArmConstants.kP = akP; getController().setP(akP);}
       if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}
+      if (ArmConstants.kI != akI) {ArmConstants.kI= akI; getController().setD(akI);}
 
   }
 

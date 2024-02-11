@@ -82,6 +82,12 @@
           "data": {
             "name": "ArmShooter"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Get note 4"
+          }
         }
       ]
     }

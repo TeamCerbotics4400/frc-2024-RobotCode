@@ -177,11 +177,11 @@ public final class Constants {
     public static double lkP = 0.02,     //For low rpm: 0.046
                          lkI = 0,         // 0
                          lkD = 0.00019,    //0.0003
-                         lkFF = 0.115,    //0.128
+                         lkFF = 0.112,    //0.128
                          rkP = 0.01,     //0.004
                          rkI = 0,         //0
                          rkD = 0.00019,    //0.0005
-                         rkFF = 0.111;   //0.1175
+                         rkFF = 0.112;   //0.1175
                          
   }
 
@@ -198,7 +198,7 @@ public final class Constants {
     public static double ARM_GEARBOX = 320.0 / 1.0;
 
     public static double kP = 0.25,//0.0011773,//0.012904,//4.3755E-09,     //0.71
-                         kI = 0.0,
+                         kI = 0.03,
                          kD = 0.0039,//0.00017643,//0.0024401,//8.274E-10,   //0.0032
                          kFF = 0.0,//0.000156,
                          kMaxVelocityRadPerSecond = 500,
