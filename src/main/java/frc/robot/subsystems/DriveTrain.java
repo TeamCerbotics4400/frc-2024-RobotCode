@@ -16,12 +16,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SwerveModule;
@@ -43,13 +39,6 @@ public class DriveTrain extends SubsystemBase {
   private final Pigeon2 imu = new Pigeon2(DriveConstants.IMU_ID);
 
   private VisionSubsystem m_vision = new VisionSubsystem(this);  
-
-  ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
-
-  private GenericEntry speedEntry = 
-              driveTab.add("Drive Speed", 0)
-              .withWidget(BuiltInWidgets.kAccelerometer)
-              .getEntry();
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
@@ -110,7 +99,7 @@ public class DriveTrain extends SubsystemBase {
 
     SmartDashboard.putNumber("IMU Angle", getHeading()); 
 
-    speedEntry.setDouble(getAverageDriveSpeed());
+    SmartDashboard.putNumber("Distance to current target", m_vision.getDistanceToTarget());
   }
 
   public void zeroHeading(){

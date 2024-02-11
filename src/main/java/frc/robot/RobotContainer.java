@@ -41,6 +41,7 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
   //private final ClimberSubsystem m_climber = new ClimberSubsystem();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     
@@ -84,11 +85,11 @@ public class RobotContainer {
       .whileTrue(m_arm.goToPosition(165).alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
       .whileFalse(m_arm.goToPosition(160));
 
-      new JoystickButton(chassisDriver, 2).whileTrue(new IntakeCommand(m_intake));
+      new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));//IntakeCommand(m_intake));
       new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(m_intake));
       new JoystickButton(chassisDriver, 3).whileTrue(new ShooterCommand(m_shooter, m_intake,m_arm));
 
-      new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));
+      //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));
       //Romans ver of shooting routine new JoystickButton(subsystemsDriver, 2).whileTrue(new ShooterCommand(m_shooter, m_intake).alongWith(new OutakeCommand(m_intake)));
   }
 
@@ -99,9 +100,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Square Auto");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("Odometry Test");//m_autoChooser.getSelected();
   }
-
-
-
 }

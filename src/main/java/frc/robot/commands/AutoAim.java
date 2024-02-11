@@ -29,7 +29,7 @@ public class AutoAim extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_drive = m_drive;
 
-    aimController = new PIDController(0, 0, 0, 0);
+    aimController = new PIDController(0.1, 0, 0);
 
     addRequirements(m_drive);
   }
@@ -43,7 +43,7 @@ public class AutoAim extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pidOutput = aimController.calculate(LimelightHelpers.getTX(VisionConstants.tagLimelightName));
+    pidOutput = -aimController.calculate(LimelightHelpers.getTX(VisionConstants.tagLimelightName));
 
     ChassisSpeeds chassisSpeeds;
 

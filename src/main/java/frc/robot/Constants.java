@@ -245,7 +245,7 @@ public final class Constants {
 
   public static final class VisionConstants {
 
-    public static final String tapeLimelight = "limelight-tape";
+    public static final String neuralLimelight = "limelight-neural";
     public static final String tagLimelightName = "limelight-tags";
 
     public static double HEIGHT_OF_HIGH_NODE = 0.90; //Elevation of Target

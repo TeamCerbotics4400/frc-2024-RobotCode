@@ -152,6 +152,16 @@ public class VisionSubsystem {
     m_poseEstimator.setVisionMeasurementStdDevs(visionMat);
   }
 
+  public double getDistanceToTarget(){
+    LimelightHelpers.Results results =
+      LimelightHelpers.getLatestResults(VisionConstants.tagLimelightName).targetingResults;
+
+    double distance;
+    distance = LimelightHelpers.toPose2D(results.botpose).getX();
+
+    return distance;
+  }
+
   public int getNumofDetectedTargets(){
     return LimelightHelpers
     .getLatestResults(VisionConstants.tagLimelightName).targetingResults.targets_Fiducials.length;
