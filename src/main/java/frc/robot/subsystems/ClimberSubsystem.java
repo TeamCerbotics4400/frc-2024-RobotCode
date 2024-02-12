@@ -22,7 +22,7 @@ public class ClimberSubsystem extends SubsystemBase {
   private final SparkPIDController climberPIDController;
   private final RelativeEncoder climberEncoder;
 
-  private double extendedClimber = 0.0;   //Test optimal hight to the chain
+  private double extendedClimber = 0.0;   //Test optimal height to the chain
   private double retractedClimber = 0.0;
 
   public ClimberSubsystem() {

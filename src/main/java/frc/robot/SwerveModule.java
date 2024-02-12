@@ -132,10 +132,8 @@ public class SwerveModule {
     }
 
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){
-
         desiredState = 
             CANModuleOptimizer.optimize(desiredState, getState().angle);
-
 
         setAngle(desiredState);
         setSpeed(desiredState, isOpenLoop);  

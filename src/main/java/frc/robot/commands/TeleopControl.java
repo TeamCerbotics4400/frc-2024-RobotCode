@@ -9,6 +9,8 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
@@ -20,6 +22,8 @@ public class TeleopControl extends Command {
   private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
   private final Supplier<Boolean> fieldOriented;
   private final SlewRateLimiter xLimiter, yLimiter, turningLimiter;
+
+  StructArrayPublisher<SwerveModuleState> stateSetpoints;
 
   /** Creates a new TeleopControl. */
   public TeleopControl(DriveTrain m_drive, Supplier<Double> xSpdFunction, 
@@ -34,6 +38,9 @@ public class TeleopControl extends Command {
     this.xLimiter = new SlewRateLimiter(DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
     this.yLimiter = new SlewRateLimiter(DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
     this.turningLimiter = new SlewRateLimiter(DriveConstants.kTeleDriveMaxAngularAccelerationUnitsPerSecond);
+
+    stateSetpoints = NetworkTableInstance.getDefault()
+    .getStructArrayTopic("Swerve States Setpoints", SwerveModuleState.struct).publish();
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drive);
@@ -80,6 +87,7 @@ public class TeleopControl extends Command {
     m_drive.setModuleStates(moduleStates, true);
     
     SmartDashboard.putBoolean("Is Field Oriented", fieldOriented.get());
+    stateSetpoints.set(moduleStates);
   }
 
   // Called once the command ends or is interrupted.

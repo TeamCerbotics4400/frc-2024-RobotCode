@@ -76,7 +76,7 @@ public final class Constants {
      */
 
      //Offsets are different in each robot and encoder;
-    public static final class Module0{  // will change later
+    public static final class Module0{ 
       public static final int DRIVE_ID = 2;
       public static final int TURN_ID = 1;
       public static final boolean driveReversed = true;
@@ -183,8 +183,7 @@ public final class Constants {
                          rkD = 0.00019,    //0.0005
                          rkFF = 0.112;   //0.1175
 
-    public static double SHOOTER_THRESHOLD = 150;
-                         
+    public static double SHOOTER_THRESHOLD = 150;            
   }
 
   public static final class IntakeConstants {
@@ -199,26 +198,22 @@ public final class Constants {
 
     public static double ARM_GEARBOX = 320.0 / 1.0;
 
-    public static double kP = 0.25,//0.0011773,//0.012904,//4.3755E-09,     //0.71
+    public static double kP = 0.25,
                          kI = 0.03,
-                         kD = 0.0039,//0.00017643,//0.0024401,//8.274E-10,   //0.0032
-                         kFF = 0.0,//0.000156,
+                         kD = 0.0039,
+                         kFF = 0.0,
                          kMaxVelocityRadPerSecond = 500,
                          kMaxAccelerationMetersPerSecondSquared = 500,
-                         kS = 0.013804,//0.82172,
-                         kV = 0.00028699,//0.0047927,
-                         kA = 0.00052411,//0.003212,
-                         kG = 0.93532;//0.44033;
-
-    public static double IDLE_POSITION = 90.0;
+                         kS = 0.013804,
+                         kV = 0.00028699,
+                         kA = 0.00052411,
+                         kG = 0.93532;
     
-    public static double SUBSTATION_POSITION = 130.5;
-    public static double SCORING_POSITION = 100;//115;
-    public static double BACK_FLOOR_POSITION = 1.15;
-    public static double FRONT_FLOOR_POSITION = 175.0;
-    public static double AVE_MARIA_SHOOT_POSITION = 120.0;
-    public static double COUNTER_BALANCE_POSITION = 60.0;
-    public static double TESTING_ANGLE = 90.0;
+    public static double INTAKING_POSITION = 180.5;
+    public static double SPEAKER_SCORING_POSITION = 160.0;//115;
+    public static double INIT_POSITION = 95.0;
+    public static double IDLE_UNDER_STAGE = 160.0;
+    
     public static double ARM_THRESHOLD = 9.5;
 
     public static final byte TELESCOPE_ID = 11;
@@ -250,20 +245,13 @@ public final class Constants {
     public static final String neuralLimelight = "limelight-neural";
     public static final String tagLimelightName = "limelight-tags";
 
-    public static double HEIGHT_OF_HIGH_NODE = 0.90; //Elevation of Target
-    public static double HEIGHT_OF_MID_NODE = 0.60;
-    public static double HEIGHT_OF_TAG = 0.45;
-    public static double LIMELIGHT_FLOOR_CLEREANCE= 0.04819; //Elevation of the Limelight
-    public static double LIMELIGHT_VERTICAL_ANGLE = 0;
-
     public static final int main_Pipeline = 0,
-                            far_Pipeline = 1,
-                            midAlign_Pipeline = 2,
-                            highAlign_Pipeline = 3;
-
+                            far_Pipeline = 1;
   }
 
   public static final class IOConstants{
+    public static final int DRIVER_ONE_PORT = 0;
+    public static final int DRIVER_TWO_PORT = 1;
     public static final double kDeadband = 0.05;
   }
 }

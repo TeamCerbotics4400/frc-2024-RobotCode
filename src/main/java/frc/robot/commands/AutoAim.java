@@ -4,16 +4,12 @@
 
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.IOConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.DriveTrain;
 
@@ -30,6 +26,8 @@ public class AutoAim extends Command {
     this.m_drive = m_drive;
 
     aimController = new PIDController(0.13, 0, 0.001);
+    aimController.enableContinuousInput(-180, 180);
+    aimController.setTolerance(1.0);
 
     addRequirements(m_drive);
   }
@@ -38,8 +36,6 @@ public class AutoAim extends Command {
   @Override
   public void initialize() {
     aimController.reset();
-
-    aimController.setTolerance(2.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

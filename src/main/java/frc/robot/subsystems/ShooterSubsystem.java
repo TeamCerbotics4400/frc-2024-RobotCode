@@ -11,7 +11,6 @@ import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -44,7 +43,6 @@ public class ShooterSubsystem extends SubsystemBase {
   
     leftFlyWheel.getConfigurator().apply(leftConfig);
     rightFlyWheel.getConfigurator().apply(rightConfig);
-
   }
 
   @Override
@@ -56,14 +54,11 @@ public class ShooterSubsystem extends SubsystemBase {
     if (leftSetPoint != uRPM){leftSetPoint = uRPM;}
     if (rightSetPoint != lRPM){rightSetPoint = lRPM;}*/
 
- 
     SmartDashboard.putNumber("Current left RPM", leftFlyWheel.getVelocity().getValueAsDouble() * 60);
     SmartDashboard.putNumber("Current right RPM", rightFlyWheel.getVelocity().getValueAsDouble() * 60);
 
     /*SmartDashboard.putNumber("left RPM", leftSetPoint);
     SmartDashboard.putNumber("right RPM", rightSetPoint);*/
-
-
   }
   
   public void setleftSpeed(double setPoint){
@@ -85,7 +80,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public double getRPM(){
-    return rightFlyWheel.getVelocity().getValueAsDouble()*60;
+    return rightFlyWheel.getVelocity().getValueAsDouble() * 60;
   }
 
   public boolean isWithinThreshold(double value, double target, double threshold){
@@ -98,5 +93,4 @@ public class ShooterSubsystem extends SubsystemBase {
       leftFlyWheel.getClosedLoopReference().getValue(), 
       ShooterConstants.SHOOTER_THRESHOLD);
   }
-
 }

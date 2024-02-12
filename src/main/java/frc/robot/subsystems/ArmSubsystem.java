@@ -5,22 +5,17 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkBase.FaultID;
 import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.util.datalog.DoubleArrayLogEntry;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmConstants;
-
+import team4400.Util.Interpolation.InterpolatingDouble;
+import team4400.Util.Interpolation.InterpolatingTreeMap;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem;
@@ -45,11 +40,10 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
           ArmConstants.kS, ArmConstants.kG,
           ArmConstants.kV, ArmConstants.kA);
 
-  private static final Translation2d rootPosition = new Translation2d(0.0, 0.0);
+  static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> 
+    kDistanceToArmAngle = new InterpolatingTreeMap<>();
 
   boolean onTarget;
-
-  DoubleArrayLogEntry arm3dPose;
 
   /** Create a new ArmSubsystem. */
   public ArmSubsystem() {
@@ -61,7 +55,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
             new TrapezoidProfile.Constraints(
                 ArmConstants.kMaxVelocityRadPerSecond,
                 ArmConstants.kMaxAccelerationMetersPerSecondSquared)),
-        90.3);
+        95.0);
     
     //Makes the Arm absolute Encoder return every rotation as angles
     m_encoder.setDistancePerRotation(360.0);
@@ -92,10 +86,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
       SmartDashboard.putBoolean("Over Angle", overAngle());
 
-      overAngle();
-
-      //SmartDashboard.putBoolean("Arm ready", isReady());
-      //SmartDashboard.putBoolean("Is Intaking Pose", isInIntakingPos());
+      safetyDisable();
   }
 
   @Override
@@ -123,20 +114,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     return ejecutable;
   }
 
-  public Pose3d getSuperStructurePose(){
-    return new Pose3d(0,0.0, 0.0, new Rotation3d(0.0, 0.0, 0.0));
-  }
-
-  public Pose3d getArm3dPose(){
-    return new Pose3d(rootPosition.getX(), 0.0, rootPosition.getY(), 
-                          new Rotation3d(0.0, getMeasurement(), 0.0));
-  }
-
-  public double[] posetoArray(Pose3d pose){
-    return new double[] {pose.getX(), pose.getY(), pose.getZ(), 
-      pose.getRotation().getX(), pose.getRotation().getY(), pose.getRotation().getZ()};
-  }
-
   public boolean overAngle(){
     if(this.m_enabled && (getMeasurement() > 180.0 || getMeasurement() < 90)){
       return true;
@@ -150,9 +127,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       this.disable();
     }
   }
-  /*public boolean limitedCurrentSurpassed(){
-    if(leftMotor.getFault(FaultID.kHasReset));
-  }*/
 
   //For use in autonomous methods to shoot after the Arm is in position
   public boolean isWithinThreshold(double value, double target, double threshold){

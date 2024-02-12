@@ -153,12 +153,9 @@ public class VisionSubsystem {
   }
 
   public double getDistanceToTarget(){
-    LimelightHelpers.Results results =
-      LimelightHelpers.getLatestResults(VisionConstants.tagLimelightName).targetingResults;
-
-    double distance;
-    distance = LimelightHelpers.toPose2D(
-      LimelightHelpers.getCameraPose_TargetSpace(VisionConstants.tagLimelightName)).getX();
+    double distance = 0.0;
+    
+    distance = LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ();
 
     return distance;
   }

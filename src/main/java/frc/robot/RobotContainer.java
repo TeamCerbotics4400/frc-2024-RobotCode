@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -25,7 +24,6 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.TeleopControl;
-import frc.robot.commands.DebugCommands.DriveTuner;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -34,8 +32,6 @@ import frc.robot.commands.DebugCommands.DriveTuner;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-
-  
   private final Joystick chassisDriver = new Joystick(0);
   private final Joystick subsystemsDriver = new Joystick(1);
 
@@ -53,28 +49,34 @@ public class RobotContainer {
     () -> chassisDriver.getRawAxis(1), 
     () -> chassisDriver.getRawAxis(0), 
     () -> chassisDriver.getRawAxis(4), 
-    () -> !chassisDriver.getRawButton(4)));
+    () -> true));
 
+    //Idle Arm
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(160));
+    //Shoot
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
       new ShooterCommand(m_shooter, m_intake, m_arm), 
       m_arm.goToPosition(160)));
+    //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelDeadlineGroup(
       new IntakeCommand(m_intake), 
       m_arm.goToPosition(180.5)));
-    NamedCommands.registerCommand("AutoAim", new AutoAim(m_drive).raceWith(new WaitCommand(1.5)));
+    //Aim
+    NamedCommands.registerCommand("AutoAim", 
+      new AutoAim(m_drive));
+    //Change Pipelines
     NamedCommands.registerCommand("MainTracking", 
     new InstantCommand(
       () -> m_drive.getVisionSubsystem().setCameraPipeline(VisionConstants.main_Pipeline)));
+    //Change Pipeline
     NamedCommands.registerCommand("FarTracking", 
     new InstantCommand(
       () -> m_drive.getVisionSubsystem().setCameraPipeline(VisionConstants.far_Pipeline)));
    
     configureBindings();
   }
-  //Check why 2 encoders move at the same time with the same wheel
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -86,18 +88,17 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-
       new JoystickButton(chassisDriver, 1).onTrue(
       new InstantCommand(() -> m_drive.zeroHeading()));
 
-
       new JoystickButton(chassisDriver, 5)
-      .whileTrue(m_arm.goToPosition(180.5).alongWith(new IntakeCommand(m_intake)))
+      .whileTrue(m_arm.goToPosition(180.5)
+      .alongWith(new IntakeCommand(m_intake)))
       .whileFalse(m_arm.goToPosition(160));
       
-
       new JoystickButton(chassisDriver, 6)
-      .whileTrue(m_arm.goToPosition(165).alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
+      .whileTrue(m_arm.goToPosition(165)
+      .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
       .whileFalse(m_arm.goToPosition(160));
 
       new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));//IntakeCommand(m_intake));

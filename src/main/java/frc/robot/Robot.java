@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
@@ -24,7 +27,10 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
   DoubleLogEntry batteryVoltage;
+
+  StructArrayPublisher<SwerveModuleState> measuredStates;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -45,9 +51,11 @@ public class Robot extends TimedRobot {
 
     batteryVoltage = new DoubleLogEntry(log, "Battery Voltage");
 
-    m_robotContainer.getDrive().getVisionSubsystem().setCameraPipeline(VisionConstants.main_Pipeline);
+    measuredStates = NetworkTableInstance.getDefault()
+    .getStructArrayTopic("Measured Swerve States", SwerveModuleState.struct).publish();
 
-
+    m_robotContainer.getDrive().getVisionSubsystem()
+    .setCameraPipeline(VisionConstants.main_Pipeline);
   }
 
   /**
@@ -65,6 +73,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     batteryVoltage.append(RobotController.getBatteryVoltage());
+    measuredStates.set(m_robotContainer.getDrive().getModuleStates());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
