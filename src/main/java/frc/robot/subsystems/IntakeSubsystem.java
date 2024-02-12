@@ -29,7 +29,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     intakeMotor.setInverted(true);
 
-    intakeMotor.setSmartCurrentLimit(100);
+    intakeMotor.setSmartCurrentLimit(80);
 
     intakeEncoder = intakeMotor.getEncoder();
 

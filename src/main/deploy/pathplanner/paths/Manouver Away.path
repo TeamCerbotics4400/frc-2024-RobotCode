@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2126810103887018,
-        "y": 5.742531509641844
+        "x": 2.5179678528371143,
+        "y": 4.234725089168489
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6683066875896757,
-        "y": 5.703377124025957
+        "x": 1.5929767070801752,
+        "y": 4.422613915650367
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.7796289932207205,
-        "y": 7.115303004130973
+        "x": 2.0699252666110968,
+        "y": 5.318699088102401
       },
       "prevControl": {
-        "x": 3.7796289932207205,
-        "y": 6.0871330355077555
+        "x": 1.6074296937326271,
+        "y": 5.318699088102401
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmIdle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 1.0,
     "maxAcceleration": 1.0,
@@ -39,11 +57,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 65.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Fun Autos",
+  "folder": null,
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

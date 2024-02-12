@@ -10,6 +10,8 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -20,6 +22,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.TeleopControl;
 import frc.robot.commands.DebugCommands.DriveTuner;
@@ -52,10 +55,22 @@ public class RobotContainer {
     () -> chassisDriver.getRawAxis(4), 
     () -> !chassisDriver.getRawButton(4)));
 
-    NamedCommands.registerCommand("ArmIntake", m_arm.goToPosition(190).alongWith(new IntakeCommand(m_intake)));
-    NamedCommands.registerCommand("ArmShooter", m_arm.goToPosition(160).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)));
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(160));
-  //  NamedCommands.registerCommand("AutoAim", new AutoAim(m_drive));
+    NamedCommands.registerCommand("Shoot", 
+    new ParallelDeadlineGroup(
+      new ShooterCommand(m_shooter, m_intake, m_arm), 
+      m_arm.goToPosition(160)));
+    NamedCommands.registerCommand("Intake", 
+    new ParallelDeadlineGroup(
+      new IntakeCommand(m_intake), 
+      m_arm.goToPosition(180.5)));
+    NamedCommands.registerCommand("AutoAim", new AutoAim(m_drive).raceWith(new WaitCommand(1.5)));
+    NamedCommands.registerCommand("MainTracking", 
+    new InstantCommand(
+      () -> m_drive.getVisionSubsystem().setCameraPipeline(VisionConstants.main_Pipeline)));
+    NamedCommands.registerCommand("FarTracking", 
+    new InstantCommand(
+      () -> m_drive.getVisionSubsystem().setCameraPipeline(VisionConstants.far_Pipeline)));
    
     configureBindings();
   }
@@ -77,7 +92,7 @@ public class RobotContainer {
 
 
       new JoystickButton(chassisDriver, 5)
-      .whileTrue(m_arm.goToPosition(180).alongWith(new IntakeCommand(m_intake)))
+      .whileTrue(m_arm.goToPosition(180.5).alongWith(new IntakeCommand(m_intake)))
       .whileFalse(m_arm.goToPosition(160));
       
 
@@ -100,6 +115,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Odometry Test");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("Traverse Auto Test");//m_autoChooser.getSelected();
+  }
+
+  public DriveTrain getDrive(){
+    return m_drive;
   }
 }

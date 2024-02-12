@@ -5,7 +5,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.FaultID;
 import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
@@ -88,6 +90,10 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
       SmartDashboard.putNumber("Arm Angle", getMeasurement());
 
+      SmartDashboard.putBoolean("Over Angle", overAngle());
+
+      overAngle();
+
       //SmartDashboard.putBoolean("Arm ready", isReady());
       //SmartDashboard.putBoolean("Is Intaking Pose", isInIntakingPos());
   }
@@ -130,6 +136,23 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     return new double[] {pose.getX(), pose.getY(), pose.getZ(), 
       pose.getRotation().getX(), pose.getRotation().getY(), pose.getRotation().getZ()};
   }
+
+  public boolean overAngle(){
+    if(this.m_enabled && (getMeasurement() > 180.0 || getMeasurement() < 90)){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public void safetyDisable(){
+    if(overAngle()){
+      this.disable();
+    }
+  }
+  /*public boolean limitedCurrentSurpassed(){
+    if(leftMotor.getFault(FaultID.kHasReset));
+  }*/
 
   //For use in autonomous methods to shoot after the Arm is in position
   public boolean isWithinThreshold(double value, double target, double threshold){

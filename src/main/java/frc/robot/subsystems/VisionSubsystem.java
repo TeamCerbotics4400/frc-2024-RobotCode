@@ -157,11 +157,16 @@ public class VisionSubsystem {
       LimelightHelpers.getLatestResults(VisionConstants.tagLimelightName).targetingResults;
 
     double distance;
-    distance = LimelightHelpers.toPose2D(results.botpose).getX();
+    distance = LimelightHelpers.toPose2D(
+      LimelightHelpers.getCameraPose_TargetSpace(VisionConstants.tagLimelightName)).getX();
 
     return distance;
   }
 
+  public void setCameraPipeline(int pipeline){
+    LimelightHelpers.setPipelineIndex(VisionConstants.tagLimelightName, pipeline);
+  }
+  
   public int getNumofDetectedTargets(){
     return LimelightHelpers
     .getLatestResults(VisionConstants.tagLimelightName).targetingResults.targets_Fiducials.length;

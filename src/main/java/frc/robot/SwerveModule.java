@@ -149,8 +149,8 @@ public class SwerveModule {
                 desiredState.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
             driveMotor.set(percentOutput);
         } else {
-            driveController.setReference(desiredState.speedMetersPerSecond, ControlType.kVelocity, 
-            0, feedForward.calculate(desiredState.speedMetersPerSecond));
+            driveController.setReference(-desiredState.speedMetersPerSecond, ControlType.kVelocity, 
+            0, feedForward.calculate(-desiredState.speedMetersPerSecond));
         }
     }
 
@@ -171,7 +171,7 @@ public class SwerveModule {
     //Invert if needed for odometry correction
     public SwerveModulePosition getPosition(){
         return new SwerveModulePosition(
-            getDrivePosition(), 
+            -getDrivePosition(), 
             Rotation2d.fromDegrees(getAngleDeegrees()));
     }
 

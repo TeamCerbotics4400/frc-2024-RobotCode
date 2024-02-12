@@ -28,8 +28,8 @@ public class RomanShoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.setleftSpeed();
-    m_shooter.setrightSpeed();
+    m_shooter.setleftSpeed(6000);
+    m_shooter.setrightSpeed(6000);
          
     if (m_shooter.getRPM() > 5000){   
       m_intake.startIntaking();

@@ -29,7 +29,7 @@ public class AutoAim extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_drive = m_drive;
 
-    aimController = new PIDController(0.1, 0, 0);
+    aimController = new PIDController(0.13, 0, 0.001);
 
     addRequirements(m_drive);
   }
@@ -38,6 +38,8 @@ public class AutoAim extends Command {
   @Override
   public void initialize() {
     aimController.reset();
+
+    aimController.setTolerance(2.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -61,7 +63,9 @@ public class AutoAim extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_drive.stopModules();
+  }
 
   // Returns true when the command should end.
   @Override

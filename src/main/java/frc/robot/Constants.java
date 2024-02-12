@@ -166,7 +166,7 @@ public final class Constants {
 
     public static final double traslationP = 0.0,
                                traslationD = 0.0,
-                               rotationP = 0.4,
+                               rotationP = 0.3,
                                rotationD = 0.0;
   }
 
@@ -182,6 +182,8 @@ public final class Constants {
                          rkI = 0,         //0
                          rkD = 0.00019,    //0.0005
                          rkFF = 0.112;   //0.1175
+
+    public static double SHOOTER_THRESHOLD = 150;
                          
   }
 
@@ -254,8 +256,8 @@ public final class Constants {
     public static double LIMELIGHT_FLOOR_CLEREANCE= 0.04819; //Elevation of the Limelight
     public static double LIMELIGHT_VERTICAL_ANGLE = 0;
 
-    public static final int normalTracking_Pipeline = 0,
-                            lowAlign_Pipeline = 1,
+    public static final int main_Pipeline = 0,
+                            far_Pipeline = 1,
                             midAlign_Pipeline = 2,
                             highAlign_Pipeline = 3;
 

@@ -37,21 +37,13 @@ public class ShooterCommand extends Command {
   public void execute() {
   
     if (arm.isInPosition()){
-    shooter.setleftSpeed();
-    shooter.setrightSpeed();
-      if (shooter.getRPM() >= 4900){   
+    shooter.setleftSpeed(6000);
+    shooter.setrightSpeed(6000);
+      if (shooter.getRPM() >= 5800){   
       intake.startIntaking();
       } 
     }
-     if (getButton3()){
-      shooter.setleftSpeed();
-      shooter.setrightSpeed();
-      intake.startIntaking();
-    }
   }
-
-
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -64,7 +56,10 @@ public class ShooterCommand extends Command {
   @Override
   public boolean isFinished() {
       if(DriverStation.isAutonomous()){
-
+        if(!intake.noteInside()){
+          return true;
+        }
+        return false;
     } 
     return false;
   }
