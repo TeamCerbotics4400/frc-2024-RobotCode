@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkBase.FaultID;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -43,6 +44,10 @@ public class IntakeSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Outake position", getIntakePosition()); 
       */     //For now
     SmartDashboard.putBoolean("Note inside robot", noteInside());
+
+    SmartDashboard.putNumber("Intake Current", getIntakeCurrent());
+
+    SmartDashboard.putBoolean("Intake Controller Reset", hasControllerReset());
   
   }
 
@@ -72,5 +77,13 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public boolean noteInside(){
     return !intakeSensor.get();
+  }
+
+  public double getIntakeCurrent(){
+    return intakeMotor.getOutputCurrent();
+  }
+
+  public boolean hasControllerReset(){
+    return intakeMotor.getStickyFault(FaultID.kHasReset);
   }
 }

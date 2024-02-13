@@ -92,12 +92,12 @@ public class RobotContainer {
       new InstantCommand(() -> m_drive.zeroHeading()));
 
       new JoystickButton(chassisDriver, 5)
-      .whileTrue(m_arm.goToPosition(180.5)
+      .whileTrue(m_arm.goToPosition(180.0)
       .alongWith(new IntakeCommand(m_intake)))
       .whileFalse(m_arm.goToPosition(160));
       
       new JoystickButton(chassisDriver, 6)
-      .whileTrue(m_arm.goToPosition(165)
+      .whileTrue(m_arm.goToPosition(143.0)
       .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
       .whileFalse(m_arm.goToPosition(160));
 

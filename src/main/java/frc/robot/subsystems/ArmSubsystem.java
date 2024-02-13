@@ -43,7 +43,15 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> 
     kDistanceToArmAngle = new InterpolatingTreeMap<>();
 
+  static{
+    kDistanceToArmAngle.put(new InterpolatingDouble(1.56),  new InterpolatingDouble(165.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(1.75), new InterpolatingDouble(150.0));
+    
+  }
+
   boolean onTarget;
+
+  double akP = 0.32, akI = 0.42, akD = 0.0039;
 
   /** Create a new ArmSubsystem. */
   public ArmSubsystem() {
@@ -76,6 +84,10 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
     rightMotor.setIdleMode(IdleMode.kBrake);
     leftMotor.setIdleMode(IdleMode.kBrake);
+
+    SmartDashboard.putNumber("Arm kP", akP);
+    SmartDashboard.putNumber("Arm kI", akI);
+    SmartDashboard.putNumber("Arm kD",akD);
   }
 
   @Override
@@ -86,7 +98,23 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
       SmartDashboard.putBoolean("Over Angle", overAngle());
 
+      SmartDashboard.putBoolean("ArmEnabled", this.m_enabled);
+
+      SmartDashboard.putNumber("Arm SetPoint Pos", this.getController().getSetpoint().position);
+
+      SmartDashboard.putNumber("Arm Pose Error", this.getController().getPositionError());
+
+      overAngle();
+
       safetyDisable();
+
+      double akP = SmartDashboard.getNumber("Arm kP", ArmConstants.kP),
+             akI = SmartDashboard.getNumber("Arm kI", ArmConstants.kI),
+             akD = SmartDashboard.getNumber("Arm kD", ArmConstants.kD);
+
+      if (ArmConstants.kP != akP) {ArmConstants.kP = akP; getController().setP(akP);}
+      if (ArmConstants.kI != akI) {ArmConstants.kI = akI; getController().setI(akI);}
+      if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}
   }
 
   @Override
@@ -115,7 +143,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   }
 
   public boolean overAngle(){
-    if(this.m_enabled && (getMeasurement() > 180.0 || getMeasurement() < 90)){
+    if(this.m_enabled && (getMeasurement() > 184 || getMeasurement() < 90)){
       return true;
     } else {
       return false;

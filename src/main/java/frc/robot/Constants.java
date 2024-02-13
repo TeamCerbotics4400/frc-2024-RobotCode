@@ -157,7 +157,7 @@ public final class Constants {
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
 
     public static final double kTeleDriveMaxSpeedMetersPerSecond = 
-                kPhysicalMaxSpeedMetersPerSecond / 4; //TODO: TeleOp drive speed
+                kPhysicalMaxSpeedMetersPerSecond * 0.80; //TODO: TeleOp drive speed
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = 
                 kPhysicalMaxAngularSpeedRadiansPerSecond / 3; //TODO: TeleOp angle speed
     public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
@@ -214,7 +214,7 @@ public final class Constants {
     public static double INIT_POSITION = 95.0;
     public static double IDLE_UNDER_STAGE = 160.0;
     
-    public static double ARM_THRESHOLD = 9.5;
+    public static double ARM_THRESHOLD = 1.5;
 
     public static final byte TELESCOPE_ID = 11;
     public static final int TELESCOPING_GEAR_RATIO = 0;

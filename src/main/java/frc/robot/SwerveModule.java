@@ -138,7 +138,7 @@ public class SwerveModule {
         setAngle(desiredState);
         setSpeed(desiredState, isOpenLoop);  
 
-        SmartDashboard.putString("Swerve [" + moduleNumber + "] state", desiredState.toString());
+        //SmartDashboard.putString("Swerve [" + moduleNumber + "] state", desiredState.toString());
     }
 
     public void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop){

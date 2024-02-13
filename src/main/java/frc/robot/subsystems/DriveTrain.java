@@ -16,6 +16,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -97,6 +98,8 @@ public class DriveTrain extends SubsystemBase {
                             m_vision.estimatedPose2d().getRotation().getDegrees());
 
     SmartDashboard.putNumber("IMU Angle", getHeading()); 
+
+    SmartDashboard.putNumber("Odometry Angle Rads", Units.degreesToRadians(getHeading())); 
 
     SmartDashboard.putNumber("Distance to current target", m_vision.getDistanceToTarget());
   }
@@ -191,12 +194,6 @@ public class DriveTrain extends SubsystemBase {
 
   public VisionSubsystem getVisionSubsystem(){
     return m_vision;
-  }
-
-  public void toLog(){
-    
-
-    
   }
   
   //Debug
