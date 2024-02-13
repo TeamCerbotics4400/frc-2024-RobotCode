@@ -44,7 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "Put Note 2"
           }
         },
         {
@@ -62,7 +62,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "Get note 3"
           }
         },
         {
