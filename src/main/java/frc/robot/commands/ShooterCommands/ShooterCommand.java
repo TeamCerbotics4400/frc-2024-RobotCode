@@ -64,7 +64,4 @@ public class ShooterCommand extends Command {
     return false;
   }
 
-  private boolean getButton3(){
-    return chassisDriver.getRawButton(3);
-  }
 }

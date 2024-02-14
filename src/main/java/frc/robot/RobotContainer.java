@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
+import frc.robot.commands.ShooterCommands.ReverseShootCommand;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveTrain;
@@ -61,7 +62,7 @@ public class RobotContainer {
     //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelDeadlineGroup(
-      new IntakeCommand(m_intake), 
+      new IntakeCommand(m_intake,m_shooter), 
       m_arm.goToPosition(180.5)));
     //Aim
     NamedCommands.registerCommand("AutoAim", 
@@ -88,18 +89,22 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+
       new JoystickButton(chassisDriver, 1).onTrue(
       new InstantCommand(() -> m_drive.zeroHeading()));
 
       new JoystickButton(chassisDriver, 5)
       .whileTrue(m_arm.goToPosition(180.0)
-      .alongWith(new IntakeCommand(m_intake)))
+      .alongWith(new IntakeCommand(m_intake,m_shooter).alongWith(new ReverseShootCommand(m_shooter))))
       .whileFalse(m_arm.goToPosition(160));
       
-      new JoystickButton(chassisDriver, 6)
-      .whileTrue(m_arm.goToPosition(143.0)
+     /*  new JoystickButton(chassisDriver, 6)
+      .whileTrue(m_arm.goToPosition(146.0)
       .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
-      .whileFalse(m_arm.goToPosition(160));
+      .whileFalse(m_arm.goToPosition(160));*/
+
+      new JoystickButton(chassisDriver, 6).whileTrue(m_arm.goToPosition(146).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)));
+
 
       new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));//IntakeCommand(m_intake));
       new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(m_intake));
