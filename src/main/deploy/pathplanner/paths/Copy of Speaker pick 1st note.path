@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2027460674639663,
+        "x": 1.2,
         "y": 5.78
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4773528138605576,
+        "x": 1.4746067463965913,
         "y": 6.618273225842227
       },
       "isLocked": false,
@@ -20,8 +20,8 @@
         "y": 6.92
       },
       "prevControl": {
-        "x": 1.7973501085547294,
-        "y": 6.8043795994761185
+        "x": 1.799167781283744,
+        "y": 6.804670418102728
       },
       "nextControl": null,
       "isLocked": false,
@@ -73,7 +73,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Mike Test",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
