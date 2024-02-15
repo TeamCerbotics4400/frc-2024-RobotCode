@@ -60,6 +60,12 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Align note 2"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "AutoAim"
