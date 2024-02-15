@@ -24,6 +24,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.TeleopControl;
+import frc.robot.commands.AutoCommands.AutoShooter;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -56,7 +57,7 @@ public class RobotContainer {
     //Shoot
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
-      new ShooterCommand(m_shooter, m_intake, m_arm), 
+      new AutoShooter(m_shooter, m_intake,m_arm), 
       m_arm.goToPosition(160)));
     //Intake
     NamedCommands.registerCommand("Intake", 

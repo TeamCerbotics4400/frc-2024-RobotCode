@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmConstants;
@@ -115,6 +116,19 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       if (ArmConstants.kP != akP) {ArmConstants.kP = akP; getController().setP(akP);}
       if (ArmConstants.kI != akI) {ArmConstants.kI = akI; getController().setI(akI);}
       if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}
+
+
+      /* 
+       if (DriverStation.isDisabled()){
+        rightMotor.setIdleMode(IdleMode.kCoast);
+        leftMotor.setIdleMode(IdleMode.kCoast);
+
+       }
+       else {
+        rightMotor.setIdleMode(IdleMode.kBrake);
+        leftMotor.setIdleMode(IdleMode.kBrake);
+       }
+       */
   }
 
   @Override

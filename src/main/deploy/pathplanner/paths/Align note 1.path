@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 2.52,
-        "y": 5.549946874541637
+        "y": 6.92
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5082909343283477,
-        "y": 5.50658791458428
+        "x": 2.513469069871951,
+        "y": 6.9022706918401315
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.3,
-        "y": 4.49
+        "x": 1.7938706360418095,
+        "y": 6.123929528717735
       },
       "prevControl": {
-        "x": 1.2245032336218518,
-        "y": 4.904411598053966
+        "x": 1.8232420006879373,
+        "y": 6.167986575686927
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,31 +30,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "ArmIdle"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -63,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -33.02386755579663,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "CrescendoTest2",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
