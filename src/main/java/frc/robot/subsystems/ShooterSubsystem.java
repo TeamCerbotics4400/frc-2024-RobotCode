@@ -8,9 +8,6 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
-
-import edu.wpi.first.math.filter.LinearFilter;
-import edu.wpi.first.math.filter.MedianFilter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
@@ -19,8 +16,6 @@ public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new Shooter. */
   TalonFX leftFlyWheel = new TalonFX(ShooterConstants.LEFT_MOTOR_ID, "rio"); //14  upper-left
   TalonFX rightFlyWheel = new TalonFX(ShooterConstants.RIGHT_MOTOR_ID, "rio");  //13   down-RIGHT
-  LinearFilter filter = LinearFilter.singlePoleIIR(0.1, 0.02);
-
 
   TalonFXConfiguration leftConfig = new TalonFXConfiguration();
   TalonFXConfiguration rightConfig = new TalonFXConfiguration();
@@ -60,7 +55,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("Current left RPM", leftFlyWheel.getVelocity().getValueAsDouble() * 60);
     SmartDashboard.putNumber("Current right RPM", rightFlyWheel.getVelocity().getValueAsDouble() * 60);
-    SmartDashboard.putNumber("Current voltage",getVoltage());
 
     /*SmartDashboard.putNumber("left RPM", leftSetPoint);
     SmartDashboard.putNumber("right RPM", rightSetPoint);*/
@@ -97,8 +91,5 @@ public class ShooterSubsystem extends SubsystemBase {
       getRPM(), 
       leftFlyWheel.getClosedLoopReference().getValue(), 
       ShooterConstants.SHOOTER_THRESHOLD);
-  }
-  public double getVoltage(){
-    return filter.calculate(rightFlyWheel.getSupplyCurrent().getValueAsDouble());
   }
 }

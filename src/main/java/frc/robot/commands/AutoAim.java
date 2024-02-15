@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.DriveConstants;
@@ -25,7 +26,7 @@ public class AutoAim extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_drive = m_drive;
 
-    aimController = new PIDController(0.13, 0, 0.001);
+    aimController = new PIDController(0.13, 0, 0.01);
     aimController.enableContinuousInput(-180, 180);
     aimController.setTolerance(1.0);
 
@@ -41,7 +42,7 @@ public class AutoAim extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pidOutput = -aimController.calculate(LimelightHelpers.getTX(VisionConstants.tagLimelightName));
+    pidOutput = -aimController.calculate(LimelightHelpers.getTX(VisionConstants.tagLimelightName), 0.0);
 
     ChassisSpeeds chassisSpeeds;
 
@@ -55,6 +56,10 @@ public class AutoAim extends Command {
             DriveConstants.kSwerveKinematics.toSwerveModuleStates(chassisSpeeds);
     
     m_drive.setModuleStates(moduleStates, true);
+
+    SmartDashboard.putBoolean("Is PID at setpoint", aimController.atSetpoint());
+    SmartDashboard.putNumber("Auto align point", aimController.getSetpoint());
+    SmartDashboard.putNumber("Auto Align error", aimController.getPositionError());
   }
 
   // Called once the command ends or is interrupted.
