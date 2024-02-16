@@ -117,7 +117,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Traverse for old intake test");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("Mike Test Auto 5");//m_autoChooser.getSelected();
   }
 
   public DriveTrain getDrive(){
