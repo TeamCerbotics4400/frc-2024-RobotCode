@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.45,
-        "y": 4.581932884796002
+        "x": 2.4487602821359506,
+        "y": 4.519059807350385
       },
       "prevControl": {
-        "x": 1.9182614819775097,
-        "y": 5.03904143537674
+        "x": 1.9170217641134601,
+        "y": 4.976168357931123
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,31 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmIdle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.4,
     "maxAcceleration": 2.0,
@@ -43,7 +67,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Mike Test",
+  "folder": null,
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

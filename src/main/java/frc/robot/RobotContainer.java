@@ -63,7 +63,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake", 
     new ParallelDeadlineGroup(
       new IntakeCommand(m_intake,m_shooter), 
-      m_arm.goToPosition(180.5)));
+      m_arm.goToPosition(180)));
     //Aim
     NamedCommands.registerCommand("AutoAim", 
       new AutoAim(m_drive));
@@ -121,7 +121,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Mike Test Auto 4");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("Mike Test Auto 5");//m_autoChooser.getSelected();
   }
 
   public DriveTrain getDrive(){
