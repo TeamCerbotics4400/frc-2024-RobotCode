@@ -35,11 +35,10 @@ public class ShooterCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  
-    if (arm.isInPosition()){
     shooter.setleftSpeed(6000);
     shooter.setrightSpeed(6000);
       if (shooter.getRPM() >= 5800){   
+        if (arm.isInPosition()){
       intake.startIntaking();
       } 
     }

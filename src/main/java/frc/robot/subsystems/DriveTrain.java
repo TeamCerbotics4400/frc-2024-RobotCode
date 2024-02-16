@@ -14,11 +14,13 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -42,6 +44,12 @@ public class DriveTrain extends SubsystemBase {
   private final Pigeon2 imu = new Pigeon2(DriveConstants.IMU_ID);
 
   private VisionSubsystem m_vision = new VisionSubsystem(this);  
+  
+  private SwerveDriveOdometry encoderOdometry = new SwerveDriveOdometry(DriveConstants.kSwerveKinematics, 
+  getRotation2d(), getModulePositions(), new Pose2d());
+
+  StructPublisher<Pose2d> encoderOdoPublisher = NetworkTableInstance.getDefault()
+    .getStructTopic("Encoder Odometry", Pose2d.struct).publish();
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
@@ -53,8 +61,8 @@ public class DriveTrain extends SubsystemBase {
     }).start();
 
     AutoBuilder.configureHolonomic(
-      () -> m_vision.estimatedPose2d(),
-      this::resetOdometryPose, 
+      () -> getEncoderOdometry(),
+      this::resetEncoderOdometry, 
       () -> getRobotRelativeSpeeds(), 
       this::setRobotRelativeSpeeds, 
       new HolonomicPathFollowerConfig(
@@ -102,6 +110,10 @@ public class DriveTrain extends SubsystemBase {
     SmartDashboard.putNumber("Odometry Angle Rads", Units.degreesToRadians(getHeading())); 
 
     SmartDashboard.putNumber("Distance to current target", m_vision.getDistanceToTarget());
+
+    encoderOdometry.update(getRotation2d(), getModulePositions());
+
+    encoderOdoPublisher.set(getEncoderOdometry());
   }
 
   public void zeroHeading(){
@@ -201,5 +213,11 @@ public class DriveTrain extends SubsystemBase {
     for(SwerveModule mod : swerveModules){
       mod.tuneModulePID(speedMtsPerSec);
     }
+  }
+  public Pose2d getEncoderOdometry(){
+    return encoderOdometry.getPoseMeters();
+  }
+  public void resetEncoderOdometry(Pose2d initPose){
+    encoderOdometry.resetPosition(getRotation2d(), getModulePositions(), initPose);
   }
 }
