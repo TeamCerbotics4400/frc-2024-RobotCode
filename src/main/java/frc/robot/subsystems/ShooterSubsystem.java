@@ -78,8 +78,19 @@ public class ShooterSubsystem extends SubsystemBase {
     rightFlyWheel.set(0);
   }
 
-  public double getRPM(){
+  public double getLeftRPM(){
+    return leftFlyWheel.getVelocity().getValueAsDouble() * 60;
+  }
+
+  public double getRightRPM(){
     return rightFlyWheel.getVelocity().getValueAsDouble() * 60;
+  }
+
+  public double getAverageRPM(){
+    double rpmSum;
+    rpmSum = getLeftRPM() + getRightRPM();
+
+    return rpmSum / 2;
   }
 
   public boolean isWithinThreshold(double value, double target, double threshold){
@@ -88,7 +99,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public boolean isInRPMS(){
     return isWithinThreshold(
-      getRPM(), 
+      getRightRPM(), 
       leftFlyWheel.getClosedLoopReference().getValue(), 
       ShooterConstants.SHOOTER_THRESHOLD);
   }

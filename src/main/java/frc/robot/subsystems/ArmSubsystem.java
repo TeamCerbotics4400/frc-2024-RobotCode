@@ -5,13 +5,13 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.FaultID;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmConstants;
@@ -106,6 +106,10 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       SmartDashboard.putNumber("Arm Pose Error", this.getController().getPositionError());
 
       SmartDashboard.putBoolean("Is in position", isInPosition());
+
+      SmartDashboard.putBoolean("Has Left Controller Reset", hasLeftArmReset());
+      SmartDashboard.putBoolean("Has Right Controller Reset", hasRightArmReset());
+
       overAngle();
 
       safetyDisable();
@@ -178,5 +182,13 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
   public boolean isInPosition(){
     return isWithinThreshold(getMeasurement(), getController().getGoal().position, ArmConstants.ARM_THRESHOLD);
+  }
+
+  public boolean hasLeftArmReset(){
+    return leftMotor.getStickyFault(FaultID.kHasReset);
+  }
+
+  public boolean hasRightArmReset(){
+    return rightMotor.getStickyFault(FaultID.kHasReset);
   }
 }

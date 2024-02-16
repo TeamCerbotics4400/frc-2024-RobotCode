@@ -36,11 +36,9 @@ public class ShooterCommand extends Command {
   @Override
   public void execute() {
     shooter.setleftSpeed(6000);
-    shooter.setrightSpeed(6000);
-      if (shooter.getRPM() >= 5800){   
-        if (arm.isInPosition()){
-      intake.startIntaking();
-      } 
+    shooter.setrightSpeed(5700);
+      if ((shooter.getLeftRPM() >= 5800 && shooter.getRightRPM() >= 5600) && arm.isInPosition()){   
+      intake.startIntaking();  
     }
   }
   // Called once the command ends or is interrupted.

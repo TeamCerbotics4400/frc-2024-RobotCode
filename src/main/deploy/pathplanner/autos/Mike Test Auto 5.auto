@@ -30,12 +30,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "MainTracking"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Go back from 1st Note"
