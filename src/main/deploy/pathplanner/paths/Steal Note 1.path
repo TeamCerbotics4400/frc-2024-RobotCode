@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.575779799446923,
-        "y": 6.879621646567236
+        "x": 1.22,
+        "y": 5.73
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1265899454875847,
-        "y": 6.90685996756609
+        "x": 4.324197012030387,
+        "y": 6.837970766850624
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.4491190800563416,
-        "y": 5.485302606968851
+        "x": 7.79,
+        "y": 7.462996744175307
       },
       "prevControl": {
-        "x": 0.8777048833817962,
-        "y": 5.560125295075766
+        "x": 5.663045927910037,
+        "y": 7.304408063361582
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,19 +30,19 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 10.0,
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": 21.385695630929735,
       "rotateFast": false
     }
   ],
   "constraintZones": [
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.8,
-      "maxWaypointRelativePos": 1.0,
+      "minWaypointRelativePos": 0.15,
+      "maxWaypointRelativePos": 0.3,
       "constraints": {
-        "maxVelocity": 1.0,
-        "maxAcceleration": 1.0,
+        "maxVelocity": 1.5,
+        "maxAcceleration": 2.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0
       }
@@ -51,7 +51,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.5,
       "command": {
         "type": "sequential",
         "data": {
@@ -59,13 +59,13 @@
             {
               "type": "named",
               "data": {
-                "name": "Shoot"
+                "name": "Intake"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "Intake"
+                "name": "ArmIdle"
               }
             }
           ]
@@ -81,11 +81,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 6.870173534169115,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Steal Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

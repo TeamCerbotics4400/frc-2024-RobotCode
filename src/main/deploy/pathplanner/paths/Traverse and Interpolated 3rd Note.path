@@ -3,25 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.575779799446923,
-        "y": 6.879621646567236
+        "x": 1.5255732329646479,
+        "y": 6.13831482208419
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1265899454875847,
-        "y": 6.90685996756609
+        "x": 1.7867781190107834,
+        "y": 5.774493730805644
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.4491190800563416,
-        "y": 5.485302606968851
+        "x": 2.6170365068002863,
+        "y": 5.373357655806221
       },
       "prevControl": {
-        "x": 0.8777048833817962,
-        "y": 5.560125295075766
+        "x": 2.4236643174559047,
+        "y": 5.718709313655055
+      },
+      "nextControl": {
+        "x": 2.6674292839494766,
+        "y": 5.283359041263538
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.693490659708592,
+        "y": 5.373357655806221
+      },
+      "prevControl": {
+        "x": 2.0386542591267003,
+        "y": 5.336042672085345
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,16 +46,16 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 10.0,
+      "waypointRelativePos": 0.75,
+      "rotationDegrees": -1.168589401547116,
       "rotateFast": false
     }
   ],
   "constraintZones": [
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.8,
-      "maxWaypointRelativePos": 1.0,
+      "minWaypointRelativePos": 0.4,
+      "maxWaypointRelativePos": 0.9,
       "constraints": {
         "maxVelocity": 1.0,
         "maxAcceleration": 1.0,
@@ -59,13 +75,13 @@
             {
               "type": "named",
               "data": {
-                "name": "Shoot"
+                "name": "Intake"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "Intake"
+                "name": "Shoot"
               }
             }
           ]
@@ -85,9 +101,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Interpolated Paths",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 11.070202577939353,
     "velocity": 0
   },
   "useDefaultConstraints": true

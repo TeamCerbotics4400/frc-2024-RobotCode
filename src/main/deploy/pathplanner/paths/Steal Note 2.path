@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.49566551041499,
-        "y": 5.884707036589646
+        "x": 2.8409264091255455,
+        "y": 6.2222735354561625
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.516063108462095,
-        "y": 4.977013923493496
+        "x": 4.921236751564412,
+        "y": 6.399519708130326
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.750635486003795,
-        "y": 3.9775316191853767
+        "x": 7.738518022490591,
+        "y": 5.78
       },
       "prevControl": {
-        "x": 6.454870314320781,
-        "y": 4.864827134234421
+        "x": 6.283233657376405,
+        "y": 6.209122312790081
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,13 @@
             {
               "type": "named",
               "data": {
-                "name": "ArmShooter"
+                "name": "Intake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmIdle"
               }
             }
           ]
@@ -50,10 +56,10 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3,
-    "maxAcceleration": 3,
-    "maxAngularVelocity": 540,
-    "maxAngularAcceleration": 720
+    "maxVelocity": 3.5,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
@@ -61,7 +67,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Fun Autos",
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "folder": "Steal Paths",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }

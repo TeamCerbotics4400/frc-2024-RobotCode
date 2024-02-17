@@ -5,17 +5,20 @@
   "pathFolders": [
     "CrescendoTest1",
     "CrescendoTest2",
-    "Fun Autos",
     "CrescendoTest3",
+    "Interpolated Paths",
+    "Steal Paths",
     "PID Tuning",
     "Pre-Defined Paths"
   ],
   "autoFolders": [
+    "4 Note Autos",
     "Crescendo",
+    "Steal Autos",
     "PID Tuning"
   ],
-  "defaultMaxVel": 5.0,
-  "defaultMaxAccel": 5.0,
+  "defaultMaxVel": 3.5,
+  "defaultMaxAccel": 2.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 5.0

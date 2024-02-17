@@ -3,37 +3,59 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.73,
-        "y": 6.97
+        "x": 1.2,
+        "y": 5.78
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4028643441902284,
-        "y": 6.956194681620133
+        "x": 1.4746067463965913,
+        "y": 6.618273225842227
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.596764424298081,
-        "y": 5.476153259998827
+        "x": 2.551735285288752,
+        "y": 6.949915718013254
       },
       "prevControl": {
-        "x": 1.5114007151091242,
-        "y": 5.38735077470155
+        "x": 2.157445797649136,
+        "y": 7.564273756893585
+      },
+      "nextControl": {
+        "x": 2.9528713602881753,
+        "y": 6.3248897406885725
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.7028194056388113,
+        "y": 6.166301059874848
+      },
+      "prevControl": {
+        "x": 2.1412704643591103,
+        "y": 6.259588519177038
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": 4.666858371439114,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.0,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +63,7 @@
             {
               "type": "named",
               "data": {
-                "name": null
+                "name": "Intake"
               }
             }
           ]
@@ -51,20 +73,20 @@
   ],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 14.096768554413758,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "CrescendoTest3",
+  "folder": "Interpolated Paths",
   "previewStartingState": {
     "rotation": 0,
-    "velocity": 3.0
+    "velocity": 0
   },
   "useDefaultConstraints": false
 }

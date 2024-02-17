@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.6,
-      "y": 7.45
+      "x": 1.22,
+      "y": 5.72
     },
     "rotation": 0
   },
@@ -14,37 +14,25 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoAim"
+            "name": "Shoot"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "ArmIdle"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Get note 2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoAim"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": null
+            "pathName": "Steal Note 1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "Score Stolen 1"
           }
         },
         {
@@ -56,19 +44,19 @@
         {
           "type": "named",
           "data": {
-            "name": null
+            "name": "Shoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Get note 3"
+            "pathName": "Steal Note 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Put note3"
+            "pathName": "Score Stolen 2"
           }
         },
         {
@@ -80,18 +68,12 @@
         {
           "type": "named",
           "data": {
-            "name": null
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Get note 4"
+            "name": "Shoot"
           }
         }
       ]
     }
   },
-  "folder": "Crescendo",
+  "folder": "Steal Autos",
   "choreoAuto": false
 }

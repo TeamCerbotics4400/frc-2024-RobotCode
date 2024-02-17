@@ -14,7 +14,9 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.LimelightHelpers;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.VisionConstants;
 import team4400.Util.Interpolation.InterpolatingDouble;
 import team4400.Util.Interpolation.InterpolatingTreeMap;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -51,6 +53,8 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     kDistanceToArmAngle.put(new InterpolatingDouble(2.21), new InterpolatingDouble(152.0));
     kDistanceToArmAngle.put(new InterpolatingDouble(2.43), new InterpolatingDouble(154.0));
   }
+
+  double interpolatedAngle = 0;
 
   boolean onTarget;
 
@@ -106,6 +110,8 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       SmartDashboard.putBoolean("Has Left Controller Reset", hasLeftArmReset());
       SmartDashboard.putBoolean("Has Right Controller Reset", hasRightArmReset());
 
+      updateInterpolatedAngle();
+
       overAngle();
 
       safetyDisable();
@@ -130,6 +136,15 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     return kDistanceToArmAngle.getInterpolated(
       new InterpolatingDouble(
         Math.max(Math.min(distance, 2.43 ), 1.60))).value;
+  }
+
+  public double updateInterpolatedAngle(){
+    double result = getAngleForDistance(
+      LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ());
+
+    interpolatedAngle = result;
+
+    return interpolatedAngle;
   }
 
   public Command goToPosition(double position){

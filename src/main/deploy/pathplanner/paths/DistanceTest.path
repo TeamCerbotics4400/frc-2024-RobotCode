@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.52,
-        "y": 6.92
+        "x": 1.1804096335465397,
+        "y": 5.774493730805644
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.513469069871951,
-        "y": 6.9022706918401315
+        "x": 3.605883575403514,
+        "y": 6.166301059874848
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.7938706360418095,
-        "y": 6.123929528717735
+        "x": 7.785161752141686,
+        "y": 7.435010506384649
       },
       "prevControl": {
-        "x": 1.8232420006879373,
-        "y": 6.167986575686927
+        "x": 6.171288706213776,
+        "y": 6.828642020920405
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.5,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 0.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -43,10 +43,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "CrescendoTest2",
+  "folder": "Interpolated Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

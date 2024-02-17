@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2126810103887018,
-      "y": 5.742531509641844
+      "x": 1.2363821091278546,
+      "y": 5.755836238945205
     },
     "rotation": 0
   },
@@ -20,12 +20,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "DistanceTest"
           }
         }
       ]
     }
   },
-  "folder": "Crescendo",
+  "folder": null,
   "choreoAuto": false
 }

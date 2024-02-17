@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2126810103887018,
-        "y": 5.742531509641844
+        "x": 7.869120465513658,
+        "y": 7.462996744175307
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6683066875896757,
-        "y": 5.703377124025957
+        "x": 6.12464497656268,
+        "y": 7.220449349989609
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.7796289932207205,
-        "y": 7.115303004130973
+        "x": 1.5908744544761815,
+        "y": 5.961068649410026
       },
       "prevControl": {
-        "x": 3.7796289932207205,
-        "y": 6.0871330355077555
+        "x": 2.421132842265687,
+        "y": 6.231602281386382
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,20 +32,20 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 5.0,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 65.0,
+    "rotation": 15.018360631150722,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Fun Autos",
+  "folder": "Steal Paths",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

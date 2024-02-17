@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.833421848661879,
-        "y": 6.0
+        "x": 7.831805481792781,
+        "y": 5.783822476735862
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.8334218486618794,
-        "y": 6.0
+        "x": 6.6190685108642935,
+        "y": 6.511464659292955
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.915764195164753,
-        "y": 7.388366776733554
+        "x": 2.8129401713348883,
+        "y": 5.559932574410603
       },
       "prevControl": {
-        "x": 6.915764195164753,
-        "y": 7.388366776733554
+        "x": 3.7271572724963633,
+        "y": 6.063684854642437
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 5.0,
-    "maxAcceleration": 5.0,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Steal Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

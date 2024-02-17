@@ -27,6 +27,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.TeleopControl;
+import frc.robot.commands.ArmCommands.ArmToPose;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,6 +43,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
+  //private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
   //private final ClimberSubsystem m_climber = new ClimberSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -60,7 +62,13 @@ public class RobotContainer {
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
       new ShooterCommand(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.0)), 
-      m_arm.goToPosition(160)));
+      m_arm.goToPosition(
+        m_arm.getAngleForDistance(
+          LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ()))));
+    NamedCommands.registerCommand("SubwooferShoot", 
+    new ParallelDeadlineGroup(
+      new ShooterCommand(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.0)), 
+      m_arm.goToPosition(160.0)));
     //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelDeadlineGroup(
@@ -102,15 +110,13 @@ public class RobotContainer {
       .whileFalse(m_arm.goToPosition(160));
       
       new JoystickButton(chassisDriver, 6)
-      .whileTrue(m_arm.goToPosition(m_arm.getAngleForDistance(m_drive.getVisionSubsystem().getDistanceToTarget()))
+      .whileTrue(m_arm.goToPosition(m_arm.updateInterpolatedAngle())
       .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
       .whileFalse(m_arm.goToPosition(160));
 
-      new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));//IntakeCommand(m_intake));
+      new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
       new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(m_intake));
-      new JoystickButton(chassisDriver, 3).whileTrue(
-        m_arm.goToPosition(
-          m_arm.getAngleForDistance(m_drive.getVisionSubsystem().getDistanceToTarget())));
+      new JoystickButton(chassisDriver, 3).whileTrue(new ArmToPose(m_arm));
 
       //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));
       //Romans ver of shooting routine new JoystickButton(subsystemsDriver, 2).whileTrue(new ShooterCommand(m_shooter, m_intake).alongWith(new OutakeCommand(m_intake)));
@@ -123,7 +129,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Mike Test Auto 5");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("Steal and 2");//m_autoChooser.getSelected();
   }
 
   public DriveTrain getDrive(){
