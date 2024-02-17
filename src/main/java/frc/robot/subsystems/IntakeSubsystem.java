@@ -75,7 +75,11 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void slowOut(){
-    intakeMotor.set(0.35);
+    intakeMotor.set(0.40);
+  }
+
+  public void slowIn(){
+    intakeMotor.set(-0.75);
   }
 
   public boolean noteInside(){

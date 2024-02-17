@@ -11,13 +11,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.IntakeSequence;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
+import frc.robot.commands.IntakeCommands.CenterSequence;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveTrain;
@@ -58,12 +59,13 @@ public class RobotContainer {
     //Shoot
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
-      new ShooterCommand(m_shooter, m_intake,m_arm), 
+      new ShooterCommand(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.0)), 
       m_arm.goToPosition(160)));
     //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelDeadlineGroup(
-      new IntakeCommand(m_intake,m_shooter), 
+      new SequentialCommandGroup(new IntakeSequence(m_intake, m_shooter), 
+      new CenterSequence(m_intake, m_shooter)), 
       m_arm.goToPosition(180)));
     //Aim
     NamedCommands.registerCommand("AutoAim", 
@@ -95,17 +97,20 @@ public class RobotContainer {
 
       new JoystickButton(chassisDriver, 5)
       .whileTrue(m_arm.goToPosition(180.0)
-      .alongWith(new IntakeSequence(m_intake, m_shooter)).withInterruptBehavior(InterruptionBehavior.kCancelIncoming))
+      .alongWith(new SequentialCommandGroup(
+        new IntakeSequence(m_intake, m_shooter), new CenterSequence(m_intake, m_shooter))))
       .whileFalse(m_arm.goToPosition(160));
       
       new JoystickButton(chassisDriver, 6)
-      .whileTrue(m_arm.goToPosition(143.0)
+      .whileTrue(m_arm.goToPosition(m_arm.getAngleForDistance(m_drive.getVisionSubsystem().getDistanceToTarget()))
       .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
       .whileFalse(m_arm.goToPosition(160));
 
       new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));//IntakeCommand(m_intake));
       new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(m_intake));
-      new JoystickButton(chassisDriver, 3).whileTrue(new ShooterCommand(m_shooter, m_intake,m_arm));
+      new JoystickButton(chassisDriver, 3).whileTrue(
+        m_arm.goToPosition(
+          m_arm.getAngleForDistance(m_drive.getVisionSubsystem().getDistanceToTarget())));
 
       //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));
       //Romans ver of shooting routine new JoystickButton(subsystemsDriver, 2).whileTrue(new ShooterCommand(m_shooter, m_intake).alongWith(new OutakeCommand(m_intake)));

@@ -5,6 +5,7 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -32,11 +33,13 @@ public class ShooterCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setleftSpeed(6000);
-    shooter.setrightSpeed(5700);
+    shooter.setleftSpeed(6300);
+    shooter.setrightSpeed(6000);
       if ((shooter.getLeftRPM() >= 5800 && shooter.getRightRPM() >= 5600) && arm.isInPosition()){   
       intake.startIntaking();  
     }
+
+    SmartDashboard.putBoolean("Has Shot", hasShoot());
       
   }
   // Called once the command ends or is interrupted.
@@ -51,12 +54,16 @@ public class ShooterCommand extends Command {
   @Override
   public boolean isFinished() {
       if(DriverStation.isAutonomous()){
-        if(!intake.noteInside()){
-          return true;
-        }
         return false;
     } 
     return false;
   }
 
+  public boolean hasShoot(){
+    if(shooter.getLeftRPM() >= 5850 && !intake.noteInside()){
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

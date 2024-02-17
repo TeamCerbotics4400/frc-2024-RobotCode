@@ -49,12 +49,6 @@
               "data": {
                 "name": "Intake"
               }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "ArmIdle"
-              }
             }
           ]
         }
@@ -62,8 +56,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.4,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -78,5 +72,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

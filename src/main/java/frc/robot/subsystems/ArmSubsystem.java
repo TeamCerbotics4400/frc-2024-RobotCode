@@ -45,14 +45,14 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     kDistanceToArmAngle = new InterpolatingTreeMap<>();
 
   static{
-    kDistanceToArmAngle.put(new InterpolatingDouble(1.56),  new InterpolatingDouble(165.0));
-    kDistanceToArmAngle.put(new InterpolatingDouble(1.75), new InterpolatingDouble(150.0));
-    
+    kDistanceToArmAngle.put(new InterpolatingDouble(1.60),  new InterpolatingDouble(161.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(1.87), new InterpolatingDouble(155.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(1.96), new InterpolatingDouble(156.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(2.21), new InterpolatingDouble(152.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(2.43), new InterpolatingDouble(154.0));
   }
 
   boolean onTarget;
-
-  double akP = 0.32, akI = 0.42, akD = 0.0039;
 
   /** Create a new ArmSubsystem. */
   public ArmSubsystem() {
@@ -85,10 +85,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
     rightMotor.setIdleMode(IdleMode.kBrake);
     leftMotor.setIdleMode(IdleMode.kBrake);
-
-    SmartDashboard.putNumber("Arm kP", akP);
-    SmartDashboard.putNumber("Arm kI", akI);
-    SmartDashboard.putNumber("Arm kD",akD);
   }
 
   @Override
@@ -113,27 +109,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       overAngle();
 
       safetyDisable();
-
-      double akP = SmartDashboard.getNumber("Arm kP", ArmConstants.kP),
-             akI = SmartDashboard.getNumber("Arm kI", ArmConstants.kI),
-             akD = SmartDashboard.getNumber("Arm kD", ArmConstants.kD);
-
-      if (ArmConstants.kP != akP) {ArmConstants.kP = akP; getController().setP(akP);}
-      if (ArmConstants.kI != akI) {ArmConstants.kI = akI; getController().setI(akI);}
-      if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}
-
-
-      /* 
-       if (DriverStation.isDisabled()){
-        rightMotor.setIdleMode(IdleMode.kCoast);
-        leftMotor.setIdleMode(IdleMode.kCoast);
-
-       }
-       else {
-        rightMotor.setIdleMode(IdleMode.kBrake);
-        leftMotor.setIdleMode(IdleMode.kBrake);
-       }
-       */
   }
 
   @Override
@@ -149,6 +124,12 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
     return m_encoder.getDistance() - 136.0;
+  }
+
+  public double getAngleForDistance(double distance){
+    return kDistanceToArmAngle.getInterpolated(
+      new InterpolatingDouble(
+        Math.max(Math.min(distance, 2.43 ), 1.60))).value;
   }
 
   public Command goToPosition(double position){
