@@ -5,7 +5,6 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -16,8 +15,6 @@ public class ShooterCommand extends Command {
   ShooterSubsystem shooter;
   IntakeSubsystem intake;
   ArmSubsystem arm;
-  private final Joystick chassisDriver = new Joystick(0);
-
 
   public ShooterCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm) {
 
@@ -40,6 +37,7 @@ public class ShooterCommand extends Command {
       if ((shooter.getLeftRPM() >= 5800 && shooter.getRightRPM() >= 5600) && arm.isInPosition()){   
       intake.startIntaking();  
     }
+      
   }
   // Called once the command ends or is interrupted.
   @Override

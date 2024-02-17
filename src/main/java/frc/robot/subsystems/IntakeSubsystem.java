@@ -74,6 +74,10 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeEncoder.setPosition(0);
   }
 
+  public void slowOut(){
+    intakeMotor.set(0.35);
+  }
+
   public boolean noteInside(){
     return !intakeSensor.get();
   }

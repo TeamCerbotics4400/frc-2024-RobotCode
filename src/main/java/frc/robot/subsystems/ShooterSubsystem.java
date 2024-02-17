@@ -70,12 +70,22 @@ public class ShooterSubsystem extends SubsystemBase {
     rightFlyWheel.setControl(rightVelocity);
   }
 
+  public void setShooterSpeed(double setPoint){
+    setleftSpeed(setPoint);
+    setrightSpeed(setPoint);
+  }
+
   public void stopleft(){
     leftFlyWheel.set(0);
   }
 
   public void stopright(){
     rightFlyWheel.set(0);
+  }
+
+  public void stopShooter(){
+    stopleft();
+    stopright();
   }
 
   public double getLeftRPM(){

@@ -2,51 +2,40 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.IntakeCommands;
+package frc.robot.commands.DebugCommands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 
-public class IntakeCommand extends Command {
-  /** Creates a new IntakeCommand. */
-  IntakeSubsystem intake;
-  ShooterSubsystem shooter;
-  Timer timer = new Timer();
+public class WaitForSensorChange extends Command {
+  /** Creates a new WaitForSensorChange. */
+  final boolean goalState;
+  final IntakeSubsystem m_intake;
+  boolean detected;
 
-  public IntakeCommand(IntakeSubsystem intake, ShooterSubsystem shooter) {
+  public WaitForSensorChange(IntakeSubsystem m_intake, boolean goalState) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.intake = intake;
-    this.shooter = shooter;
+    this.goalState = goalState;
+    this.m_intake = m_intake;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    timer.reset();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-      intake.startIntaking();
-      intake.resetEncoder();
-
-  
+    detected = m_intake.noteInside();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    intake.stopIntaking();
-
-    timer.stop();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   return intake.noteInside();
+    return detected == goalState;
   }
 }

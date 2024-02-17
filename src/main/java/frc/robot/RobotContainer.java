@@ -11,10 +11,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.Command.InterruptionBehavior;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
+import frc.robot.commands.IntakeCommands.IntakeSequence;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.subsystems.ArmSubsystem;
@@ -61,7 +63,7 @@ public class RobotContainer {
     //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelDeadlineGroup(
-      new IntakeCommand(m_intake), 
+      new IntakeCommand(m_intake,m_shooter), 
       m_arm.goToPosition(180)));
     //Aim
     NamedCommands.registerCommand("AutoAim", 
@@ -93,7 +95,7 @@ public class RobotContainer {
 
       new JoystickButton(chassisDriver, 5)
       .whileTrue(m_arm.goToPosition(180.0)
-      .alongWith(new IntakeCommand(m_intake)))
+      .alongWith(new IntakeSequence(m_intake, m_shooter)).withInterruptBehavior(InterruptionBehavior.kCancelIncoming))
       .whileFalse(m_arm.goToPosition(160));
       
       new JoystickButton(chassisDriver, 6)
