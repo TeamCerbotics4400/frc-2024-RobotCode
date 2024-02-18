@@ -4,6 +4,8 @@
 
 package frc.robot.commands.ArmCommands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.VisionConstants;
@@ -12,10 +14,12 @@ import frc.robot.subsystems.ArmSubsystem;
 public class ArmToPose extends Command {
   /** Creates a new ArmToPose. */
   ArmSubsystem m_arm;
+  DoubleSupplier m_angle;
 
-  public ArmToPose(ArmSubsystem m_arm) {
+  public ArmToPose(ArmSubsystem m_arm, DoubleSupplier m_angle) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_arm = m_arm;
+    this.m_angle = m_angle;
 
     addRequirements(m_arm);
   }
@@ -23,21 +27,21 @@ public class ArmToPose extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_arm.getController().reset(m_arm.getMeasurement());
-    m_arm.setGoal(m_arm.getAngleForDistance(
-      LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ()));
+    if(!m_arm.isEnabled()){m_arm.enable();}
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_arm.enable();
+    double angle = m_angle.getAsDouble();
+    
+    m_arm.updateArmSetpoint(angle);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_arm.setGoal(160.0);
+    m_arm.updateArmSetpoint(160.0);
   }
 
   // Returns true when the command should end.

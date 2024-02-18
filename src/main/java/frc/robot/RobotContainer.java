@@ -62,9 +62,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
       new ShooterCommand(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.0)), 
-      m_arm.goToPosition(
-        m_arm.getAngleForDistance(
-          LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ()))));
+      new ArmToPose(m_arm, 
+      () -> m_arm.getAngleForDistance(LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ()))));
+
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
       new ShooterCommand(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.0)), 
@@ -110,13 +110,15 @@ public class RobotContainer {
       .whileFalse(m_arm.goToPosition(160));
       
       new JoystickButton(chassisDriver, 6)
-      .whileTrue(m_arm.goToPosition(m_arm.updateInterpolatedAngle())
+      .whileTrue(new ArmToPose(m_arm, 
+      () -> m_arm.getAngleForDistance(
+        LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ()))
       .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
       .whileFalse(m_arm.goToPosition(160));
 
       new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
       new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(m_intake));
-      new JoystickButton(chassisDriver, 3).whileTrue(new ArmToPose(m_arm));
+      //new JoystickButton(chassisDriver, 3).whileTrue(
 
       //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));
       //Romans ver of shooting routine new JoystickButton(subsystemsDriver, 2).whileTrue(new ShooterCommand(m_shooter, m_intake).alongWith(new OutakeCommand(m_intake)));
@@ -129,7 +131,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Steal and 2");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("Interpolated Auto");//m_autoChooser.getSelected();
   }
 
   public DriveTrain getDrive(){

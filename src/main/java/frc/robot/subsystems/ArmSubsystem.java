@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.LimelightHelpers;
@@ -43,6 +44,8 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
           ArmConstants.kS, ArmConstants.kG,
           ArmConstants.kV, ArmConstants.kA);
 
+  private TrapezoidProfile.State m_tpState = new TrapezoidProfile.State(0.0, 0.0);
+
   static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> 
     kDistanceToArmAngle = new InterpolatingTreeMap<>();
 
@@ -56,6 +59,8 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
   double interpolatedAngle = 0;
 
+  private double m_armSetPoint;
+
   boolean onTarget;
 
   /** Create a new ArmSubsystem. */
@@ -67,8 +72,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
             ArmConstants.kD,
             new TrapezoidProfile.Constraints(
                 ArmConstants.kMaxVelocityRadPerSecond,
-                ArmConstants.kMaxAccelerationMetersPerSecondSquared)),
-        95.0);
+                ArmConstants.kMaxAccelerationMetersPerSecondSquared)));
     
     //Makes the Arm absolute Encoder return every rotation as angles
     m_encoder.setDistancePerRotation(360.0);
@@ -186,5 +190,12 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
   public boolean hasRightArmReset(){
     return rightMotor.getStickyFault(FaultID.kHasReset);
+  }
+
+  //New Arm Logic
+  public void updateArmSetpoint(double setpoint){
+    m_armSetPoint = setpoint;
+    m_tpState.position = Units.degreesToRadians(setpoint);
+    setGoal(setpoint);
   }
 }
