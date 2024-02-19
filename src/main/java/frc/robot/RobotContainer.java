@@ -104,7 +104,7 @@ public class RobotContainer {
       new JoystickButton(chassisDriver, 1).onTrue(
       new InstantCommand(() -> m_drive.zeroHeading()));
 
-      new JoystickButton(chassisDriver, 5)
+      new JoystickButton(chassisDriver, 5)  
       .whileTrue(m_arm.goToPosition(180.0)
       .alongWith(new SequentialCommandGroup(
         new IntakeSequence(m_intake, m_shooter), new CenterSequence(m_intake, m_shooter))))
@@ -117,8 +117,19 @@ public class RobotContainer {
       .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
       .whileFalse(m_arm.goToPosition(160));
 
-      new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
+      new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive)); 
       new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(m_intake));
+
+  /*
+      new JoystickButton(subsystemsDriver, 6)
+      .whileTrue(m_arm.goToPosition(180.0)
+      .alongWith(new SequentialCommandGroup(
+        new IntakeSequence(m_intake, m_shooter), new CenterSequence(m_intake, m_shooter))))
+        .whileFalse(m_arm.goToPosition(160));
+ */
+
+
+
       //new JoystickButton(chassisDriver, 3).whileTrue(
 
       //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));
