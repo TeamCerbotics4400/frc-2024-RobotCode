@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.22,
-      "y": 5.72
+      "x": 1.6,
+      "y": 7.45
     },
     "rotation": 0
   },
@@ -14,25 +14,19 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": "AutoAim"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ArmIdle"
+            "name": null
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Steal Note 1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Score Stolen 1"
+            "pathName": "Get note 2"
           }
         },
         {
@@ -44,19 +38,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": null
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Steal Note 2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Score Stolen 2"
+            "pathName": null
           }
         },
         {
@@ -68,12 +56,42 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": null
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Get note 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Put note3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": null
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Get note 4"
           }
         }
       ]
     }
   },
-  "folder": "Steal Autos",
+  "folder": "Crescendo",
   "choreoAuto": false
 }

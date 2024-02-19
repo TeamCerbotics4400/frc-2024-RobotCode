@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.22,
-      "y": 5.72
+      "x": 1.2,
+      "y": 5.78
     },
     "rotation": 0
   },
@@ -14,25 +14,19 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": "MainTracking"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ArmIdle"
+            "name": "Shoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Steal Note 1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Score Stolen 1"
+            "pathName": "Note 2 interpolated"
           }
         },
         {
@@ -50,13 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Steal Note 2"
+            "pathName": "Note 3 interpolated"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Score Stolen 2"
+            "pathName": "Note 4 interpolated"
           }
         },
         {
@@ -74,6 +68,6 @@
       ]
     }
   },
-  "folder": "Steal Autos",
+  "folder": "4 Note Autos",
   "choreoAuto": false
 }

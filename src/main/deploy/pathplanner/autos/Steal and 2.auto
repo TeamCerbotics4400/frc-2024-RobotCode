@@ -14,13 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmIdle"
+            "name": "SubwooferShoot"
           }
         },
         {
@@ -32,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Score Stolen 1"
+            "pathName": "Score Stolen 1 Closer"
           }
         },
         {
@@ -50,13 +44,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Steal Note 2"
+            "pathName": "Near Note after stolen"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Score Stolen 2"
+            "pathName": "Traverse to 2nd Note"
           }
         },
         {

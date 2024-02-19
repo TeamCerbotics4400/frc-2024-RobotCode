@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.33723452062288894,
+      "y": 7.449541822160567
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Note1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Note 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": null
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Note 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Put note 3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Note 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": null
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Crescendo",
+  "choreoAuto": false
+}
