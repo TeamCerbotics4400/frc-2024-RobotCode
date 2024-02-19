@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5255732329646479,
-        "y": 6.13831482208419
+        "x": 1.693490659708592,
+        "y": 5.963750960580802
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7867781190107834,
-        "y": 5.774493730805644
+        "x": 1.8790923503660566,
+        "y": 6.060741433534682
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.7556146715346874,
-        "y": 5.493753074020143
+        "x": 2.6825038891808064,
+        "y": 5.232643137042
       },
       "prevControl": {
-        "x": 2.562242482190306,
-        "y": 5.839104731868977
+        "x": 2.489131699836425,
+        "y": 5.577994794890834
       },
       "nextControl": {
-        "x": 2.8060074486838777,
-        "y": 5.40375445947746
+        "x": 2.7328966663299967,
+        "y": 5.142644522499317
       },
       "isLocked": false,
       "linkedName": null
@@ -46,16 +46,16 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.75,
-      "rotationDegrees": -1.168589401547116,
-      "rotateFast": false
+      "waypointRelativePos": 0.45,
+      "rotationDegrees": -15.0,
+      "rotateFast": true
     }
   ],
   "constraintZones": [
     {
       "name": "New Constraints Zone",
       "minWaypointRelativePos": 0.4,
-      "maxWaypointRelativePos": 0.9,
+      "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
         "maxAcceleration": 1.0,
@@ -77,12 +77,6 @@
               "data": {
                 "name": "Intake"
               }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "Shoot"
-              }
             }
           ]
         }
@@ -90,8 +84,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.5,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -103,8 +97,8 @@
   "reversed": false,
   "folder": "Interpolated Paths",
   "previewStartingState": {
-    "rotation": 11.070202577939353,
+    "rotation": -5.088128882179866,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

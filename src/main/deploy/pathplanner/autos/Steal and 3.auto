@@ -50,7 +50,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Traverse to 2nd Note"
+            "pathName": "Shoot and traverse to 2nd"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shoot and Traverse to 4th"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Get Closer"
           }
         },
         {

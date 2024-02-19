@@ -3,19 +3,15 @@
   "robotLength": 0.6096,
   "holonomicMode": true,
   "pathFolders": [
-    "CrescendoTest1",
-    "CrescendoTest2",
-    "CrescendoTest3",
     "Interpolated Paths",
-    "Steal Paths",
     "PID Tuning",
-    "Pre-Defined Paths"
+    "Pre-Defined Paths",
+    "Steal Paths"
   ],
   "autoFolders": [
     "4 Note Autos",
-    "Crescendo",
-    "Steal Autos",
-    "PID Tuning"
+    "PID Tuning",
+    "Steal Autos"
   ],
   "defaultMaxVel": 3.5,
   "defaultMaxAccel": 2.0,

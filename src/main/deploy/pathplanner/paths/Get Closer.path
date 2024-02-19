@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.52,
-        "y": 6.92
+        "x": 2.3,
+        "y": 4.234725089168489
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.513469069871951,
-        "y": 6.9022706918401315
+        "x": 1.8469520908507473,
+        "y": 4.5433129034197
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.7938706360418095,
-        "y": 6.123929528717735
+        "x": 1.6276197437891067,
+        "y": 5.263976329479377
       },
       "prevControl": {
-        "x": 1.8232420006879373,
-        "y": 6.167986575686927
+        "x": 1.6798417311847356,
+        "y": 4.908866815189101
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmIdle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.5,
     "maxAcceleration": 2.0,
@@ -43,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "CrescendoTest2",
+  "folder": "Steal Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
