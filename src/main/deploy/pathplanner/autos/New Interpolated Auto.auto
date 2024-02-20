@@ -48,6 +48,24 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ArmIdle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Note 4 interpolated"

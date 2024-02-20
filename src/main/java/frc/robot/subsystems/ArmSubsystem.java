@@ -104,13 +104,10 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       SmartDashboard.putNumber("Arm Pose Error", this.getController().getPositionError());
 
       SmartDashboard.putBoolean("Is in position", isInPosition());
-
       SmartDashboard.putBoolean("Has Left Controller Reset", hasLeftArmReset());
       SmartDashboard.putBoolean("Has Right Controller Reset", hasRightArmReset());
 
       overAngle();
-
-      safetyDisable();
   }
 
   @Override

@@ -164,8 +164,8 @@ public final class Constants {
     public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
     public static final double kDriveBaseRadius = 0.30;
 
-    public static final double traslationP = 0.15,
-                               traslationD = 0.0,
+    public static final double traslationP = 0.4,
+                               traslationD = 0.01,
                                rotationP = 0.5,
                                rotationD = 0.0;
   }
