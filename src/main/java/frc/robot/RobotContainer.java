@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -66,7 +68,7 @@ public class RobotContainer {
       m_arm.goToPosition(180)));
     //Aim
     NamedCommands.registerCommand("AutoAim", 
-      new AutoAim(m_drive));
+      new ParallelRaceGroup(new AutoAim(m_drive), new WaitCommand(1)));
     //Change Pipelines
     NamedCommands.registerCommand("MainTracking", 
     new InstantCommand(
@@ -95,7 +97,7 @@ public class RobotContainer {
 
       new JoystickButton(chassisDriver, 5)
       .whileTrue(m_arm.goToPosition(180.0)
-      .alongWith(new IntakeCommand(m_intake,m_shooter).alongWith(new ReverseShootCommand(m_shooter))))
+      .alongWith(new IntakeCommand(m_intake,m_shooter)))
       .whileFalse(m_arm.goToPosition(160));
       
      /*  new JoystickButton(chassisDriver, 6)

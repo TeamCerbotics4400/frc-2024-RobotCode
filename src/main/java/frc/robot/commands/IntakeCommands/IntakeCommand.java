@@ -12,12 +12,10 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class IntakeCommand extends Command {
   /** Creates a new IntakeCommand. */
   IntakeSubsystem intake;
-  ShooterSubsystem shooter;
 
   public IntakeCommand(IntakeSubsystem intake, ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
-    this.shooter = shooter;
   }
 
   // Called when the command is initially scheduled.
@@ -41,6 +39,6 @@ public class IntakeCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return shooter.getVoltage() > 3.5;
+    return intake.noteInside();
   }
 }
