@@ -11,16 +11,18 @@ import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.VisionConstants;
+import frc.robot.subsystems.IntakeSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
- * each mode, as described in the TimedRobot documentation. If you change the name of this class or
- * the package after creating this project, you must also update the build.gradle file in the
+ * each mode, as described in the TimedRob    ng this project, you must also update the build.gradle file in the
  * project.
  */
 public class Robot extends TimedRobot {
@@ -31,6 +33,8 @@ public class Robot extends TimedRobot {
   DoubleLogEntry batteryVoltage;
 
   StructArrayPublisher<SwerveModuleState> measuredStates;
+
+  private final Joystick chassisDriver = new Joystick(0);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -111,8 +115,13 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
-
+  public void teleopPeriodic() {
+if (IntakeSubsystem.noteInside()){
+          chassisDriver.setRumble(RumbleType.kBothRumble, 1);
+    }
+    else{
+          chassisDriver.setRumble(RumbleType.kBothRumble, 0);  }
+    }
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.

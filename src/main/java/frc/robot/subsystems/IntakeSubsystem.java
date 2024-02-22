@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
@@ -21,7 +22,7 @@ public class IntakeSubsystem extends SubsystemBase {
   CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_ID,MotorType.kBrushless);
   SparkPIDController intakeController = intakeMotor.getPIDController();
 
-  public DigitalInput intakeSensor = new DigitalInput(1); //Check what channel the sensor will be  on
+  public static DigitalInput intakeSensor = new DigitalInput(1); //Check what channel the sensor will be  on
 
   RelativeEncoder intakeEncoder;
 
@@ -41,14 +42,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    /* 
-    SmartDashboard.putNumber("Outake velocity", getIntakeVelocity());
-    SmartDashboard.putNumber("Outake position", getIntakePosition()); 
-      */     //For now
     SmartDashboard.putBoolean("Note inside robot", noteInside());
-
-    SmartDashboard.putNumber("Intake Current", getIntakeCurrent());
 
     SmartDashboard.putBoolean("Intake Controller Reset", hasControllerReset());
   
@@ -66,24 +60,8 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.set(0.0);
   }
 
-  public double getIntakeVelocity(){
-    return intakeEncoder.getVelocity();
-  }
-
-  public double getIntakePosition(){
-    return intakeEncoder.getPosition();
-  }
-
-  public void resetEncoder(){
-    intakeEncoder.setPosition(0);
-  }
-
-  public boolean noteInside(){
+  public static boolean noteInside(){
     return !intakeSensor.get();
-  }
-
-  public double getIntakeCurrent(){
-    return intakeMotor.getOutputCurrent();
   }
 
   public boolean hasControllerReset(){
