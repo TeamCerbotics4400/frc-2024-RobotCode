@@ -63,8 +63,15 @@ public class RobotContainer {
     //Shoot
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
-      new ShooterCommand(m_shooter, m_intake, m_arm), 
-      m_arm.goToPosition(160)));
+      new ShooterCommand(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.0)), 
+      new ArmToPose(m_arm, 
+      () -> m_arm.getAngleForDistance(
+        LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ()))));
+
+    NamedCommands.registerCommand("SubwooferShoot", 
+    new ParallelDeadlineGroup(
+      new ShooterCommand(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.5)), 
+      m_arm.goToPosition(160.0)));
     //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelDeadlineGroup(
