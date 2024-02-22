@@ -35,6 +35,8 @@ public class ShooterSubsystem extends SubsystemBase {
     leftConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;  
     rightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
+//Put kbrake
+
     leftConfig.Slot0.kP = ShooterConstants.lkP;
     leftConfig.Slot0.kI = ShooterConstants.lkI;
     leftConfig.Slot0.kD = ShooterConstants.lkD; 

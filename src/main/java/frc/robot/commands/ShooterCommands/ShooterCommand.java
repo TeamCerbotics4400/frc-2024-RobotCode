@@ -5,7 +5,6 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -16,7 +15,6 @@ public class ShooterCommand extends Command {
   ShooterSubsystem shooter;
   IntakeSubsystem intake;
   ArmSubsystem arm;
-  private final Joystick chassisDriver = new Joystick(0);
 
 
   public ShooterCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm) {
@@ -37,9 +35,9 @@ public class ShooterCommand extends Command {
   public void execute() {
   
     if (arm.isInPosition()){
-    shooter.setleftSpeed(6000);
-    shooter.setrightSpeed(6000);
-      if (shooter.getRPM() >= 5800){   
+    shooter.setleftSpeed(4000);
+    shooter.setrightSpeed(4000);
+      if (shooter.getRPM() >= 3500){   
       intake.startIntaking();
       } 
     }
@@ -63,5 +61,6 @@ public class ShooterCommand extends Command {
     } 
     return false;
   }
+
 
 }

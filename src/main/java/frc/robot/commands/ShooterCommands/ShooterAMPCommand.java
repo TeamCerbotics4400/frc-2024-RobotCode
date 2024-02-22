@@ -5,38 +5,42 @@
 package frc.robot.commands.ShooterCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ReverseShootCommand extends Command {
-  /** Creates a new ReverseShootCommand. */
+public class ShooterAMPCommand extends Command {
+  /** Creates a new ShooterAMPCommand. */
   ShooterSubsystem shooter;
-  public ReverseShootCommand(ShooterSubsystem shooter) {
-    this.shooter = shooter;
+  IntakeSubsystem intake;
+  public ShooterAMPCommand(ShooterSubsystem shooter, IntakeSubsystem intake) {
+this.shooter = shooter;
+this.intake = intake;
 
-    addRequirements(shooter);
-  }
+addRequirements(shooter, intake);  }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    shooter.setleftSpeed(3000);
+    shooter.setrightSpeed(3000);
+    intake.startIntaking();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    shooter.setleftSpeed(-1000);
-    shooter.setrightSpeed(-1000);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     shooter.stopleft();
     shooter.stopright();
+    intake.stopIntaking();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return shooter.getVoltage() > 3.5;
+    return false;
   }
 }

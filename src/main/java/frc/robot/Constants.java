@@ -157,7 +157,7 @@ public final class Constants {
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
 
     public static final double kTeleDriveMaxSpeedMetersPerSecond = 
-                kPhysicalMaxSpeedMetersPerSecond; //TODO: TeleOp drive speed
+                kPhysicalMaxSpeedMetersPerSecond * 0.80; //TODO: TeleOp drive speed
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = 
                 kPhysicalMaxAngularSpeedRadiansPerSecond / 3; //TODO: TeleOp angle speed
     public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
@@ -212,7 +212,7 @@ public final class Constants {
     public static double INTAKING_POSITION = 180.5;
     public static double SPEAKER_SCORING_POSITION = 160.0;//115;
     public static double INIT_POSITION = 95.0;
-    public static double IDLE_UNDER_STAGE = 160.0;
+    public static double IDLE_UNDER_STAGE = 170.0;
     
     public static double ARM_THRESHOLD = 1.5;
 
@@ -225,14 +225,14 @@ public final class Constants {
   }
 
   public static final class ClimberConstants{
-    public static byte CLIMBER_ID = 0; 
+    public static byte CLIMBER_ID = 16; 
 
     public static double kP = 0.03,
                          kI = 0,
                          kD = 0,
                          kFF = 0.1,
                          kMaxVelocityLinearPerSecond = 0,
-                         kMaxAccelerationMetersPerSecondSquared = 0;
+                         kMaxAccelerationMetersPerSecondSquared = 1;
 
     public static double CLIMBER_GEARBOX = 0.0;
   }

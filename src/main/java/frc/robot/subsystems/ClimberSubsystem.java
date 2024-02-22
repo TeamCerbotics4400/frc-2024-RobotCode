@@ -12,6 +12,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 
@@ -22,8 +23,8 @@ public class ClimberSubsystem extends SubsystemBase {
   private final SparkPIDController climberPIDController;
   private final RelativeEncoder climberEncoder;
 
-  private double extendedClimber = 0.0;   //Test optimal height to the chain
-  private double retractedClimber = 0.0;
+  private double extendedClimber = 0.1;   //Test optimal height to the chain
+  private double retractedClimber = 0.1;
 
   public ClimberSubsystem() {
     climberMotor.clearFaults();
@@ -42,7 +43,7 @@ public class ClimberSubsystem extends SubsystemBase {
     climberPIDController.setD(ClimberConstants.kD);
     climberPIDController.setFF(ClimberConstants.kFF);
 
-    climberEncoder.setPositionConversionFactor(ClimberConstants.CLIMBER_GEARBOX);
+    //climberEncoder.setPositionConversionFactor(ClimberConstants.CLIMBER_GEARBOX);
 
     setSoftLimits();
     enableSoftLimit();
@@ -50,8 +51,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    //SmartDashboard.putNumber("Climber Position",getClimberPosition()); //for now, just to make space on the shuffleboard
-    climberMotor.enableSoftLimit(null, false);
+    SmartDashboard.putNumber("Climber Position",getClimberPosition()); 
   }
 
   public double getClimberPosition(){
@@ -59,11 +59,11 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void ExtendClimber(){
-    climberPIDController.setReference(extendedClimber, ControlType.kPosition);
+    climberMotor.set(0.1);
   }
 
   public void RetractClimber(){
-    climberPIDController.setReference(retractedClimber, ControlType.kPosition);
+    climberMotor.set(-0.1);
   }
 
   public void stopClimber(){

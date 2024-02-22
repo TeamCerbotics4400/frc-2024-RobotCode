@@ -17,16 +17,20 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
-import frc.robot.commands.IntakeCommands.OutakeCommand;
-import frc.robot.commands.ShooterCommands.ReverseShootCommand;
+import frc.robot.commands.ShooterCommands.ShooterAMPCommand;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.TeleopControl;
+import frc.robot.commands.ArmCommands.ArmToPose;
+import frc.robot.commands.ClimberCommands.ClimberCommand;
+import frc.robot.commands.ClimberCommands.DescendCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,7 +46,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
-  //private final ClimberSubsystem m_climber = new ClimberSubsystem();
+  private final ClimberSubsystem m_climber = new ClimberSubsystem();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -96,24 +100,31 @@ public class RobotContainer {
       new InstantCommand(() -> m_drive.zeroHeading()));
 
       new JoystickButton(chassisDriver, 5)
-      .whileTrue(m_arm.goToPosition(180.0)
+      .whileTrue(m_arm.goToPosition(179.0)
       .alongWith(new IntakeCommand(m_intake,m_shooter)))
-      .whileFalse(m_arm.goToPosition(160));
-      
-     /*  new JoystickButton(chassisDriver, 6)
-      .whileTrue(m_arm.goToPosition(146.0)
+      .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
+
+
+
+      new JoystickButton(subsystemsDriver, 6)
+      .whileTrue(new ArmToPose(m_arm, 
+      () -> m_arm.getAngleForDistance(
+        LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ()))
       .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
-      .whileFalse(m_arm.goToPosition(160));*/
+      .whileFalse(m_arm.goToPosition(160));
 
-      new JoystickButton(chassisDriver, 6).whileTrue(m_arm.goToPosition(146).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)));
+      new JoystickButton(subsystemsDriver, 2).whileTrue(new AutoAim(m_drive));
 
+      new JoystickButton(subsystemsDriver, 1).whileTrue(m_arm.goToPosition(93));
 
-      new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));//IntakeCommand(m_intake));
-      new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(m_intake));
-      new JoystickButton(chassisDriver, 3).whileTrue(new ShooterCommand(m_shooter, m_intake,m_arm));
+      new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
 
+     
+     new JoystickButton(subsystemsDriver, 4).whileTrue((new ClimberCommand(m_climber)));
+
+      new JoystickButton(subsystemsDriver, 5).whileTrue(new ShooterAMPCommand(m_shooter, m_intake));
       //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));
-      //Romans ver of shooting routine new JoystickButton(subsystemsDriver, 2).whileTrue(new ShooterCommand(m_shooter, m_intake).alongWith(new OutakeCommand(m_intake)));
+     // new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(m_intake));
   }
 
   /**

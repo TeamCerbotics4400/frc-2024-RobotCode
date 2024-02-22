@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmConstants;
@@ -40,13 +41,17 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
           ArmConstants.kS, ArmConstants.kG,
           ArmConstants.kV, ArmConstants.kA);
 
+          private TrapezoidProfile.State m_tpState = new TrapezoidProfile.State(0.0, 0.0);
+
   static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> 
     kDistanceToArmAngle = new InterpolatingTreeMap<>();
 
   static{
-    kDistanceToArmAngle.put(new InterpolatingDouble(1.56),  new InterpolatingDouble(165.0));
-    kDistanceToArmAngle.put(new InterpolatingDouble(1.75), new InterpolatingDouble(150.0));
-    
+    kDistanceToArmAngle.put(new InterpolatingDouble(1.66),  new InterpolatingDouble(160.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(2.05),  new InterpolatingDouble(153.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(2.60),  new InterpolatingDouble(143.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(3.51),  new InterpolatingDouble(137.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(4.35),  new InterpolatingDouble(134.0));
   }
 
   boolean onTarget;
@@ -132,6 +137,12 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     return m_encoder.getDistance() - 136.0;
   }
 
+  public double getAngleForDistance(double distance){
+    return kDistanceToArmAngle.getInterpolated(
+      new InterpolatingDouble(
+        Math.max(Math.min(distance, 4.35 ), 1.66))).value;
+  }
+
   public Command goToPosition(double position){
     Command ejecutable = Commands.runOnce(
                 () -> {
@@ -164,4 +175,9 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public boolean isInPosition(){
     return isWithinThreshold(getMeasurement(), getController().getGoal().position, ArmConstants.ARM_THRESHOLD);
   }
+  public void updateArmSetpoint(double setpoint){
+    m_tpState.position = Units.degreesToRadians(setpoint);
+    setGoal(setpoint);
+  }
+
 }
