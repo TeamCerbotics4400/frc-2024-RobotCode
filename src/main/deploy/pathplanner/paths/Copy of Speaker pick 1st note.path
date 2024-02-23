@@ -31,7 +31,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": 30.0,
+      "rotationDegrees": 22.692664615750488,
       "rotateFast": false
     }
   ],
@@ -49,12 +49,6 @@
               "data": {
                 "name": "Intake"
               }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "ArmIdle"
-              }
             }
           ]
         }
@@ -62,21 +56,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.4,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 20.65,
+    "rotation": 14.096768554413758,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Mike Test",
+  "folder": null,
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

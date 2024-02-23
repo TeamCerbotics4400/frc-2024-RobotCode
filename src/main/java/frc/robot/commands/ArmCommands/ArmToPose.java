@@ -7,12 +7,15 @@ package frc.robot.commands.ArmCommands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.LimelightHelpers;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmToPose extends Command {
   /** Creates a new ArmToPose. */
   ArmSubsystem m_arm;
   DoubleSupplier m_angle;
+  double angle = 0.0;
 
   public ArmToPose(ArmSubsystem m_arm, DoubleSupplier m_angle) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -31,8 +34,13 @@ public class ArmToPose extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double angle = m_angle.getAsDouble();
-    
+    if(LimelightHelpers.getTV(VisionConstants.tagLimelightName) == true || LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ() <= 4.35){
+
+     angle = m_angle.getAsDouble();
+    }
+    else {
+       angle = 160.0;
+    }
     m_arm.updateArmSetpoint(angle);
   }
 

@@ -119,6 +119,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    /* 
 if (IntakeSubsystem.noteInside()){
             timer.start();
 
@@ -131,8 +132,10 @@ if (IntakeSubsystem.noteInside()){
     else{
           chassisDriver.setRumble(RumbleType.kBothRumble, 0);  
       timer.stop();
-      timer.reset();}
+      timer.reset();
+    }*/
     }
+    
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.

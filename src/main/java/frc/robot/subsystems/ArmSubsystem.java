@@ -46,12 +46,12 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> 
     kDistanceToArmAngle = new InterpolatingTreeMap<>();
 
-  static{
-    kDistanceToArmAngle.put(new InterpolatingDouble(1.66),  new InterpolatingDouble(160.0));
-    kDistanceToArmAngle.put(new InterpolatingDouble(2.05),  new InterpolatingDouble(153.0));
-    kDistanceToArmAngle.put(new InterpolatingDouble(2.60),  new InterpolatingDouble(143.0));
-    kDistanceToArmAngle.put(new InterpolatingDouble(3.51),  new InterpolatingDouble(137.0));
-    kDistanceToArmAngle.put(new InterpolatingDouble(4.35),  new InterpolatingDouble(134.0));
+  static{ //Added offset of 5 degrees of all angles because of mechanical problems
+    kDistanceToArmAngle.put(new InterpolatingDouble(1.66),  new InterpolatingDouble(155.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(2.05),  new InterpolatingDouble(148.0)); 
+    kDistanceToArmAngle.put(new InterpolatingDouble(2.60),  new InterpolatingDouble(138.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(3.51),  new InterpolatingDouble(132.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(4.35),  new InterpolatingDouble(129.0));
   }
 
   boolean onTarget;
@@ -88,7 +88,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     rightMotor.setCANTimeout(0);
 
     rightMotor.setIdleMode(IdleMode.kBrake);
-    leftMotor.setIdleMode(IdleMode.kBrake);
+    leftMotor.setIdleMode(IdleMode.kBrake);//change do break
 
     SmartDashboard.putNumber("Arm kP", akP);
     SmartDashboard.putNumber("Arm kI", akI);
@@ -100,6 +100,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       super.periodic();
 
       SmartDashboard.putNumber("Arm Angle", getMeasurement());
+      SmartDashboard.putNumber("Encoder channel", getEncoderChannel());
 
       SmartDashboard.putBoolean("Over Angle", overAngle());
 
@@ -134,7 +135,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return m_encoder.getDistance() - 136.0;
+    return m_encoder.getDistance() - 137.0;
   }
 
   public double getAngleForDistance(double distance){
@@ -179,5 +180,9 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     m_tpState.position = Units.degreesToRadians(setpoint);
     setGoal(setpoint);
   }
+
+  public int getEncoderChannel(){
+    return m_encoder.getSourceChannel();
+}
 
 }

@@ -3,37 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.53,
-        "y": 5.63
+        "x": 2.25,
+        "y": 6.0055285504973055
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.82409310273166,
-        "y": 5.615905049991919
+        "x": 0.9862279050257846,
+        "y": 6.360638064787581
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.5,
-        "y": 5.52
+        "x": 2.5179678528371143,
+        "y": 6.92
       },
       "prevControl": {
-        "x": 1.5,
-        "y": 5.52
+        "x": 1.5336201664769746,
+        "y": 6.872413541264741
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 22.802837628283743,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.0,
       "command": {
         "type": "sequential",
         "data": {
@@ -43,6 +49,12 @@
               "data": {
                 "name": "Intake"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmIdle"
+              }
             }
           ]
         }
@@ -50,14 +62,14 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 14.132208954659907,
     "rotateFast": false
   },
   "reversed": false,
@@ -66,5 +78,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

@@ -7,6 +7,7 @@ package frc.robot;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.math.kinematics.proto.ChassisSpeedsProto;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
+import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.commands.ShooterCommands.ShooterAMPCommand;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.subsystems.ArmSubsystem;
@@ -29,6 +31,7 @@ import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.TeleopControl;
 import frc.robot.commands.ArmCommands.ArmToPose;
+import frc.robot.commands.AutoCommands.AutoShooter;
 import frc.robot.commands.ClimberCommands.ClimberCommand;
 import frc.robot.commands.ClimberCommands.DescendCommand;
 
@@ -61,16 +64,16 @@ public class RobotContainer {
     //Idle Arm
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(160));
     //Shoot
-    NamedCommands.registerCommand("Shoot", 
+    NamedCommands.registerCommand("AutoShoot", 
     new ParallelDeadlineGroup(
-      new ShooterCommand(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.0)), 
+      new AutoShooter(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.0)), 
       new ArmToPose(m_arm, 
       () -> m_arm.getAngleForDistance(
         LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ()))));
 
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
-      new ShooterCommand(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.5)), 
+      new AutoShooter(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.5)), 
       m_arm.goToPosition(160.0)));
     //Intake
     NamedCommands.registerCommand("Intake", 
@@ -106,11 +109,12 @@ public class RobotContainer {
       new JoystickButton(chassisDriver, 1).onTrue(
       new InstantCommand(() -> m_drive.zeroHeading()));
 
+            new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
+
       new JoystickButton(chassisDriver, 5)
       .whileTrue(m_arm.goToPosition(179.0)
       .alongWith(new IntakeCommand(m_intake,m_shooter)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
-
 
 
       new JoystickButton(subsystemsDriver, 6)
@@ -120,7 +124,6 @@ public class RobotContainer {
       .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
       .whileFalse(m_arm.goToPosition(160));
 
-      new JoystickButton(subsystemsDriver, 2).whileTrue(new AutoAim(m_drive));
 
       new JoystickButton(subsystemsDriver, 1).whileTrue(m_arm.goToPosition(93)); 
       new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
@@ -130,7 +133,7 @@ public class RobotContainer {
 
       new JoystickButton(subsystemsDriver, 5).whileTrue(new ShooterAMPCommand(m_shooter, m_intake));
       //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));
-     // new JoystickButton(chassisDriver, 4).whileTrue(new OutakeCommand(m_intake));
+      new JoystickButton(subsystemsDriver, 2).whileTrue(new OutakeCommand(m_intake));
   }
 
   /**
@@ -140,7 +143,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Mike Test Auto 5");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("Steal and 2");//m_autoChooser.getSelected();
   }
 
   public DriveTrain getDrive(){

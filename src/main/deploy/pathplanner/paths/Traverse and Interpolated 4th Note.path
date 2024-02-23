@@ -3,32 +3,54 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.53,
-        "y": 5.63
+        "x": 1.64,
+        "y": 5.522617590689727
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.82409310273166,
-        "y": 5.615905049991919
+        "x": 1.5467125406978086,
+        "y": 4.981550326737017
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.5,
-        "y": 5.52
+        "x": 2.3,
+        "y": 4.49
       },
       "prevControl": {
-        "x": 1.5,
-        "y": 5.52
+        "x": 1.7774493730805643,
+        "y": 4.832290391853511
+      },
+      "nextControl": {
+        "x": 2.822550626919435,
+        "y": 4.1477096081464895
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.6375181841272772,
+        "y": 4.7669891703419776
+      },
+      "prevControl": {
+        "x": 2.178585448079987,
+        "y": 4.692359202900224
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.1,
+      "rotationDegrees": -35.55038688383442,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -43,6 +65,12 @@
               "data": {
                 "name": "Intake"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmIdle"
+              }
             }
           ]
         }
@@ -50,14 +78,14 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -22.750976342787634,
     "rotateFast": false
   },
   "reversed": false,
@@ -66,5 +94,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
