@@ -1,4 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
+// Copylower (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
@@ -35,8 +35,8 @@ public class ShooterCommand extends Command {
   public void execute() {
   
     if (arm.isInPosition()){
-    shooter.setleftSpeed(4000);
-    shooter.setrightSpeed(4000);
+    shooter.setupperSpeed(4000);
+    shooter.setlowerSpeed(4000);
       if (shooter.getRPM() >= 3500){   
       intake.startIntaking();
       } 
@@ -45,8 +45,8 @@ public class ShooterCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopleft();
-    shooter.stopright();
+    shooter.stopupper();
+    shooter.stoplower();
     intake.stopIntaking();
   }
 

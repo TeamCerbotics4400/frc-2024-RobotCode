@@ -16,7 +16,7 @@ public class DescendCommand extends Command {
 
     this.climber = climber;
 
-    addRequirements();
+    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.

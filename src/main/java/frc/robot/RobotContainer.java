@@ -122,8 +122,7 @@ public class RobotContainer {
 
       new JoystickButton(subsystemsDriver, 2).whileTrue(new AutoAim(m_drive));
 
-      new JoystickButton(subsystemsDriver, 1).whileTrue(m_arm.goToPosition(93));
-
+      new JoystickButton(subsystemsDriver, 1).whileTrue(m_arm.goToPosition(93)); 
       new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
 
      

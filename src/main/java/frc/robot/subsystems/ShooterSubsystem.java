@@ -1,4 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
+// Copylower (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
@@ -16,77 +16,77 @@ import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new Shooter. */
-  TalonFX leftFlyWheel = new TalonFX(ShooterConstants.LEFT_MOTOR_ID, "rio"); //14  upper-left
-  TalonFX rightFlyWheel = new TalonFX(ShooterConstants.RIGHT_MOTOR_ID, "rio");  //13   down-RIGHT
+  TalonFX upperFlyWheel = new TalonFX(ShooterConstants.UPPER_MOTOR_ID, "rio"); //14  upper-upper
+  TalonFX lowerFlyWheel = new TalonFX(ShooterConstants.LOWER_MOTOR_ID, "rio");  //13   down-lower
   LinearFilter filter = LinearFilter.singlePoleIIR(0.1, 0.02);
 
 
-  TalonFXConfiguration leftConfig = new TalonFXConfiguration();
-  TalonFXConfiguration rightConfig = new TalonFXConfiguration();
+  TalonFXConfiguration upperConfig = new TalonFXConfiguration();
+  TalonFXConfiguration lowerConfig = new TalonFXConfiguration();
 
-  private final VelocityVoltage leftVelocity = new VelocityVoltage(0);
-  private final VelocityVoltage rightVelocity = new VelocityVoltage(0);
+  private final VelocityVoltage upperVelocity = new VelocityVoltage(0);
+  private final VelocityVoltage lowerVelocity = new VelocityVoltage(0);
 
-  double leftSetPoint = 1000, rightSetPoint = 1000;
+  double upperSetPoint = 1000, lowerSetPoint = 1000;
   double pkP = 0, pKd = 0;
 
 
   public ShooterSubsystem() {
-    leftConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;  
-    rightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    upperConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;  
+    lowerConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
 //Put kbrake
 
-    leftConfig.Slot0.kP = ShooterConstants.lkP;
-    leftConfig.Slot0.kI = ShooterConstants.lkI;
-    leftConfig.Slot0.kD = ShooterConstants.lkD; 
-    leftConfig.Slot0.kV = ShooterConstants.lkFF; 
-    rightConfig.Slot0.kP = ShooterConstants.rkP; 
-    rightConfig.Slot0.kI = ShooterConstants.rkI;
-    rightConfig.Slot0.kD = ShooterConstants.rkD; 
-    rightConfig.Slot0.kV = ShooterConstants.rkFF;
+    upperConfig.Slot0.kP = ShooterConstants.lkP;
+    upperConfig.Slot0.kI = ShooterConstants.lkI;
+    upperConfig.Slot0.kD = ShooterConstants.lkD; 
+    upperConfig.Slot0.kV = ShooterConstants.lkFF; 
+    lowerConfig.Slot0.kP = ShooterConstants.rkP; 
+    lowerConfig.Slot0.kI = ShooterConstants.rkI;
+    lowerConfig.Slot0.kD = ShooterConstants.rkD; 
+    lowerConfig.Slot0.kV = ShooterConstants.rkFF;
   
-    leftFlyWheel.getConfigurator().apply(leftConfig);
-    rightFlyWheel.getConfigurator().apply(rightConfig);
+    upperFlyWheel.getConfigurator().apply(upperConfig);
+    lowerFlyWheel.getConfigurator().apply(lowerConfig);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-     /*  double uRPM = SmartDashboard.getNumber("left RPM", 0),
-             lRPM = SmartDashboard.getNumber("right RPM", 0);
+     /*  double uRPM = SmartDashboard.getNumber("upper RPM", 0),
+             lRPM = SmartDashboard.getNumber("lower RPM", 0);
 
-    if (leftSetPoint != uRPM){leftSetPoint = uRPM;}
-    if (rightSetPoint != lRPM){rightSetPoint = lRPM;}*/
+    if (upperSetPoint != uRPM){upperSetPoint = uRPM;}
+    if (lowerSetPoint != lRPM){lowerSetPoint = lRPM;}*/
 
-    SmartDashboard.putNumber("Current left RPM", leftFlyWheel.getVelocity().getValueAsDouble() * 60);
-    SmartDashboard.putNumber("Current right RPM", rightFlyWheel.getVelocity().getValueAsDouble() * 60);
+    SmartDashboard.putNumber("Current upper RPM", upperFlyWheel.getVelocity().getValueAsDouble() * 60);
+    SmartDashboard.putNumber("Current lower RPM", lowerFlyWheel.getVelocity().getValueAsDouble() * 60);
     SmartDashboard.putNumber("Current voltage",getVoltage());
 
-    /*SmartDashboard.putNumber("left RPM", leftSetPoint);
-    SmartDashboard.putNumber("right RPM", rightSetPoint);*/
+    /*SmartDashboard.putNumber("upper RPM", upperSetPoint);
+    SmartDashboard.putNumber("lower RPM", lowerSetPoint);*/
   }
   
-  public void setleftSpeed(double setPoint){
-    leftVelocity.Velocity = setPoint / 60;
-    leftFlyWheel.setControl(leftVelocity);
+  public void setupperSpeed(double setPoint){
+    upperVelocity.Velocity = setPoint / 60;
+    upperFlyWheel.setControl(upperVelocity);
   }
 
-  public void setrightSpeed(double setPoint){
-    rightVelocity.Velocity = setPoint / 60;
-    rightFlyWheel.setControl(rightVelocity);
+  public void setlowerSpeed(double setPoint){
+    lowerVelocity.Velocity = setPoint / 60;
+    lowerFlyWheel.setControl(lowerVelocity);
   }
 
-  public void stopleft(){
-    leftFlyWheel.set(0);
+  public void stopupper(){
+    upperFlyWheel.set(0);
   }
 
-  public void stopright(){
-    rightFlyWheel.set(0);
+  public void stoplower(){
+    lowerFlyWheel.set(0);
   }
 
   public double getRPM(){
-    return rightFlyWheel.getVelocity().getValueAsDouble() * 60;
+    return lowerFlyWheel.getVelocity().getValueAsDouble() * 60;
   }
 
   public boolean isWithinThreshold(double value, double target, double threshold){
@@ -96,10 +96,10 @@ public class ShooterSubsystem extends SubsystemBase {
   public boolean isInRPMS(){
     return isWithinThreshold(
       getRPM(), 
-      leftFlyWheel.getClosedLoopReference().getValue(), 
+      upperFlyWheel.getClosedLoopReference().getValue(), 
       ShooterConstants.SHOOTER_THRESHOLD);
   }
   public double getVoltage(){
-    return filter.calculate(rightFlyWheel.getSupplyCurrent().getValueAsDouble());
+    return filter.calculate(lowerFlyWheel.getSupplyCurrent().getValueAsDouble());
   }
 }

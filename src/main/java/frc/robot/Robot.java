@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -33,6 +34,8 @@ public class Robot extends TimedRobot {
   DoubleLogEntry batteryVoltage;
 
   StructArrayPublisher<SwerveModuleState> measuredStates;
+
+  private Timer timer = new Timer();
 
   private final Joystick chassisDriver = new Joystick(0);
 
@@ -117,10 +120,18 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 if (IntakeSubsystem.noteInside()){
-          chassisDriver.setRumble(RumbleType.kBothRumble, 1);
+            timer.start();
+
+        if(timer.get() < 3){
+         chassisDriver.setRumble(RumbleType.kBothRumble, 1);
+        } else {
+           chassisDriver.setRumble(RumbleType.kBothRumble, 0);
+        }
     }
     else{
-          chassisDriver.setRumble(RumbleType.kBothRumble, 0);  }
+          chassisDriver.setRumble(RumbleType.kBothRumble, 0);  
+      timer.stop();
+      timer.reset();}
     }
   @Override
   public void testInit() {

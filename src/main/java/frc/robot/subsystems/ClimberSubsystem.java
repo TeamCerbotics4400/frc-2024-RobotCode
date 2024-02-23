@@ -19,7 +19,7 @@ import frc.robot.Constants.ClimberConstants;
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new ClimberSubsystem. */
   private final CANSparkMax climberMotor = 
-                new CANSparkMax(ClimberConstants.CLIMBER_ID,MotorType.kBrushless);
+                new CANSparkMax(ClimberConstants.CLIMBER_ID, MotorType.kBrushless);
   private final SparkPIDController climberPIDController;
   private final RelativeEncoder climberEncoder;
 
@@ -45,8 +45,8 @@ public class ClimberSubsystem extends SubsystemBase {
 
     //climberEncoder.setPositionConversionFactor(ClimberConstants.CLIMBER_GEARBOX);
 
-    setSoftLimits();
-    enableSoftLimit();
+    /*setSoftLimits();
+    enableSoftLimit(); */
   }
 
   @Override
@@ -59,16 +59,17 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void ExtendClimber(){
-    climberMotor.set(0.1);
+    climberMotor.set(0.5);
   }
 
   public void RetractClimber(){
-    climberMotor.set(-0.1);
+    climberMotor.set(-0.5);
   }
 
   public void stopClimber(){
     climberMotor.stopMotor();
   }
+  /*
   public void setSoftLimits(){
     //Check Encoder Max Pos
     climberMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 8); //Test the limits
@@ -77,5 +78,5 @@ public class ClimberSubsystem extends SubsystemBase {
   public void enableSoftLimit(){
     climberMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     climberMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);    
-  }
+  } */
 }

@@ -171,8 +171,8 @@ public final class Constants {
   }
 
   public static final class ShooterConstants {
-    public static byte LEFT_MOTOR_ID = 14;
-    public static byte RIGHT_MOTOR_ID = 13;
+    public static byte UPPER_MOTOR_ID = 14;
+    public static byte LOWER_MOTOR_ID = 13;
 
     public static double lkP = 0.02,     //For low rpm: 0.046
                          lkI = 0,         // 0
