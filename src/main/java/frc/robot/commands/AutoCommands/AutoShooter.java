@@ -4,8 +4,6 @@
 
 package frc.robot.commands.AutoCommands;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -16,7 +14,6 @@ public class AutoShooter extends Command {
   ShooterSubsystem shooter;
   IntakeSubsystem intake;
   ArmSubsystem arm;
-  Timer timer = new Timer();
   
 
   public AutoShooter(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm) {
@@ -31,7 +28,6 @@ public class AutoShooter extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,7 +37,7 @@ public class AutoShooter extends Command {
     if (arm.isInPosition()){
     shooter.setupperSpeed(4000);
     shooter.setlowerSpeed(4000);
-      if (shooter.getRPM() >= 3500){   
+      if (shooter.getRPM() > 3100){   
       intake.startIntaking();
       } 
     }
@@ -57,10 +53,12 @@ public class AutoShooter extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-        if(timer.get() > 1){
+        if(!intake.noteInside()){
           return true;
         }
-        return false;
+        else{
+          return false;
+        }
   
   }
 

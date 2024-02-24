@@ -10,14 +10,14 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ShooterCommand extends Command {
+public class ShooterTrapCommand extends Command {
 
   ShooterSubsystem shooter;
   IntakeSubsystem intake;
   ArmSubsystem arm;
   
 
-  public ShooterCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm) {
+  public ShooterTrapCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm) {
 
     this.shooter = shooter;
     this.intake = intake;
@@ -35,9 +35,9 @@ public class ShooterCommand extends Command {
   public void execute() {
   
     if (arm.isInPosition()){
-    shooter.setupperSpeed(4000);
-    shooter.setlowerSpeed(4000);
-      if (shooter.getRPM() >= 3200){   
+    shooter.setupperSpeed(3300);
+    shooter.setlowerSpeed(3300);
+      if (shooter.getRPM() >= 2500){   
       intake.startIntaking();
       } 
     }

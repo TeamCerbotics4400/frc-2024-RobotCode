@@ -48,6 +48,18 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "AutoAim"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Traverse to 2nd Note"

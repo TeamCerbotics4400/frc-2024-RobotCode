@@ -9,6 +9,7 @@ import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -37,6 +38,9 @@ public class ShooterSubsystem extends SubsystemBase {
     lowerConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
 //Put kbrake
+    upperConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    lowerConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
     upperConfig.Slot0.kP = ShooterConstants.lkP;
     upperConfig.Slot0.kI = ShooterConstants.lkI;
     upperConfig.Slot0.kD = ShooterConstants.lkD; 
@@ -59,8 +63,7 @@ public class ShooterSubsystem extends SubsystemBase {
     if (upperSetPoint != uRPM){upperSetPoint = uRPM;}
     if (lowerSetPoint != lRPM){lowerSetPoint = lRPM;}*/
 
-    SmartDashboard.putNumber("Current upper RPM", upperFlyWheel.getVelocity().getValueAsDouble() * 60);
-    SmartDashboard.putNumber("Current lower RPM", lowerFlyWheel.getVelocity().getValueAsDouble() * 60);
+    SmartDashboard.putNumber("Current shooter rpm", getRPM());
     SmartDashboard.putNumber("Current voltage",getVoltage());
 
     /*SmartDashboard.putNumber("upper RPM", upperSetPoint);
@@ -77,6 +80,10 @@ public class ShooterSubsystem extends SubsystemBase {
     lowerFlyWheel.setControl(lowerVelocity);
   }
 
+  public void setBothSpeeds(){
+    setlowerSpeed(lowerSetPoint);
+    setupperSpeed(upperSetPoint);
+  }
   public void stopupper(){
     upperFlyWheel.set(0);
   }
@@ -102,4 +109,5 @@ public class ShooterSubsystem extends SubsystemBase {
   public double getVoltage(){
     return filter.calculate(lowerFlyWheel.getSupplyCurrent().getValueAsDouble());
   }
+
 }

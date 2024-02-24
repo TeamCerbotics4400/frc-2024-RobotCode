@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import javax.swing.GroupLayout.ParallelGroup;
+
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
@@ -11,6 +13,7 @@ import edu.wpi.first.math.kinematics.proto.ChassisSpeedsProto;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -21,6 +24,7 @@ import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.commands.ShooterCommands.ShooterAMPCommand;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
+import frc.robot.commands.ShooterCommands.ShooterTrapCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveTrain;
@@ -31,6 +35,7 @@ import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.TeleopControl;
 import frc.robot.commands.ArmCommands.ArmToPose;
+import frc.robot.commands.AutoCommands.AutoOutake;
 import frc.robot.commands.AutoCommands.AutoShooter;
 import frc.robot.commands.ClimberCommands.ClimberCommand;
 import frc.robot.commands.ClimberCommands.DescendCommand;
@@ -62,24 +67,25 @@ public class RobotContainer {
     () -> true));
 
     //Idle Arm
-    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(160));
+    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
     //Shoot
     NamedCommands.registerCommand("AutoShoot", 
     new ParallelDeadlineGroup(
-      new AutoShooter(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.0)), 
+      new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2))
       new ArmToPose(m_arm, 
       () -> m_arm.getAngleForDistance(
         LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ()))));
 
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
-      new AutoShooter(m_shooter, m_intake,m_arm).raceWith(new WaitCommand(1.5)), 
-      m_arm.goToPosition(160.0)));
-    //Intake
+      new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2.5))
+      new ArmToPose(m_arm, 
+      () -> m_arm.getAngleForDistance(
+        LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ()))));    //Intake
     NamedCommands.registerCommand("Intake", 
-    new ParallelDeadlineGroup(
-      new IntakeCommand(m_intake,m_shooter), 
-      m_arm.goToPosition(180)));
+    new ParallelCommandGroup(
+      new IntakeCommand(m_intake,m_shooter), new AutoOutake(m_intake), 
+      m_arm.goToPosition(179)));
     //Aim
     NamedCommands.registerCommand("AutoAim", 
       new ParallelRaceGroup(new AutoAim(m_drive), new WaitCommand(1)));
@@ -91,8 +97,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("FarTracking", 
     new InstantCommand(
       () -> m_drive.getVisionSubsystem().setCameraPipeline(VisionConstants.far_Pipeline)));
-   
-    configureBindings();
+       configureBindings();
   }
 
   /**
@@ -105,18 +110,24 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-
+    //Joystick 1
       new JoystickButton(chassisDriver, 1).onTrue(
       new InstantCommand(() -> m_drive.zeroHeading()));
-
-            new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
+      new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
 
       new JoystickButton(chassisDriver, 5)
       .whileTrue(m_arm.goToPosition(179.0)
       .alongWith(new IntakeCommand(m_intake,m_shooter)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
 
+      new JoystickButton(chassisDriver, 4).whileTrue(new AutoOutake(m_intake));
 
+        // Joystick 2   //Añadir maquina de estados
+      new JoystickButton(subsystemsDriver, 1).whileTrue(m_arm.goToPosition(93)); 
+      new JoystickButton(subsystemsDriver, 2).whileTrue(new OutakeCommand(m_intake));
+      new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
+      new JoystickButton(subsystemsDriver, 4).whileTrue((new ClimberCommand(m_climber)));
+      new JoystickButton(subsystemsDriver, 5).whileTrue(new ShooterAMPCommand(m_shooter, m_intake));
       new JoystickButton(subsystemsDriver, 6)
       .whileTrue(new ArmToPose(m_arm, 
       () -> m_arm.getAngleForDistance(
@@ -124,16 +135,10 @@ public class RobotContainer {
       .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
       .whileFalse(m_arm.goToPosition(160));
 
+      new JoystickButton(subsystemsDriver, 7).whileTrue(m_arm.goToPosition(170).alongWith(new ShooterTrapCommand(m_shooter, m_intake, m_arm)));
+            //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));        
 
-      new JoystickButton(subsystemsDriver, 1).whileTrue(m_arm.goToPosition(93)); 
-      new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
 
-     
-     new JoystickButton(subsystemsDriver, 4).whileTrue((new ClimberCommand(m_climber)));
-
-      new JoystickButton(subsystemsDriver, 5).whileTrue(new ShooterAMPCommand(m_shooter, m_intake));
-      //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));
-      new JoystickButton(subsystemsDriver, 2).whileTrue(new OutakeCommand(m_intake));
   }
 
   /**

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.58,
-        "y": 6.879621646567236
+        "x": 2.52,
+        "y": 6.92
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1308101460406617,
-        "y": 6.90685996756609
+        "x": 1.0708101460406616,
+        "y": 6.947238320998854
       },
       "isLocked": false,
       "linkedName": null
@@ -59,12 +59,6 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoShoot"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
                 "name": "Intake"
               }
             }
@@ -74,7 +68,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.5,
+    "maxVelocity": 5.4,
     "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
