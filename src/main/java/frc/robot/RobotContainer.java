@@ -8,6 +8,7 @@ import javax.swing.GroupLayout.ParallelGroup;
 
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.kinematics.proto.ChassisSpeedsProto;
 import edu.wpi.first.wpilibj.Joystick;
@@ -148,8 +149,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Steal and 2");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("A.chor");//m_autoChooser.getSelected();
   }
+
 
   public DriveTrain getDrive(){
     return m_drive;

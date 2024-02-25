@@ -3,9 +3,6 @@
   "robotLength": 0.6096,
   "holonomicMode": true,
   "pathFolders": [
-    "CrescendoTest1",
-    "CrescendoTest2",
-    "CrescendoTest3",
     "Fun Autos",
     "Mike Test",
     "PID Tuning",
