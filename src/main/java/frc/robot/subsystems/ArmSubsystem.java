@@ -75,7 +75,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     // Start arm at rest in neutral position
     setGoal(90.3);
 
-    this.m_controller.setIZone(20);
+    //   this.m_controller.setIZone(20);
 
     leftMotor.restoreFactoryDefaults();
     rightMotor.restoreFactoryDefaults();
@@ -137,7 +137,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return m_encoder.getDistance() - 137.0;
+    return m_encoder.getDistance() - 133 ;//139
   }
 
   public double getAngleForDistance(double distance){
