@@ -112,7 +112,7 @@ public class RobotContainer {
       new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
 
       new JoystickButton(chassisDriver, 6)
-      .whileTrue(m_arm.goToPosition(180.0)
+      .whileTrue(m_arm.goToPosition(178.0)
       .alongWith(new IntakeCommand(m_intake,m_shooter)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
 

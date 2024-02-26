@@ -194,7 +194,8 @@ public final class Constants {
     public static byte LEFT_ARM_ID = 9;   //9
     public static byte RIGHT_ARM_ID = 10;  //10
 
-    public static int ABSOLUTE_ENCODER_PORT = 3;
+    //Changed to CANCoder
+    public static int ABSOLUTE_ENCODER_ID = 11;
 
     public static double ARM_GEARBOX = 320.0 / 1.0;
 
@@ -215,13 +216,6 @@ public final class Constants {
     public static double IDLE_UNDER_STAGE = 170.0;
     
     public static double ARM_THRESHOLD = 1.5;
-
-    public static final byte TELESCOPE_ID = 11;
-    public static final int TELESCOPING_GEAR_RATIO = 0;
-    public static double kTP = 0,
-                         kTI = 0,
-                         kTD = 0,
-                         kTFF = 0; 
   }
 
   public static final class ClimberConstants{

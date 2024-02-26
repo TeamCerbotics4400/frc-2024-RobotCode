@@ -4,6 +4,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
+import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -34,8 +38,13 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   private final CANSparkMax leftMotor = new CANSparkMax(ArmConstants.LEFT_ARM_ID, MotorType.kBrushless);
   private final CANSparkMax rightMotor = new CANSparkMax(ArmConstants.RIGHT_ARM_ID, MotorType.kBrushless);
 
-  private final DutyCycleEncoder m_encoder =
-      new DutyCycleEncoder(ArmConstants.ABSOLUTE_ENCODER_PORT);
+  /*private final DutyCycleEncoder m_encoder =
+      new DutyCycleEncoder(ArmConstants.ABSOLUTE_ENCODER_PORT);*/
+
+  private final CANcoder m_encoder = new CANcoder(ArmConstants.ABSOLUTE_ENCODER_ID, "rio");
+
+  CANcoderConfiguration encoderConfig = new CANcoderConfiguration();
+
   private final ArmFeedforward m_feedforward =
       new ArmFeedforward(
           ArmConstants.kS, ArmConstants.kG,
@@ -71,7 +80,16 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
         95.0);
     
     //Makes the Arm absolute Encoder return every rotation as angles
-    m_encoder.setDistancePerRotation(-360.0);
+    //Check encoder direction
+    encoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
+    encoderConfig.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
+    encoderConfig.MagnetSensor.MagnetOffset = 0.0;
+
+    m_encoder.getPosition().setUpdateFrequency(100);
+
+    m_encoder.getConfigurator().apply(encoderConfig);
+    //m_encoder.setPosition(0.4);
+    
     // Start arm at rest in neutral position
     setGoal(90.3);
 
@@ -89,8 +107,8 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     leftMotor.setCANTimeout(0);
     rightMotor.setCANTimeout(0);
 
-    rightMotor.setIdleMode(IdleMode.kBrake);
-    leftMotor.setIdleMode(IdleMode.kBrake);//change do break
+    rightMotor.setIdleMode(IdleMode.kCoast);
+    leftMotor.setIdleMode(IdleMode.kCoast);//change do break
 
     SmartDashboard.putNumber("Arm kP", akP);
     SmartDashboard.putNumber("Arm kI", akI);
@@ -110,10 +128,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       SmartDashboard.putNumber("Arm SetPoint Pos", this.getController().getSetpoint().position);
 
       SmartDashboard.putNumber("Arm Pose Error", this.getController().getPositionError());
-
-      overAngle();
-
-      safetyDisable();
 
       double akP = SmartDashboard.getNumber("Arm kP", ArmConstants.kP),
              akI = SmartDashboard.getNumber("Arm kI", ArmConstants.kI),
@@ -136,7 +150,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return m_encoder.getDistance() + 117;  //check offset
+    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360) - 55;
   }
 
   public double getAngleForDistance(double distance){
@@ -156,7 +170,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   }
 
   public boolean overAngle(){
-    if(this.m_enabled && (getMeasurement() > 184 || getMeasurement() < 90)){
+    if(this.m_enabled && (getMeasurement() > 181 || getMeasurement() < 89)){
       return true;
     } else {
       return false;

@@ -20,8 +20,7 @@ public class ShooterSubsystem extends SubsystemBase {
   TalonFX upperFlyWheel = new TalonFX(ShooterConstants.UPPER_MOTOR_ID, "rio"); //14  upper-upper
   TalonFX lowerFlyWheel = new TalonFX(ShooterConstants.LOWER_MOTOR_ID, "rio");  //13   down-lower
   LinearFilter filter = LinearFilter.singlePoleIIR(0.1, 0.02);
-
-
+  
   TalonFXConfiguration upperConfig = new TalonFXConfiguration();
   TalonFXConfiguration lowerConfig = new TalonFXConfiguration();
 
