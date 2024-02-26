@@ -66,24 +66,25 @@ public class RobotContainer {
     () -> true));
 
     //Idle Arm
-    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
+   // NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
     //Shoot
     NamedCommands.registerCommand("AutoShoot", 
-    new ParallelDeadlineGroup(
-      new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2))
-      new ArmToPose(m_arm, m_selector)));
+    //new ParallelDeadlineGroup(
+      new AutoShooter(m_shooter, m_intake,m_arm)); //.raceWith(new WaitCommand(2))
+     // new ArmToPose(m_arm, m_selector)));
 
     NamedCommands.registerCommand("SubwooferShoot", 
-    new ParallelDeadlineGroup(
-      new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2.5))
-      new ArmToPose(m_arm, m_selector)));    //Intake
+    //new ParallelDeadlineGroup(
+      new AutoShooter(m_shooter, m_intake,m_arm)); //.raceWith(new WaitCommand(2.5))
+    //  new ArmToPose(m_arm, m_selector)));    //Intake
     NamedCommands.registerCommand("Intake", 
-    new ParallelCommandGroup(
-      new IntakeCommand(m_intake,m_shooter), new AutoOutake(m_intake), 
-      m_arm.goToPosition(179)));
+    //new ParallelCommandGroup(
+      new IntakeCommand(m_intake,m_shooter));
+    //  m_arm.goToPosition(179)));
     //Aim
     NamedCommands.registerCommand("AutoAim", 
-      new ParallelRaceGroup(new AutoAim(m_drive), new WaitCommand(1)));
+      new ParallelRaceGroup(
+        new AutoAim(m_drive), new WaitCommand(1)));
     //Change Pipelines
     NamedCommands.registerCommand("MainTracking", 
     new InstantCommand(
@@ -111,7 +112,7 @@ public class RobotContainer {
       new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
 
       new JoystickButton(chassisDriver, 6)
-      .whileTrue(m_arm.goToPosition(177.0)
+      .whileTrue(m_arm.goToPosition(180.0)
       .alongWith(new IntakeCommand(m_intake,m_shooter)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
 
@@ -125,7 +126,7 @@ public class RobotContainer {
 
 
       new JoystickButton(subsystemsDriver, 1).whileTrue(m_arm.goToPosition(93)); 
-      new JoystickButton(subsystemsDriver, 2).whileTrue(new OutakeCommand(m_intake));
+      new JoystickButton(subsystemsDriver, 2).whileTrue(new OutakeCommand(m_intake, m_shooter));
       new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
       new JoystickButton(subsystemsDriver, 4).whileTrue((new ClimberCommand(m_climber)));
       new JoystickButton(subsystemsDriver, 6)
@@ -143,7 +144,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("A.chor");//m_autoChooser.getSelected();
+    return new PathPlannerAuto("Interpolated Auto");//m_autoChooser.getSelected();
   }
 
 

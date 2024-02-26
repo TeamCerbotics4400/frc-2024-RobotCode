@@ -34,13 +34,12 @@ public class AutoShooter extends Command {
   @Override
   public void execute() {
   
-    if (arm.isInPosition()){
     shooter.setupperSpeed(4000);
     shooter.setlowerSpeed(4000);
       if (shooter.getRPM() > 3100){   
       intake.startIntaking();
       } 
-    }
+    
   }
   // Called once the command ends or is interrupted.
   @Override

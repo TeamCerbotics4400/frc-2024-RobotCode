@@ -6,13 +6,17 @@ package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class OutakeCommand extends Command {
   /** Creates a new OutakeCommand. */
   IntakeSubsystem intake;
-  public OutakeCommand(IntakeSubsystem intake) {
+  ShooterSubsystem shooter;
+
+  public OutakeCommand(IntakeSubsystem intake, ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
+    this.shooter = shooter;
 
     addRequirements(intake);
   }
@@ -26,12 +30,17 @@ public class OutakeCommand extends Command {
   @Override
   public void execute() {
     intake.startOutaking();
+    shooter.setlowerSpeed(-500);
+    shooter.setupperSpeed(-500);
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     intake.stopIntaking();
+    shooter.stoplower();
+    shooter.stopupper();
   }
 
   // Returns true when the command should end.

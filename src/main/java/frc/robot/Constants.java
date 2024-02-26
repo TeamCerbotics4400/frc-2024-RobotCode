@@ -116,8 +116,8 @@ public final class Constants {
     }
 
     public static final class Module3{
-      public static final int DRIVE_ID = 7;
-      public static final int TURN_ID = 8;
+      public static final int DRIVE_ID = 8;
+      public static final int TURN_ID = 7;
       public static final boolean driveReversed = true;
       public static final boolean turnReversed = true;
       public static final int ABSOLUTE_ID = 2;

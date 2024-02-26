@@ -38,7 +38,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": "AutoShoot"
           }
         },
         {
@@ -56,7 +56,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": "AutoShoot"
           }
         },
         {
@@ -74,7 +74,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
+            "name": "AutoShoot"
           }
         },
         {

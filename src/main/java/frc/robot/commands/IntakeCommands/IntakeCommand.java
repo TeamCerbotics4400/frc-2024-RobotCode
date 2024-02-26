@@ -12,6 +12,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class IntakeCommand extends Command {
   /** Creates a new IntakeCommand. */
   IntakeSubsystem intake;
+  ShooterSubsystem shooter;
 
   public IntakeCommand(IntakeSubsystem intake, ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.

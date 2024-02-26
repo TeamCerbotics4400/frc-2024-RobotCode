@@ -47,11 +47,11 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     kDistanceToArmAngle = new InterpolatingTreeMap<>();
 
   static{ //Added offset of 5 degrees of all angles because of mechanical problems
-    kDistanceToArmAngle.put(new InterpolatingDouble(1.66),  new InterpolatingDouble(155.0));
-    kDistanceToArmAngle.put(new InterpolatingDouble(2.05),  new InterpolatingDouble(148.0)); 
-    kDistanceToArmAngle.put(new InterpolatingDouble(2.60),  new InterpolatingDouble(138.0));
-    kDistanceToArmAngle.put(new InterpolatingDouble(3.51),  new InterpolatingDouble(132.0));
-    kDistanceToArmAngle.put(new InterpolatingDouble(4.35),  new InterpolatingDouble(129.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(1.66),  new InterpolatingDouble(160.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(2.05),  new InterpolatingDouble(153.0)); 
+    kDistanceToArmAngle.put(new InterpolatingDouble(2.60),  new InterpolatingDouble(143.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(3.51),  new InterpolatingDouble(137.0));
+    kDistanceToArmAngle.put(new InterpolatingDouble(4.35),  new InterpolatingDouble(134.0));
   }
 
   boolean onTarget;
@@ -136,7 +136,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return m_encoder.getDistance()+117;
+    return m_encoder.getDistance() + 117;  //check offset
   }
 
   public double getAngleForDistance(double distance){
@@ -182,4 +182,5 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     m_tpState.position = Units.degreesToRadians(setpoint);
     setGoal(setpoint);
   }
+
 }

@@ -22,7 +22,7 @@ public class IntakeSubsystem extends SubsystemBase {
   CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_ID,MotorType.kBrushless);
   SparkPIDController intakeController = intakeMotor.getPIDController();
 
-  public  DigitalInput intakeSensor = new DigitalInput(2); //Check what channel the sensor will be  on
+  public  DigitalInput intakeSensor = new DigitalInput(1); //Check what channel the sensor will be  on
 
   RelativeEncoder intakeEncoder;
 
@@ -53,7 +53,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void startOutaking(){
-    intakeMotor.set(1);
+    intakeMotor.set(0.5);
   }
 
   public void smallOutake(){
