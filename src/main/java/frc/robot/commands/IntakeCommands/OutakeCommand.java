@@ -29,7 +29,7 @@ public class OutakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.startOutaking();
+    intake.smallOutake();
     shooter.setlowerSpeed(-500);
     shooter.setupperSpeed(-500);
 

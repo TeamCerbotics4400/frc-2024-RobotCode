@@ -129,11 +129,11 @@ public class RobotContainer {
       new JoystickButton(subsystemsDriver, 2).whileTrue(new OutakeCommand(m_intake, m_shooter));
       new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
       new JoystickButton(subsystemsDriver, 4).whileTrue((new ClimberCommand(m_climber)));
-      new JoystickButton(subsystemsDriver, 6)
+       new JoystickButton(subsystemsDriver, 6)
       .whileTrue(new ArmToPose(m_arm, m_selector)
       .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm,m_selector)))
       .whileFalse(m_arm.goToPosition(160));
-
+   //   new JoystickButton(subsystemsDriver, 6).whileTrue(m_arm.goToPosition(135).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm, m_selector)));
             //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));        
   }
 
