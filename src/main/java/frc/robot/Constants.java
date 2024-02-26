@@ -194,7 +194,7 @@ public final class Constants {
     public static byte LEFT_ARM_ID = 9;   //9
     public static byte RIGHT_ARM_ID = 10;  //10
 
-    public static int ABSOLUTE_ENCODER_PORT = 5;
+    public static int ABSOLUTE_ENCODER_PORT = 3;
 
     public static double ARM_GEARBOX = 320.0 / 1.0;
 
@@ -202,8 +202,8 @@ public final class Constants {
                          kI = 0.03,
                          kD = 0.0039,
                          kFF = 0.0,
-                         kMaxVelocityRadPerSecond = 500,
-                         kMaxAccelerationMetersPerSecondSquared = 500,
+                         kMaxVelocityRadPerSecond = 500, 
+                         kMaxAccelerationMetersPerSecondSquared = 500, 
                          kS = 0.013804,
                          kV = 0.00028699,
                          kA = 0.00052411,
