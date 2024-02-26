@@ -100,7 +100,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       super.periodic();
 
       SmartDashboard.putNumber("Arm Angle", getMeasurement());
-      SmartDashboard.putNumber("Encoder channel", getEncoderChannel());
 
       SmartDashboard.putBoolean("Over Angle", overAngle());
 
@@ -135,7 +134,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return m_encoder.getDistance() - 137.0;
+    return m_encoder.getDistance() - 133.0;
   }
 
   public double getAngleForDistance(double distance){
@@ -176,13 +175,9 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public boolean isInPosition(){
     return isWithinThreshold(getMeasurement(), getController().getGoal().position, ArmConstants.ARM_THRESHOLD);
   }
+  
   public void updateArmSetpoint(double setpoint){
     m_tpState.position = Units.degreesToRadians(setpoint);
     setGoal(setpoint);
   }
-
-  public int getEncoderChannel(){
-    return m_encoder.getSourceChannel();
-}
-
 }

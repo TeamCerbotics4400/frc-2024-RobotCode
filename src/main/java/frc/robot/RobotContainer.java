@@ -4,12 +4,10 @@
 
 package frc.robot;
 
-import javax.swing.GroupLayout.ParallelGroup;
 
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import edu.wpi.first.math.kinematics.proto.ChassisSpeedsProto;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -116,7 +114,7 @@ public class RobotContainer {
       new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
 
       new JoystickButton(chassisDriver, 5)
-      .whileTrue(m_arm.goToPosition(179.0)
+      .whileTrue(m_arm.goToPosition(177.0)
       .alongWith(new IntakeCommand(m_intake,m_shooter)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
 
