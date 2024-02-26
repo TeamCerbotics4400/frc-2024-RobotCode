@@ -11,15 +11,11 @@ import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.util.datalog.DoubleLogEntry;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.VisionConstants;
-import frc.robot.subsystems.IntakeSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -35,9 +31,7 @@ public class Robot extends TimedRobot {
 
   StructArrayPublisher<SwerveModuleState> measuredStates;
 
-  private Timer timer = new Timer();
 
-  private final Joystick chassisDriver = new Joystick(0);
 
   /**
    * This function is run when the robot is first started up and should be used for any

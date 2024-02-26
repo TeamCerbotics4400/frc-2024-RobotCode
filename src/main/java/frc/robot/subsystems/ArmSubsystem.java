@@ -71,7 +71,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
         95.0);
     
     //Makes the Arm absolute Encoder return every rotation as angles
-    m_encoder.setDistancePerRotation(360.0);
+    m_encoder.setDistancePerRotation(-360.0);
     // Start arm at rest in neutral position
     setGoal(90.3);
 

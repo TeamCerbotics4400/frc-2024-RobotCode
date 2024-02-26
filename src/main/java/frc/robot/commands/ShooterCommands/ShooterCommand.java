@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.POVSelector;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterCommand extends Command {
@@ -15,13 +16,15 @@ public class ShooterCommand extends Command {
   ShooterSubsystem shooter;
   IntakeSubsystem intake;
   ArmSubsystem arm;
+  POVSelector selector;
   
 
-  public ShooterCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm) {
+  public ShooterCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm, POVSelector selector) {
 
     this.shooter = shooter;
     this.intake = intake;
     this.arm = arm;
+    this.selector = selector;
 
     addRequirements(shooter, intake);
   }
@@ -33,14 +36,30 @@ public class ShooterCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  
-    if (arm.isInPosition()){
-    shooter.setupperSpeed(4000);
-    shooter.setlowerSpeed(4000);
-      if (shooter.getRPM() >= 3200){   
+    switch(selector.getShooterName()){
+      case "AMP":
+      shooter.setupperSpeed(2000);
+      shooter.setlowerSpeed(500);
       intake.startIntaking();
-      } 
-    }
+      break;
+      case "Speaker":
+          if (arm.isInPosition()){
+       shooter.setupperSpeed(4000);
+       shooter.setlowerSpeed(4000);
+          if (shooter.getRPM() >= 3200){   
+             intake.startIntaking();
+          }
+        }
+      break;
+      case "Trap":
+          if (arm.isInPosition()){
+        shooter.setupperSpeed(3300);
+        shooter.setlowerSpeed(3300);
+          if (shooter.getRPM() >= 2500){   
+          intake.startIntaking();
+          } 
+         }
+        }
   }
   // Called once the command ends or is interrupted.
   @Override

@@ -4,28 +4,31 @@
 
 package frc.robot.commands.ArmCommands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.POVSelector;
 
 public class ArmToPose extends Command {
   /** Creates a new ArmToPose. */
   ArmSubsystem m_arm;
-  DoubleSupplier m_angle;
+  POVSelector m_selector;
   double angle = 0.0;
 
-  public ArmToPose(ArmSubsystem m_arm, DoubleSupplier m_angle) {
+  public ArmToPose(ArmSubsystem m_arm, POVSelector m_selector) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_arm = m_arm;
-    this.m_angle = m_angle;
+    this.m_selector = m_selector;
 
     addRequirements(m_arm);
   }
 
-  // Called when the command is initially scheduled.
+  public ArmToPose(ArmSubsystem m_arm2, Object object, POVSelector m_selector2) {
+    //TODO Auto-generated constructor stub
+}
+
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
     if(!m_arm.isEnabled()){m_arm.enable();}
@@ -34,15 +37,29 @@ public class ArmToPose extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(LimelightHelpers.getTV(VisionConstants.tagLimelightName) == true || LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ() <= 4.35){
+    switch(m_selector.getShooterName()){
+      case "Speaker":
+      if(LimelightHelpers.getTV(VisionConstants.tagLimelightName) == true || LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ() <= 4.35){
+         angle = m_arm.getAngleForDistance(LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ());
+        }
+       else {
+           angle = 160.0;
+        }
+     break;
 
-     angle = m_angle.getAsDouble();
+     case "AMP":
+          //Arm should be in 90 degrees when using this option
+     break;
+
+      case "Trap":
+        angle = 177.0;
+      break; 
+      }  
+      
+     m_arm.updateArmSetpoint(angle);
+    
     }
-    else {
-       angle = 160.0;
-    }
-    m_arm.updateArmSetpoint(angle);
-  }
+  
 
   // Called once the command ends or is interrupted.
   @Override
