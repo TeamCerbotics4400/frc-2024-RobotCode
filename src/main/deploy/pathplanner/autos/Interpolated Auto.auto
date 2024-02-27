@@ -38,7 +38,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShoot"
+            "name": null
           }
         },
         {
@@ -56,7 +56,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShoot"
+            "name": null
           }
         },
         {
@@ -74,7 +74,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShoot"
+            "name": null
           }
         },
         {
@@ -86,6 +86,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "4 Note",
   "choreoAuto": false
 }

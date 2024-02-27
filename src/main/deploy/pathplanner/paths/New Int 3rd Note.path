@@ -55,9 +55,9 @@
     {
       "name": "New Constraints Zone",
       "minWaypointRelativePos": 0.4,
-      "maxWaypointRelativePos": 1.0,
+      "maxWaypointRelativePos": 1.65,
       "constraints": {
-        "maxVelocity": 1.0,
+        "maxVelocity": 0.75,
         "maxAcceleration": 1.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0
@@ -77,6 +77,12 @@
               "data": {
                 "name": "Intake"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "Shoot"
+              }
             }
           ]
         }
@@ -91,7 +97,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 6.870173534169115,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,

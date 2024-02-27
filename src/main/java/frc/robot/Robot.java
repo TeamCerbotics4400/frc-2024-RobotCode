@@ -116,12 +116,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if(m_robotContainer.getIntake().noteInside()){
-      m_robotContainer.setIntakeRumble();
-    } else {
-      m_robotContainer.getRumbleTimer().stop();
-      m_robotContainer.getRumbleTimer().reset();
-    }
   }
     
   @Override

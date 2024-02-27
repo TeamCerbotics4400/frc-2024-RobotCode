@@ -3,41 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2,
-        "y": 5.78
+        "x": 1.64,
+        "y": 5.37
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5722169626157434,
-        "y": 6.511464659292955
+        "x": 1.5467125406978086,
+        "y": 4.828932736047291
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.3328624118018553,
-        "y": 6.850839379282182
+        "x": 2.3,
+        "y": 4.49
       },
       "prevControl": {
-        "x": 2.015685050174405,
-        "y": 6.906811854863497
+        "x": 1.7774493730805643,
+        "y": 4.832290391853511
       },
       "nextControl": {
-        "x": 2.4354000709752017,
-        "y": 6.832744498251592
+        "x": 2.822550626919435,
+        "y": 4.1477096081464895
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.019996767266262,
-        "y": 6.073013600572656
+        "x": 1.64,
+        "y": 5.37
       },
       "prevControl": {
-        "x": 2.9622001062183947,
-        "y": 6.89394324243194
+        "x": 2.2438391950575256,
+        "y": 5.420642291666263
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,16 +46,28 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.35,
-      "rotationDegrees": 18.64987758833054,
+      "waypointRelativePos": 1.1,
+      "rotationDegrees": -35.55038688383442,
       "rotateFast": false
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 1.1,
+      "maxWaypointRelativePos": 2.0,
+      "constraints": {
+        "maxVelocity": 0.5,
+        "maxAcceleration": 1.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0,
       "command": {
         "type": "sequential",
         "data": {
@@ -69,7 +81,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ArmIdle"
+                "name": "Shoot"
               }
             }
           ]
@@ -85,11 +97,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "New interpolated",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

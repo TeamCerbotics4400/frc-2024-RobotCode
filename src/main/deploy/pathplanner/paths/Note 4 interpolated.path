@@ -89,7 +89,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "New interpolated",
   "previewStartingState": {
     "rotation": 1.0678134384056204,
     "velocity": 0

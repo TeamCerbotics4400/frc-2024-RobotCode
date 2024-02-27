@@ -5,13 +5,16 @@
   "pathFolders": [
     "Fun Autos",
     "Mike Test",
-    "Steal 3",
+    "New interpolated",
     "PID Tuning",
-    "Pre-Defined Paths"
+    "Pre-Defined Paths",
+    "Steal "
   ],
   "autoFolders": [
-    "Crescendo",
-    "PID Tuning"
+    "PID Tuning",
+    "Steal",
+    "Complement",
+    "4 Note"
   ],
   "defaultMaxVel": 5.4,
   "defaultMaxAccel": 2.0,

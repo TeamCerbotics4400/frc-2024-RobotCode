@@ -640,7 +640,7 @@
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Auto Chooser",
-              "_title": "/SmartDashboard/Auto Chooser",
+              "_title": "SmartDashboard/Auto Chooser",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -653,7 +653,7 @@
             "content": {
               "_type": "Boolean Box",
               "_source0": "network_table:///FMSInfo/IsRedAlliance",
-              "_title": "/FMSInfo/IsRedAlliance",
+              "_title": "FMSInfo/IsRedAlliance",
               "_glyph": 148,
               "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
@@ -668,7 +668,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///FMSInfo/MatchNumber",
-              "_title": "/FMSInfo/MatchNumber",
+              "_title": "FMSInfo/MatchNumber",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -694,7 +694,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///FMSInfo/EventName",
-              "_title": "/FMSInfo/EventName",
+              "_title": "FMSInfo/EventName",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -707,7 +707,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Auto Chooser/active",
-              "_title": "/SmartDashboard/Auto Chooser/active",
+              "_title": "SmartDashboard/Auto Chooser/active",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -776,7 +776,72 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Distance to current target",
-              "_title": "/SmartDashboard/Distance to current target",
+              "_title": "SmartDashboard/Distance to current target",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Upper RPM ",
+              "_title": "SmartDashboard/Upper RPM ",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Lower RPM",
+              "_title": "SmartDashboard/Lower RPM",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Lower KD",
+              "_title": "SmartDashboard/Lower KD",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Upper KD",
+              "_title": "SmartDashboard/Upper KD",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/UPPER KP",
+              "_title": "SmartDashboard/UPPER KP",
               "_glyph": 148,
               "_showGlyph": false
             }

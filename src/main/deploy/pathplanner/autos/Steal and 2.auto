@@ -38,7 +38,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShoot"
+            "name": null
           }
         },
         {
@@ -56,7 +56,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShoot"
+            "name": null
           }
         },
         {
@@ -74,12 +74,12 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShoot"
+            "name": null
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Steal",
   "choreoAuto": false
 }

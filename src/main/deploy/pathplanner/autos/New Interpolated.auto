@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "MainTracking"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SubwooferShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "New Int 2nd Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "New Int 3rd Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "New Int 4th Note"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ArmIdle"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "4 Note",
+  "choreoAuto": false
+}

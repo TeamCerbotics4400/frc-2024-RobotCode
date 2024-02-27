@@ -174,14 +174,18 @@ public final class Constants {
     public static byte UPPER_MOTOR_ID = 14;
     public static byte LOWER_MOTOR_ID = 13;
 
-    public static double lkP = 0.02,     //For low rpm: 0.046
-                         lkI = 0,         // 0
-                         lkD = 0.00019,    //0.0003
-                         lkFF = 0.112,    //0.128
-                         rkP = 0.01,     //0.004
-                         rkI = 0,         //0
-                         rkD = 0.00019,    //0.0005
-                         rkFF = 0.112;   //0.1175
+    public static double ukP = 0.9,     //For low rpm: 0.046
+                         ukI = 0,         // 0
+                         ukD = 0.0,    //0.0003
+                         ukS = 0.50189,
+                         ukV = 0.0016926,
+                         ukA = 0.00059492,    //0.128
+                         lkP = 0.9,     //0.004
+                         lkI = 0,         //0
+                         lkD = 0.0,    //0.0005
+                         lkS = 0.50189,
+                         lkV = 0.0016926,
+                         lkA = 0.00059492;
 
     public static double SHOOTER_THRESHOLD = 150;            
   }

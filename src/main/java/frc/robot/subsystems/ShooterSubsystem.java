@@ -17,8 +17,8 @@ import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new Shooter. */
-  TalonFX upperFlyWheel = new TalonFX(ShooterConstants.UPPER_MOTOR_ID, "rio"); //14  upper-upper
-  TalonFX lowerFlyWheel = new TalonFX(ShooterConstants.LOWER_MOTOR_ID, "rio");  //13   down-lower
+  TalonFX upperFlyWheel = new TalonFX(ShooterConstants.UPPER_MOTOR_ID, "rio"); 
+  TalonFX lowerFlyWheel = new TalonFX(ShooterConstants.LOWER_MOTOR_ID, "rio");  
   LinearFilter filter = LinearFilter.singlePoleIIR(0.1, 0.02);
   
   TalonFXConfiguration upperConfig = new TalonFXConfiguration();
@@ -27,45 +27,62 @@ public class ShooterSubsystem extends SubsystemBase {
   private final VelocityVoltage upperVelocity = new VelocityVoltage(0);
   private final VelocityVoltage lowerVelocity = new VelocityVoltage(0);
 
-  double upperSetPoint = 1000, lowerSetPoint = 1000;
-  double pkP = 0, pKd = 0;
+  double uKp = 0.0,
+                 uKd = 0.0,
+                 lKp = 0.0,
+                 lKd = 0.0;
 
 
   public ShooterSubsystem() {
     upperConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;  
     lowerConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
-//Put kbrake
     upperConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     lowerConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    upperConfig.Slot0.kP = ShooterConstants.lkP;
-    upperConfig.Slot0.kI = ShooterConstants.lkI;
-    upperConfig.Slot0.kD = ShooterConstants.lkD; 
-    upperConfig.Slot0.kV = ShooterConstants.lkFF; 
-    lowerConfig.Slot0.kP = ShooterConstants.rkP; 
-    lowerConfig.Slot0.kI = ShooterConstants.rkI;
-    lowerConfig.Slot0.kD = ShooterConstants.rkD; 
-    lowerConfig.Slot0.kV = ShooterConstants.rkFF;
+    upperConfig.Slot0.kP = ShooterConstants.ukP;
+    upperConfig.Slot0.kI = ShooterConstants.ukI;
+    upperConfig.Slot0.kD = ShooterConstants.ukD; 
+    upperConfig.Slot0.kS = ShooterConstants.ukS;
+    upperConfig.Slot0.kV = ShooterConstants.ukV; 
+    upperConfig.Slot0.kA = ShooterConstants.ukA;
+
+    lowerConfig.Slot0.kP = ShooterConstants.lkP; 
+    lowerConfig.Slot0.kI = ShooterConstants.lkI;
+    lowerConfig.Slot0.kD = ShooterConstants.lkD; 
+    lowerConfig.Slot0.kS = ShooterConstants.lkS;
+    lowerConfig.Slot0.kV = ShooterConstants.lkV;
+    lowerConfig.Slot0.kA = ShooterConstants.lkA;
   
     upperFlyWheel.getConfigurator().apply(upperConfig);
     lowerFlyWheel.getConfigurator().apply(lowerConfig);
+
+    /*SmartDashboard.putNumber("UPPER KP", uKp);
+    SmartDashboard.putNumber("Upper KD", uKd);
+    SmartDashboard.putNumber("LOWER KP", lKp);
+    SmartDashboard.putNumber("Lower KD", lKd);*/
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-     /*  double uRPM = SmartDashboard.getNumber("upper RPM", 0),
-             lRPM = SmartDashboard.getNumber("lower RPM", 0);
-
-    if (upperSetPoint != uRPM){upperSetPoint = uRPM;}
-    if (lowerSetPoint != lRPM){lowerSetPoint = lRPM;}*/
 
     SmartDashboard.putNumber("Current shooter rpm", getRPM());
     SmartDashboard.putNumber("Current voltage",getVoltage());
 
-    /*SmartDashboard.putNumber("upper RPM", upperSetPoint);
-    SmartDashboard.putNumber("lower RPM", lowerSetPoint);*/
+    SmartDashboard.putNumber("Lower RPM", getLowerRPM());
+    SmartDashboard.putNumber("Upper RPM ", getUpperRPM());
+
+    /*double upkp = SmartDashboard.getNumber("UPPER KP", 0.0);
+    double upkd = SmartDashboard.getNumber("Upper KD", 0.0);
+    double lokp = SmartDashboard.getNumber("LOWER KP", 0.0);
+    double lokd = SmartDashboard.getNumber("Lower KD", 0.0);
+
+    if(uKp != upkp){uKp = upkp; upperConfig.Slot0.kP = uKp; upperFlyWheel.getConfigurator().apply(upperConfig);}
+    if(uKd != upkd){uKd = upkd; upperConfig.Slot0.kD = uKd; upperFlyWheel.getConfigurator().apply(upperConfig);}
+    if(lKp != lokp){lKp = lokp; lowerConfig.Slot0.kP = lKp; lowerFlyWheel.getConfigurator().apply(lowerConfig);}
+    if(lKd != lokd){lKd = lokd; lowerConfig.Slot0.kD = lKd; lowerFlyWheel.getConfigurator().apply(lowerConfig);}*/
+
   }
   
   public void setupperSpeed(double setPoint){
@@ -78,10 +95,6 @@ public class ShooterSubsystem extends SubsystemBase {
     lowerFlyWheel.setControl(lowerVelocity);
   }
 
-  public void setBothSpeeds(){
-    setlowerSpeed(lowerSetPoint);
-    setupperSpeed(upperSetPoint);
-  }
   public void stopupper(){
     upperFlyWheel.set(0);
   }
@@ -92,6 +105,14 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public double getRPM(){
     return lowerFlyWheel.getVelocity().getValueAsDouble() * 60;
+  }
+
+  public double getLowerRPM(){
+    return lowerFlyWheel.getVelocity().getValueAsDouble() * 60;
+  }
+
+  public double getUpperRPM(){
+    return upperFlyWheel.getVelocity().getValueAsDouble() * 60;
   }
 
   public boolean isWithinThreshold(double value, double target, double threshold){

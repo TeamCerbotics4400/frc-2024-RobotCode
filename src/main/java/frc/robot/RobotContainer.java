@@ -73,7 +73,7 @@ public class RobotContainer {
     //Idle Arm
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
     //Shoot
-    NamedCommands.registerCommand("AutoShoot", 
+    NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
       new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2))
       new ArmToPose(m_arm, m_selector)));
@@ -176,7 +176,7 @@ public class RobotContainer {
       break;
 
       case "4 NOTE INTERPOLATED":
-        autonomousCommand = new PathPlannerAuto("Interpolated Auto");
+        autonomousCommand = new PathPlannerAuto("New Interpolated");
       break;
 
       case "4 NOTE STEAL":
@@ -205,14 +205,5 @@ public class RobotContainer {
 
   public Timer getRumbleTimer(){
     return rumbleTimer;
-  }
-  
-  public void setIntakeRumble(){
-    rumbleTimer.start();
-    if(rumbleTimer.get() < 1){
-      chassisDriver.setRumble(RumbleType.kBothRumble, 1);
-    } else {
-      chassisDriver.setRumble(RumbleType.kBothRumble, 0);
-    }
   }
 }
