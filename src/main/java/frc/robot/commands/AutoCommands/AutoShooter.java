@@ -33,12 +33,13 @@ public class AutoShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-  
+    if (arm.isInPosition()){
     shooter.setupperSpeed(4000);
     shooter.setlowerSpeed(4000);
       if (shooter.getRPM() > 3100){   
       intake.startIntaking();
       } 
+    }
     
   }
   // Called once the command ends or is interrupted.
