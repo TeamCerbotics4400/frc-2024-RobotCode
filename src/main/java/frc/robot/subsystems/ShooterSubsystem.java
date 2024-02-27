@@ -40,6 +40,7 @@ public class ShooterSubsystem extends SubsystemBase {
     upperConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     lowerConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
+    //TODO: Shooter will not reach RPM but will shoot with no problems
     upperConfig.Slot0.kP = ShooterConstants.ukP;
     upperConfig.Slot0.kI = ShooterConstants.ukI;
     upperConfig.Slot0.kD = ShooterConstants.ukD; 
