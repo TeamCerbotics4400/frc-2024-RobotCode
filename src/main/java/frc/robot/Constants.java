@@ -240,7 +240,8 @@ public final class Constants {
     public static final String tagLimelightName = "limelight-tags";
 
     public static final int main_Pipeline = 0,
-                            far_Pipeline = 1;
+                            far_Pipeline = 1,
+                            close_Pipeline = 2;
   }
 
   public static final class IOConstants{

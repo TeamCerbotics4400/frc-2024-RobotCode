@@ -22,7 +22,6 @@ public class POVSelector extends SubsystemBase {
 
     shootingLevels.add("AMP");
     shootingLevels.add("Speaker");
-    shootingLevels.add("Trap");
   }
 
   @Override
