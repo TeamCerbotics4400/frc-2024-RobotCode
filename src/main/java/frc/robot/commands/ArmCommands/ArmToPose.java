@@ -48,7 +48,7 @@ public class ArmToPose extends Command {
      break;
 
      case "AMP":
-          //Arm should be in 90 degrees when using this option
+          angle = 93.0;
      break;
 
       case "Trap":

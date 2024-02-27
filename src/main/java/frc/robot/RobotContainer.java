@@ -66,25 +66,24 @@ public class RobotContainer {
     () -> true));
 
     //Idle Arm
-   // NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
+    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
     //Shoot
     NamedCommands.registerCommand("AutoShoot", 
-    //new ParallelDeadlineGroup(
-      new AutoShooter(m_shooter, m_intake,m_arm)); //.raceWith(new WaitCommand(2))
-     // new ArmToPose(m_arm, m_selector)));
+    new ParallelDeadlineGroup(
+      new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2))
+      new ArmToPose(m_arm, m_selector)));
 
     NamedCommands.registerCommand("SubwooferShoot", 
-    //new ParallelDeadlineGroup(
-      new AutoShooter(m_shooter, m_intake,m_arm)); //.raceWith(new WaitCommand(2.5))
-    //  new ArmToPose(m_arm, m_selector)));    //Intake
+    new ParallelDeadlineGroup(
+      new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2.5))
+      new ArmToPose(m_arm, m_selector)));    //Intake
     NamedCommands.registerCommand("Intake", 
-    //new ParallelCommandGroup(
-      new IntakeCommand(m_intake,m_shooter));
-    //  m_arm.goToPosition(179)));
+    new ParallelCommandGroup(
+      new IntakeCommand(m_intake,m_shooter), new AutoOutake(m_intake), 
+      m_arm.goToPosition(179)));
     //Aim
     NamedCommands.registerCommand("AutoAim", 
-      new ParallelRaceGroup(
-        new AutoAim(m_drive), new WaitCommand(1)));
+      new ParallelRaceGroup(new AutoAim(m_drive), new WaitCommand(1)));
     //Change Pipelines
     NamedCommands.registerCommand("MainTracking", 
     new InstantCommand(

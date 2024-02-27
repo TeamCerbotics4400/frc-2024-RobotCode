@@ -32,7 +32,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
     climberMotor.setInverted(false);
 
-    climberMotor.setIdleMode(IdleMode.kBrake);
+    climberMotor.setIdleMode(IdleMode.kCoast);
 
     climberPIDController = climberMotor.getPIDController();
     climberEncoder = climberMotor.getEncoder();
@@ -42,7 +42,7 @@ public class ClimberSubsystem extends SubsystemBase {
     climberPIDController.setD(ClimberConstants.kD);
     climberPIDController.setFF(ClimberConstants.kFF);
 
-    //climberEncoder.setPositionConversionFactor(ClimberConstants.CLIMBER_GEARBOX);
+    climberEncoder.setPositionConversionFactor(ClimberConstants.CLIMBER_GEARBOX);
 
     /*setSoftLimits();
     enableSoftLimit(); */

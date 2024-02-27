@@ -31,7 +31,7 @@ public class OutakeCommand extends Command {
   public void execute() {
     intake.smallOutake();
     shooter.setlowerSpeed(-500);
-    shooter.setupperSpeed(-500);
+    shooter.setupperSpeed(-900);
 
   }
 

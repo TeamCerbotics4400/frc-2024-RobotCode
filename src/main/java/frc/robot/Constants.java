@@ -228,7 +228,7 @@ public final class Constants {
                          kMaxVelocityLinearPerSecond = 0,
                          kMaxAccelerationMetersPerSecondSquared = 1;
 
-    public static double CLIMBER_GEARBOX = 0.0;
+    public static double CLIMBER_GEARBOX = 100.0/1.0;
   }
 
  
