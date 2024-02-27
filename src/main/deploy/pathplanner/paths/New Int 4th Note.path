@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 2.3,
-        "y": 4.49
+        "x": 2.4,
+        "y": 4.4
       },
       "prevControl": {
-        "x": 1.7774493730805643,
-        "y": 4.832290391853511
+        "x": 1.8774493730805644,
+        "y": 4.742290391853511
       },
       "nextControl": {
-        "x": 2.822550626919435,
-        "y": 4.1477096081464895
+        "x": 2.9225506269194352,
+        "y": 4.05770960814649
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 5.37
       },
       "prevControl": {
-        "x": 2.2438391950575256,
-        "y": 5.420642291666263
+        "x": 2.7941032805142547,
+        "y": 5.4860202028096365
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,6 +48,11 @@
     {
       "waypointRelativePos": 1.1,
       "rotationDegrees": -35.55038688383442,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 1.55,
+      "rotationDegrees": -5.0,
       "rotateFast": false
     }
   ],
@@ -67,7 +72,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
@@ -101,7 +106,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "New interpolated",
+  "folder": null,
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

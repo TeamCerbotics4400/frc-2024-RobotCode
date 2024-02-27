@@ -8,12 +8,6 @@
         {
           "type": "named",
           "data": {
-            "name": "MainTracking"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "SubwooferShoot"
           }
         },
@@ -44,6 +38,6 @@
       ]
     }
   },
-  "folder": "4 Note",
+  "folder": null,
   "choreoAuto": false
 }

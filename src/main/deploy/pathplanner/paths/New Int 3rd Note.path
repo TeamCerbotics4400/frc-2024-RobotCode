@@ -55,7 +55,7 @@
     {
       "name": "New Constraints Zone",
       "minWaypointRelativePos": 0.4,
-      "maxWaypointRelativePos": 1.65,
+      "maxWaypointRelativePos": 1.8,
       "constraints": {
         "maxVelocity": 0.75,
         "maxAcceleration": 1.0,
@@ -101,7 +101,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "New interpolated",
+  "folder": null,
   "previewStartingState": {
     "rotation": -5.088128882179866,
     "velocity": 0

@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import javax.print.DocFlavor.STRING;
+
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
@@ -16,6 +18,9 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ArmConstants;
 import team4400.Util.Interpolation.InterpolatingDouble;
@@ -62,6 +67,10 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     kDistanceToArmAngle.put(new InterpolatingDouble(4.15),  new InterpolatingDouble(135.0));
     kDistanceToArmAngle.put(new InterpolatingDouble(4.35),  new InterpolatingDouble(134.0));
   }
+
+  private SendableChooser<String> armModeChooser = new SendableChooser<>();
+  private String currentModeSelection;
+  private final String[] modeNames = {"BRAKE", "COAST"};
 
   boolean onTarget;
 
@@ -113,6 +122,12 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     SmartDashboard.putNumber("Arm kP", akP);
     SmartDashboard.putNumber("Arm kI", akI);
     SmartDashboard.putNumber("Arm kD",akD);
+
+    armModeChooser.setDefaultOption("Brake Mode", modeNames[0]);
+    armModeChooser.addOption("Brake Mode", modeNames[0]);
+    armModeChooser.addOption("Coast Mode", modeNames[1]);
+
+    SmartDashboard.putData("Arm Mode", armModeChooser);
   }
 
   @Override
@@ -128,6 +143,20 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       SmartDashboard.putNumber("Arm SetPoint Pos", this.getController().getSetpoint().position);
 
       SmartDashboard.putNumber("Arm Pose Error", this.getController().getPositionError());
+
+
+      if(DriverStation.isDisabled()){
+        currentModeSelection = armModeChooser.getSelected();
+        switch (currentModeSelection) {
+          case "BRAKE":
+            armSetBrake();
+          break;
+
+          case "COAST":
+            armSetCoast();
+          break;
+        }
+      }
 
       double akP = SmartDashboard.getNumber("Arm kP", ArmConstants.kP),
              akI = SmartDashboard.getNumber("Arm kI", ArmConstants.kI),
@@ -162,6 +191,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public Command goToPosition(double position){
     Command ejecutable = Commands.runOnce(
                 () -> {
+                  this.getController().reset(getMeasurement());
                   this.setGoal(position);
                   this.enable();
                 },
@@ -195,5 +225,15 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public void updateArmSetpoint(double setpoint){
     m_tpState.position = Units.degreesToRadians(setpoint);
     setGoal(setpoint);
+  }
+
+  public void armSetCoast(){
+    leftMotor.setIdleMode(IdleMode.kCoast);
+    rightMotor.setIdleMode(IdleMode.kCoast);  
+  }
+
+  public void armSetBrake(){
+    leftMotor.setIdleMode(IdleMode.kBrake);
+    rightMotor.setIdleMode(IdleMode.kBrake);  
   }
 }
