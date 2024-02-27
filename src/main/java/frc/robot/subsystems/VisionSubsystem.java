@@ -16,6 +16,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -139,12 +140,22 @@ public class VisionSubsystem {
     double stdsDevXY = 0.0;
     double stdsDevDeg = 0.0;
 
-    if(numDetectedTargets <= 2){
+    if(DriverStation.isAutonomous()){
+      if(allowedToFilterAuto()){
+       stdsDevXY = 0.1;
+       stdsDevDeg = 0.1;
+      } else {
+        stdsDevXY = 100.0;
+       stdsDevDeg = 100.0;
+      }
+    } else {
+      if(numDetectedTargets <= 2){
       stdsDevXY = 0.1;
       stdsDevDeg = 0.1;
-    } else {
+     } else {
       stdsDevXY = Math.abs(m_drive.getAverageDriveSpeed());
       stdsDevDeg = Math.abs(m_drive.getAngularAcceleration()) / 200;
+     }
     }
 
     Matrix<N3, N1> visionMat = MatBuilder.fill(Nat.N3(), Nat.N1(), stdsDevXY, stdsDevXY, stdsDevDeg);
@@ -167,5 +178,13 @@ public class VisionSubsystem {
   public int getNumofDetectedTargets(){
     return LimelightHelpers
     .getLatestResults(VisionConstants.tagLimelightName).targetingResults.targets_Fiducials.length;
+  }
+
+  public boolean allowedToFilterAuto(){
+    if(m_drive.getAverageDriveSpeed() < 0.1 && getNumofDetectedTargets() >= 2){
+      return true;
+    } else {
+      return false;
+    }
   }
 }
