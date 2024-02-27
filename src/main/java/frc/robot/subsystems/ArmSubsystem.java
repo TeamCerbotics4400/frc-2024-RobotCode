@@ -196,5 +196,4 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     m_tpState.position = Units.degreesToRadians(setpoint);
     setGoal(setpoint);
   }
-
 }

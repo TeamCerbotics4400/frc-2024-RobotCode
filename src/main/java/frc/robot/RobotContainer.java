@@ -5,10 +5,15 @@
 package frc.robot;
 
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -55,16 +60,16 @@ public class RobotContainer {
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final POVSelector m_selector = new POVSelector(subsystemsDriver);
 
+  private Timer rumbleTimer = new Timer();
+
+  private final SendableChooser<String> autoChooser;
+  private final String m_DefaultAuto = "NO AUTO";
+  private String m_autoSelected;
+  private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
+   "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER"};
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    
-   m_drive.setDefaultCommand(new TeleopControl
-    (m_drive, 
-    () -> chassisDriver.getRawAxis(1), 
-    () -> chassisDriver.getRawAxis(0), 
-    () -> chassisDriver.getRawAxis(4), 
-    () -> true));
-
     //Idle Arm
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
     //Shoot
@@ -72,7 +77,6 @@ public class RobotContainer {
     new ParallelDeadlineGroup(
       new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2))
       new ArmToPose(m_arm, m_selector)));
-
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
       new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2.5))
@@ -92,7 +96,18 @@ public class RobotContainer {
     NamedCommands.registerCommand("FarTracking", 
     new InstantCommand(
       () -> m_drive.getVisionSubsystem().setCameraPipeline(VisionConstants.far_Pipeline)));
-       configureBindings();
+
+    autoChooser = new SendableChooser<>();
+
+    autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
+    autoChooser.addOption("Interpolated 4 Notes", m_autoNames[1]);
+    autoChooser.addOption("Subwoofer 4 Notes", m_autoNames[4]);
+    autoChooser.addOption("Steal and 3 Notes", m_autoNames[2]);
+    autoChooser.addOption("Complement 3 Notes", m_autoNames[3]);
+
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+
+    configureBindings();
   }
 
   /**
@@ -105,6 +120,14 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+
+    m_drive.setDefaultCommand(new TeleopControl
+    (m_drive, 
+    () -> chassisDriver.getRawAxis(1), 
+    () -> chassisDriver.getRawAxis(0), 
+    () -> chassisDriver.getRawAxis(4), 
+    () -> true));
+
     //Joystick 1
       new JoystickButton(chassisDriver, 1).onTrue(
       new InstantCommand(() -> m_drive.zeroHeading()));
@@ -143,11 +166,53 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("Interpolated Auto");//m_autoChooser.getSelected();
-  }
+    Command autonomousCommand = null;
+    m_autoSelected = autoChooser.getSelected();
+    
+    System.out.println("Auto Selected" + m_autoSelected);
+    switch (m_autoSelected) {
+      case "NO AUTO":
+        autonomousCommand = null;
+      break;
 
+      case "4 NOTE INTERPOLATED":
+        autonomousCommand = new PathPlannerAuto("Interpolated Auto");
+      break;
+
+      case "4 NOTE STEAL":
+        autonomousCommand = new PathPlannerAuto("Steal and 2");
+      break;
+
+      case "3 NOTE COMPLEMENT":
+        autonomousCommand = new PathPlannerAuto("3 Note complement");
+      break;
+
+      case "4 NOTE SUBWOOFER":
+        autonomousCommand = new PathPlannerAuto("4 Note subwoofer");
+      break;
+    }
+
+    return autonomousCommand;
+  }
 
   public DriveTrain getDrive(){
     return m_drive;
+  }
+
+  public IntakeSubsystem getIntake(){
+    return m_intake;
+  }
+
+  public Timer getRumbleTimer(){
+    return rumbleTimer;
+  }
+  
+  public void setIntakeRumble(){
+    rumbleTimer.start();
+    if(rumbleTimer.get() < 1){
+      chassisDriver.setRumble(RumbleType.kBothRumble, 1);
+    } else {
+      chassisDriver.setRumble(RumbleType.kBothRumble, 0);
+    }
   }
 }

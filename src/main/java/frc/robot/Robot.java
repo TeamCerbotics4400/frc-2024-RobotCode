@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.VisionConstants;
@@ -30,8 +31,6 @@ public class Robot extends TimedRobot {
   DoubleLogEntry batteryVoltage;
 
   StructArrayPublisher<SwerveModuleState> measuredStates;
-
-
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -57,6 +56,8 @@ public class Robot extends TimedRobot {
 
     m_robotContainer.getDrive().getVisionSubsystem()
     .setCameraPipeline(VisionConstants.main_Pipeline);
+
+    Shuffleboard.selectTab("Match Briefing");
   }
 
   /**
@@ -93,6 +94,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    Shuffleboard.selectTab("Auto");
   }
 
   /** This function is called periodically during autonomous. */
@@ -113,22 +116,13 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    /* 
-if (IntakeSubsystem.noteInside()){
-            timer.start();
-
-        if(timer.get() < 3){
-         chassisDriver.setRumble(RumbleType.kBothRumble, 1);
-        } else {
-           chassisDriver.setRumble(RumbleType.kBothRumble, 0);
-        }
+    if(m_robotContainer.getIntake().noteInside()){
+      m_robotContainer.setIntakeRumble();
+    } else {
+      m_robotContainer.getRumbleTimer().stop();
+      m_robotContainer.getRumbleTimer().reset();
     }
-    else{
-          chassisDriver.setRumble(RumbleType.kBothRumble, 0);  
-      timer.stop();
-      timer.reset();
-    }*/
-    }
+  }
     
   @Override
   public void testInit() {
