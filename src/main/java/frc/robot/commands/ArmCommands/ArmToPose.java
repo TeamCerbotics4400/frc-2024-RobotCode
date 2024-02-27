@@ -32,7 +32,7 @@ public class ArmToPose extends Command {
   @Override
   public void initialize() {
     if(!m_arm.isEnabled()){m_arm.enable();}
-    m_arm.getController().reset(m_arm.getMeasurement());
+   m_arm.getController().reset(m_arm.getMeasurement());
   }
 
   // Called every time the scheduler runs while the command is scheduled.

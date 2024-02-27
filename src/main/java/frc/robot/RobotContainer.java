@@ -85,7 +85,7 @@ public class RobotContainer {
     new ParallelCommandGroup(
       new IntakeCommand(m_intake,m_shooter), new AutoOutake(m_intake), 
       m_arm.goToPosition(179)));
-    //Aim
+    //Aim<
     NamedCommands.registerCommand("AutoAim", 
       new ParallelRaceGroup(new AutoAim(m_drive), new WaitCommand(1)));
     //Change Pipelines

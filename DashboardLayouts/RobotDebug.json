@@ -356,6 +356,175 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "9,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arm kP",
+              "_title": "Arm kP",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arm kI",
+              "_title": "Arm kI",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arm kD",
+              "_title": "Arm kD",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Arm Mode",
+              "_title": "Arm Mode",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto Chooser",
+              "_title": "Auto Chooser",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module [0] Velocity",
+              "_title": "Module [0] Velocity",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module [1] Velocity",
+              "_title": "Module [1] Velocity",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module [2] Velocity",
+              "_title": "Module [2] Velocity",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module [3] Velocity",
+              "_title": "Module [3] Velocity",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Angular Acceleration",
+              "_title": "Angular Acceleration",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Odometry X",
+              "_title": "Odometry X",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Odometry Y",
+              "_title": "Odometry Y",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Odometry Rotation",
+              "_title": "Odometry Rotation",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
@@ -645,7 +814,7 @@
               "_showGlyph": false
             }
           },
-          "2,1": {
+          "0,0": {
             "size": [
               2,
               1
@@ -660,19 +829,6 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "0,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///FMSInfo/MatchNumber",
-              "_title": "FMSInfo/MatchNumber",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
           "2,0": {
             "size": [
               2,
@@ -682,19 +838,6 @@
               "_type": "Text View",
               "_source0": "network_table:///FMSInfo/StationNumber",
               "_title": "/FMSInfo/StationNumber",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "0,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///FMSInfo/EventName",
-              "_title": "FMSInfo/EventName",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -731,6 +874,32 @@
               "fps": -1,
               "imageWidth": 0,
               "imageHeight": 0
+            }
+          },
+          "2,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Split Button Chooser",
+              "_source0": "network_table:///SmartDashboard/Arm Mode",
+              "_title": "SmartDashboard/Arm Mode",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "0,1": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Arm Mode/active",
+              "_title": "SmartDashboard/Arm Mode/active",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           }
         }
@@ -851,9 +1020,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -7.333333492279053,
-    "y": -7.333333492279053,
-    "width": 1294.6666259765625,
-    "height": 686.6666870117188
+    "x": -7.199999809265137,
+    "y": -7.199999809265137,
+    "width": 1550.4000244140625,
+    "height": 830.4000244140625
   }
 }

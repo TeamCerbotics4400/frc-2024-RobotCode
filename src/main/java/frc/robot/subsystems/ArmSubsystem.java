@@ -223,6 +223,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   }
   
   public void updateArmSetpoint(double setpoint){
+    //m_controller.reset(getMeasurement());
     m_tpState.position = Units.degreesToRadians(setpoint);
     setGoal(setpoint);
   }
