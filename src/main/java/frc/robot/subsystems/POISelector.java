@@ -10,13 +10,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class POVSelector extends SubsystemBase {
+public class POISelector extends SubsystemBase {
 
   private ArrayList<String> shootingLevels = new ArrayList<String>();
   private int currentShooterSelection;
   Joystick joy;
 
-  public POVSelector(Joystick joy) {
+  public POISelector(Joystick joy) {
     this.joy = joy;
     this.currentShooterSelection = 1;
 

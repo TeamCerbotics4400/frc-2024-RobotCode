@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.POVSelector;
+import frc.robot.subsystems.POISelector;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterCommand extends Command {
@@ -16,10 +16,10 @@ public class ShooterCommand extends Command {
   ShooterSubsystem shooter;
   IntakeSubsystem intake;
   ArmSubsystem arm;
-  POVSelector selector;
+  POISelector selector;
   
 
-  public ShooterCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm, POVSelector selector) {
+  public ShooterCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm, POISelector selector) {
 
     this.shooter = shooter;
     this.intake = intake;

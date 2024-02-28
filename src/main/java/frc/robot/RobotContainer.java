@@ -31,7 +31,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.POVSelector;
+import frc.robot.subsystems.POISelector;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.VisionConstants;
@@ -58,7 +58,7 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
-  private final POVSelector m_selector = new POVSelector(subsystemsDriver);
+  private final POISelector m_selector = new POISelector(subsystemsDriver);
 
   private Timer rumbleTimer = new Timer();
 
