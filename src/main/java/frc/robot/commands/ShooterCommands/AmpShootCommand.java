@@ -11,14 +11,14 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.POISelector;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ShooterCommand extends Command {
+public class AmpShootCommand extends Command {
 
   ShooterSubsystem shooter;
   IntakeSubsystem intake;
   ArmSubsystem arm;
   POISelector selector;
   
-  public ShooterCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm, POISelector selector) {
+  public AmpShootCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm, POISelector selector) {
 
     this.shooter = shooter;
     this.intake = intake;
@@ -35,13 +35,10 @@ public class ShooterCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-          if (arm.isInPosition()){
-       shooter.setupperSpeed(4000);
-       shooter.setlowerSpeed(4000);
-          if (shooter.getRPM() >= 3200){   
-             intake.startIntaking();
-          }
-        }
+       shooter.setupperSpeed(2000);
+       shooter.setlowerSpeed(500);
+       intake.startIntaking();
+
   }
   // Called once the command ends or is interrupted.
   @Override
