@@ -177,7 +177,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360) - 153;
+    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360) + 7.0;
   }
 
   public double getAngleForDistance(double distance){
