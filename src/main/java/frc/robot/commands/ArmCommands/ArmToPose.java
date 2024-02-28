@@ -38,30 +38,15 @@ public class ArmToPose extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch(m_selector.getShooterName()){
-      case "Speaker":
       if(LimelightHelpers.getTV(VisionConstants.tagLimelightName) == true || LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ() <= 4.35){
          angle = m_arm.getAngleForDistance(LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ());
         }
        else {
            angle = 160.0;
-        }
-     break;
+        } 
+             m_arm.updateArmSetpoint(angle);
 
-     case "AMP":
-          angle = 93.0;
-     break;
-
-      case "Trap":
-        angle = 177.0;
-      break; 
       }  
-      
-     m_arm.updateArmSetpoint(angle);
-    
-    }
-  
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -74,3 +59,4 @@ public class ArmToPose extends Command {
     return false;
   }
 }
+
