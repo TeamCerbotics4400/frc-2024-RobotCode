@@ -20,19 +20,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "New Int 2nd Note"
+            "pathName": "InterpolatedAuto1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New Int 3rd Note"
+            "pathName": "InterpolatedAuto2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "New Int 4th Note"
+            "pathName": "InterpolatedAuto3"
           }
         },
         {
@@ -44,6 +44,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "4 Note",
   "choreoAuto": false
 }

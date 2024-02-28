@@ -176,19 +176,19 @@ public class RobotContainer {
       break;
 
       case "4 NOTE INTERPOLATED":
-        autonomousCommand = new PathPlannerAuto("New Interpolated");
+        autonomousCommand = new PathPlannerAuto("InterpolatedAuto");
       break;
 
       case "4 NOTE STEAL":
-        autonomousCommand = new PathPlannerAuto("Steal and 2");
+        autonomousCommand = new PathPlannerAuto("Steal4Score");
       break;
 
       case "3 NOTE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("3 Note complement");
+        autonomousCommand = new PathPlannerAuto("NoteComplement");
       break;
 
       case "4 NOTE SUBWOOFER":
-        autonomousCommand = new PathPlannerAuto("4 Note subwoofer");
+        autonomousCommand = new PathPlannerAuto("SubwooferAuto");
       break;
     }
 

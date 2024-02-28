@@ -20,31 +20,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Align to Shoot"
+            "pathName": "NoteComplement1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "To 2nd"
+            "pathName": "NoteComplement2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Return to Shoot 2nd"
+            "pathName": "NoteComplement3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "To last note"
+            "pathName": "NoteComplement4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Score last"
+            "pathName": "NoteComplement5"
           }
         }
       ]
