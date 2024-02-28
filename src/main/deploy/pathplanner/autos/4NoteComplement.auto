@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.41,
-      "y": 3.5928727328192567
+      "x": 1.4187317942065913,
+      "y": 3.2690964109663594
     },
-    "rotation": -90.0
+    "rotation": -49.763641690726175
   },
   "command": {
     "type": "sequential",
@@ -14,37 +14,43 @@
         {
           "type": "named",
           "data": {
-            "name": "ArmIdle"
+            "name": "Shoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "NoteComplement1"
+            "pathName": "4NoteComplement1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "NoteComplement2"
+            "pathName": "4NoteComplement2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "NoteComplement3"
+            "pathName": "4NoteComplement3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "NoteComplement4"
+            "pathName": "4NoteComplement4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "NoteComplement5"
+            "pathName": "4NoteComplement5"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4NoteComplement6"
           }
         }
       ]

@@ -44,11 +44,11 @@ public class DriveTrain extends SubsystemBase {
 
   private VisionSubsystem m_vision = new VisionSubsystem(this);  
 
-    private SwerveDriveOdometry encoderOdometry = new SwerveDriveOdometry(DriveConstants.kSwerveKinematics, 
+  private SwerveDriveOdometry encoderOdometry = new SwerveDriveOdometry(DriveConstants.kSwerveKinematics, 
   getRotation2d(), getModulePositions(), new Pose2d());
 
-    StructPublisher<Pose2d> encoderOdoPublisher = NetworkTableInstance.getDefault()
-    .getStructTopic("Encoder Odometry", Pose2d.struct).publish();
+  StructPublisher<Pose2d> encoderOdoPublisher = NetworkTableInstance.getDefault()
+  .getStructTopic("Encoder Odometry", Pose2d.struct).publish();
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
@@ -208,6 +208,7 @@ public class DriveTrain extends SubsystemBase {
   public Pose2d getEncoderOdometry(){
     return encoderOdometry.getPoseMeters();
   }
+  
   public void resetEncoderOdometry(Pose2d initPose){
     encoderOdometry.resetPosition(getRotation2d(), getModulePositions(), initPose);
   }

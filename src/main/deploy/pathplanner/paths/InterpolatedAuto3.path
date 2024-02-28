@@ -106,7 +106,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "New interpolated",
+  "folder": "InterpolatedAuto",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

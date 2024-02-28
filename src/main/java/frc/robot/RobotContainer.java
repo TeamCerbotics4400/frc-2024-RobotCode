@@ -4,12 +4,9 @@
 
 package frc.robot;
 
-
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -129,14 +126,15 @@ public class RobotContainer {
     () -> true));
 
     //Joystick 1
-      new JoystickButton(chassisDriver, 1).onTrue(
-      new InstantCommand(() -> m_drive.zeroHeading()));
-      new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
+    new JoystickButton(chassisDriver, 1).onTrue(
+    new InstantCommand(() -> m_drive.zeroHeading()));
 
-      new JoystickButton(chassisDriver, 6)
-      .whileTrue(m_arm.goToPosition(178.0)
-      .alongWith(new IntakeCommand(m_intake,m_shooter)))
-      .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
+    new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
+
+    new JoystickButton(chassisDriver, 6)
+    .whileTrue(m_arm.goToPosition(178.0)
+    .alongWith(new IntakeCommand(m_intake,m_shooter)))
+    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
 
     // Joystick 2
 
@@ -147,14 +145,14 @@ public class RobotContainer {
    new POVButton(subsystemsDriver, 180).onTrue(new InstantCommand(() -> m_selector.updateSelectionDown()));
 
 
-      new JoystickButton(subsystemsDriver, 1).whileTrue(m_arm.goToPosition(93)); 
-      new JoystickButton(subsystemsDriver, 2).whileTrue(new OutakeCommand(m_intake, m_shooter));
-      new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
-      new JoystickButton(subsystemsDriver, 4).whileTrue((new ClimberCommand(m_climber)));
-     new JoystickButton(subsystemsDriver, 6)
-      .whileTrue(new ArmToPose(m_arm, m_selector)
-      .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm,m_selector)))
-      .whileFalse(m_arm.goToPosition(160));   
+    new JoystickButton(subsystemsDriver, 1).whileTrue(m_arm.goToPosition(93)); 
+    new JoystickButton(subsystemsDriver, 2).whileTrue(new OutakeCommand(m_intake, m_shooter));
+    new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
+    new JoystickButton(subsystemsDriver, 4).whileTrue((new ClimberCommand(m_climber)));
+    new JoystickButton(subsystemsDriver, 6)
+        .whileTrue(new ArmToPose(m_arm, m_selector)
+        .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm,m_selector)))
+        .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));   
      // new JoystickButton(subsystemsDriver, 6).whileTrue(m_arm.goToPosition(134).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm, m_selector)));
             //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));        
   }

@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.18,
-        "y": 5.774493730805644
+        "x": 4.12383074130016,
+        "y": 2.7886541269265743
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6054739418569746,
-        "y": 6.166301059874848
+        "x": 5.053382116942352,
+        "y": 1.232438902536838
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "4NoteComplementLink4"
     },
     {
       "anchor": {
-        "x": 7.785161752141686,
-        "y": 7.435010506384649
+        "x": 7.925591423701932,
+        "y": 0.7624410159761787
       },
       "prevControl": {
-        "x": 6.171288706213776,
-        "y": 6.828642020920405
+        "x": 6.0873774673758,
+        "y": 0.8564405932883112
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "4NoteComplementLink5"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 0.5,
+    "maxVelocity": 5.4,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -43,10 +43,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Fun Autos",
+  "folder": "4NoteComplement",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -50.906141113770474,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

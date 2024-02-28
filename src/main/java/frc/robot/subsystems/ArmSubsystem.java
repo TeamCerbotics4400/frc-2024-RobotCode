@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import javax.print.DocFlavor.STRING;
-
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
@@ -18,7 +16,6 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -85,8 +82,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
             ArmConstants.kD,
             new TrapezoidProfile.Constraints(
                 ArmConstants.kMaxVelocityRadPerSecond,
-                ArmConstants.kMaxAccelerationMetersPerSecondSquared)),
-        95.0);
+                ArmConstants.kMaxAccelerationMetersPerSecondSquared)));
     
     //Makes the Arm absolute Encoder return every rotation as angles
     //Check encoder direction
@@ -119,9 +115,9 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     rightMotor.setIdleMode(IdleMode.kBrake);
     leftMotor.setIdleMode(IdleMode.kBrake);//change do break
 
-    SmartDashboard.putNumber("Arm kP", akP);
+    /*SmartDashboard.putNumber("Arm kP", akP);
     SmartDashboard.putNumber("Arm kI", akI);
-    SmartDashboard.putNumber("Arm kD",akD);
+    SmartDashboard.putNumber("Arm kD",akD);*/
 
     armModeChooser.setDefaultOption("Brake Mode", modeNames[0]);
     armModeChooser.addOption("Brake Mode", modeNames[0]);
@@ -156,15 +152,17 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
             armSetCoast();
           break;
         }
+      } else {
+        armSetBrake();
       }
 
-      double akP = SmartDashboard.getNumber("Arm kP", ArmConstants.kP),
+      /*double akP = SmartDashboard.getNumber("Arm kP", ArmConstants.kP),
              akI = SmartDashboard.getNumber("Arm kI", ArmConstants.kI),
              akD = SmartDashboard.getNumber("Arm kD", ArmConstants.kD);
 
       if (ArmConstants.kP != akP) {ArmConstants.kP = akP; getController().setP(akP);}
       if (ArmConstants.kI != akI) {ArmConstants.kI = akI; getController().setI(akI);}
-      if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}
+      if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}*/
   }
 
   @Override

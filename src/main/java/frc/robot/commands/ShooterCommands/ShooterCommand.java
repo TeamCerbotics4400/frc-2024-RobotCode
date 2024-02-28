@@ -18,7 +18,6 @@ public class ShooterCommand extends Command {
   ArmSubsystem arm;
   POISelector selector;
   
-
   public ShooterCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm, POISelector selector) {
 
     this.shooter = shooter;
@@ -42,6 +41,7 @@ public class ShooterCommand extends Command {
       shooter.setlowerSpeed(500);
       intake.startIntaking();
       break;
+      
       case "Speaker":
           if (arm.isInPosition()){
        shooter.setupperSpeed(4000);
@@ -51,6 +51,7 @@ public class ShooterCommand extends Command {
           }
         }
       break;
+
       case "Trap":
           if (arm.isInPosition()){
         shooter.setupperSpeed(3300);

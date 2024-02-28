@@ -3,10 +3,9 @@
   "robotLength": 0.6096,
   "holonomicMode": true,
   "pathFolders": [
-    "Fun Autos",
-    "Mike Test",
-    "Complement",
-    "New interpolated",
+    "InterpolatedAuto",
+    "4NoteComplement",
+    "NoteComplement",
     "PID Tuning",
     "Pre-Defined Paths",
     "Steal "

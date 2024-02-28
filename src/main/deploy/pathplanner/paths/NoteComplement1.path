@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 1.8469520908507473,
-        "y": 3.5928727328192567
+        "x": 1.4187317942065913,
+        "y": 3.2690964109663594
       },
       "prevControl": {
-        "x": 1.4500649866439685,
-        "y": 4.135981401733798
+        "x": 1.0218446899998126,
+        "y": 3.812205079880901
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "NoteComplementLink1"
     }
   ],
   "rotationTargets": [],
@@ -73,7 +73,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Complement",
+  "folder": "NoteComplement",
   "previewStartingState": {
     "rotation": -90.0,
     "velocity": 0

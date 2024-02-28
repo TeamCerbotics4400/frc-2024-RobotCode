@@ -55,7 +55,7 @@ public class Robot extends TimedRobot {
     .getStructArrayTopic("Measured Swerve States", SwerveModuleState.struct).publish();
 
     m_robotContainer.getDrive().getVisionSubsystem()
-    .setCameraPipeline(4); //TODO: Changed to day pipeline
+    .setCameraPipeline(VisionConstants.main_Pipeline); //TODO: In case: Change to day pipeline
 
     Shuffleboard.selectTab("Match Briefing");
   }

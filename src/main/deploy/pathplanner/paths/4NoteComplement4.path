@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.097617630349765,
-        "y": 3.8017606824017722
+        "x": 7.842036243868925,
+        "y": 2.266434252970288
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.632944059781249,
-        "y": 2.391767022719796
+        "x": 6.452931379145202,
+        "y": 1.650214801701869
       },
       "isLocked": false,
-      "linkedName": "NoteComplementLink3"
+      "linkedName": "4NoteComplementLink3"
     },
     {
       "anchor": {
-        "x": 7.936035821181058,
-        "y": 0.804218605892683
+        "x": 4.12383074130016,
+        "y": 2.7886541269265743
       },
       "prevControl": {
-        "x": 6.724485713602472,
-        "y": 0.9399957731213184
+        "x": 4.917604949713716,
+        "y": 1.8173251613678802
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "NoteComplementLink4"
+      "linkedName": "4NoteComplementLink4"
     }
   ],
   "rotationTargets": [],
@@ -33,21 +33,15 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 0.7,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "Intake"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "ArmIdle"
+                "name": "Shoot"
               }
             }
           ]
@@ -63,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -40.76360520094119,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "NoteComplement",
+  "folder": "4NoteComplement",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 23.355564859285828,
     "velocity": 0
   },
   "useDefaultConstraints": true

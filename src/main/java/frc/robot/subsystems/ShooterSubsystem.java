@@ -27,11 +27,10 @@ public class ShooterSubsystem extends SubsystemBase {
   private final VelocityVoltage upperVelocity = new VelocityVoltage(0);
   private final VelocityVoltage lowerVelocity = new VelocityVoltage(0);
 
-  double uKp = 0.0,
+  /*double uKp = 0.0,
                  uKd = 0.0,
                  lKp = 0.0,
-                 lKd = 0.0;
-
+                 lKd = 0.0;*/
 
   public ShooterSubsystem() {
     upperConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;  
@@ -126,8 +125,8 @@ public class ShooterSubsystem extends SubsystemBase {
       upperFlyWheel.getClosedLoopReference().getValue(), 
       ShooterConstants.SHOOTER_THRESHOLD);
   }
+  
   public double getVoltage(){
     return filter.calculate(lowerFlyWheel.getSupplyCurrent().getValueAsDouble());
   }
-
 }

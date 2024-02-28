@@ -26,7 +26,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
   RelativeEncoder intakeEncoder;
 
-
   public IntakeSubsystem() {
     intakeMotor.restoreFactoryDefaults();
 
@@ -37,7 +36,6 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.setSmartCurrentLimit(80);
 
     intakeEncoder = intakeMotor.getEncoder();
-
    }
 
   @Override
@@ -45,7 +43,6 @@ public class IntakeSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Note inside robot", noteInside());
 
     SmartDashboard.putBoolean("Intake Controller Reset", hasControllerReset());
-  
   }
 
   public void startIntaking(){

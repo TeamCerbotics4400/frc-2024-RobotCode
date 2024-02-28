@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.49566551041499,
-        "y": 5.884707036589646
+        "x": 1.4187317942065913,
+        "y": 3.2690964109663594
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.516063108462095,
-        "y": 4.977013923493496
+        "x": 3.914942791717645,
+        "y": 2.109768290783402
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.750635486003795,
-        "y": 3.9775316191853767
+        "x": 7.9882578085766855,
+        "y": 3.7913162849226465
       },
       "prevControl": {
-        "x": 6.454870314320781,
-        "y": 4.864827134234421
+        "x": 6.912484868226735,
+        "y": 0.731107823538802
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "4NoteComplementLink1"
     }
   ],
   "rotationTargets": [],
@@ -41,7 +41,13 @@
             {
               "type": "named",
               "data": {
-                "name": "ArmShooter"
+                "name": "Intake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmIdle"
               }
             }
           ]
@@ -50,18 +56,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3,
-    "maxAcceleration": 3,
-    "maxAngularVelocity": 540,
-    "maxAngularAcceleration": 720
+    "maxVelocity": 5.4,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 51.54629078329403,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Fun Autos",
-  "previewStartingState": null,
+  "folder": "4NoteComplement",
+  "previewStartingState": {
+    "rotation": -52.43140797117258,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }
