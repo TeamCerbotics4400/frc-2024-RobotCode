@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.POISelector;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class AmpShootCommand extends Command {
@@ -16,14 +15,12 @@ public class AmpShootCommand extends Command {
   ShooterSubsystem shooter;
   IntakeSubsystem intake;
   ArmSubsystem arm;
-  POISelector selector;
   
-  public AmpShootCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm, POISelector selector) {
+  public AmpShootCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm) {
 
     this.shooter = shooter;
     this.intake = intake;
     this.arm = arm;
-    this.selector = selector;
 
     addRequirements(shooter, intake);
   }

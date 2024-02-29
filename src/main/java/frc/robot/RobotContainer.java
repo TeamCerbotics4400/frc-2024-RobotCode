@@ -28,7 +28,6 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.POISelector;
 import frc.robot.subsystems.ShooterSubsystem;
 import team4400.StateMachines;
 import team4400.StateMachines.AutoPIDState;
@@ -57,7 +56,6 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
-  private final POISelector m_selector = new POISelector(subsystemsDriver);
 
   private Timer rumbleTimer = new Timer();
 
@@ -75,11 +73,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
       new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2))
-      new ArmToPose(m_arm, m_selector)));
+      new ArmToPose(m_arm)));
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
       new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2.5))
-      new ArmToPose(m_arm, m_selector)));    //Intake
+      new ArmToPose(m_arm)));    //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
       new IntakeCommand(m_intake,m_shooter), new AutoOutake(m_intake), 
@@ -153,11 +151,11 @@ public class RobotContainer {
     new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
     new JoystickButton(subsystemsDriver, 4).whileTrue((new ClimberCommand(m_climber)));
         new JoystickButton(subsystemsDriver, 6)
-        .whileTrue(new ArmToPose(m_arm, m_selector)
-        .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm,m_selector)))
+        .whileTrue(new ArmToPose(m_arm)
+        .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
         .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));   
     new JoystickButton(subsystemsDriver, 5)
-        .whileTrue(new AmpShootCommand(m_shooter, m_intake,m_arm,m_selector))
+        .whileTrue(new AmpShootCommand(m_shooter, m_intake,m_arm))
         .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));   
      // new JoystickButton(subsystemsDriver, 6).whileTrue(m_arm.goToPosition(134).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm, m_selector)));
             //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));        

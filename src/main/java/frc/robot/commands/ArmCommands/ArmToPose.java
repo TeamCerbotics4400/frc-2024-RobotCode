@@ -8,23 +8,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.POISelector;
 
 public class ArmToPose extends Command {
   /** Creates a new ArmToPose. */
   ArmSubsystem m_arm;
-  POISelector m_selector;
   double angle = 0.0;
 
-  public ArmToPose(ArmSubsystem m_arm, POISelector m_selector) {
+  public ArmToPose(ArmSubsystem m_arm) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_arm = m_arm;
-    this.m_selector = m_selector;
 
     addRequirements(m_arm);
   }
 
-  public ArmToPose(ArmSubsystem m_arm2, Object object, POISelector m_selector2) {
+  public ArmToPose(ArmSubsystem m_arm2, Object object) {
     //TODO Auto-generated constructor stub
 }
 
