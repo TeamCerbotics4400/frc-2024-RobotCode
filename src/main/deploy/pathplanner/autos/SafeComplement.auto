@@ -2,19 +2,19 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2,
-      "y": 5.78
+      "x": 1.4291761916857175,
+      "y": 3.227318821049856
     },
-    "rotation": 0
+    "rotation": -54.46232220802562
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0.05
+            "name": "AutoAim"
           }
         },
         {
@@ -26,30 +26,18 @@
         {
           "type": "path",
           "data": {
-            "pathName": "InterpolatedAuto1"
+            "pathName": "SafeComplement1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "InterpolatedAuto2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "InterpolatedAuto3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmIdle"
+            "pathName": "SafeComplement2"
           }
         }
       ]
     }
   },
-  "folder": "4 Note",
+  "folder": "Complement",
   "choreoAuto": false
 }

@@ -14,22 +14,20 @@ public class StateMachines {
         SHOOTING
     }
 
-    public enum PositionState{
-        CABLE,
-        MIDDLE,
-        LOADING,
-        TELE
+    public enum AutoPIDState{
+        SHORT_TRAYECTORY,
+        LONG_TRAYECTORY 
     }
 
     //POSITION
-    public static PositionState currentPositionState = PositionState.TELE;
+    public static AutoPIDState currentAutoPIDState = AutoPIDState.SHORT_TRAYECTORY;
 
-    public static void setPositionState(PositionState state){
-        currentPositionState = state;
+    public static void setPositionState(AutoPIDState state){
+        currentAutoPIDState = state;
     }
 
-    public static PositionState getPositionState(){
-        return currentPositionState;
+    public static AutoPIDState getPositionState(){
+        return currentAutoPIDState;
     }
 
     //INTAKE

@@ -164,17 +164,22 @@ public final class Constants {
     public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
     public static final double kDriveBaseRadius = 0.30;
 
-    public static final double traslationP = 0.5,
-                               traslationD = 0.35,
-                               rotationP = 0.2,
-                               rotationD = 0.1;
+    public static final double shortTraslationP = 0.5,
+                               shortTraslationD = 0.35,
+                               shortRotationP = 0.2,
+                               shortRotationD = 0.1,
+
+                               longTraslationP = 0.5, //Tune Values
+                               longTraslationD = 0.35,
+                               longRotationP = 0.2,
+                               longRotationD = 0.1;
   }
 
   public static final class ShooterConstants {
     public static byte UPPER_MOTOR_ID = 14;
     public static byte LOWER_MOTOR_ID = 13;
 
-    public static double ukP = 0.9,     //For low rpm: 0.046
+    public static double ukP = 1.2,     //For low rpm: 0.046
                          ukI = 0,         // 0
                          ukD = 0.0,    //0.0003
                          ukS = 0.50189,
@@ -205,7 +210,7 @@ public final class Constants {
 
     public static double kP = 0.32,//0.25,
                          kI = 0.42,//0.03,
-                         kD = 0.0039,
+                         kD = 0.0055,
                          kFF = 0.0,
                          kMaxVelocityRadPerSecond = 1000,//500, 
                          kMaxAccelerationMetersPerSecondSquared = 1000,//500, 

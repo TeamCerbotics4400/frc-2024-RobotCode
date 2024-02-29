@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SwerveModule;
 import frc.robot.Constants.DriveConstants;
+import team4400.StateMachines;
 
 
 public class DriveTrain extends SubsystemBase {
@@ -50,6 +51,11 @@ public class DriveTrain extends SubsystemBase {
   StructPublisher<Pose2d> encoderOdoPublisher = NetworkTableInstance.getDefault()
   .getStructTopic("Encoder Odometry", Pose2d.struct).publish();
 
+  private double traslationP = 0.0;
+  private double traslationD = 0.0;
+  private double rotationP = 0.0;
+  private double rotationD = 0.0;
+
   /** Creates a new DriveTrain. */
   public DriveTrain() {
     new Thread(() -> {
@@ -66,11 +72,11 @@ public class DriveTrain extends SubsystemBase {
       this::setRobotRelativeSpeeds, 
       new HolonomicPathFollowerConfig(
         new PIDConstants(
-          DriveConstants.traslationP, 
-          DriveConstants.traslationD), 
+          traslationP, 
+          traslationD), 
         new PIDConstants(
-          DriveConstants.rotationP, 
-          DriveConstants.rotationD), 
+          rotationP, 
+          rotationD), 
         DriveConstants.kPhysicalMaxSpeedMetersPerSecond, 
         DriveConstants.kDriveBaseRadius, 
         new ReplanningConfig()), 
@@ -96,6 +102,9 @@ public class DriveTrain extends SubsystemBase {
       SmartDashboard.putNumber("Module [" + mod.moduleNumber + "] Velocity",
        swerveModules[mod.moduleNumber].getDriveVelocity());
     }
+
+    //Only one variable to check, if it updates, everything else is supposed to follow
+    SmartDashboard.putNumber("Current Traslation P", traslationP);
 
     SmartDashboard.putNumber("Angular Acceleration", getAngularAcceleration());
 
@@ -211,6 +220,26 @@ public class DriveTrain extends SubsystemBase {
   
   public void resetEncoderOdometry(Pose2d initPose){
     encoderOdometry.resetPosition(getRotation2d(), getModulePositions(), initPose);
+  }
+
+  public void setPathplannerPID(){
+    switch (StateMachines.currentAutoPIDState.toString()) {
+      case "SHORT_TRAJECTORY":
+        traslationP = DriveConstants.shortTraslationP;
+        traslationD = DriveConstants.shortTraslationD;
+
+        rotationP = DriveConstants.shortRotationP;
+        rotationD = DriveConstants.shortRotationD;
+      break;
+    
+      case "LONG_TRAJECTORY":
+        traslationP = DriveConstants.longTraslationP;
+        traslationD = DriveConstants.longTraslationD;
+
+        rotationP = DriveConstants.longRotationP;
+        rotationD = DriveConstants.longRotationD;
+      break;
+    }
   }
 
   //Debug

@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
@@ -31,6 +30,8 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.POISelector;
 import frc.robot.subsystems.ShooterSubsystem;
+import team4400.StateMachines;
+import team4400.StateMachines.AutoPIDState;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
@@ -64,7 +65,7 @@ public class RobotContainer {
   private final String m_DefaultAuto = "NO AUTO";
   private String m_autoSelected;
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
-   "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER"};
+   "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT"};
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -101,6 +102,7 @@ public class RobotContainer {
     autoChooser.addOption("Interpolated 4 Notes", m_autoNames[1]);
     autoChooser.addOption("Subwoofer 4 Notes", m_autoNames[4]);
     autoChooser.addOption("Steal and 3 Notes", m_autoNames[2]);
+    autoChooser.addOption("Complement 2 Notes", m_autoNames[5]);
     autoChooser.addOption("Complement 3 Notes", m_autoNames[3]);
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -150,13 +152,12 @@ public class RobotContainer {
     new JoystickButton(subsystemsDriver, 2).whileTrue(new OutakeCommand(m_intake, m_shooter));
     new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
     new JoystickButton(subsystemsDriver, 4).whileTrue((new ClimberCommand(m_climber)));
-        new JoystickButton(subsystemsDriver, 5)
+        new JoystickButton(subsystemsDriver, 6)
         .whileTrue(new ArmToPose(m_arm, m_selector)
         .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm,m_selector)))
         .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));   
-    new JoystickButton(subsystemsDriver, 6)
-        .whileTrue(new ArmToPose(m_arm, m_selector)
-        .alongWith(new AmpShootCommand(m_shooter, m_intake,m_arm,m_selector)))
+    new JoystickButton(subsystemsDriver, 5)
+        .whileTrue(new AmpShootCommand(m_shooter, m_intake,m_arm,m_selector))
         .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));   
      // new JoystickButton(subsystemsDriver, 6).whileTrue(m_arm.goToPosition(134).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm, m_selector)));
             //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));        
@@ -175,22 +176,38 @@ public class RobotContainer {
     System.out.println("Auto Selected" + m_autoSelected);
     switch (m_autoSelected) {
       case "NO AUTO":
+        StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
+        m_drive.setPathplannerPID();
         autonomousCommand = null;
       break;
 
       case "4 NOTE INTERPOLATED":
+        StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
+        m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("InterpolatedAuto");
       break;
 
       case "4 NOTE STEAL":
+        StateMachines.setPositionState(AutoPIDState.LONG_TRAYECTORY);
+        m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("Steal4Score");
       break;
 
       case "3 NOTE COMPLEMENT":
+        StateMachines.setPositionState(AutoPIDState.LONG_TRAYECTORY);
+        m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("NoteComplement");
       break;
 
+      case "2 NOTE COMPLEMENT":
+        StateMachines.setPositionState(AutoPIDState.LONG_TRAYECTORY);
+        m_drive.setPathplannerPID();
+        autonomousCommand = new PathPlannerAuto("SafeComplement");
+      break;
+
       case "4 NOTE SUBWOOFER":
+        StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
+        m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("SubwooferAuto");
       break;
     }

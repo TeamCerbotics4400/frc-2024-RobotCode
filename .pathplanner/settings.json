@@ -3,8 +3,9 @@
   "robotLength": 0.6096,
   "holonomicMode": true,
   "pathFolders": [
-    "InterpolatedAuto",
     "4NoteComplement",
+    "InterpolatedAuto",
+    "SafeComplement",
     "NoteComplement",
     "PID Tuning",
     "Pre-Defined Paths",
