@@ -72,11 +72,11 @@ public class RobotContainer {
     //Shoot
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
-      new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2))
+      new AutoShooter(m_shooter, m_intake,m_arm), 
       new ArmToPose(m_arm)));
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
-      new AutoShooter(m_shooter, m_intake,m_arm), //.raceWith(new WaitCommand(2.5))
+      new AutoShooter(m_shooter, m_intake,m_arm), 
       new ArmToPose(m_arm)));    //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
@@ -138,27 +138,19 @@ public class RobotContainer {
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
 
     // Joystick 2
-
-   //Pov upper
-   //new POVButton(subsystemsDriver, 0).onTrue(new InstantCommand(() -> m_selector.updateSelectionUp()));
-
-   //Pov down
-  // new POVButton(subsystemsDriver, 180).onTrue(new InstantCommand(() -> m_selector.updateSelectionDown()));
-
-
     new JoystickButton(subsystemsDriver, 1).whileTrue(m_arm.goToPosition(93)); 
     new JoystickButton(subsystemsDriver, 2).whileTrue(new OutakeCommand(m_intake, m_shooter));
     new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
     new JoystickButton(subsystemsDriver, 4).whileTrue((new ClimberCommand(m_climber)));
-        new JoystickButton(subsystemsDriver, 6)
-        .whileTrue(new ArmToPose(m_arm)
-        .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
-        .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));   
+
     new JoystickButton(subsystemsDriver, 5)
         .whileTrue(new AmpShootCommand(m_shooter, m_intake,m_arm))
-        .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));   
-     // new JoystickButton(subsystemsDriver, 6).whileTrue(m_arm.goToPosition(134).alongWith(new ShooterCommand(m_shooter, m_intake, m_arm, m_selector)));
-            //new JoystickButton(subsystemsDriver, 1).whileTrue(new DriveTuner(m_drive));        
+        .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+
+    new JoystickButton(subsystemsDriver, 6)
+        .whileTrue(new ArmToPose(m_arm)
+        .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
+        .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));        
   }
 
   /**
@@ -167,7 +159,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
+
     Command autonomousCommand = null;
     m_autoSelected = autoChooser.getSelected();
     

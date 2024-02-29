@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.FaultID;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -19,10 +18,8 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-  CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_ID,MotorType.kBrushless);
-  SparkPIDController intakeController = intakeMotor.getPIDController();
-
-  public  DigitalInput intakeSensor = new DigitalInput(2); //Check what channel the sensor will be  on
+  private final CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_ID,MotorType.kBrushless);
+  public  DigitalInput intakeSensor = new DigitalInput(2);
 
   RelativeEncoder intakeEncoder;
 
@@ -34,8 +31,6 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.setInverted(true);
 
     intakeMotor.setSmartCurrentLimit(80);
-
-    intakeEncoder = intakeMotor.getEncoder();
    }
 
   @Override
