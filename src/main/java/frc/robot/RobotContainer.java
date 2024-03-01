@@ -63,7 +63,7 @@ public class RobotContainer {
   private final String m_DefaultAuto = "NO AUTO";
   private String m_autoSelected;
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
-   "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT"};
+   "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", "3 NOTE CENTER"};
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -77,7 +77,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
       new AutoShooter(m_shooter, m_intake,m_arm), 
-      new ArmToPose(m_arm)));    //Intake
+       m_arm.goToPosition(160)));    //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
       new IntakeCommand(m_intake,m_shooter), new AutoOutake(m_intake), 
@@ -102,6 +102,8 @@ public class RobotContainer {
     autoChooser.addOption("Steal and 3 Notes", m_autoNames[2]);
     autoChooser.addOption("Complement 2 Notes", m_autoNames[5]);
     autoChooser.addOption("Complement 3 Notes", m_autoNames[3]);
+    autoChooser.addOption("2 Note Center", m_autoNames[6]);
+    autoChooser.addOption("3 Note Center", m_autoNames[7]);
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
@@ -133,7 +135,7 @@ public class RobotContainer {
     new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
 
     new JoystickButton(chassisDriver, 6)
-    .whileTrue(m_arm.goToPosition(178.0)
+    .whileTrue(m_arm.goToPosition(179.0)
     .alongWith(new IntakeCommand(m_intake,m_shooter)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
 
@@ -200,6 +202,14 @@ public class RobotContainer {
         m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("SubwooferAuto");
       break;
+      case "2 NOTE CENTER":
+        StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
+        m_drive.setPathplannerPID();
+        autonomousCommand = new PathPlannerAuto("2NoteAuto");
+      case "3 NOTE CENTER":
+        StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
+      m_drive.setPathplannerPID();
+        autonomousCommand = new PathPlannerAuto("3NoteAuto");
     }
 
     return autonomousCommand;

@@ -21,8 +21,8 @@ public class ClimberSubsystem extends SubsystemBase {
   private final SparkPIDController climberPIDController;
   private final RelativeEncoder climberEncoder;
 
-  private double extendedClimber = -0.5;   //Test optimal height to the chain
-  private double retractedClimber = 0.5;
+  private double extendedClimber = -1.0;   //Test optimal height to the chain
+  private double retractedClimber = 1.0;
 
   public ClimberSubsystem() {
     climberMotor.clearFaults();
@@ -31,7 +31,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
     climberMotor.setInverted(false);
 
-    climberMotor.setIdleMode(IdleMode.kCoast);
+    climberMotor.setIdleMode(IdleMode.kBrake);
 
     climberPIDController = climberMotor.getPIDController();
     climberEncoder = climberMotor.getEncoder();

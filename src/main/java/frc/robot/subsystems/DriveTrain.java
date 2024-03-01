@@ -9,6 +9,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
+import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -22,6 +23,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SwerveModule;
@@ -56,6 +58,10 @@ public class DriveTrain extends SubsystemBase {
   private double rotationP = 0.0;
   private double rotationD = 0.0;
 
+  private SendableChooser<String> swerveIdleChooser = new SendableChooser<>();
+  private String currentModeSelection;
+  private final String[] modeNames = {"BRAKE", "COAST"};
+
   /** Creates a new DriveTrain. */
   public DriveTrain() {
     new Thread(() -> {
@@ -88,6 +94,12 @@ public class DriveTrain extends SubsystemBase {
                     return false;
                 },
       this);
+
+      swerveIdleChooser.setDefaultOption("Brake Mode", modeNames[0]);
+      swerveIdleChooser.addOption("Brake Mode", modeNames[0]);
+      swerveIdleChooser.addOption("Coast Mode", modeNames[1]);
+  
+      SmartDashboard.putData("Swerve Mode", swerveIdleChooser);
   }
 
   @Override
@@ -121,6 +133,21 @@ public class DriveTrain extends SubsystemBase {
 
     encoderOdometry.update(getRotation2d(), getModulePositions());
     encoderOdoPublisher.set(getEncoderOdometry());
+
+    if(DriverStation.isDisabled()){
+      currentModeSelection = swerveIdleChooser.getSelected();
+      switch (currentModeSelection) {
+        case "BRAKE":
+          setBrake();
+        break;
+
+        case "COAST":
+          setCoast();
+        break;
+      }
+    } else {
+      setBrake();
+    }
   }
 
   public void zeroHeading(){
@@ -240,6 +267,16 @@ public class DriveTrain extends SubsystemBase {
         rotationD = DriveConstants.longRotationD;
       break;
     }
+  }
+  public void setBrake(){
+        for(SwerveModule mod : swerveModules){
+            mod.setMotorsIdleMode(IdleMode.kBrake);
+        }
+  }
+  public void setCoast(){
+        for(SwerveModule mod : swerveModules){
+            mod.setMotorsIdleMode(IdleMode.kCoast);
+        }
   }
 
   //Debug

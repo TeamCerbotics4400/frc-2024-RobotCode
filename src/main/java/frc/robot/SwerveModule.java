@@ -176,6 +176,10 @@ public class SwerveModule {
         driveMotor.set(0);
         turnMotor.set(0);
     }
+    public void setMotorsIdleMode(IdleMode idleMode){
+        driveMotor.setIdleMode(idleMode);
+        turnMotor.setIdleMode(idleMode);
+    }
 
     //Debug
     public void tuneModulePID(double speedMtsPerSec){

@@ -9,6 +9,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.FaultID;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -93,6 +94,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     m_encoder.getPosition().setUpdateFrequency(100);
 
     m_encoder.getConfigurator().apply(encoderConfig);
+    this.m_controller.reset(getMeasurement());
     //m_encoder.setPosition(0.4);
     
     // Start arm at rest in neutral position
@@ -132,14 +134,14 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
       SmartDashboard.putNumber("Arm Angle", getMeasurement());
 
-      SmartDashboard.putBoolean("Over Angle", overAngle());
-
       SmartDashboard.putBoolean("ArmEnabled", this.m_enabled);
 
       SmartDashboard.putNumber("Arm SetPoint Pos", this.getController().getSetpoint().position);
 
       SmartDashboard.putNumber("Arm Pose Error", this.getController().getPositionError());
 
+      SmartDashboard.putBoolean("Left Arm Reset", hasLeftArmReset());
+      SmartDashboard.putBoolean("Right Arm Reset", hasRighttArmReset());
 
       if(DriverStation.isDisabled()){
         currentModeSelection = armModeChooser.getSelected();
@@ -177,7 +179,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360) + 7.0;
+    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360) - 28;
   }
 
   public double getAngleForDistance(double distance){
@@ -197,19 +199,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     return ejecutable;
   }
 
-  public boolean overAngle(){
-    if(this.m_enabled && (getMeasurement() > 181 || getMeasurement() < 89)){
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  public void safetyDisable(){
-    if(overAngle()){
-      this.disable();
-    }
-  }
 
   //For use in autonomous methods to shoot after the Arm is in position
   public boolean isWithinThreshold(double value, double target, double threshold){
@@ -235,4 +224,13 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     leftMotor.setIdleMode(IdleMode.kBrake);
     rightMotor.setIdleMode(IdleMode.kBrake);  
   }
+
+  public boolean hasLeftArmReset(){
+    return leftMotor.getStickyFault(FaultID.kHasReset);
+ }
+
+ public boolean hasRighttArmReset(){
+    return rightMotor.getStickyFault(FaultID.kHasReset);
+ }
+
 }
