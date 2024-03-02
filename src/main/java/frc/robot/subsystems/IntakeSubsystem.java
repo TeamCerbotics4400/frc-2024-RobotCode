@@ -31,6 +31,8 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotor.setInverted(true);
 
     intakeMotor.setSmartCurrentLimit(80);
+
+    intakeEncoder = intakeMotor.getEncoder();
    }
 
   @Override
@@ -38,6 +40,8 @@ public class IntakeSubsystem extends SubsystemBase {
     SmartDashboard.putBoolean("Note inside robot", noteInside());
 
     SmartDashboard.putBoolean("Intake Controller Reset", hasControllerReset());
+
+    SmartDashboard.putBoolean("Is intake active", isIntakeActive());
   }
 
   public void startIntaking(){
@@ -62,5 +66,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public boolean hasControllerReset(){
     return intakeMotor.getStickyFault(FaultID.kHasReset);
+  }
+
+  public boolean isIntakeActive(){
+    return !(intakeEncoder.getVelocity() > 0);
   }
 }

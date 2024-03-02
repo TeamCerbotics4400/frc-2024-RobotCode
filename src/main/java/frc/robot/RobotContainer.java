@@ -77,11 +77,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
       new AutoShooter(m_shooter, m_intake,m_arm), 
-       m_arm.goToPosition(160)));    //Intake
+       m_arm.goToPosition(160.0)));    //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
       new IntakeCommand(m_intake,m_shooter), new AutoOutake(m_intake), 
-      m_arm.goToPosition(179.5)));
+      m_arm.goToPosition(178.0)));
     //Aim<
     NamedCommands.registerCommand("AutoAim", 
       new ParallelRaceGroup(new AutoAim(m_drive), new WaitCommand(1)));
@@ -135,7 +135,7 @@ public class RobotContainer {
     new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
 
     new JoystickButton(chassisDriver, 6)
-    .whileTrue(m_arm.goToPosition(179.0)
+    .whileTrue(m_arm.goToPosition(178.0)
     .alongWith(new IntakeCommand(m_intake,m_shooter)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
 
@@ -206,10 +206,13 @@ public class RobotContainer {
         StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
         m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("2NoteAuto");
+      break;
+
       case "3 NOTE CENTER":
         StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
       m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("3NoteAuto");
+      break;
     }
 
     return autonomousCommand;

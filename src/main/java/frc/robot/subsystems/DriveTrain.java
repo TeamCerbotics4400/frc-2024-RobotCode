@@ -72,8 +72,8 @@ public class DriveTrain extends SubsystemBase {
     }).start();
 
     AutoBuilder.configureHolonomic(
-      () -> m_vision.estimatedPose2d(),
-      this::resetOdometryPose, 
+      () -> getEncoderOdometry(),
+      this::resetEncoderOdometry, 
       () -> getRobotRelativeSpeeds(), 
       this::setRobotRelativeSpeeds, 
       new HolonomicPathFollowerConfig(

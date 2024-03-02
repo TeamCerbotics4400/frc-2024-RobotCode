@@ -57,7 +57,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   static InterpolatingTreeMap<InterpolatingDouble, InterpolatingDouble> 
     kDistanceToArmAngle = new InterpolatingTreeMap<>();
 
-  static{ //Added offset of 5 degrees of all angles because of mechanical problems
+  static{ //Added offset of 0 degrees
     kDistanceToArmAngle.put(new InterpolatingDouble(1.66),  new InterpolatingDouble(160.0));
     kDistanceToArmAngle.put(new InterpolatingDouble(2.05),  new InterpolatingDouble(153.0)); 
     kDistanceToArmAngle.put(new InterpolatingDouble(2.66),  new InterpolatingDouble(143.5));
@@ -179,7 +179,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360) - 28;
+    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360) - 127;
   }
 
   public double getAngleForDistance(double distance){
