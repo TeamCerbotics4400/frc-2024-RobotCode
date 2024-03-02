@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
@@ -58,9 +60,13 @@ public class DriveTrain extends SubsystemBase {
   private double rotationP = 0.0;
   private double rotationD = 0.0;
 
-  private SendableChooser<String> swerveIdleChooser = new SendableChooser<>();
-  private String currentModeSelection;
-  private final String[] modeNames = {"BRAKE", "COAST"};
+  private SendableChooser<String> swerveModule0Chooser = new SendableChooser<>();
+    private SendableChooser<String> swerveModule1Chooser = new SendableChooser<>();
+  private SendableChooser<String> swerveModule2Chooser = new SendableChooser<>();
+  private SendableChooser<String> swerveModule3Chooser = new SendableChooser<>();
+
+  private String currentSwerveModeSelection;
+  private final String[] swerveModeNames = {"ORIGINAL","INVERTED", "NOT INVERTED"};
 
   /** Creates a new DriveTrain. */
   public DriveTrain() {
@@ -94,12 +100,30 @@ public class DriveTrain extends SubsystemBase {
                     return false;
                 },
       this);
+      swerveModule0Chooser.setDefaultOption("Original mode", swerveModeNames[0]);
+      swerveModule0Chooser.addOption("Original mode", swerveModeNames[0]);
+      swerveModule0Chooser.addOption("Inverted", swerveModeNames[1]);
+      swerveModule0Chooser.addOption("Not inverted", swerveModeNames[2]);
 
-      swerveIdleChooser.setDefaultOption("Brake Mode", modeNames[0]);
-      swerveIdleChooser.addOption("Brake Mode", modeNames[0]);
-      swerveIdleChooser.addOption("Coast Mode", modeNames[1]);
-  
-      SmartDashboard.putData("Swerve Mode", swerveIdleChooser);
+            swerveModule1Chooser.setDefaultOption("Original mode", swerveModeNames[0]);
+      swerveModule1Chooser.addOption("Original mode", swerveModeNames[0]);
+      swerveModule1Chooser.addOption("Inverted", swerveModeNames[1]);
+      swerveModule1Chooser.addOption("Not inverted", swerveModeNames[2]);
+
+            swerveModule2Chooser.setDefaultOption("Original mode", swerveModeNames[0]);
+      swerveModule2Chooser.addOption("Original mode", swerveModeNames[0]);
+      swerveModule2Chooser.addOption("Inverted", swerveModeNames[1]);
+      swerveModule2Chooser.addOption("Not inverted", swerveModeNames[2]);
+
+            swerveModule3Chooser.setDefaultOption("Original mode", swerveModeNames[0]);
+      swerveModule3Chooser.addOption("Original mode", swerveModeNames[0]);
+      swerveModule3Chooser.addOption("Inverted", swerveModeNames[1]);
+      swerveModule3Chooser.addOption("Not inverted", swerveModeNames[2]);
+
+      SmartDashboard.putData("Swerve Mode 0", swerveModule0Chooser);
+      SmartDashboard.putData("Swerve Mode 1", swerveModule1Chooser);
+      SmartDashboard.putData("Swerve Mode 2", swerveModule2Chooser);
+      SmartDashboard.putData("Swerve Mode 3", swerveModule3Chooser);
   }
 
   @Override
@@ -113,6 +137,11 @@ public class DriveTrain extends SubsystemBase {
     for(SwerveModule mod: swerveModules){
       SmartDashboard.putNumber("Module [" + mod.moduleNumber + "] Velocity",
        swerveModules[mod.moduleNumber].getDriveVelocity());
+    }
+
+        for(SwerveModule mod: swerveModules){
+      SmartDashboard.putBoolean("Module [" + mod.moduleNumber+ "] Mode",
+       swerveModules[mod.moduleNumber].getModuleInverted());
     }
 
     //Only one variable to check, if it updates, everything else is supposed to follow
@@ -131,23 +160,73 @@ public class DriveTrain extends SubsystemBase {
 
     SmartDashboard.putNumber("Distance to current target", m_vision.getDistanceToTarget());
 
+
     encoderOdometry.update(getRotation2d(), getModulePositions());
     encoderOdoPublisher.set(getEncoderOdometry());
 
-    if(DriverStation.isDisabled()){
-      currentModeSelection = swerveIdleChooser.getSelected();
-      switch (currentModeSelection) {
-        case "BRAKE":
-          setBrake();
+
+
+      currentSwerveModeSelection = swerveModule0Chooser.getSelected();
+      switch (currentSwerveModeSelection) {
+        case "INVERTED":
+       swerveModules[0].setInverted();
         break;
 
-        case "COAST":
-          setCoast();
-        break;
+        case "NOT INVERTED":
+       swerveModules[0].setNonInverted();
+        break; 
+         
+        case "ORIGINAL":
+          {
+       swerveModules[0].setInverted();
+          }
       }
-    } else {
-      setBrake();
-    }
+        currentSwerveModeSelection = swerveModule1Chooser.getSelected();
+      switch (currentSwerveModeSelection) {
+        case "INVERTED":
+       swerveModules[1].setInverted();
+        break;
+
+        case "NOT INVERTED":
+       swerveModules[1].setNonInverted();
+        break; 
+         
+        case "ORIGINAL":
+          {
+       swerveModules[1].setNonInverted();
+          }
+      }
+        currentSwerveModeSelection = swerveModule2Chooser.getSelected();
+      switch (currentSwerveModeSelection) {
+        case "INVERTED":
+       swerveModules[2].setInverted();
+        break;
+
+        case "NOT INVERTED":
+       swerveModules[2].setNonInverted();
+        break; 
+         
+        case "ORIGINAL":
+          {
+       swerveModules[2].setNonInverted();
+          }
+      }
+        currentSwerveModeSelection = swerveModule3Chooser.getSelected();
+      switch (currentSwerveModeSelection) {
+        case "INVERTED":
+       swerveModules[3].setInverted();
+        break;
+
+        case "NOT INVERTED":
+       swerveModules[3].setNonInverted();
+        break; 
+         
+        case "ORIGINAL":
+          {
+       swerveModules[3].setInverted();
+          }
+      }
+      
   }
 
   public void zeroHeading(){
@@ -278,11 +357,28 @@ public class DriveTrain extends SubsystemBase {
             mod.setMotorsIdleMode(IdleMode.kCoast);
         }
   }
-
+  public void setModuleInverted(){
+    for(SwerveModule mod: swerveModules){
+        mod.setInverted();
+    }
+  }
+  public void setModuleNotInverted(){
+    for(SwerveModule mod: swerveModules){
+      mod.setNonInverted();
+    }
+  }
+  public void getSwerveInverted(){
+    for(SwerveModule mod: swerveModules){
+      mod.getModuleInverted();
+    }
+  }
+ 
   //Debug
   public void tuneDrivePID(double speedMtsPerSec){
     for(SwerveModule mod : swerveModules){
       mod.tuneModulePID(speedMtsPerSec);
     }
   }
+
+
 }

@@ -18,7 +18,10 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.AnalogEncoder;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
 import team4400.Util.Swerve.CANModuleOptimizer;
@@ -29,7 +32,7 @@ public class SwerveModule {
 
     public final int moduleNumber;
 
-    private final CANSparkMax driveMotor;
+    public final CANSparkMax driveMotor;
     private final CANSparkMax turnMotor;
 
     private final RelativeEncoder driveEncoder;
@@ -44,6 +47,8 @@ public class SwerveModule {
     private final double absoluteEncoderOffset;
 
     private Rotation2d lastAngle;
+
+
     
     public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants){
 
@@ -89,6 +94,8 @@ public class SwerveModule {
         resetEncoders();
 
         lastAngle = getState().angle;
+
+    
     }
 
     public double getDrivePosition(){
@@ -140,6 +147,8 @@ public class SwerveModule {
         //SmartDashboard.putString("Swerve [" + moduleNumber + "] state", desiredState.toString());
     }
 
+   
+
     public void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop){
         if(isOpenLoop){
             double percentOutput = 
@@ -186,4 +195,16 @@ public class SwerveModule {
         driveController.setReference(speedMtsPerSec, ControlType.kVelocity, 
             0, feedForward.calculate(speedMtsPerSec));
     }
+    public  void setInverted(){
+         driveMotor.setInverted(true);
+    }
+
+    public void setNonInverted(){
+        driveMotor.setInverted(false);
+    }
+
+    public boolean getModuleInverted(){
+        return driveMotor.getInverted();
+    }
+
 }

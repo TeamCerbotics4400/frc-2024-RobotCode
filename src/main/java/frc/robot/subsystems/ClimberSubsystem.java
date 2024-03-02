@@ -42,9 +42,6 @@ public class ClimberSubsystem extends SubsystemBase {
     climberPIDController.setFF(ClimberConstants.kFF);
 
     climberEncoder.setPositionConversionFactor(ClimberConstants.CLIMBER_GEARBOX);
-
-    /*setSoftLimits();
-    enableSoftLimit(); */
   }
 
   @Override
