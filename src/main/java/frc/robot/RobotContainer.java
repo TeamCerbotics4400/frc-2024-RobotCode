@@ -63,7 +63,7 @@ public class RobotContainer {
   private final String m_DefaultAuto = "NO AUTO";
   private String m_autoSelected;
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
-   "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", "3 NOTE CENTER"};
+   "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT"};
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -104,6 +104,8 @@ public class RobotContainer {
     autoChooser.addOption("Complement 3 Notes", m_autoNames[3]);
     autoChooser.addOption("2 Note Center", m_autoNames[6]);
     autoChooser.addOption("3 Note Center", m_autoNames[7]);
+    autoChooser.addOption("4 Note Center", m_autoNames[8]);
+    autoChooser.addOption("Safe Complement", m_autoNames[9]);
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
@@ -212,6 +214,17 @@ public class RobotContainer {
         StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
       m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("3NoteAuto");
+      break;
+      
+      case "4 NOTE CENTER":
+      StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
+      m_drive.setPathplannerPID();
+        autonomousCommand = new PathPlannerAuto("4NoteAuto");
+        break;
+
+      case "SAFE COMPLEMENT":
+      StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
+      autonomousCommand = new PathPlannerAuto("SafeComplement");
       break;
     }
 

@@ -40,6 +40,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   private final CANSparkMax leftMotor = new CANSparkMax(ArmConstants.LEFT_ARM_ID, MotorType.kBrushless);
   private final CANSparkMax rightMotor = new CANSparkMax(ArmConstants.RIGHT_ARM_ID, MotorType.kBrushless);
 
+  private boolean armTest;
   /*private final DutyCycleEncoder m_encoder =
       new DutyCycleEncoder(ArmConstants.ABSOLUTE_ENCODER_PORT);*/
 
@@ -69,6 +70,10 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   private SendableChooser<String> armModeChooser = new SendableChooser<>();
   private String currentModeSelection;
   private final String[] modeNames = {"BRAKE", "COAST"};
+  
+  private SendableChooser<String> armInverterChooser = new SendableChooser<>();
+  private String currentInvertedSelection;
+  private final String[] modeInverted = {"INVERTED", "NOT INVERTED"};
 
   boolean onTarget;
 
@@ -126,6 +131,12 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     armModeChooser.addOption("Coast Mode", modeNames[1]);
 
     SmartDashboard.putData("Arm Mode", armModeChooser);
+
+    armInverterChooser.setDefaultOption("Inverted Mode", modeInverted[0]);
+    armInverterChooser.addOption("Inverted Mode", modeInverted[0]);
+    armInverterChooser.addOption("Not inverted Mode", modeInverted[1]);
+
+    SmartDashboard.putData("Arm Inversion", armInverterChooser);
   }
 
   @Override
@@ -142,6 +153,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
       SmartDashboard.putBoolean("Left Arm Reset", hasLeftArmReset());
       SmartDashboard.putBoolean("Right Arm Reset", hasRighttArmReset());
+      SmartDashboard.putBoolean("Arm test", armTest);
 
       if(DriverStation.isDisabled()){
         currentModeSelection = armModeChooser.getSelected();
@@ -157,6 +169,19 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       } else {
         armSetBrake();
       }
+      /*  currentInvertedSelection = armInverterChooser.getSelected();
+        switch (currentInvertedSelection) {
+          case "INVERTED":
+            armSetBrake();
+            armTest = true;
+          break;
+
+          case "NOT INVERTED":
+            armSetCoast();
+            armTest = false;
+          break;
+           */
+        }
 
       /*double akP = SmartDashboard.getNumber("Arm kP", ArmConstants.kP),
              akI = SmartDashboard.getNumber("Arm kI", ArmConstants.kI),
@@ -165,7 +190,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       if (ArmConstants.kP != akP) {ArmConstants.kP = akP; getController().setP(akP);}
       if (ArmConstants.kI != akI) {ArmConstants.kI = akI; getController().setI(akI);}
       if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}*/
-  }
+  
 
   @Override
   public void useOutput(double output, TrapezoidProfile.State setpoint) {
@@ -179,7 +204,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360) - 127;
+    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360) - 126;
   }
 
   public double getAngleForDistance(double distance){
@@ -232,5 +257,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
  public boolean hasRighttArmReset(){
     return rightMotor.getStickyFault(FaultID.kHasReset);
  }
+
 
 }

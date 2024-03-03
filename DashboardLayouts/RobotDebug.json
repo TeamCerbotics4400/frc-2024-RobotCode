@@ -1207,7 +1207,7 @@
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Swerve Mode 0",
-              "_title": "SmartDashboard/Swerve Mode 0",
+              "_title": "/SmartDashboard/Swerve Mode 0",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -1220,7 +1220,7 @@
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Swerve Mode 1",
-              "_title": "SmartDashboard/Swerve Mode 1",
+              "_title": "/SmartDashboard/Swerve Mode 1",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -1233,7 +1233,7 @@
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Swerve Mode 2",
-              "_title": "SmartDashboard/Swerve Mode 2",
+              "_title": "/SmartDashboard/Swerve Mode 2",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -1246,7 +1246,7 @@
             "content": {
               "_type": "ComboBox Chooser",
               "_source0": "network_table:///SmartDashboard/Swerve Mode 3",
-              "_title": "SmartDashboard/Swerve Mode 3",
+              "_title": "/SmartDashboard/Swerve Mode 3",
               "_glyph": 148,
               "_showGlyph": false
             }
