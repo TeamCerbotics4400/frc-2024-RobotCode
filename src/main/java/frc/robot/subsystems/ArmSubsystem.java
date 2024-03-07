@@ -40,11 +40,11 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   private final CANSparkMax leftMotor = new CANSparkMax(ArmConstants.LEFT_ARM_ID, MotorType.kBrushless);
   private final CANSparkMax rightMotor = new CANSparkMax(ArmConstants.RIGHT_ARM_ID, MotorType.kBrushless);
 
-  private boolean armTest;
+  //private boolean armTest;
   /*private final DutyCycleEncoder m_encoder =
       new DutyCycleEncoder(ArmConstants.ABSOLUTE_ENCODER_PORT);*/
 
-  private final CANcoder m_encoder = new CANcoder(ArmConstants.ABSOLUTE_ENCODER_ID, "rio");
+  private final CANcoder m_encoder = new CANcoder(ArmConstants.ABSOLUTE_ENCODER_ID, "Swerve_Canivore");
 
   CANcoderConfiguration encoderConfig = new CANcoderConfiguration();
 
@@ -151,9 +151,16 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
       SmartDashboard.putNumber("Arm Pose Error", this.getController().getPositionError());
 
-      SmartDashboard.putBoolean("Left Arm Reset", hasLeftArmReset());
-      SmartDashboard.putBoolean("Right Arm Reset", hasRighttArmReset());
-      SmartDashboard.putBoolean("Arm test", armTest);
+      //To check if the right motor is doing some work
+      SmartDashboard.putNumber("Left Motor Current", leftMotor.getOutputCurrent());
+      SmartDashboard.putNumber("Right Motor Current", rightMotor.getOutputCurrent());
+
+      SmartDashboard.putNumber("Left Motor Voltage", leftMotor.getBusVoltage());
+      SmartDashboard.putNumber("Right Motor Voltage", rightMotor.getBusVoltage());
+
+      //SmartDashboard.putBoolean("Left Arm Reset", hasLeftArmReset());
+      //SmartDashboard.putBoolean("Right Arm Reset", hasRighttArmReset());
+      //SmartDashboard.putBoolean("Arm test", armTest);
 
       if(DriverStation.isDisabled()){
         currentModeSelection = armModeChooser.getSelected();
@@ -241,8 +248,8 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   }
 
   public void armSetCoast(){
-    leftMotor.setIdleMode(IdleMode.kCoast);
-    rightMotor.setIdleMode(IdleMode.kCoast);  
+   leftMotor.setIdleMode(IdleMode.kCoast);
+   rightMotor.setIdleMode(IdleMode.kCoast);  
   }
 
   public void armSetBrake(){
@@ -252,11 +259,9 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
   public boolean hasLeftArmReset(){
     return leftMotor.getStickyFault(FaultID.kHasReset);
- }
+  }
 
- public boolean hasRighttArmReset(){
+  public boolean hasRighttArmReset(){
     return rightMotor.getStickyFault(FaultID.kHasReset);
- }
-
-
+  }
 }
