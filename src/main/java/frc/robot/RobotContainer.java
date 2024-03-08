@@ -26,7 +26,6 @@ import frc.robot.commands.ShooterCommands.AmpShootCommand;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -36,11 +35,10 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.AutoPickup;
+import frc.robot.commands.TeleOpControl;
 import frc.robot.commands.ArmCommands.ArmToPose;
 import frc.robot.commands.AutoCommands.AutoOutake;
 import frc.robot.commands.AutoCommands.AutoShooter;
-import frc.robot.commands.ClimberCommands.ExtendClimber;
-import frc.robot.commands.ClimberCommands.RetractCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -58,7 +56,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
-  private final ClimberSubsystem m_climber = new ClimberSubsystem();
+  //private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
   private Timer rumbleTimer = new Timer();
@@ -133,23 +131,23 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_drive.setDefaultCommand(m_drive.applyRequest(
-      () -> drive.withVelocityX(-chassisDriver.getLeftY() * DriveConstants.MaxSpeed)
-      .withVelocityY(-chassisDriver.getLeftX() * DriveConstants.MaxSpeed)
-      .withRotationalRate(-chassisDriver.getRightX() * DriveConstants.MaxAngularRate)));
+    m_drive.setDefaultCommand(new TeleOpControl(
+      m_drive,
+      () -> chassisDriver.getLeftY(),
+      () -> chassisDriver.getLeftX(),
+      () -> -chassisDriver.getRightX()));
 
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
-    chassisDriver.b().onTrue(new AutoAim(m_drive));  
+    chassisDriver.b().whileTrue(new AutoAim(m_drive)); 
 
     //Manual Pickup
     chassisDriver.rightBumper()
-    .onTrue(m_arm.goToPosition(178)
+    .whileTrue(m_arm.goToPosition(183)
     .alongWith(new IntakeCommand(m_intake, m_shooter)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
-    chassisDriver.leftBumper().onTrue(new AutoPickup(m_drive, -chassisDriver.getLeftY() * DriveConstants.MaxSpeed,
-                                    -chassisDriver.getLeftX() * DriveConstants.MaxSpeed));
+    chassisDriver.leftBumper().whileTrue(new AutoPickup(m_drive));
 
     //Auto Pickup
     /*chassisDriver.leftBumper().onTrue(m_arm.goToPosition(178)
@@ -160,16 +158,16 @@ public class RobotContainer {
 
     // Joystick 2
     subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
-    subsystemsDriver.b().onTrue(new OutakeCommand(m_intake, m_shooter));
-    subsystemsDriver.x().onTrue(new RetractCommand(m_climber));
-    subsystemsDriver.y().onTrue(new ExtendClimber(m_climber));
+    subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter));
+    //subsystemsDriver.x().onTrue(new RetractClimber(m_climber));
+    //subsystemsDriver.y().onTrue(new ExtendClimber(m_climber));
 
     subsystemsDriver.leftBumper()
-      .onTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
+      .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
     subsystemsDriver.rightBumper()
-      .onTrue(new ArmToPose(m_arm)
+      .whileTrue(new ArmToPose(m_arm)
       .alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 

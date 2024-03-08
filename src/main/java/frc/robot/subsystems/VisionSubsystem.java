@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.MatBuilder;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -21,7 +20,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.LimelightHelpers;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
 
 /** Add your docs here. */
@@ -112,9 +110,9 @@ public class VisionSubsystem {
   public void odometryWvision(){
 
     LimelightHelpers.Results results = 
-        LimelightHelpers.getLatestResults(VisionConstants.tagLimelightName).targetingResults;
+        LimelightHelpers.getLatestResults(VisionConstants.tagLimelight).targetingResults;
 
-    if(LimelightHelpers.getTV(VisionConstants.tagLimelightName)){
+    if(LimelightHelpers.getTV(VisionConstants.tagLimelight)){
       Pose2d camPose = LimelightHelpers.toPose2D(results.botpose_wpiblue);
       m_drive.addVisionMeasurement(camPose, 
       Timer.getFPGATimestamp() - (results.latency_capture / 1000.0)
@@ -164,18 +162,18 @@ public class VisionSubsystem {
   public double getDistanceToTarget(){
     double distance = 0.0;
     
-    distance = LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ();
+    distance = LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelight).getZ();
 
     return distance;
   }
 
   public void setCameraPipeline(int pipeline){
-    LimelightHelpers.setPipelineIndex(VisionConstants.tagLimelightName, pipeline);
+    LimelightHelpers.setPipelineIndex(VisionConstants.tagLimelight, pipeline);
   }
   
   public int getNumofDetectedTargets(){
     return LimelightHelpers
-    .getLatestResults(VisionConstants.tagLimelightName).targetingResults.targets_Fiducials.length;
+    .getLatestResults(VisionConstants.tagLimelight).targetingResults.targets_Fiducials.length;
   }
 
   public boolean allowedToFilterAuto(){

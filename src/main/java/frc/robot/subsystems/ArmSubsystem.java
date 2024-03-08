@@ -104,14 +104,14 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     
     // Start arm at rest in neutral position
     setGoal(90.3);
-
     //   this.m_controller.setIZone(20);
 
     leftMotor.restoreFactoryDefaults();
     rightMotor.restoreFactoryDefaults();
 
     leftMotor.setInverted(true);
-    rightMotor.follow(leftMotor, true);
+    rightMotor.setInverted(false);
+    //rightMotor.follow(leftMotor, true);
 
     leftMotor.setSmartCurrentLimit(80);
     rightMotor.setSmartCurrentLimit(80);
@@ -205,13 +205,14 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     double feedforward = m_feedforward.calculate(setpoint.position, setpoint.velocity);
     // Add the feedforward to the PID output to get the motor output
     leftMotor.setVoltage(output + feedforward);
+    rightMotor.setVoltage(output + feedforward);
   }
 
   @Override
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360) - 126;
+    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360) - 74;
   }
 
   public double getAngleForDistance(double distance){

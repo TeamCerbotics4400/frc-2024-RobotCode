@@ -18,8 +18,8 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-  private final CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_ID,MotorType.kBrushless);
-  public  DigitalInput intakeSensor = new DigitalInput(2);
+  private final CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_ID, MotorType.kBrushless);
+  public  DigitalInput intakeSensor = new DigitalInput(0);
 
   RelativeEncoder intakeEncoder;
 

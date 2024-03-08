@@ -4,11 +4,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.util.Units;
 import frc.robot.generated.TunerConstants;
-import team4400.Util.Swerve.SwerveModuleConstants;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -23,21 +19,10 @@ import team4400.Util.Swerve.SwerveModuleConstants;
 
  /*************** DRIVE ****************/
 
- /*
- * Two options: 5.50 or 6.55
- * All of this data available in
- * https://docs.wcproducts.com/wcp-swervex/general-info/ratio-options
- */
-
 public final class Constants {
   public static boolean needToLog = true;
 
   public static final class DriveConstants{
-    /* Specific module constants from FRC 95:
-     * https://github.com/first95/FRC2023/blob/f0e881c39ade544b3b71936995f7f075105f0b93/Clarke/src/main/java/frc/robot/Constants.java#LL136C16-L136C23
-     * Gives us a tool for a cleaner and readable swerve code
-    */
-
     /*    
      *                   F             
      *   ┌───────┬─────────────────┬───────┐
@@ -63,10 +48,10 @@ public final class Constants {
     public static final double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps;
     public static final double MaxAngularRate = 1.5 * Math.PI;
 
-    public static final double shortTraslationP = 0.5,
-                               shortTraslationD = 0.35,
-                               shortRotationP = 0.2,
-                               shortRotationD = 0.1;
+    public static final double traslationP = 0.5,
+                               traslationD = 0.35,
+                               rotationP = 0.2,
+                               rotationD = 0.1;
   }
 
   public static final class ShooterConstants {
@@ -98,7 +83,7 @@ public final class Constants {
     public static byte RIGHT_ARM_ID = 10;  //10
 
     //Changed to CANCoder
-    public static int ABSOLUTE_ENCODER_ID = 11;
+    public static int ABSOLUTE_ENCODER_ID = 17;
 
     public static double ARM_GEARBOX = 320.0 / 1.0;
 
@@ -140,7 +125,7 @@ public final class Constants {
   public static final class VisionConstants {
 
     public static final String neuralLimelight = "limelight-neural";
-    public static final String tagLimelightName = "limelight-tags";
+    public static final String tagLimelight = "limelight-tags";
 
     public static final int main_Pipeline = 0,
                             far_Pipeline = 1,

@@ -36,8 +36,8 @@ public class ArmToPose extends Command {
   @Override
   public void execute() {
 
-      if(LimelightHelpers.getTV(VisionConstants.tagLimelightName) == true || LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ() <= 4.35){
-         angle = m_arm.getAngleForDistance(LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelightName).getZ());
+      if(LimelightHelpers.getTV(VisionConstants.tagLimelight) == true || LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelight).getZ() <= 4.35){
+         angle = m_arm.getAngleForDistance(LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelight).getZ());
         }
        else {
            angle = 160.0;

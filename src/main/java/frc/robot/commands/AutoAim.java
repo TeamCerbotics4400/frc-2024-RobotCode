@@ -4,14 +4,14 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 
-import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
@@ -19,22 +19,19 @@ public class AutoAim extends Command {
   /** Creates a new AutoAim. */
   private final CommandSwerveDrivetrain m_drive;
 
+  private final SwerveRequest.ApplyChassisSpeeds drive = new SwerveRequest.ApplyChassisSpeeds();
+
+  private final PhoenixPIDController m_aimController = new PhoenixPIDController(0.4, 0.0, 0.0);
+
   private double pidOutput = 0.0;
-
-  PIDController aimController;
-
-  private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
-  .withDeadband(DriveConstants.MaxSpeed * 0.1)
-  .withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1)
-  .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
   public AutoAim(CommandSwerveDrivetrain m_drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_drive = m_drive;
 
-    aimController = new PIDController(0.13, 0, 0.001);
-    aimController.enableContinuousInput(-180, 180);
-    aimController.setTolerance(1.0);
+    //m_aimController.setPID(0.2, 0.0, 0.0080);
+    m_aimController.enableContinuousInput(-Math.PI, Math.PI);
+    m_aimController.setTolerance(0.01);
 
     addRequirements(m_drive);
   }
@@ -42,18 +39,17 @@ public class AutoAim extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    aimController.reset();
+    m_aimController.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pidOutput = -aimController.calculate(LimelightHelpers.getTX(VisionConstants.tagLimelightName));
 
-    m_drive.applyRequest(
-      () -> drive.withVelocityX(0)
-      .withVelocityY(0)
-      .withRotationalRate(pidOutput));
+    pidOutput = 
+        m_aimController.calculate(LimelightHelpers.getTX(VisionConstants.tagLimelight), 0.0, Timer.getFPGATimestamp());
+
+    m_drive.setControl(drive.withSpeeds(new ChassisSpeeds(0, 0, pidOutput)));
   }
 
   // Called once the command ends or is interrupted.
@@ -65,6 +61,6 @@ public class AutoAim extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return aimController.atSetpoint();
+    return false;//m_aimController.atSetpoint();
   }
 }
