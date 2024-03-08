@@ -54,7 +54,6 @@ public class AutoAim extends Command {
       () -> drive.withVelocityX(0)
       .withVelocityY(0)
       .withRotationalRate(pidOutput));
-
   }
 
   // Called once the command ends or is interrupted.
