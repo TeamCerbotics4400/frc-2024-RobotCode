@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -21,8 +22,11 @@ public class ClimberSubsystem extends SubsystemBase {
   private final SparkPIDController climberPIDController;
   private final RelativeEncoder climberEncoder;
 
-  private double extendedClimber = -1.0;   //Test optimal height to the chain
-  private double retractedClimber = 1.0;
+  private double extendedClimber = 0.0;   //Test optimal height to the chain
+  private double retractedClimber = 0.0;
+
+  private double openExtendedClimber = -1.0;  
+  private double openRetractedClimber = 1.0;
 
   public ClimberSubsystem() {
     climberMotor.clearFaults();
@@ -53,12 +57,19 @@ public class ClimberSubsystem extends SubsystemBase {
     return climberEncoder.getPosition();
   }
 
-  public void ExtendClimber(){
-    climberMotor.set(extendedClimber);
+  public void extendClimber(){
+    climberPIDController.setReference(extendedClimber, ControlType.kPosition);
   }
 
-  public void RetractClimber(){
-    climberMotor.set(retractedClimber);
+  public void retractClimber(){
+    climberPIDController.setReference(retractedClimber, ControlType.kPosition);
+  }
+
+  public void openLoopExtend(){
+    climberMotor.set(openExtendedClimber);
+  }
+    public void openLoopRetract(){
+    climberMotor.set(openRetractedClimber);
   }
 
   public void stopClimber(){

@@ -9,7 +9,6 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,7 +19,6 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
@@ -33,8 +31,6 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
-import team4400.StateMachines;
-import team4400.StateMachines.AutoPIDState;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
@@ -42,8 +38,8 @@ import frc.robot.commands.AutoAim;
 import frc.robot.commands.ArmCommands.ArmToPose;
 import frc.robot.commands.AutoCommands.AutoOutake;
 import frc.robot.commands.AutoCommands.AutoShooter;
-import frc.robot.commands.ClimberCommands.ClimberCommand;
-import frc.robot.commands.ClimberCommands.DescendCommand;
+import frc.robot.commands.ClimberCommands.ExtendClimber;
+import frc.robot.commands.ClimberCommands.RetractCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -52,10 +48,11 @@ import frc.robot.commands.ClimberCommands.DescendCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  //Create Joystick Objects for TeleOp control
   private final CommandXboxController chassisDriver = new CommandXboxController(0);
   private final CommandXboxController subsystemsDriver = new CommandXboxController(1);
 
-  //private final DriveTrain m_drive = new DriveTrain();
+  //Create Subsystem Objects
   private final CommandSwerveDrivetrain m_drive = TunerConstants.DriveTrain;
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
@@ -79,7 +76,7 @@ public class RobotContainer {
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  public RobotContainer() { 
     //Idle Arm
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
     //Shoot
@@ -152,8 +149,8 @@ public class RobotContainer {
     // Joystick 2
     subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
     subsystemsDriver.b().onTrue(new OutakeCommand(m_intake, m_shooter));
-    subsystemsDriver.x().onTrue(new DescendCommand(m_climber));
-    subsystemsDriver.y().onTrue(new ClimberCommand(m_climber));
+    subsystemsDriver.x().onTrue(new RetractCommand(m_climber));
+    subsystemsDriver.y().onTrue(new ExtendClimber(m_climber));
 
     subsystemsDriver.leftBumper()
       .onTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
@@ -163,7 +160,8 @@ public class RobotContainer {
       .onTrue(new ArmToPose(m_arm)
       .alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
-      
+
+    m_drive.registerTelemetry(logger::telemeterize);
   }
 
   /**
