@@ -21,7 +21,7 @@ public class AutoPickup extends Command {
   /** Creates a new AutoPickup. */
   CommandSwerveDrivetrain m_drive;
 
-  private final Supplier<Double> xSpdFunction, ySpdFunction;
+  private final double xSpdFunction, ySpdFunction;
 
   private double pidOutput = 0.0;
 
@@ -32,8 +32,8 @@ public class AutoPickup extends Command {
   .withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1)
   .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
-  public AutoPickup(CommandSwerveDrivetrain m_drive, Supplier <Double> xSpdFunction
-  ,  Supplier<Double> ySpdFunction) {
+  public AutoPickup(CommandSwerveDrivetrain m_drive, double xSpdFunction
+  ,  double ySpdFunction) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_drive = m_drive;
     this.xSpdFunction = xSpdFunction;
@@ -55,8 +55,8 @@ public class AutoPickup extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xSpeed = xSpdFunction.get();
-    double ySpeed = ySpdFunction.get();
+    double xSpeed = xSpdFunction;
+    double ySpeed = ySpdFunction;
 
     pidOutput = -aimController.calculate(LimelightHelpers.getTX(VisionConstants.tagLimelightName));
 

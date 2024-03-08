@@ -35,6 +35,7 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
+import frc.robot.commands.AutoPickup;
 import frc.robot.commands.ArmCommands.ArmToPose;
 import frc.robot.commands.AutoCommands.AutoOutake;
 import frc.robot.commands.AutoCommands.AutoShooter;
@@ -141,10 +142,21 @@ public class RobotContainer {
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
     chassisDriver.b().onTrue(new AutoAim(m_drive));  
 
+    //Manual Pickup
     chassisDriver.rightBumper()
     .onTrue(m_arm.goToPosition(178)
     .alongWith(new IntakeCommand(m_intake, m_shooter)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+
+    chassisDriver.leftBumper().onTrue(new AutoPickup(m_drive, -chassisDriver.getLeftY() * DriveConstants.MaxSpeed,
+                                    -chassisDriver.getLeftX() * DriveConstants.MaxSpeed));
+
+    //Auto Pickup
+    /*chassisDriver.leftBumper().onTrue(m_arm.goToPosition(178)
+    .alongWith(new IntakeCommand(m_intake, m_shooter))
+    .alongWith(new AutoPickup(m_drive, -chassisDriver.getLeftY() * DriveConstants.MaxSpeed,
+                                    -chassisDriver.getLeftX() * DriveConstants.MaxSpeed)))
+    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));*/
 
     // Joystick 2
     subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
