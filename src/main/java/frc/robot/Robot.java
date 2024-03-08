@@ -31,6 +31,7 @@ public class Robot extends TimedRobot {
   DoubleLogEntry batteryVoltage;
 
   StructArrayPublisher<SwerveModuleState> measuredStates;
+  StructArrayPublisher<SwerveModuleState> targetStates;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -54,7 +55,10 @@ public class Robot extends TimedRobot {
     measuredStates = NetworkTableInstance.getDefault()
     .getStructArrayTopic("Measured Swerve States", SwerveModuleState.struct).publish();
 
-    m_robotContainer.getDrive().getVisionSubsystem()
+    targetStates = NetworkTableInstance.getDefault()
+    .getStructArrayTopic("Target Swerve States", SwerveModuleState.struct).publish();
+
+    m_robotContainer.getVision()
     .setCameraPipeline(VisionConstants.main_Pipeline); //TODO: In case: Change to day pipeline
 
     Shuffleboard.selectTab("Match Briefing");
@@ -75,7 +79,8 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     batteryVoltage.append(RobotController.getBatteryVoltage());
-    measuredStates.set(m_robotContainer.getDrive().getModuleStates());
+    measuredStates.set(m_robotContainer.getDrive().getState().ModuleStates);
+    targetStates.set(m_robotContainer.getDrive().getState().ModuleTargets);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

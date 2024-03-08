@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
@@ -24,17 +26,19 @@ import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.commands.ShooterCommands.AmpShootCommand;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
+import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 import team4400.StateMachines;
 import team4400.StateMachines.AutoPIDState;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
-import frc.robot.commands.TeleopControl;
 import frc.robot.commands.ArmCommands.ArmToPose;
 import frc.robot.commands.AutoCommands.AutoOutake;
 import frc.robot.commands.AutoCommands.AutoShooter;
@@ -48,14 +52,16 @@ import frc.robot.commands.ClimberCommands.DescendCommand;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final Joystick chassisDriver = new Joystick(0);
-  private final Joystick subsystemsDriver = new Joystick(1);
+  private final CommandXboxController chassisDriver = new CommandXboxController(0);
+  private final CommandXboxController subsystemsDriver = new CommandXboxController(1);
 
-  private final DriveTrain m_drive = new DriveTrain();
+  //private final DriveTrain m_drive = new DriveTrain();
+  private final CommandSwerveDrivetrain m_drive = TunerConstants.DriveTrain;
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
+  private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
   private Timer rumbleTimer = new Timer();
 
@@ -64,6 +70,13 @@ public class RobotContainer {
   private String m_autoSelected;
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
    "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT"};
+
+  private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+  .withDeadband(DriveConstants.MaxSpeed * 0.1)
+  .withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1)
+  .withDriveRequestType(DriveRequestType.OpenLoopVoltage); 
+
+  private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -88,11 +101,11 @@ public class RobotContainer {
     //Change Pipelines
     NamedCommands.registerCommand("MainTracking", 
     new InstantCommand(
-      () -> m_drive.getVisionSubsystem().setCameraPipeline(VisionConstants.main_Pipeline)));
+      () -> m_vision.setCameraPipeline(VisionConstants.main_Pipeline)));
     //Change Pipeline
     NamedCommands.registerCommand("FarTracking", 
     new InstantCommand(
-      () -> m_drive.getVisionSubsystem().setCameraPipeline(VisionConstants.far_Pipeline)));
+      () -> m_vision.setCameraPipeline(VisionConstants.far_Pipeline)));
 
     autoChooser = new SendableChooser<>();
 
@@ -122,39 +135,35 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-
-    m_drive.setDefaultCommand(new TeleopControl
-    (m_drive, 
-    () -> chassisDriver.getRawAxis(1), 
-    () -> chassisDriver.getRawAxis(0), 
-    () -> chassisDriver.getRawAxis(4), 
-    () -> true));
+    m_drive.setDefaultCommand(m_drive.applyRequest(
+      () -> drive.withVelocityX(-chassisDriver.getLeftY() * DriveConstants.MaxSpeed)
+      .withVelocityY(-chassisDriver.getLeftX() * DriveConstants.MaxSpeed)
+      .withRotationalRate(-chassisDriver.getRightX() * DriveConstants.MaxAngularRate)));
 
     //Joystick 1
-    new JoystickButton(chassisDriver, 1).onTrue(
-    new InstantCommand(() -> m_drive.zeroHeading()));
+    chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
+    chassisDriver.b().onTrue(new AutoAim(m_drive));  
 
-    new JoystickButton(chassisDriver, 2).whileTrue(new AutoAim(m_drive));
-
-    new JoystickButton(chassisDriver, 6)
-    .whileTrue(m_arm.goToPosition(178.0)
-    .alongWith(new IntakeCommand(m_intake,m_shooter)))
-    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));     
+    chassisDriver.rightBumper()
+    .onTrue(m_arm.goToPosition(178)
+    .alongWith(new IntakeCommand(m_intake, m_shooter)))
+    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
     // Joystick 2
-    new JoystickButton(subsystemsDriver, 1).whileTrue(m_arm.goToPosition(93)); 
-    new JoystickButton(subsystemsDriver, 2).whileTrue(new OutakeCommand(m_intake, m_shooter));
-    new JoystickButton(subsystemsDriver, 3).whileTrue(new DescendCommand(m_climber));
-    new JoystickButton(subsystemsDriver, 4).whileTrue((new ClimberCommand(m_climber)));
+    subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
+    subsystemsDriver.b().onTrue(new OutakeCommand(m_intake, m_shooter));
+    subsystemsDriver.x().onTrue(new DescendCommand(m_climber));
+    subsystemsDriver.y().onTrue(new ClimberCommand(m_climber));
 
-    new JoystickButton(subsystemsDriver, 5)
-        .whileTrue(new AmpShootCommand(m_shooter, m_intake,m_arm))
-        .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+    subsystemsDriver.leftBumper()
+      .onTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
+      .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
-    new JoystickButton(subsystemsDriver, 6)
-        .whileTrue(new ArmToPose(m_arm)
-        .alongWith(new ShooterCommand(m_shooter, m_intake,m_arm)))
-        .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));        
+    subsystemsDriver.rightBumper()
+      .onTrue(new ArmToPose(m_arm)
+      .alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)))
+      .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+      
   }
 
   /**
@@ -170,60 +179,41 @@ public class RobotContainer {
     System.out.println("Auto Selected" + m_autoSelected);
     switch (m_autoSelected) {
       case "NO AUTO":
-        StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
-        m_drive.setPathplannerPID();
         autonomousCommand = null;
       break;
 
       case "4 NOTE INTERPOLATED":
-        StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
-        m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("InterpolatedAuto");
       break;
 
       case "4 NOTE STEAL":
-        StateMachines.setPositionState(AutoPIDState.LONG_TRAYECTORY);
-        m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("Steal4Score");
       break;
 
       case "3 NOTE COMPLEMENT":
-        StateMachines.setPositionState(AutoPIDState.LONG_TRAYECTORY);
-        m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("NoteComplement");
       break;
 
       case "2 NOTE COMPLEMENT":
-        StateMachines.setPositionState(AutoPIDState.LONG_TRAYECTORY);
-        m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("SafeComplement");
       break;
 
       case "4 NOTE SUBWOOFER":
-        StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
-        m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("SubwooferAuto");
       break;
       case "2 NOTE CENTER":
-        StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
-        m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("2NoteAuto");
       break;
 
       case "3 NOTE CENTER":
-        StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
-      m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("3NoteAuto");
       break;
       
       case "4 NOTE CENTER":
-      StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
-      m_drive.setPathplannerPID();
         autonomousCommand = new PathPlannerAuto("4NoteAuto");
         break;
 
       case "SAFE COMPLEMENT":
-      StateMachines.setPositionState(AutoPIDState.SHORT_TRAYECTORY);
       autonomousCommand = new PathPlannerAuto("SafeComplement");
       break;
     }
@@ -231,12 +221,16 @@ public class RobotContainer {
     return autonomousCommand;
   }
 
-  public DriveTrain getDrive(){
+  public CommandSwerveDrivetrain getDrive(){
     return m_drive;
   }
 
   public IntakeSubsystem getIntake(){
     return m_intake;
+  }
+
+  public VisionSubsystem getVision(){
+    return m_vision;
   }
 
   public Timer getRumbleTimer(){

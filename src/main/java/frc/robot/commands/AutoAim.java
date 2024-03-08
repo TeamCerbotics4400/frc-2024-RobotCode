@@ -4,24 +4,31 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 public class AutoAim extends Command {
   /** Creates a new AutoAim. */
-  private final DriveTrain m_drive;
+  private final CommandSwerveDrivetrain m_drive;
 
   private double pidOutput = 0.0;
 
   PIDController aimController;
 
-  public AutoAim(DriveTrain m_drive) {
+  private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+  .withDeadband(DriveConstants.MaxSpeed * 0.1)
+  .withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1)
+  .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+
+  public AutoAim(CommandSwerveDrivetrain m_drive) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_drive = m_drive;
 
@@ -43,24 +50,17 @@ public class AutoAim extends Command {
   public void execute() {
     pidOutput = -aimController.calculate(LimelightHelpers.getTX(VisionConstants.tagLimelightName));
 
-    ChassisSpeeds chassisSpeeds;
+    m_drive.applyRequest(
+      () -> drive.withVelocityX(0)
+      .withVelocityY(0)
+      .withRotationalRate(pidOutput));
 
-    chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
-        0, 
-        0, 
-        pidOutput, 
-        m_drive.getRotation2d());
-
-    SwerveModuleState[] moduleStates = 
-            DriveConstants.kSwerveKinematics.toSwerveModuleStates(chassisSpeeds);
-    
-    m_drive.setModuleStates(moduleStates, true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drive.stopModules();
+    m_drive.setControl(new SwerveRequest.ApplyChassisSpeeds().withSpeeds(new ChassisSpeeds()));
   }
 
   // Returns true when the command should end.

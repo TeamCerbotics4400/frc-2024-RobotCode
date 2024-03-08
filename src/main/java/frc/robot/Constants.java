@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import frc.robot.generated.TunerConstants;
 import team4400.Util.Swerve.SwerveModuleConstants;
 
 /**
@@ -30,23 +31,6 @@ import team4400.Util.Swerve.SwerveModuleConstants;
 
 public final class Constants {
   public static boolean needToLog = true;
-
-  public static final class ModuleConstants{
-    public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
-    public static final double kDriveMotorGearRatio = 1 / 5.50; //Drive Gear Ratio, 5.50 or 6.55
-    public static final double kTurningMotorGearRatio = 1 / 10.29; //Turning Gear Ratio
-    public static final double kDriveEncoderRot2Meter = 
-                                kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
-    public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
-    public static  double kP = 0.12,
-                               kI = 0.001,
-                               kD = 0,
-                               kFF = 0.0,
-                               kS = 0.12858,
-                               kV = 0.41582,
-                               kA = 0.10791;
-    public static double kPTurning = 0.5;
-  }
 
   public static final class DriveConstants{
     /* Specific module constants from FRC 95:
@@ -75,104 +59,14 @@ public final class Constants {
      *     listo           B        listo
      */
 
-     //Offsets are different in each robot and encoder;
-    public static final class Module0{ 
-      public static final int DRIVE_ID = 2;
-      public static final int TURN_ID = 1;
-      public static final boolean driveReversed = true;
-      public static final boolean turnReversed = true;
-      public static final int ABSOLUTE_ID = 3; 
-      public static double encoderOffset = -74.90;
 
-      public static final SwerveModuleConstants CONSTANTS = 
-      new SwerveModuleConstants(DRIVE_ID, TURN_ID, driveReversed, 
-      turnReversed, ABSOLUTE_ID, encoderOffset);
-    }
-
-    public static final class Module1{
-      public static final int DRIVE_ID = 4;
-      public static final int TURN_ID = 3;
-      public static final boolean driveReversed = false;
-      public static final boolean turnReversed = true;
-      public static final int ABSOLUTE_ID = 0;
-      public static double encoderOffset = 62.2;
-
-      public static final SwerveModuleConstants CONSTANTS = 
-      new SwerveModuleConstants(DRIVE_ID, TURN_ID, driveReversed, 
-      turnReversed, ABSOLUTE_ID, encoderOffset);
-    }
-
-    public static final class Module2{
-      public static final int DRIVE_ID = 6;
-      public static final int TURN_ID = 5;
-      public static final boolean driveReversed = false;
-      public static final boolean turnReversed = true;
-      public static final int ABSOLUTE_ID = 1;
-      public static double encoderOffset = -168.6;
-
-      public static final SwerveModuleConstants CONSTANTS = 
-      new SwerveModuleConstants(DRIVE_ID, TURN_ID, driveReversed, 
-      turnReversed, ABSOLUTE_ID, encoderOffset);
-    }
-
-    public static final class Module3{
-      public static final int DRIVE_ID = 8;
-      public static final int TURN_ID = 7;
-      public static final boolean driveReversed = true;
-      public static final boolean turnReversed = true;
-      public static final int ABSOLUTE_ID = 2;
-      public static double encoderOffset = 180.4;
-
-      public static final SwerveModuleConstants CONSTANTS = 
-      new SwerveModuleConstants(DRIVE_ID, TURN_ID, driveReversed, 
-      turnReversed, ABSOLUTE_ID, encoderOffset);
-    }
-
-    public static final int IMU_ID = 15;
-
-    //Distance between left and right wheels
-    public static final double kTrackWidth = 0.6096;
-    //Distance between front and back wheels
-    public static final double kWheelBase = 0.635;
-  
-    public static final SwerveDriveKinematics kSwerveKinematics = new SwerveDriveKinematics(
-      new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-      new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-      new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
-      new Translation2d(-kWheelBase / 2, kTrackWidth / 2 ));
-
-      /*
-       * Kinematics order:
-       * 1. Mod0
-       * 2. Mod1
-       * 3. Mod2
-       * 4. Mod3
-       */
-
-    /*Free speed of each gearing:
-    * 5.50 = 18.01 ft/s
-    * 6.55 = 15.12 ft/s
-    */
-    public static final double kPhysicalMaxSpeedMetersPerSecond = Units.feetToMeters(18.01);
-    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
-
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = 
-                kPhysicalMaxSpeedMetersPerSecond * 0.80; //TODO: TeleOp drive speed
-    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = 
-                kPhysicalMaxAngularSpeedRadiansPerSecond / 3; //TODO: TeleOp angle speed
-    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
-    public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
-    public static final double kDriveBaseRadius = 0.30;
+    public static final double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps;
+    public static final double MaxAngularRate = 1.5 * Math.PI;
 
     public static final double shortTraslationP = 0.5,
                                shortTraslationD = 0.35,
                                shortRotationP = 0.2,
-                               shortRotationD = 0.1,
-
-                               longTraslationP = 0.5, //Tune Values
-                               longTraslationD = 0.35,
-                               longRotationP = 0.2,
-                               longRotationD = 0.1;
+                               shortRotationD = 0.1;
   }
 
   public static final class ShooterConstants {

@@ -26,9 +26,7 @@ import frc.robot.Constants.VisionConstants;
 
 /** Add your docs here. */
 public class VisionSubsystem {
-    private final DriveTrain m_drive;
-
-    private final SwerveDrivePoseEstimator m_poseEstimator;
+    private final CommandSwerveDrivetrain m_drive;
 
     Alliance alliance = Alliance.Blue;
 
@@ -36,13 +34,8 @@ public class VisionSubsystem {
 
     Debouncer poseDebouncer = new Debouncer(0.1, DebounceType.kRising);
 
-    public VisionSubsystem(DriveTrain m_drive){
+    public VisionSubsystem(CommandSwerveDrivetrain m_drive){
         this.m_drive = m_drive;
-
-        m_poseEstimator = 
-            new SwerveDrivePoseEstimator(DriveConstants.kSwerveKinematics,
-            m_drive.getRotation2d(), m_drive.getModulePositions(), 
-            new Pose2d(0,0 , m_drive.getRotation2d()));
 
         SmartDashboard.putData("Field", m_field);
 
@@ -80,23 +73,23 @@ public class VisionSubsystem {
     }
 
     public void resetPoseEstimator(Pose2d pose){
-        m_poseEstimator.resetPosition(m_drive.getRotation2d(), m_drive.getModulePositions(), pose);
+        m_drive.seedFieldRelative(pose);
       }
 
     public Pose2d estimatedPose2d(){
-        return m_poseEstimator.getEstimatedPosition();
+        return m_drive.getState().Pose;
     }
 
     public Translation2d getEstimationTranslation(){
-        return m_poseEstimator.getEstimatedPosition().getTranslation();
+        return m_drive.getState().Pose.getTranslation();
     }
     
     public Rotation2d getEstimationRotation(){
-        return m_poseEstimator.getEstimatedPosition().getRotation();
+        return m_drive.getState().Pose.getRotation();
     }
     
-    public double getEstimationAngle(){
-        return m_poseEstimator.getEstimatedPosition().getRotation().getDegrees();
+    public double getEstimationRotationDegrees(){
+        return m_drive.getState().Pose.getRotation().getDegrees();
     }
 
     /* 
@@ -117,50 +110,55 @@ public class VisionSubsystem {
   */
   
   public void odometryWvision(){
-    m_poseEstimator.update(m_drive.getRotation2d(), m_drive.getModulePositions());
 
     LimelightHelpers.Results results = 
         LimelightHelpers.getLatestResults(VisionConstants.tagLimelightName).targetingResults;
 
     if(LimelightHelpers.getTV(VisionConstants.tagLimelightName)){
       Pose2d camPose = LimelightHelpers.toPose2D(results.botpose_wpiblue);
-      m_poseEstimator.addVisionMeasurement(camPose, 
+      m_drive.addVisionMeasurement(camPose, 
       Timer.getFPGATimestamp() - (results.latency_capture / 1000.0)
        - (results.latency_pipeline / 1000.0));
       m_field.getObject("Cam est Pose").setPose(camPose);
     } else {
-      m_field.getObject("Cam est Pose").setPose(m_poseEstimator.getEstimatedPosition());
+      m_field.getObject("Cam est Pose").setPose(m_drive.getState().Pose);
     }
 
-    m_field.setRobotPose(m_poseEstimator.getEstimatedPosition());
+    m_field.setRobotPose(m_drive.getState().Pose);
   }
 
   public void setDynamicVisionStdDevs(){
     int numDetectedTargets = getNumofDetectedTargets();
-    double stdsDevXY = 0.0;
+    double stdsDevX = 0.0;
+    double stdsDevY = 0.0;
+    
     double stdsDevDeg = 0.0;
 
     if(DriverStation.isAutonomous()){
       if(allowedToFilterAuto()){
-       stdsDevXY = 0.1;
+       stdsDevX = 0.1;
+       stdsDevY = 0.1;
        stdsDevDeg = 0.1;
       } else {
-        stdsDevXY = 100.0;
+        stdsDevX = 100.0;
+        stdsDevY = 100.0;
        stdsDevDeg = 100.0;
       }
     } else {
       if(numDetectedTargets <= 2){
-      stdsDevXY = 0.1;
+      stdsDevX = 0.1;
+      stdsDevY = 0.1;
       stdsDevDeg = 0.1;
      } else {
-      stdsDevXY = Math.abs(m_drive.getAverageDriveSpeed());
-      stdsDevDeg = Math.abs(m_drive.getAngularAcceleration()) / 200;
+      stdsDevX = Math.abs(m_drive.getState().speeds.vxMetersPerSecond) * 20;
+      stdsDevY = Math.abs(m_drive.getState().speeds.vyMetersPerSecond) * 20;
+      stdsDevDeg = Math.abs(m_drive.getState().speeds.omegaRadiansPerSecond) * 20;
      }
     }
 
-    Matrix<N3, N1> visionMat = MatBuilder.fill(Nat.N3(), Nat.N1(), stdsDevXY, stdsDevXY, stdsDevDeg);
+    Matrix<N3, N1> visionMat = MatBuilder.fill(Nat.N3(), Nat.N1(), stdsDevX, stdsDevY, stdsDevDeg);
 
-    m_poseEstimator.setVisionMeasurementStdDevs(visionMat);
+    m_drive.setVisionMeasurementStdDevs(visionMat);
   }
 
   public double getDistanceToTarget(){
@@ -181,7 +179,7 @@ public class VisionSubsystem {
   }
 
   public boolean allowedToFilterAuto(){
-    if(m_drive.getAverageDriveSpeed() < 0.1 && getNumofDetectedTargets() >= 2){
+    if(getNumofDetectedTargets() >= 2){
       return true;
     } else {
       return false;
