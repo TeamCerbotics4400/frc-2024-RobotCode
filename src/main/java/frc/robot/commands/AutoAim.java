@@ -14,10 +14,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.VisionSubsystem;
 
 public class AutoAim extends Command {
   /** Creates a new AutoAim. */
   private final CommandSwerveDrivetrain m_drive;
+  private final VisionSubsystem m_vision;
 
   private final SwerveRequest.ApplyChassisSpeeds drive = new SwerveRequest.ApplyChassisSpeeds();
 
@@ -25,9 +27,10 @@ public class AutoAim extends Command {
 
   private double pidOutput = 0.0;
 
-  public AutoAim(CommandSwerveDrivetrain m_drive) {
+  public AutoAim(CommandSwerveDrivetrain m_drive, VisionSubsystem m_vision) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_drive = m_drive;
+    this.m_vision = m_vision;
 
     //m_aimController.setPID(0.2, 0.0, 0.0080);
     m_aimController.enableContinuousInput(-Math.PI, Math.PI);
@@ -40,6 +43,7 @@ public class AutoAim extends Command {
   @Override
   public void initialize() {
     m_aimController.reset();
+    m_vision.setCameraPipeline(VisionConstants.autoAim_Pipeline);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -55,6 +59,7 @@ public class AutoAim extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_vision.setCameraPipeline(VisionConstants.main_Pipeline);
     m_drive.setControl(new SwerveRequest.ApplyChassisSpeeds().withSpeeds(new ChassisSpeeds()));
   }
 

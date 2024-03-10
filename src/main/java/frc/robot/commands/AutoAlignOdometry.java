@@ -74,8 +74,6 @@ public class AutoAlignOdometry extends Command {
 
     robotPose = LimelightHelpers.getBotPose2d("limelight-tags");
 
-
-
     
     System.out.println("Angulo de robot: " + robotPose.getRotation().getDegrees());
     System.out.println("Angulo deseado : " + theta);

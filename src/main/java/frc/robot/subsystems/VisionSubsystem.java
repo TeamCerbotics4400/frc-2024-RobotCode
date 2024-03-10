@@ -58,7 +58,7 @@ public class VisionSubsystem {
     }
 
     public void periodic(){
-        odometryWvision();
+        //odometryWvision();
         setDynamicVisionStdDevs();
 
         SmartDashboard.putString("Alliance", alliance.toString());
@@ -177,7 +177,8 @@ public class VisionSubsystem {
   }
 
   public boolean allowedToFilterAuto(){
-    if(getNumofDetectedTargets() >= 2){
+    if(m_drive.getCurrentRobotChassisSpeeds().vxMetersPerSecond < 0.1 &&
+       getNumofDetectedTargets() >= 2){
       return true;
     } else {
       return false;

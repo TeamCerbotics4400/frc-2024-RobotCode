@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -17,15 +18,19 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.commands.ShooterCommands.AmpShootCommand;
+import frc.robot.commands.ShooterCommands.CookShooter;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -40,6 +45,7 @@ import frc.robot.commands.TeleOpControl;
 import frc.robot.commands.ArmCommands.ArmToPose;
 import frc.robot.commands.AutoCommands.AutoOutake;
 import frc.robot.commands.AutoCommands.AutoShooter;
+import frc.robot.commands.ClimberCommands.ExtendClimber;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -57,7 +63,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
-  //private final ClimberSubsystem m_climber = new ClimberSubsystem();
+  private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
   private Timer rumbleTimer = new Timer();
@@ -79,22 +85,24 @@ public class RobotContainer {
   public RobotContainer() { 
     //Idle Arm
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
+    //Cook Shooter
+    NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter));
     //Shoot
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
-      new AutoShooter(m_shooter, m_intake,m_arm), 
+      new ShooterCommand(m_shooter, m_intake, m_arm), 
       new ArmToPose(m_arm)));
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
-      new AutoShooter(m_shooter, m_intake,m_arm), 
+      new ShooterCommand(m_shooter, m_intake,m_arm), 
        m_arm.goToPosition(160.0)));    //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
       new IntakeCommand(m_intake,m_shooter), new AutoOutake(m_intake), 
-      m_arm.goToPosition(180.0)));
+      m_arm.goToPosition(180.5)));
     //Aim<
     NamedCommands.registerCommand("AutoAim", 
-      new ParallelRaceGroup(new AutoAim(m_drive), new WaitCommand(1)));
+      new ParallelRaceGroup(new AutoAim(m_drive, m_vision), new WaitCommand(1)));
     //Change Pipelines
     NamedCommands.registerCommand("MainTracking", 
     new InstantCommand(
@@ -140,7 +148,7 @@ public class RobotContainer {
 
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
-    chassisDriver.b().onTrue(new AutoAlignOdometry(m_drive)); 
+    chassisDriver.b().onTrue(new AutoAim(m_drive, m_vision)); 
 
     //Manual Pickup
     chassisDriver.rightBumper()
@@ -161,16 +169,26 @@ public class RobotContainer {
     subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
     subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter));
     //subsystemsDriver.x().onTrue(new RetractClimber(m_climber));
-    //subsystemsDriver.y().onTrue(new ExtendClimber(m_climber));
+    subsystemsDriver.y().whileTrue(new ExtendClimber(m_climber));
 
     subsystemsDriver.leftBumper()
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
+    subsystemsDriver.x().whileTrue(new CookShooter(m_shooter));
+
     subsystemsDriver.rightBumper()
       .whileTrue(new ArmToPose(m_arm)
       .alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+
+    //TODO: DriveTrain Characterization, comment if not used
+    chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));
+    chassisDriver.start().and(chassisDriver.x()).whileTrue(m_drive.sysIdQuasistatic(Direction.kReverse));
+    chassisDriver.back().and(chassisDriver.y()).whileTrue(m_drive.sysIdDynamic(Direction.kForward));
+    chassisDriver.back().and(chassisDriver.x()).whileTrue(m_drive.sysIdDynamic(Direction.kReverse));
+    
+    chassisDriver.start().and(chassisDriver.a()).onTrue(new RunCommand(SignalLogger::stop));
 
     m_drive.registerTelemetry(logger::telemeterize);
   }

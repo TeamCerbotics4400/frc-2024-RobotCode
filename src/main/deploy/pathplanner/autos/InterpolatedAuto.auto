@@ -12,39 +12,59 @@
     "data": {
       "commands": [
         {
-          "type": "wait",
+          "type": "parallel",
           "data": {
-            "waitTime": 0.05
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "InterpolatedAuto1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "InterpolatedAuto2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "InterpolatedAuto3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ArmIdle"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "CookShooter"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "MainTracking"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Shoot"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "InterpolatedAuto1"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "InterpolatedAuto2"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Copy of InterpolatedAuto3"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ArmIdle"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       ]

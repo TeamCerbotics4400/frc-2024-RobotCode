@@ -129,7 +129,8 @@ public final class Constants {
 
     public static final int main_Pipeline = 0,
                             far_Pipeline = 1,
-                            close_Pipeline = 2;
+                            close_Pipeline = 2,
+                            autoAim_Pipeline = 3;
   }
 
   public static final class IOConstants{
