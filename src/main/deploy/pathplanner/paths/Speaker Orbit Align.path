@@ -32,11 +32,11 @@
     },
     {
       "anchor": {
-        "x": 2.42,
+        "x": 2.4213939522026635,
         "y": 5.45197548410364
       },
       "prevControl": {
-        "x": 3.3077737857256877,
+        "x": 3.3091677379283513,
         "y": 6.099528127809436
       },
       "nextControl": null,
@@ -65,7 +65,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Pre-Defined Paths",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
