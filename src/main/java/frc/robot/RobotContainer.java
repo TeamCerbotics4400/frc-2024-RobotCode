@@ -6,10 +6,14 @@ package frc.robot;
 
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest.ForwardReference;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -66,6 +70,10 @@ public class RobotContainer {
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
+  SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
+  .withDriveRequestType(DriveRequestType.Velocity);
+
+
   private Timer rumbleTimer = new Timer();
 
   private final SendableChooser<String> autoChooser;
@@ -83,6 +91,11 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() { 
+
+    m_head.ForwardReference = ForwardReference.RedAlliance;
+    m_head.HeadingController.setPID(8, 0, 0);
+    m_head.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
+
     //Idle Arm
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
     //Cook Shooter
@@ -139,6 +152,23 @@ public class RobotContainer {
    * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
+
+   private double addForAlliance() {
+        var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+            return 180;
+        }
+        return 0;
+    }
+
+    private double invertForAlliance() {
+      var alliance = DriverStation.getAlliance();
+      if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+          return -1;
+      }
+      return 1;
+  }
+
   private void configureBindings() {
     m_drive.setDefaultCommand(new TeleOpControl(
       m_drive,
@@ -148,7 +178,13 @@ public class RobotContainer {
 
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
-    chassisDriver.b().onTrue(new AutoAim(m_drive, m_vision)); 
+
+             chassisDriver.b().whileTrue(m_drive.applyRequest(
+                () -> m_head.withVelocityX(-chassisDriver.getLeftY() * DriveConstants.MaxSpeed * invertForAlliance())
+                        .withVelocityY(-chassisDriver.getLeftX() * DriveConstants.MaxSpeed * invertForAlliance())
+                        .withTargetDirection(Rotation2d.fromDegrees(0.0  + addForAlliance()))
+                        .withDeadband(DriveConstants.MaxSpeed * 0.1)
+                        .withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1)));
 
     //Manual Pickup
     chassisDriver.rightBumper()

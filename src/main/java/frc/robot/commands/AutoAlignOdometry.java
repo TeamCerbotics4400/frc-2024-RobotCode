@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 
@@ -45,6 +46,10 @@ public class AutoAlignOdometry extends Command {
   public AutoAlignOdometry(CommandSwerveDrivetrain m_drive) {
     // Use addRequirements() here to decla re subsystem dependencies.
     this.m_drive = m_drive;
+
+    SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
+            .withDriveRequestType(DriveRequestType.Velocity);
+
 
     //m_aimController.setPID(0.2, 0.0, 0.0080);
     m_aimController.enableContinuousInput(-Math.PI, Math.PI);
