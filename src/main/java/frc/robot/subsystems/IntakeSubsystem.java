@@ -45,7 +45,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void startIntaking(){
-    intakeMotor.set(-0.9);
+    intakeMotor.set(-1);
   }
 
   public void startOutaking(){

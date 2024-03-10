@@ -34,6 +34,7 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
+import frc.robot.commands.AutoAlignOdometry;
 import frc.robot.commands.AutoPickup;
 import frc.robot.commands.TeleOpControl;
 import frc.robot.commands.ArmCommands.ArmToPose;
@@ -90,7 +91,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
       new IntakeCommand(m_intake,m_shooter), new AutoOutake(m_intake), 
-      m_arm.goToPosition(178.0)));
+      m_arm.goToPosition(180.0)));
     //Aim<
     NamedCommands.registerCommand("AutoAim", 
       new ParallelRaceGroup(new AutoAim(m_drive), new WaitCommand(1)));
@@ -139,11 +140,11 @@ public class RobotContainer {
 
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
-    chassisDriver.b().whileTrue(new AutoAim(m_drive)); 
+    chassisDriver.b().onTrue(new AutoAlignOdometry(m_drive)); 
 
     //Manual Pickup
     chassisDriver.rightBumper()
-    .whileTrue(m_arm.goToPosition(183)
+    .whileTrue(m_arm.goToPosition(180)
     .alongWith(new IntakeCommand(m_intake, m_shooter)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
