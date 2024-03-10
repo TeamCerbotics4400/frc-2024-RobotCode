@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.lang.annotation.Target;
+
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest.ForwardReference;
@@ -11,7 +13,9 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
@@ -69,6 +73,10 @@ public class RobotContainer {
   private final ArmSubsystem m_arm = new ArmSubsystem();
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
+
+  private Pose2d robotPose;
+
+  private Translation2d TargetSpeaker = new Translation2d(0.33, 5.45);
 
   SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
   .withDriveRequestType(DriveRequestType.Velocity);
@@ -140,6 +148,7 @@ public class RobotContainer {
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
+
     configureBindings();
   }
 
@@ -170,6 +179,8 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+
+    robotPose = m_vision.estimatedPose2d();
     m_drive.setDefaultCommand(new TeleOpControl(
       m_drive,
       () -> chassisDriver.getLeftY(),
@@ -178,11 +189,12 @@ public class RobotContainer {
 
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
-
+    
+    double difference = (robotPose.getTranslation().getY() - TargetSpeaker.getY()) / (robotPose.getTranslation().getX() - TargetSpeaker.getX());
              chassisDriver.b().whileTrue(m_drive.applyRequest(
-                () -> m_head.withVelocityX(-chassisDriver.getLeftY() * DriveConstants.MaxSpeed * invertForAlliance())
-                        .withVelocityY(-chassisDriver.getLeftX() * DriveConstants.MaxSpeed * invertForAlliance())
-                        .withTargetDirection(Rotation2d.fromDegrees(0.0  + addForAlliance()))
+                () -> m_head.withVelocityX(-chassisDriver.getLeftY() * DriveConstants.MaxSpeed)
+                        .withVelocityY(-chassisDriver.getLeftX() * DriveConstants.MaxSpeed)
+                        .withTargetDirection(Rotation2d.fromDegrees(Math.atan(difference)))                        
                         .withDeadband(DriveConstants.MaxSpeed * 0.1)
                         .withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1)));
 

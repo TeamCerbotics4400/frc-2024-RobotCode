@@ -58,7 +58,10 @@ public class VisionSubsystem {
     }
 
     public void periodic(){
-        //odometryWvision();
+      if(DriverStation.isTeleop()){
+        odometryWvision();
+      }
+        
         setDynamicVisionStdDevs();
 
         SmartDashboard.putString("Alliance", alliance.toString());
