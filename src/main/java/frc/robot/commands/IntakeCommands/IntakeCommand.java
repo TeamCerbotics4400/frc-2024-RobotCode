@@ -19,6 +19,8 @@ public class IntakeCommand extends Command {
   public IntakeCommand(IntakeSubsystem intake, ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
+    
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.

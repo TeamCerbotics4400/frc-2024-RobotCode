@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.9882578085766855,
+        "y": 7.457299800095784
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.682708123685968,
+        "y": 6.987301913535124
+      },
+      "isLocked": false,
+      "linkedName": "5NoteAmpLink2"
+    },
+    {
+      "anchor": {
+        "x": 4.332718690882675,
+        "y": 6.078639332851185
+      },
+      "prevControl": {
+        "x": 5.784489940481153,
+        "y": 6.402415654704083
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "5NoteAmpLink3"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": 7.91,
+      "rotateFast": true
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.6,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Shoot"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.4,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 7.9071627029584395,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "6 Note",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -71,7 +71,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
-  private final ClimberSubsystem m_climber = new ClimberSubsystem();
+  //private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
   private Pose2d robotPose;
@@ -88,7 +88,8 @@ public class RobotContainer {
   private final String m_DefaultAuto = "NO AUTO";
   private String m_autoSelected;
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
-   "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT"};
+   "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", 
+   "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE AMP", "6 NOTE AMP"};
 
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
   .withDeadband(DriveConstants.MaxSpeed * 0.1)
@@ -119,7 +120,7 @@ public class RobotContainer {
        m_arm.goToPosition(160.0)));    //Intake
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
-      new IntakeCommand(m_intake,m_shooter), new AutoOutake(m_intake), 
+      new IntakeCommand(m_intake, m_shooter), //new AutoOutake(m_intake), 
       m_arm.goToPosition(180.5)));
     //Aim<
     NamedCommands.registerCommand("AutoAim", 
@@ -137,7 +138,7 @@ public class RobotContainer {
 
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
     autoChooser.addOption("Interpolated 4 Notes", m_autoNames[1]);
-    autoChooser.addOption("Subwoofer 4 Notes", m_autoNames[4]);
+    //autoChooser.addOption("Subwoofer 4 Notes", m_autoNames[4]);
     autoChooser.addOption("Steal and 3 Notes", m_autoNames[2]);
     autoChooser.addOption("Complement 2 Notes", m_autoNames[5]);
     autoChooser.addOption("Complement 3 Notes", m_autoNames[3]);
@@ -145,6 +146,8 @@ public class RobotContainer {
     autoChooser.addOption("3 Note Center", m_autoNames[7]);
     autoChooser.addOption("4 Note Center", m_autoNames[8]);
     autoChooser.addOption("Safe Complement", m_autoNames[9]);
+    autoChooser.addOption("5 Note AMP", m_autoNames[10]);
+    autoChooser.addOption("6 Note AMP", m_autoNames[11]);
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
@@ -217,7 +220,7 @@ public class RobotContainer {
     subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
     subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter));
     //subsystemsDriver.x().onTrue(new RetractClimber(m_climber));
-    subsystemsDriver.y().whileTrue(new ExtendClimber(m_climber));
+    //subsystemsDriver.y().whileTrue(new ExtendClimber(m_climber));
 
     subsystemsDriver.leftBumper()
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
@@ -231,12 +234,12 @@ public class RobotContainer {
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
     //TODO: DriveTrain Characterization, comment if not used
-    chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));
+    /*chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));
     chassisDriver.start().and(chassisDriver.x()).whileTrue(m_drive.sysIdQuasistatic(Direction.kReverse));
     chassisDriver.back().and(chassisDriver.y()).whileTrue(m_drive.sysIdDynamic(Direction.kForward));
     chassisDriver.back().and(chassisDriver.x()).whileTrue(m_drive.sysIdDynamic(Direction.kReverse));
     
-    chassisDriver.start().and(chassisDriver.a()).onTrue(new RunCommand(SignalLogger::stop));
+    chassisDriver.start().and(chassisDriver.a()).onTrue(new RunCommand(SignalLogger::stop));*/
 
     m_drive.registerTelemetry(logger::telemeterize);
   }
@@ -273,9 +276,10 @@ public class RobotContainer {
         autonomousCommand = new PathPlannerAuto("SafeComplement");
       break;
 
-      case "4 NOTE SUBWOOFER":
+      /*case "4 NOTE SUBWOOFER":
         autonomousCommand = new PathPlannerAuto("SubwooferAuto");
-      break;
+      break;*/
+
       case "2 NOTE CENTER":
         autonomousCommand = new PathPlannerAuto("2NoteAuto");
       break;
@@ -290,6 +294,14 @@ public class RobotContainer {
 
       case "SAFE COMPLEMENT":
       autonomousCommand = new PathPlannerAuto("SafeComplement");
+      break;
+
+      case "5 NOTE AMP":
+      autonomousCommand = new PathPlannerAuto("5NoteAmp");
+      break;
+
+      case "6 NOTE AMP":
+      autonomousCommand = new PathPlannerAuto("6NoteAmp");
       break;
     }
 

@@ -3,9 +3,11 @@
   "robotLength": 0.6096,
   "holonomicMode": true,
   "pathFolders": [
-    "4NoteComplement",
-    "InterpolatedAuto",
     "2 note",
+    "4NoteComplement",
+    "5 Note",
+    "InterpolatedAuto",
+    "6 Note",
     "NoteComplement",
     "PID Tuning",
     "Pre-Defined Paths",
@@ -13,10 +15,12 @@
     "Steal "
   ],
   "autoFolders": [
-    "PID Tuning",
-    "Steal",
+    "4 Note",
+    "5 Note",
     "Complement",
-    "4 Note"
+    "6 Note",
+    "PID Tuning",
+    "Steal"
   ],
   "defaultMaxVel": 5.4,
   "defaultMaxAccel": 3.0,

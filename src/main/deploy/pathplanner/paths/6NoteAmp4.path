@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.332718690882675,
+        "y": 6.078639332851185
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.627823978294268,
+        "y": 6.151750115205065
+      },
+      "isLocked": false,
+      "linkedName": "5NoteAmpLink3"
+    },
+    {
+      "anchor": {
+        "x": 7.956924616139309,
+        "y": 5.786196203435664
+      },
+      "prevControl": {
+        "x": 5.941155902668042,
+        "y": 6.162194512684191
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "5NoteAmpLink4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.4,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -1.8476102659945806,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "6 Note",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
