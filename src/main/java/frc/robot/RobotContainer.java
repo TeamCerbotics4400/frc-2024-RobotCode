@@ -71,7 +71,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
-  //private final ClimberSubsystem m_climber = new ClimberSubsystem();
+  private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
   private Pose2d robotPose;
@@ -109,6 +109,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
     //Cook Shooter
     NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter));
+    NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
     //Shoot
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
@@ -121,7 +122,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
       new IntakeCommand(m_intake, m_shooter), //new AutoOutake(m_intake), 
-      m_arm.goToPosition(180.5)));
+      m_arm.goToPosition(181.0)));
     //Aim<
     NamedCommands.registerCommand("AutoAim", 
       new ParallelRaceGroup(new AutoAim(m_drive, m_vision), new WaitCommand(1)));
@@ -139,13 +140,13 @@ public class RobotContainer {
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
     autoChooser.addOption("Interpolated 4 Notes", m_autoNames[1]);
     //autoChooser.addOption("Subwoofer 4 Notes", m_autoNames[4]);
-    autoChooser.addOption("Steal and 3 Notes", m_autoNames[2]);
-    autoChooser.addOption("Complement 2 Notes", m_autoNames[5]);
-    autoChooser.addOption("Complement 3 Notes", m_autoNames[3]);
+    //autoChooser.addOption("Steal and 3 Notes", m_autoNames[2]);
+    //autoChooser.addOption("Complement 2 Notes", m_autoNames[5]);
+    //autoChooser.addOption("Complement 3 Notes", m_autoNames[3]);
     autoChooser.addOption("2 Note Center", m_autoNames[6]);
     autoChooser.addOption("3 Note Center", m_autoNames[7]);
     autoChooser.addOption("4 Note Center", m_autoNames[8]);
-    autoChooser.addOption("Safe Complement", m_autoNames[9]);
+    //autoChooser.addOption("Safe Complement", m_autoNames[9]);
     autoChooser.addOption("5 Note AMP", m_autoNames[10]);
     autoChooser.addOption("6 Note AMP", m_autoNames[11]);
 
@@ -203,7 +204,7 @@ public class RobotContainer {
 
     //Manual Pickup
     chassisDriver.rightBumper()
-    .whileTrue(m_arm.goToPosition(180)
+    .whileTrue(m_arm.goToPosition(181.0)
     .alongWith(new IntakeCommand(m_intake, m_shooter)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
@@ -220,7 +221,7 @@ public class RobotContainer {
     subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
     subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter));
     //subsystemsDriver.x().onTrue(new RetractClimber(m_climber));
-    //subsystemsDriver.y().whileTrue(new ExtendClimber(m_climber));
+    subsystemsDriver.y().whileTrue(new ExtendClimber(m_climber));
 
     subsystemsDriver.leftBumper()
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
@@ -264,17 +265,17 @@ public class RobotContainer {
         autonomousCommand = new PathPlannerAuto("InterpolatedAuto");
       break;
 
-      case "4 NOTE STEAL":
+      /*case "4 NOTE STEAL":
         autonomousCommand = new PathPlannerAuto("Steal4Score");
-      break;
+      break;*/
 
-      case "3 NOTE COMPLEMENT":
+      /*case "3 NOTE COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("NoteComplement");
       break;
 
       case "2 NOTE COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("SafeComplement");
-      break;
+      break;*/
 
       /*case "4 NOTE SUBWOOFER":
         autonomousCommand = new PathPlannerAuto("SubwooferAuto");

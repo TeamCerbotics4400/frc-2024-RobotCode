@@ -58,7 +58,7 @@ public class VisionSubsystem {
     }
 
     public void periodic(){
-      if(DriverStation.isTeleop()){
+      if(DriverStation.isTeleop() && DriverStation.isEnabled()){
         odometryWvision();
       }
         
