@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
@@ -47,9 +48,9 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
-import frc.robot.commands.AutoAlignOdometry;
 import frc.robot.commands.AutoPickup;
 import frc.robot.commands.TeleOpControl;
+import frc.robot.commands.AligningCommands.VelocityOffset;
 import frc.robot.commands.ArmCommands.ArmToPose;
 import frc.robot.commands.AutoCommands.AutoOutake;
 import frc.robot.commands.AutoCommands.AutoShooter;
@@ -74,9 +75,7 @@ public class RobotContainer {
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
-  private Pose2d robotPose;
 
-  private Translation2d TargetSpeaker = new Translation2d(0.33, 5.45);
 
   SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
   .withDriveRequestType(DriveRequestType.Velocity);
@@ -184,7 +183,6 @@ public class RobotContainer {
 
   private void configureBindings() {
 
-    robotPose = m_vision.estimatedPose2d();
     m_drive.setDefaultCommand(new TeleOpControl(
       m_drive,
       () -> chassisDriver.getLeftY(),
@@ -194,13 +192,14 @@ public class RobotContainer {
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
     
-    double difference = (robotPose.getTranslation().getY() - TargetSpeaker.getY()) / (robotPose.getTranslation().getX() - TargetSpeaker.getX());
-             chassisDriver.b().whileTrue(m_drive.applyRequest(
+             chassisDriver.b().whileTrue(
+              
+              m_drive.applyRequest(
                 () -> m_head.withVelocityX(-chassisDriver.getLeftY() * DriveConstants.MaxSpeed)
                         .withVelocityY(-chassisDriver.getLeftX() * DriveConstants.MaxSpeed)
-                        .withTargetDirection(Rotation2d.fromDegrees(Math.atan(difference)))                        
+                        .withTargetDirection(m_drive.getVelocityOffset())                        
                         .withDeadband(DriveConstants.MaxSpeed * 0.1)
-                        .withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1)));
+                        .withRotationalDeadband(0)).alongWith(new VelocityOffset(m_drive, () -> chassisDriver.getRightTriggerAxis())));
 
     //Manual Pickup
     chassisDriver.rightBumper()

@@ -37,12 +37,18 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
 
+  private Translation2d TargetSpeaker = new Translation2d(0.33, 5.45);
+
+    
+
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
     private final Rotation2d BlueAlliancePerspectiveRotation = Rotation2d.fromDegrees(0);
     /* Red alliance sees forward as 180 degrees (toward blue alliance wall) */
     private final Rotation2d RedAlliancePerspectiveRotation = Rotation2d.fromDegrees(180);
     /* Keep track if we've ever applied the operator perspective before or not */
     private boolean hasAppliedOperatorPerspective = false;
+
+    Rotation2d velocityOffset = new Rotation2d();
 
     private final SwerveRequest.ApplyChassisSpeeds AutoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
@@ -155,6 +161,24 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
         return RoutineToApply.dynamic(direction);
     }
 
+
+    public ChassisSpeeds getFieldRelativeChassisSpeeds() {
+        return ChassisSpeeds.fromRobotRelativeSpeeds(getCurrentRobotChassisSpeeds(), getRotation());
+    }
+
+    public Rotation2d getRotation(){
+        return getState().Pose.getRotation();
+    }
+
+    public Rotation2d getVelocityOffset() {
+        return velocityOffset;
+    }
+
+    public void setVelocityOffset(Rotation2d angle) {
+        velocityOffset = angle;
+    }
+
+
     @Override
     public void periodic() {
         /* Periodically try to apply the operator perspective */
@@ -162,6 +186,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
         /* This allows us to correct the perspective in case the robot code restarts mid-match */
         /* Otherwise, only check and apply the operator perspective if the DS is disabled */
         /* This ensures driving behavior doesn't change until an explicit disable event occurs during testing*/
+
         if (!hasAppliedOperatorPerspective || DriverStation.isDisabled()) {
             DriverStation.getAlliance().ifPresent((allianceColor) -> {
                 this.setOperatorPerspectiveForward(

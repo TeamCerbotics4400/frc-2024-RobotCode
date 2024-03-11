@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import frc.robot.generated.TunerConstants;
 
 /**
@@ -54,9 +57,19 @@ public final class Constants {
                                rotationD = 0.1;
   }
 
+      public static class FieldConstants {
+        public static final Pose2d BLUE_SPEAKER = new Pose2d(Units.inchesToMeters(-1.5), Units.inchesToMeters(218.42), new Rotation2d(0));
+        public static final Pose2d RED_SPEAKER = new Pose2d(Units.inchesToMeters(652.73), Units.inchesToMeters(218.42), new Rotation2d(Math.PI));
+
+        public static final double NOTE_DIAMETER = 14; // Outer diameter of note
+
+    }
+
   public static final class ShooterConstants {
     public static byte UPPER_MOTOR_ID = 14;
     public static byte LOWER_MOTOR_ID = 13;
+
+    public static final double kTimeToShoot = .13; //Time it takes before note leave the shooter
 
     public static double ukP = 1.2,     //For low rpm: 0.046
                          ukI = 0,         // 0
