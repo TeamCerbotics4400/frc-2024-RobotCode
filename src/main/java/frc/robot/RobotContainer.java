@@ -4,12 +4,15 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest.ForwardReference;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
@@ -42,9 +45,11 @@ import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.AutoPickup;
 import frc.robot.commands.FieldCentricDrive;
+import frc.robot.commands.RobotCentricDrive;
 import frc.robot.commands.AligningCommands.VelocityOffset;
 import frc.robot.commands.ArmCommands.ArmToPose;
-import frc.robot.commands.ClimberCommands.ClimberClosedLoop;
+import frc.robot.commands.ClimberCommands.ClimberOpenLoop;
+import frc.robot.commands.ClimberCommands.ExtendClimber;
 import frc.robot.commands.ClimberCommands.RetractClimber;
 
 /**
@@ -68,7 +73,6 @@ public class RobotContainer {
 
   SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
   .withDriveRequestType(DriveRequestType.Velocity);
-
 
   private Timer rumbleTimer = new Timer();
 
@@ -105,7 +109,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
       new IntakeCommand(m_intake, m_shooter), //new AutoOutake(m_intake), 
-      m_arm.goToPosition(181.0)));
+      m_arm.goToPosition(180.0)));
     //Aim<
     NamedCommands.registerCommand("AutoAim", 
       new ParallelRaceGroup(new AutoAim(m_drive, m_vision), new WaitCommand(1)));
@@ -129,7 +133,7 @@ public class RobotContainer {
     autoChooser.addOption("2 Note Center", m_autoNames[6]);
     autoChooser.addOption("3 Note Center", m_autoNames[7]);
     autoChooser.addOption("4 Note Center", m_autoNames[8]);
-    //autoChooser.addOption("Safe Complement", m_autoNames[9]);
+    autoChooser.addOption("Safe Complement", m_autoNames[9]);
     autoChooser.addOption("5 Note AMP", m_autoNames[10]);
     autoChooser.addOption("6 Note AMP", m_autoNames[11]);
 
@@ -173,23 +177,27 @@ public class RobotContainer {
       () -> chassisDriver.getLeftX(),
       () -> -chassisDriver.getRightX()));
 
+    chassisDriver.x().whileTrue(new RobotCentricDrive(
+      m_drive, 
+      () -> -chassisDriver.getLeftY(),
+      () -> -chassisDriver.getLeftX(),
+      () -> chassisDriver.getRightX()));
+
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
     
-             chassisDriver.b().whileTrue(
-              
-              m_drive.applyRequest(
-                () -> m_head.withVelocityX(-chassisDriver.getLeftY() * DriveConstants.MaxSpeed)
-                        .withVelocityY(-chassisDriver.getLeftX() * DriveConstants.MaxSpeed)
-                        .withTargetDirection(m_drive.getVelocityOffset())                        
-                        .withDeadband(DriveConstants.MaxSpeed * 0.1)
-                        .withRotationalDeadband(0)).alongWith(new VelocityOffset(m_drive, () -> chassisDriver.getRightTriggerAxis())));
-
-    chassisDriver.x().whileTrue(new OutakeCommand(m_intake, m_shooter));
+    chassisDriver.b().whileTrue(
+      m_drive.applyRequest(
+              () -> m_head.withVelocityX((-chassisDriver.getLeftY() * DriveConstants.MaxSpeed) * 0.5)
+                  .withVelocityY((-chassisDriver.getLeftX() * DriveConstants.MaxSpeed) * 0.5)
+                  .withTargetDirection(m_drive.getVelocityOffset())                        
+                  .withDeadband(DriveConstants.MaxSpeed * 0.1)
+                  .withRotationalDeadband(0))
+                  .alongWith(new VelocityOffset(m_drive, () -> chassisDriver.getRightTriggerAxis())));
 
     //Manual Pickup
     chassisDriver.rightBumper()
-    .whileTrue(m_arm.goToPosition(181.0)
+    .whileTrue(m_arm.goToPosition(180.0)
     .alongWith(new IntakeCommand(m_intake, m_shooter)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
@@ -204,8 +212,14 @@ public class RobotContainer {
 
     // Joystick 2
     subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
-    subsystemsDriver.b().onTrue(new RetractClimber(m_climber));
-    subsystemsDriver.y().onTrue(new ClimberClosedLoop(m_climber));
+    
+    subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter));
+
+    //Climber controls
+    subsystemsDriver.povUp().onTrue(new ExtendClimber(m_climber));
+    subsystemsDriver.povDown().onTrue(new RetractClimber(m_climber));
+    //Open loop climber
+    subsystemsDriver.y().whileTrue(new ClimberOpenLoop(m_climber));
 
     subsystemsDriver.leftBumper()
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
@@ -255,11 +269,11 @@ public class RobotContainer {
 
       /*case "3 NOTE COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("NoteComplement");
-      break;
+      break;*/
 
       case "2 NOTE COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("SafeComplement");
-      break;*/
+      break;
 
       /*case "4 NOTE SUBWOOFER":
         autonomousCommand = new PathPlannerAuto("SubwooferAuto");
@@ -275,18 +289,18 @@ public class RobotContainer {
       
       case "4 NOTE CENTER":
         autonomousCommand = new PathPlannerAuto("4NoteAuto");
-        break;
+      break;
 
       case "SAFE COMPLEMENT":
-      autonomousCommand = new PathPlannerAuto("SafeComplement");
+        autonomousCommand = new PathPlannerAuto("SafeComplement");
       break;
 
       case "5 NOTE AMP":
-      autonomousCommand = new PathPlannerAuto("5NoteAmp");
+        autonomousCommand = new PathPlannerAuto("5NoteAmp");
       break;
 
       case "6 NOTE AMP":
-      autonomousCommand = new PathPlannerAuto("6NoteAmp");
+        autonomousCommand = new PathPlannerAuto("6NoteAmp");
       break;
     }
 
@@ -308,4 +322,10 @@ public class RobotContainer {
   public Timer getRumbleTimer(){
     return rumbleTimer;
   }
+
+  /*public Optional<Rotation2d> overrideForSpeakerAim(){
+    if(m_shooter.isShooting()){
+      return Optional.of(m)
+    }
+  }*/
 }

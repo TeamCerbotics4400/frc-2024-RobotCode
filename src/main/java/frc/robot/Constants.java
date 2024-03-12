@@ -51,9 +51,9 @@ public final class Constants {
     public static final double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps;
     public static final double MaxAngularRate = 1.5 * Math.PI;
 
-    public static final double traslationP = 0.5,
+    public static final double traslationP = 1.05,//0.5,
                                traslationD = 0.35,
-                               rotationP = 0.2,
+                               rotationP = 0.5, //0.2
                                rotationD = 0.1;
   }
 
@@ -71,13 +71,13 @@ public final class Constants {
 
     public static final double kTimeToShoot = .13; //Time it takes before note leave the shooter
 
-    public static double ukP = 1.2,     //For low rpm: 0.046
+    public static double ukP = 1.5,     //For low rpm: 0.046
                          ukI = 0,         // 0
                          ukD = 0.0,    //0.0003
                          ukS = 0.50189,
                          ukV = 0.0016926,
                          ukA = 0.00059492,    //0.128
-                         lkP = 0.9,     //0.004
+                         lkP = 1.2,     //0.004
                          lkI = 0,         //0
                          lkD = 0.0,    //0.0005
                          lkS = 0.50189,

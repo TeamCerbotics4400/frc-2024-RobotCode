@@ -176,7 +176,6 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
         velocityOffset = angle;
     }
 
-
     @Override
     public void periodic() {
         /* Periodically try to apply the operator perspective */

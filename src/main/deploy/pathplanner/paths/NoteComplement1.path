@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.41,
-        "y": 3.5928727328192567
+        "x": 0.7739468421287149,
+        "y": 4.595797391312362
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.8129567404172983,
-        "y": 4.188203389129424
+        "x": 1.585003315736826,
+        "y": 2.3036735183193575
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.4187317942065913,
-        "y": 3.2690964109663594
+        "x": 7.924171676664921,
+        "y": 0.7512241238063548
       },
       "prevControl": {
-        "x": 1.0218446899998126,
-        "y": 3.812205079880901
+        "x": 2.112438045923936,
+        "y": 0.950256097461869
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,54 +29,24 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
-    {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 0.3,
-      "constraints": {
-        "maxVelocity": 0.5,
-        "maxAcceleration": 2.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
-      }
-    }
-  ],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Shoot"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "constraintZones": [],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 5.4,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -47.48955292199925,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "NoteComplement",
   "previewStartingState": {
-    "rotation": -90.0,
+    "rotation": -60.0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

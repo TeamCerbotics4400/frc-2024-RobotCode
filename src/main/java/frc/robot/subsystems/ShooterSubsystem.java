@@ -104,7 +104,9 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public double getRPM(){
-    return lowerFlyWheel.getVelocity().getValueAsDouble() * 60;
+    double rpm = getLowerRPM() + getUpperRPM();
+
+    return rpm / 2;
   }
 
   public double getLowerRPM(){
@@ -128,5 +130,13 @@ public class ShooterSubsystem extends SubsystemBase {
   
   public double getVoltage(){
     return filter.calculate(lowerFlyWheel.getSupplyCurrent().getValueAsDouble());
+  }
+
+  public boolean isShooting(){
+    if(getRPM() > 600){
+      return true;
+    } else {
+      return false;
+    }
   }
 }

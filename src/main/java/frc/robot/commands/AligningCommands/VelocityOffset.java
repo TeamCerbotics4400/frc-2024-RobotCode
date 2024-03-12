@@ -98,9 +98,7 @@ public class VelocityOffset extends Command {
         correctedDistance = m_FieldCentricAiming.getDistToSpeaker(futureRobotTranslation);
         m_drivetrain.setVelocityOffset(correctedRotation); //Pass the offsets to the drivetrain
 
-        SmartDashboard.putString("SI LLEGO ACÁ", "si llego we");  
-              
-
+        //SmartDashboard.putString("SI LLEGO ACÁ", "si llego we");  
     }
 
     // Called once the command ends or is interrupted.

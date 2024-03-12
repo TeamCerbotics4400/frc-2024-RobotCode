@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 
-public class ClimberClosedLoop extends Command {
+public class ExtendClimber extends Command {
 
   ClimberSubsystem climber;
   ArmSubsystem arm;
 
-  public ClimberClosedLoop(ClimberSubsystem climber) {
+  public ExtendClimber(ClimberSubsystem climber) {
 
     this.climber = climber;
 

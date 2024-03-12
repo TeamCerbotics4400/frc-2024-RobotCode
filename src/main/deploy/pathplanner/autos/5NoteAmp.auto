@@ -62,12 +62,6 @@
                       }
                     },
                     {
-                      "type": "named",
-                      "data": {
-                        "name": "Shoot"
-                      }
-                    },
-                    {
                       "type": "path",
                       "data": {
                         "pathName": "5NoteAmp5"

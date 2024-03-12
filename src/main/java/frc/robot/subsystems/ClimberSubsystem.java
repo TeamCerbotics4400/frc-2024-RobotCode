@@ -58,8 +58,7 @@ public class ClimberSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Climber Position",getClimberPosition()); 
 
   }
-
-
+  
   public double getClimberPosition(){
     return climberEncoder.getPosition();
   }
@@ -72,7 +71,7 @@ public class ClimberSubsystem extends SubsystemBase {
     climberPIDController.setReference(4070.0, ControlType.kPosition);
   }
 
-  public void openLoopExtend(){
+  public void openLoopClimber(){
     climberMotor.set(openExtendedClimber);
   }
 

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9200628732046272,
-        "y": 5.963750960580802
+        "x": 1.7007305261429866,
+        "y": 5.869751383268669
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.181172810182771,
-        "y": 5.838418190831293
+        "x": 1.9618404631211304,
+        "y": 5.74441861351916
       },
       "isLocked": false,
       "linkedName": "5NoteAmpLink3"
@@ -28,7 +28,13 @@
       "linkedName": "5NoteAmpLink4"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -5.0,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -57,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -3.576334374997498,
+    "rotation": -5.0,
     "rotateFast": false
   },
   "reversed": false,
