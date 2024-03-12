@@ -41,10 +41,11 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.AutoPickup;
-import frc.robot.commands.TeleOpControl;
+import frc.robot.commands.FieldCentricDrive;
 import frc.robot.commands.AligningCommands.VelocityOffset;
 import frc.robot.commands.ArmCommands.ArmToPose;
-import frc.robot.commands.ClimberCommands.ExtendClimber;
+import frc.robot.commands.ClimberCommands.ClimberClosedLoop;
+import frc.robot.commands.ClimberCommands.RetractClimber;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -166,7 +167,7 @@ public class RobotContainer {
 
   private void configureBindings() {
 
-    m_drive.setDefaultCommand(new TeleOpControl(
+    m_drive.setDefaultCommand(new FieldCentricDrive(
       m_drive,
       () -> chassisDriver.getLeftY(),
       () -> chassisDriver.getLeftX(),
@@ -183,6 +184,8 @@ public class RobotContainer {
                         .withTargetDirection(m_drive.getVelocityOffset())                        
                         .withDeadband(DriveConstants.MaxSpeed * 0.1)
                         .withRotationalDeadband(0)).alongWith(new VelocityOffset(m_drive, () -> chassisDriver.getRightTriggerAxis())));
+
+    chassisDriver.x().whileTrue(new OutakeCommand(m_intake, m_shooter));
 
     //Manual Pickup
     chassisDriver.rightBumper()
@@ -201,9 +204,8 @@ public class RobotContainer {
 
     // Joystick 2
     subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
-    subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter));
-    //subsystemsDriver.x().onTrue(new RetractClimber(m_climber));
-    subsystemsDriver.y().whileTrue(new ExtendClimber(m_climber));
+    subsystemsDriver.b().onTrue(new RetractClimber(m_climber));
+    subsystemsDriver.y().onTrue(new ClimberClosedLoop(m_climber));
 
     subsystemsDriver.leftBumper()
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))

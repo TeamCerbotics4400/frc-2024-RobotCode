@@ -122,14 +122,15 @@ public final class Constants {
   public static final class ClimberConstants{
     public static byte CLIMBER_ID = 16; 
 
-    public static double kP = 0.03,
+    public static double kP = 0.5,
                          kI = 0,
-                         kD = 0,
-                         kFF = 0.1,
+                         kD = 1,
                          kMaxVelocityLinearPerSecond = 0,
                          kMaxAccelerationMetersPerSecondSquared = 1;
 
-    public static double CLIMBER_GEARBOX = 100.0/1.0;
+    public static double CLIMBER_GEARBOX = 20.0/1.0;
+
+    public static double CLIMBER_THRESHOLD = 0.35;
   }
 
  

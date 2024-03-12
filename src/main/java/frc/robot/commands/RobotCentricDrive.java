@@ -16,19 +16,19 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
-public class TeleOpControl extends Command {
+public class RobotCentricDrive extends Command {
 
   private final CommandSwerveDrivetrain m_drive;
   private final Supplier<Double> xSpdFunction, ySpdFunction, turningSpdFunction;
   private final SlewRateLimiter xLimiter, yLimiter, turningLimiter;
 
-  private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+  private final SwerveRequest.RobotCentric drive = new SwerveRequest.RobotCentric()
       .withDeadband(DriveConstants.MaxSpeed * 0.1)
       .withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1)
       .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
   
   /** Creates a new TeleOpControl. */
-  public TeleOpControl(CommandSwerveDrivetrain m_drive, Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction,
+  public RobotCentricDrive(CommandSwerveDrivetrain m_drive, Supplier<Double> xSpdFunction, Supplier<Double> ySpdFunction,
   Supplier<Double> turningSpdFunction) {
 
     this.m_drive = m_drive;
