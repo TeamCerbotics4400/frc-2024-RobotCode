@@ -39,8 +39,6 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
 
   private Translation2d TargetSpeaker = new Translation2d(0.33, 5.45);
 
-    
-
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
     private final Rotation2d BlueAlliancePerspectiveRotation = Rotation2d.fromDegrees(0);
     /* Red alliance sees forward as 180 degrees (toward blue alliance wall) */

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.79,
-        "y": 6.49
+        "x": 1.21,
+        "y": 5.73
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5231757689978491,
-        "y": 6.281112050417486
+        "x": 1.5336201664769746,
+        "y": 6.715747579077855
       },
       "isLocked": false,
       "linkedName": null
@@ -20,35 +20,35 @@
         "y": 7.0
       },
       "prevControl": {
-        "x": 1.993173655558508,
-        "y": 6.488224523522838
+        "x": 1.8887296807672505,
+        "y": 6.989555602520873
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "5NoteAmpLink1"
+      "linkedName": "6NoteAmpLink1"
     }
   ],
-  "rotationTargets": [
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
     {
-      "waypointRelativePos": 0.4,
-      "rotationDegrees": 35.0,
-      "rotateFast": false
-    }
-  ],
-  "constraintZones": [
-    {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.0,
-      "maxWaypointRelativePos": 0.65,
-      "constraints": {
-        "maxVelocity": 1.0,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
       }
     }
   ],
-  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.4,
     "maxAcceleration": 3.0,
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 32.758798478765755,
+    "rotation": 25.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "6 Note",
   "previewStartingState": {
-    "rotation": 60.0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

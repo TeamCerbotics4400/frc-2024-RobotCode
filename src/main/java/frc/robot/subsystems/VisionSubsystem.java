@@ -146,15 +146,9 @@ public class VisionSubsystem {
        stdsDevDeg = 100.0;
       }
     } else {
-      if(numDetectedTargets <= 2){
-      stdsDevX = 0.1;
-      stdsDevY = 0.1;
-      stdsDevDeg = 0.1;
-     } else {
-      stdsDevX = Math.abs(m_drive.getState().speeds.vxMetersPerSecond) * 20;
-      stdsDevY = Math.abs(m_drive.getState().speeds.vyMetersPerSecond) * 20;
-      stdsDevDeg = Math.abs(m_drive.getState().speeds.omegaRadiansPerSecond) * 20;
-     }
+      stdsDevX = Math.abs(m_drive.getState().speeds.vxMetersPerSecond) * 100;
+      stdsDevY = Math.abs(m_drive.getState().speeds.vyMetersPerSecond) * 100;
+      stdsDevDeg = Math.abs(m_drive.getState().speeds.omegaRadiansPerSecond) * 100;
     }
 
     Matrix<N3, N1> visionMat = MatBuilder.fill(Nat.N3(), Nat.N1(), stdsDevX, stdsDevY, stdsDevDeg);
