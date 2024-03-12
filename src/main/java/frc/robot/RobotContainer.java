@@ -181,7 +181,7 @@ public class RobotContainer {
       m_drive, 
       () -> -chassisDriver.getLeftY(),
       () -> -chassisDriver.getLeftX(),
-      () -> chassisDriver.getRightX()));
+      () -> -chassisDriver.getRightX()));
 
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
@@ -197,7 +197,7 @@ public class RobotContainer {
 
     //Manual Pickup
     chassisDriver.rightBumper()
-    .whileTrue(m_arm.goToPosition(180.0)
+    .whileTrue(m_arm.goToPosition(181.0)
     .alongWith(new IntakeCommand(m_intake, m_shooter)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
