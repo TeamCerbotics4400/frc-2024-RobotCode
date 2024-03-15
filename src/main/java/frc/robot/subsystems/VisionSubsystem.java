@@ -58,10 +58,12 @@ public class VisionSubsystem {
     }
 
     public void periodic(){
-      if(DriverStation.isTeleop() && DriverStation.isEnabled()){
+
+      if(DriverStation.isTeleop()){
         odometryWvision();
+
       }
-        
+      
         setDynamicVisionStdDevs();
 
         SmartDashboard.putString("Alliance", alliance.toString());
@@ -136,26 +138,32 @@ public class VisionSubsystem {
     double stdsDevDeg = 0.0;
 
     if(DriverStation.isAutonomous()){
-      if(allowedToFilterAuto()){
-       stdsDevX = 0.1;
-       stdsDevY = 0.1;
-       stdsDevDeg = 0.1;
+
+          if(visionGetAlliance() == Alliance.Blue && m_drive.getState().Pose.getX() >= 4.0 ){
+            stdsDevX = 1000.0;
+            stdsDevY = 1000.0;
+            stdsDevDeg = 1000.0;
+      } else if (visionGetAlliance() == Alliance.Red && m_drive.getState().Pose.getX() <= 12.75){
+        stdsDevX = 1000.0;
+            stdsDevY = 1000.0;
+            stdsDevDeg = 1000.0;
       } else {
-        stdsDevX = 100.0;
-        stdsDevY = 100.0;
-       stdsDevDeg = 100.0;
-      }
+      stdsDevX = Math.abs(m_drive.getState().speeds.vxMetersPerSecond) * 50;
+      stdsDevY = Math.abs(m_drive.getState().speeds.vyMetersPerSecond) * 50;
+      stdsDevDeg = Math.abs(m_drive.getState().speeds.omegaRadiansPerSecond) * 50;
+      } 
+    
     } else {
-      stdsDevX = Math.abs(m_drive.getState().speeds.vxMetersPerSecond) * 100;
-      stdsDevY = Math.abs(m_drive.getState().speeds.vyMetersPerSecond) * 100;
-      stdsDevDeg = Math.abs(m_drive.getState().speeds.omegaRadiansPerSecond) * 100;
+      stdsDevX = Math.abs(m_drive.getState().speeds.vxMetersPerSecond) * 50;
+      stdsDevY = Math.abs(m_drive.getState().speeds.vyMetersPerSecond) * 50;
+      stdsDevDeg = Math.abs(m_drive.getState().speeds.omegaRadiansPerSecond) * 50;
     }
 
     Matrix<N3, N1> visionMat = MatBuilder.fill(Nat.N3(), Nat.N1(), stdsDevX, stdsDevY, stdsDevDeg);
 
     m_drive.setVisionMeasurementStdDevs(visionMat);
   }
-
+  
   public double getDistanceToTarget(){
     double distance = 0.0;
     
@@ -181,4 +189,7 @@ public class VisionSubsystem {
       return false;
     }
   }
+  public Alliance visionGetAlliance(){
+    return DriverStation.getAlliance().get();
+}
 }

@@ -41,6 +41,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoAim;
 import frc.robot.commands.AutoPickup;
@@ -85,6 +86,14 @@ public class RobotContainer {
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
+  private final SwerveRequest.RobotCentric robotCentricDrive = new SwerveRequest.RobotCentric()
+      .withDeadband(DriveConstants.MaxSpeed * 0.1)
+      .withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1)
+      .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
+      .withVelocityX(-chassisDriver.getLeftY())
+      .withVelocityY(-chassisDriver.getLeftX())
+      .withRotationalRate(-chassisDriver.getRightX());
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() { 
 
@@ -109,7 +118,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
       new IntakeCommand(m_intake, m_shooter), //new AutoOutake(m_intake), 
-      m_arm.goToPosition(180.0)));
+      m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
     //Aim<
     NamedCommands.registerCommand("AutoAim", 
       new ParallelRaceGroup(new AutoAim(m_drive, m_vision), new WaitCommand(1)));
@@ -177,6 +186,10 @@ public class RobotContainer {
       () -> chassisDriver.getLeftX(),
       () -> -chassisDriver.getRightX()));
 
+    //chassisDriver.x().whileTrue(
+      //m_drive.setControl(robotCentricDrive));
+        
+
     chassisDriver.x().whileTrue(new RobotCentricDrive(
       m_drive, 
       () -> -chassisDriver.getLeftY(),
@@ -197,7 +210,7 @@ public class RobotContainer {
 
     //Manual Pickup
     chassisDriver.rightBumper()
-    .whileTrue(m_arm.goToPosition(181.0)
+    .whileTrue(m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)
     .alongWith(new IntakeCommand(m_intake, m_shooter)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
@@ -217,9 +230,8 @@ public class RobotContainer {
 
     //Climber controls
     subsystemsDriver.povUp().onTrue(new ExtendClimber(m_climber));
-    subsystemsDriver.povDown().onTrue(new RetractClimber(m_climber));
+    subsystemsDriver.povDown().whileTrue(new ClimberOpenLoop(m_climber));
     //Open loop climber
-    subsystemsDriver.y().whileTrue(new ClimberOpenLoop(m_climber));
 
     subsystemsDriver.leftBumper()
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))

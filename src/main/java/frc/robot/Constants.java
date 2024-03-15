@@ -71,7 +71,7 @@ public final class Constants {
 
     public static final double kTimeToShoot = .13; //Time it takes before note leave the shooter
 
-    public static double ukP = 1.5,     //For low rpm: 0.046
+    public static double ukP = 1.2,     //For low rpm: 0.046
                          ukI = 0,         // 0
                          ukD = 0.0,    //0.0003
                          ukS = 0.50189,
@@ -89,6 +89,8 @@ public final class Constants {
 
   public static final class IntakeConstants {
     public static byte INTAKE_ID = 12;
+
+    public static double INTAKE_ANGLE = 181.0;
   }
 
   public static final class ArmConstants {

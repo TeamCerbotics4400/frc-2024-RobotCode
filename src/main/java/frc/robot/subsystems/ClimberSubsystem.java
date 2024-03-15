@@ -11,6 +11,8 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
@@ -30,12 +32,17 @@ public class ClimberSubsystem extends SubsystemBase {
                                                     // 5 vueltas
   private double openExtendedClimber = 1.0;  
 
+
+    private SendableChooser<String> climberChooser = new SendableChooser<>();
+  private String climberMOdeSelector;
+  private final String[] modeNames = {"BRAKE", "COAST"};
+
   public ClimberSubsystem() {
     climberMotor.clearFaults();
 
     climberMotor.restoreFactoryDefaults();
 
-    climberMotor.setInverted(true);
+    climberMotor.setInverted(false);
 
     climberMotor.setIdleMode(IdleMode.kBrake);
 
@@ -50,6 +57,11 @@ public class ClimberSubsystem extends SubsystemBase {
 
     resetEncoder();
 
+    climberChooser.setDefaultOption("Brake Mode", modeNames[0]);
+    climberChooser.addOption("Brake Mode", modeNames[0]);
+    climberChooser.addOption("Coast Mode", modeNames[1]);
+
+    SmartDashboard.putData("Climber Mode", climberChooser);
 
   }
 
@@ -57,6 +69,20 @@ public class ClimberSubsystem extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Climber Position",getClimberPosition()); 
 
+          if(DriverStation.isDisabled()){
+        climberMOdeSelector = climberChooser.getSelected();
+        switch (climberMOdeSelector) {
+          case "BRAKE":
+            setBrake();
+          break;
+
+          case "COAST":
+            setCoast();
+          break;
+        }
+      } else {
+        setBrake();
+      }
   }
   
   public double getClimberPosition(){
@@ -68,7 +94,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void retractClimber(){
-    climberPIDController.setReference(4070.0, ControlType.kPosition);
+    climberPIDController.setReference(4852.0, ControlType.kPosition);
   }
 
   public void openLoopClimber(){
@@ -89,6 +115,14 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public boolean isInPosition(double position){
     return isWithinThreshold(getClimberPosition(), position, ClimberConstants.CLIMBER_THRESHOLD);
+  }
+
+  public void setBrake(){
+    climberMotor.setIdleMode(IdleMode.kBrake);
+  }
+
+  public void setCoast(){
+    climberMotor.setIdleMode(IdleMode.kCoast);
   }
   /*
   public void setSoftLimits(){
