@@ -192,8 +192,8 @@ public class RobotContainer {
 
     chassisDriver.x().whileTrue(new RobotCentricDrive(
       m_drive, 
-      () -> -chassisDriver.getLeftY(),
-      () -> -chassisDriver.getLeftX(),
+      () -> chassisDriver.getLeftY(),
+      () -> chassisDriver.getLeftX(),
       () -> -chassisDriver.getRightX()));
 
     //Joystick 1

@@ -94,7 +94,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void retractClimber(){
-    climberPIDController.setReference(4852.0, ControlType.kPosition);
+    climberPIDController.setReference(3852.0, ControlType.kPosition);
   }
 
   public void openLoopClimber(){

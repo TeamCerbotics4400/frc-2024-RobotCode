@@ -28,7 +28,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "SubwooferShoot"
+                        "name": "Shoot"
                       }
                     },
                     {
@@ -41,6 +41,12 @@
                       "type": "path",
                       "data": {
                         "pathName": "SafeComplement2"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
                       }
                     },
                     {
