@@ -31,6 +31,7 @@ import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.commands.ShooterCommands.AmpShootCommand;
 import frc.robot.commands.ShooterCommands.CookShooter;
+import frc.robot.commands.ShooterCommands.LastShoot;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ArmSubsystem;
@@ -111,6 +112,12 @@ public class RobotContainer {
     new ParallelDeadlineGroup(
       new ShooterCommand(m_shooter, m_intake, m_arm), 
       new ArmToPose(m_arm)));
+
+          NamedCommands.registerCommand("LastShoot", 
+    new ParallelDeadlineGroup(
+      new LastShoot(m_shooter, m_intake, m_arm), 
+      new ArmToPose(m_arm)));
+
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
       new ShooterCommand(m_shooter, m_intake,m_arm), 
@@ -258,7 +265,7 @@ public class RobotContainer {
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
-   * @return the command to run in autonomous
+   * @return the command to run in autonomous55
    */
   public Command getAutonomousCommand() {
 
