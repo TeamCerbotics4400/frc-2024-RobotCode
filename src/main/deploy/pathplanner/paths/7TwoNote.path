@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9618413082980024,
-        "y": 6.60098474043102
+        "x": 3.14205737826234,
+        "y": 6.945524323618622
       },
       "isLocked": false,
       "linkedName": "ModularAuto6"
     },
     {
       "anchor": {
-        "x": 8.615599538891386,
-        "y": 7.952755905511811
+        "x": 8.24936774555483,
+        "y": 7.666187749678298
       },
       "prevControl": {
-        "x": 7.017154803540376,
-        "y": 7.962622848322621
+        "x": 6.317154211916566,
+        "y": 7.624410159761795
       },
       "nextControl": null,
       "isLocked": false,
@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "2 note",
+  "folder": "ModularAuto",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

@@ -63,7 +63,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.4,
-    "maxAcceleration": 5.0,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -73,7 +73,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "2 note",
+  "folder": "ModularAuto",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
