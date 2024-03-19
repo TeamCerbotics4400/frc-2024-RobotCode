@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class AutoOutake extends Command {
+public class AutoIntake extends Command {
 IntakeSubsystem intake;
 Timer timer = new Timer();
 
-  public AutoOutake(IntakeSubsystem intake) {
+  public AutoIntake(IntakeSubsystem intake) {
 
 this.intake = intake;
 addRequirements(intake);
@@ -26,10 +26,7 @@ addRequirements(intake);
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(intake.noteInside()){
-      timer.start();
-      intake.smallOutake();
-    }
+      intake.startIntaking();
   }
 
   // Called once the command ends or is interrupted.
@@ -41,11 +38,10 @@ addRequirements(intake);
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (timer.get() > 0.1){
-      timer.stop();
-      timer.reset();
-      return true;
-    }
+
+  if(!intake.noteInside()){
+    return true;
+  }
     return false;
   }
 }

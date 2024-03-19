@@ -1,0 +1,38 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 6.356069635216194,
+      "y": 7.607412907133506
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ArmIdle"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "PIDTuner1"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "PID Tuning",
+  "choreoAuto": false
+}

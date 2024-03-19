@@ -32,6 +32,12 @@
                       }
                     },
                     {
+                      "type": "named",
+                      "data": {
+                        "name": "IntakeSub"
+                      }
+                    },
+                    {
                       "type": "path",
                       "data": {
                         "pathName": "1TwoNote"
@@ -41,12 +47,6 @@
                       "type": "path",
                       "data": {
                         "pathName": "2TwoNote"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "IntakeSub"
                       }
                     },
                     {
@@ -62,12 +62,6 @@
                       }
                     },
                     {
-                      "type": "named",
-                      "data": {
-                        "name": "IntakeSub"
-                      }
-                    },
-                    {
                       "type": "path",
                       "data": {
                         "pathName": "5TwoNote"
@@ -77,6 +71,18 @@
                       "type": "path",
                       "data": {
                         "pathName": "6TwoNote"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "7TwoNote"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "8TwoNote"
                       }
                     },
                     {

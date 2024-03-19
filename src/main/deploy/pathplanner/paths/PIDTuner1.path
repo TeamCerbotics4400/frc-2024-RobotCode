@@ -3,54 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2554654495899562,
-        "y": 5.57
+        "x": 6.356069635216194,
+        "y": 7.607412907133506
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.344617591546165,
-        "y": 6.113056676897948
+        "x": 7.606069635216194,
+        "y": 7.607412907133506
       },
       "isLocked": false,
-      "linkedName": "ModularAuto2"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.7,
-        "y": 7.22
+        "x": 6.356069635216194,
+        "y": 5.61
       },
       "prevControl": {
-        "x": 1.7000000000000002,
-        "y": 7.22
+        "x": 7.606069635216194,
+        "y": 5.61
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ModularAuto3"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.4,
+    "maxVelocity": 5.4,
     "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0

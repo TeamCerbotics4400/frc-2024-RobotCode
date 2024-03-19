@@ -51,10 +51,10 @@ public final class Constants {
     public static final double MaxSpeed = TunerConstants.kSpeedAt12VoltsMps;
     public static final double MaxAngularRate = 1.5 * Math.PI;
 
-    public static final double traslationP = 1.05,//0.5,
-                               traslationD = 0.35,
-                               rotationP = 0.5, //0.2
-                               rotationD = 0.1;
+    public static final double traslationP = 5.0,//0.5,
+                               traslationD = 0.0,
+                               rotationP = 5.0, //0.2
+                               rotationD = 0.0;
   }
 
       public static class FieldConstants {

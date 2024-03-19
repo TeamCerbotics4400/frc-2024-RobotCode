@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.5474297102440375,
-        "y": 4.075047380863993
+        "x": 8.615599538891386,
+        "y": 7.952755905511811
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.568585021785432,
-        "y": 4.0404939332955605
+        "x": 8.615599538891386,
+        "y": 7.952755905511811
       },
       "isLocked": false,
-      "linkedName": "ModularAuto5"
+      "linkedName": "ModularAuto7"
     },
     {
       "anchor": {
-        "x": 1.4225982298118458,
-        "y": 5.407084660323167
+        "x": 1.56,
+        "y": 5.949766514917646
       },
       "prevControl": {
-        "x": 1.4324651726226547,
-        "y": 5.426818545944785
+        "x": 2.438157910161973,
+        "y": 6.719388054160724
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ModularAuto6"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -35,30 +35,13 @@
       "name": "New Event Marker",
       "waypointRelativePos": 0,
       "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ArmIdle"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.65,
-      "command": {
         "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "IntakeSub"
+                "name": "PrepareArm"
               }
             }
           ]

@@ -50,6 +50,7 @@ import frc.robot.commands.FieldCentricDrive;
 import frc.robot.commands.RobotCentricDrive;
 import frc.robot.commands.AligningCommands.VelocityOffset;
 import frc.robot.commands.ArmCommands.ArmToPose;
+import frc.robot.commands.AutoCommands.AutoIntake;
 import frc.robot.commands.ClimberCommands.ClimberOpenLoop;
 import frc.robot.commands.ClimberCommands.ExtendClimber;
 import frc.robot.commands.ClimberCommands.RetractClimber;
@@ -83,7 +84,7 @@ public class RobotContainer {
   private String m_autoSelected;
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
    "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", 
-   "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE AMP", "6 NOTE AMP"}; 
+   "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE AMP", "6 NOTE AMP", "PID"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -103,7 +104,10 @@ public class RobotContainer {
     m_head.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
 
     //Idle Arm
-    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(170));
+    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(160));
+
+    NamedCommands.registerCommand("FastArm", m_arm.goToPosition(160).raceWith(new WaitCommand(1)));
+
     //Cook Shooter
     NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter));
     NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
@@ -138,6 +142,9 @@ public class RobotContainer {
     new InstantCommand(
       () -> m_vision.setCameraPipeline(VisionConstants.far_Pipeline)));
 
+    NamedCommands.registerCommand("IntakeSub", 
+      new AutoIntake(m_intake));
+     
     autoChooser = new SendableChooser<>();
 
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
@@ -152,6 +159,7 @@ public class RobotContainer {
     autoChooser.addOption("Safe Complement", m_autoNames[9]);
     autoChooser.addOption("5 Note AMP", m_autoNames[10]);
     autoChooser.addOption("6 Note AMP", m_autoNames[11]);
+    autoChooser.addOption("PID tuner", m_autoNames[12]);
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
@@ -315,11 +323,15 @@ public class RobotContainer {
       break;
 
       case "5 NOTE AMP":
-        autonomousCommand = new PathPlannerAuto("5NoteAmp");
+        autonomousCommand = new PathPlannerAuto("5NoteAuto");
       break;
 
       case "6 NOTE AMP":
         autonomousCommand = new PathPlannerAuto("6NoteAmp");
+      break;
+
+      case "PID":
+        autonomousCommand = new PathPlannerAuto("PIDTuner");
       break;
     }
 
