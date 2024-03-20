@@ -24,15 +24,11 @@ public class ClimberSubsystem extends SubsystemBase {
   private final SparkPIDController climberPIDController;
   private final RelativeEncoder climberEncoder;
 
-  private double extendedClimber = 2133.37158203125;   //2133.37158203125 HIGHEST VALUE || second 1551.4813232421875 highest value
-  private double retractedClimber = 4074.0712890625;   //4074.0712890625   lowest value
-
   double leftkP = 0.0, leftkI = 0.0, leftkD = 0.0, leftkFF = 0.0;
-                                                    // 5 vueltas
+
   private double openExtendedClimber = 1.0;  
 
-
-    private SendableChooser<String> climberChooser = new SendableChooser<>();
+  private SendableChooser<String> climberChooser = new SendableChooser<>();
   private String climberMOdeSelector;
   private final String[] modeNames = {"BRAKE", "COAST"};
 
@@ -61,7 +57,6 @@ public class ClimberSubsystem extends SubsystemBase {
     climberChooser.addOption("Coast Mode", modeNames[1]);
 
     SmartDashboard.putData("Climber Mode", climberChooser);
-
   }
 
   @Override
@@ -123,14 +118,4 @@ public class ClimberSubsystem extends SubsystemBase {
   public void setCoast(){
     climberMotor.setIdleMode(IdleMode.kCoast);
   }
-  /*
-  public void setSoftLimits(){
-    //Check Encoder Max Pos
-    climberMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 8); //Test the limits
-    climberMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);   
-  }
-  public void enableSoftLimit(){
-    climberMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    climberMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);    
-  } */
 }

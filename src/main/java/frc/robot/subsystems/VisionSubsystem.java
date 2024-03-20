@@ -131,7 +131,6 @@ public class VisionSubsystem {
   }
 
   public void setDynamicVisionStdDevs(){
-    int numDetectedTargets = getNumofDetectedTargets();
     double stdsDevX = 0.0;
     double stdsDevY = 0.0;
     

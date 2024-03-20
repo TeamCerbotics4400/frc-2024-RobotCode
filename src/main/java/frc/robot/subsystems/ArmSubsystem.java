@@ -40,10 +40,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   private final CANSparkMax leftMotor = new CANSparkMax(ArmConstants.LEFT_ARM_ID, MotorType.kBrushless);
   private final CANSparkMax rightMotor = new CANSparkMax(ArmConstants.RIGHT_ARM_ID, MotorType.kBrushless);
 
-  //private boolean armTest;
-  /*private final DutyCycleEncoder m_encoder =
-      new DutyCycleEncoder(ArmConstants.ABSOLUTE_ENCODER_PORT);*/
-
   private final CANcoder m_encoder = new CANcoder(ArmConstants.ABSOLUTE_ENCODER_ID, "Swerve_Canivore");
 
   CANcoderConfiguration encoderConfig = new CANcoderConfiguration();
@@ -70,10 +66,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   private SendableChooser<String> armModeChooser = new SendableChooser<>();
   private String currentModeSelection;
   private final String[] modeNames = {"BRAKE", "COAST"};
-  
-  private SendableChooser<String> armInverterChooser = new SendableChooser<>();
-  private String currentInvertedSelection;
-  private final String[] modeInverted = {"INVERTED", "NOT INVERTED"};
 
   boolean onTarget;
 
@@ -91,7 +83,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
                 ArmConstants.kMaxAccelerationMetersPerSecondSquared)));
     
     //Makes the Arm absolute Encoder return every rotation as angles
-    //Check encoder direction
     encoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
     encoderConfig.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
     encoderConfig.MagnetSensor.MagnetOffset = 0.0;
@@ -100,18 +91,15 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
     m_encoder.getConfigurator().apply(encoderConfig);
     this.m_controller.reset(getMeasurement());
-    //m_encoder.setPosition(0.4);
     
     // Start arm at rest in neutral position
     setGoal(90.3);
-    //   this.m_controller.setIZone(20);
 
     leftMotor.restoreFactoryDefaults();
     rightMotor.restoreFactoryDefaults();
 
     leftMotor.setInverted(true);
     rightMotor.setInverted(false);
-    //rightMotor.follow(leftMotor, true);
 
     leftMotor.setSmartCurrentLimit(80);
     rightMotor.setSmartCurrentLimit(80);
@@ -120,11 +108,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     rightMotor.setCANTimeout(0);
 
     rightMotor.setIdleMode(IdleMode.kBrake);
-    leftMotor.setIdleMode(IdleMode.kBrake);//change do break
-
-    /*SmartDashboard.putNumber("Arm kP", akP);
-    SmartDashboard.putNumber("Arm kI", akI);
-    SmartDashboard.putNumber("Arm kD",akD);*/
+    leftMotor.setIdleMode(IdleMode.kBrake);
 
     armModeChooser.setDefaultOption("Brake Mode", modeNames[0]);
     armModeChooser.addOption("Brake Mode", modeNames[0]);
@@ -132,11 +116,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
 
     SmartDashboard.putData("Arm Mode", armModeChooser);
 
-    armInverterChooser.setDefaultOption("Inverted Mode", modeInverted[0]);
-    armInverterChooser.addOption("Inverted Mode", modeInverted[0]);
-    armInverterChooser.addOption("Not inverted Mode", modeInverted[1]);
-
-    SmartDashboard.putData("Arm Inversion", armInverterChooser);
   }
 
   @Override
@@ -158,10 +137,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       SmartDashboard.putNumber("Left Motor Voltage", leftMotor.getBusVoltage());
       SmartDashboard.putNumber("Right Motor Voltage", rightMotor.getBusVoltage());
 
-      //SmartDashboard.putBoolean("Left Arm Reset", hasLeftArmReset());
-      //SmartDashboard.putBoolean("Right Arm Reset", hasRighttArmReset());
-      //SmartDashboard.putBoolean("Arm test", armTest);
-
       if(DriverStation.isDisabled()){
         currentModeSelection = armModeChooser.getSelected();
         switch (currentModeSelection) {
@@ -176,29 +151,8 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
       } else {
         armSetBrake();
       }
-      /*  currentInvertedSelection = armInverterChooser.getSelected();
-        switch (currentInvertedSelection) {
-          case "INVERTED":
-            armSetBrake();
-            armTest = true;
-          break;
-
-          case "NOT INVERTED":
-            armSetCoast();
-            armTest = false;
-          break;
-           */
-        }
-
-      /*double akP = SmartDashboard.getNumber("Arm kP", ArmConstants.kP),
-             akI = SmartDashboard.getNumber("Arm kI", ArmConstants.kI),
-             akD = SmartDashboard.getNumber("Arm kD", ArmConstants.kD);
-
-      if (ArmConstants.kP != akP) {ArmConstants.kP = akP; getController().setP(akP);}
-      if (ArmConstants.kI != akI) {ArmConstants.kI = akI; getController().setI(akI);}
-      if (ArmConstants.kD != akD) {ArmConstants.kD = akD; getController().setD(akD);}*/
+   }
   
-
   @Override
   public void useOutput(double output, TrapezoidProfile.State setpoint) {
     // Calculate the feedforward from the sepoint
@@ -232,7 +186,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     return ejecutable;
   }
 
-
   //For use in autonomous methods to shoot after the Arm is in position
   public boolean isWithinThreshold(double value, double target, double threshold){
     return Math.abs(value - target) < threshold;
@@ -243,7 +196,6 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   }
   
   public void updateArmSetpoint(double setpoint){
-    //m_controller.reset(getMeasurement());
     m_tpState.position = Units.degreesToRadians(setpoint);
     setGoal(setpoint);
   }

@@ -12,7 +12,6 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -73,14 +72,12 @@ public class RobotContainer {
   SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
   .withDriveRequestType(DriveRequestType.Velocity);
 
-  private Timer rumbleTimer = new Timer();
-
   private final SendableChooser<String> autoChooser;
   private final String m_DefaultAuto = "NO AUTO";
   private String m_autoSelected;
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
    "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", 
-   "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE AMP", "6 NOTE AMP", "PID"}; 
+   "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "6 NOTE AMP", "PID"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -91,21 +88,20 @@ public class RobotContainer {
     m_head.HeadingController.setPID(8, 0, 0);
     m_head.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
 
-    //Idle Arm
+    //Arm Commands
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(160));
-
     NamedCommands.registerCommand("FastArm", m_arm.goToPosition(160).raceWith(new WaitCommand(1)));
-
-    //Cook Shooter
-    NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter));
     NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
-    //Shoot
+
+    //Shooter Commands
+    NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter));
+
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
       new ShooterCommand(m_shooter, m_intake, m_arm), 
       new ArmToPose(m_arm)));
 
-          NamedCommands.registerCommand("LastShoot", 
+    NamedCommands.registerCommand("LastShoot", 
     new ParallelDeadlineGroup(
       new LastShoot(m_shooter, m_intake, m_arm), 
       new ArmToPose(m_arm)));
@@ -113,44 +109,42 @@ public class RobotContainer {
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
       new ShooterCommand(m_shooter, m_intake,m_arm), 
-       m_arm.goToPosition(160.0)));    //Intake
+       m_arm.goToPosition(160.0)));    
+  
+    //Intake Commands
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
-      new IntakeCommand(m_intake, m_shooter), //new AutoOutake(m_intake), 
+      new IntakeCommand(m_intake, m_shooter), 
       m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
-    //Aim<
+
+    NamedCommands.registerCommand("IntakeSub", 
+    new AutoIntake(m_intake));
+
+    //Aim Commands
     NamedCommands.registerCommand("AutoAim", 
       new ParallelRaceGroup(new AutoAim(m_drive, m_vision), new WaitCommand(1)));
-    //Change Pipelines
+  
+    //PipeLine Commands
     NamedCommands.registerCommand("MainTracking", 
     new InstantCommand(
       () -> m_vision.setCameraPipeline(VisionConstants.main_Pipeline)));
-    //Change Pipeline
+
     NamedCommands.registerCommand("FarTracking", 
     new InstantCommand(
       () -> m_vision.setCameraPipeline(VisionConstants.far_Pipeline)));
 
-    NamedCommands.registerCommand("IntakeSub", 
-      new AutoIntake(m_intake));
-     
+ //Selector for Autonomous routine 
     autoChooser = new SendableChooser<>();
 
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
-    //autoChooser.addOption("Interpolated 4 Notes", m_autoNames[1]);
-    //autoChooser.addOption("Subwoofer 4 Notes", m_autoNames[4]);
-    //autoChooser.addOption("Steal and 3 Notes", m_autoNames[2]);
-    //autoChooser.addOption("Complement 2 Notes", m_autoNames[5]);
-    //autoChooser.addOption("Complement 3 Notes", m_autoNames[3]);
     autoChooser.addOption("2 Note", m_autoNames[6]);
     autoChooser.addOption("3 Note", m_autoNames[7]);
     autoChooser.addOption("4 Note", m_autoNames[8]);
     autoChooser.addOption("5 Note", m_autoNames[10]);
     autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
-    //autoChooser.addOption("6 Note AMP", m_autoNames[11]);
     autoChooser.addOption("PID tuner", m_autoNames[12]);
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
-
 
     configureBindings();
   }
@@ -189,10 +183,6 @@ public class RobotContainer {
       () -> chassisDriver.getLeftX(),
       () -> -chassisDriver.getRightX()));
 
-    //chassisDriver.x().whileTrue(
-      //m_drive.setControl(robotCentricDrive));
-        
-
     chassisDriver.x().whileTrue(new RobotCentricDrive(
       m_drive, 
       () -> chassisDriver.getLeftY(),
@@ -226,27 +216,24 @@ public class RobotContainer {
                                     -chassisDriver.getLeftX() * DriveConstants.MaxSpeed)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));*/
 
-    // Joystick 2
+  // Joystick 2
     subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
-    
     subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter));
 
     //Climber controls
     subsystemsDriver.povUp().onTrue(new ExtendClimber(m_climber));
     subsystemsDriver.povDown().whileTrue(new ClimberOpenLoop(m_climber));
-    //Open loop climber
 
     subsystemsDriver.leftBumper()
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
-    //subsystemsDriver.x().whileTrue(new CookShooter(m_shooter));
-
     subsystemsDriver.rightBumper()
       .whileTrue(new ArmToPose(m_arm)
-      .alongWith(new CookShooter(m_shooter)))//new ShooterCommand(m_shooter, m_intake, m_arm)))
+      .alongWith(new CookShooter(m_shooter)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
     
+    //Manual Intake
     subsystemsDriver.rightTrigger().whileTrue(new AutoIntake(m_intake));
 
     //TODO: DriveTrain Characterization, comment if not used
@@ -276,26 +263,6 @@ public class RobotContainer {
         autonomousCommand = null;
       break;
 
-      case "4 NOTE INTERPOLATED":
-        autonomousCommand = new PathPlannerAuto("InterpolatedAuto");
-      break;
-
-      /*case "4 NOTE STEAL":
-        autonomousCommand = new PathPlannerAuto("Steal4Score");
-      break;*/
-
-      /*case "3 NOTE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("NoteComplement");
-      break;*/
-
-      case "2 NOTE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("SafeComplement");
-      break;
-
-      /*case "4 NOTE SUBWOOFER":
-        autonomousCommand = new PathPlannerAuto("SubwooferAuto");
-      break;*/
-
       case "2 NOTE CENTER":
         autonomousCommand = new PathPlannerAuto("2NoteAuto");
       break;
@@ -308,16 +275,12 @@ public class RobotContainer {
         autonomousCommand = new PathPlannerAuto("4NoteAuto");
       break;
 
-      case "SAFE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("SafeComplement");
-      break;
-
-      case "5 NOTE AMP":
+      case "5 NOTE CENTER":
         autonomousCommand = new PathPlannerAuto("5NoteAuto");
       break;
 
-      case "6 NOTE AMP":
-        autonomousCommand = new PathPlannerAuto("6NoteAmp");
+      case "SAFE COMPLEMENT":
+        autonomousCommand = new PathPlannerAuto("SafeComplement");
       break;
 
       case "PID":
@@ -339,14 +302,4 @@ public class RobotContainer {
   public VisionSubsystem getVision(){
     return m_vision;
   }
-
-  public Timer getRumbleTimer(){
-    return rumbleTimer;
-  }
-
-  /*public Optional<Rotation2d> overrideForSpeakerAim(){
-    if(m_shooter.isShooting()){
-      return Optional.of(m)
-    }
-  }*/
 }
