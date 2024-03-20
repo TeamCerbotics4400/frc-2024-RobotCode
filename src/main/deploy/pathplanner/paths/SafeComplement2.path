@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 8.7,
-        "y": 0.6
+        "y": 0.7
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.053633184189446,
-        "y": 0.8485570817295487
+        "x": 4.994431527324594,
+        "y": 0.5144115980539654
       },
       "isLocked": false,
       "linkedName": "Safe1"
     },
     {
       "anchor": {
-        "x": 1.491842576560472,
-        "y": 5.1908655471254965
+        "x": 0.6,
+        "y": 4.371055665188254
       },
       "prevControl": {
-        "x": 1.35370537720915,
-        "y": 1.145418994693929
+        "x": 1.576827338270061,
+        "y": 1.4208397647564532
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,12 +41,6 @@
             {
               "type": "named",
               "data": {
-                "name": "Intake"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
                 "name": "ArmIdle"
               }
             }
@@ -63,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": -40.03025927188966,
     "rotateFast": false
   },
   "reversed": false,

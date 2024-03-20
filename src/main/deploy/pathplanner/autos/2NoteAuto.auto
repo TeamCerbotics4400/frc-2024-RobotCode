@@ -32,12 +32,6 @@
         {
           "type": "named",
           "data": {
-            "name": "Shoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "ArmIdle"
           }
         }

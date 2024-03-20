@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.491842576560472,
-        "y": 5.1908655471254965
+        "x": 0.6,
+        "y": 4.371055665188254
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1089399180168489,
-        "y": 1.8708778051731083
+        "x": 1.5768273382700608,
+        "y": 1.1248314804321913
       },
       "isLocked": false,
       "linkedName": "Safe2"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 8.378792911431978,
-        "y": 2.21
+        "y": 2.36
       },
       "prevControl": {
         "x": 5.715471554254913,
-        "y": 0.6746735705685151
+        "y": 0.824673570568515
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "sequential",
         "data": {

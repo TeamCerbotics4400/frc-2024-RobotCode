@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.5474297102440375,
-        "y": 4.075047380863993
+        "x": 2.543657469625922,
+        "y": 4.19247948338978
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.568585021785432,
-        "y": 4.0404939332955605
+        "x": 2.5648127811673165,
+        "y": 4.1579260358213475
       },
       "isLocked": false,
       "linkedName": "ModularAuto5"
@@ -50,7 +50,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.65,
+      "waypointRelativePos": 0.8,
       "command": {
         "type": "parallel",
         "data": {

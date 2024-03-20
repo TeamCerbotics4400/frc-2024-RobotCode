@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.4500649866439688,
-        "y": 5.859306985789544
+        "x": 1.0680920648574521,
+        "y": 5.726599070887158
       },
       "prevControl": {
-        "x": 2.6616150942225554,
-        "y": 6.85152474630649
+        "x": 2.279642172436038,
+        "y": 6.718816831404103
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,6 +42,23 @@
               "type": "named",
               "data": {
                 "name": "ArmIdle"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "LastIntake"
               }
             }
           ]

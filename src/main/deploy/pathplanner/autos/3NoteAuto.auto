@@ -44,12 +44,6 @@
                       }
                     },
                     {
-                      "type": "named",
-                      "data": {
-                        "name": "Shoot"
-                      }
-                    },
-                    {
                       "type": "path",
                       "data": {
                         "pathName": "3TwoNote"
@@ -64,7 +58,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Shoot"
+                        "name": "ArmIdle"
                       }
                     }
                   ]

@@ -12,6 +12,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.commands.IntakeCommands.IntakeCommand;
+import frc.robot.commands.IntakeCommands.ManualIntake;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.commands.ShooterCommands.AmpShootCommand;
 import frc.robot.commands.ShooterCommands.CookShooter;
@@ -120,6 +122,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("IntakeSub", 
     new AutoIntake(m_intake));
 
+    NamedCommands.registerCommand("LastIntake", 
+    new ManualIntake(m_intake,m_shooter));
+
     //Aim Commands
     NamedCommands.registerCommand("AutoAim", 
       new ParallelRaceGroup(new AutoAim(m_drive, m_vision), new WaitCommand(1)));
@@ -192,7 +197,8 @@ public class RobotContainer {
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
     
-    chassisDriver.b().whileTrue(
+     
+      chassisDriver.b().whileTrue(
       m_drive.applyRequest(
               () -> m_head.withVelocityX((-chassisDriver.getLeftY() * DriveConstants.MaxSpeed) * 0.5)
                   .withVelocityY((-chassisDriver.getLeftX() * DriveConstants.MaxSpeed) * 0.5)
@@ -201,6 +207,8 @@ public class RobotContainer {
                   .withRotationalDeadband(0))
                   .alongWith(new VelocityOffset(m_drive, () -> chassisDriver.getRightTriggerAxis())));
 
+    
+    
     //Manual Pickup
     chassisDriver.rightBumper()
     .whileTrue(m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)
@@ -228,13 +236,13 @@ public class RobotContainer {
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
-    subsystemsDriver.rightBumper()
+    subsystemsDriver.x()
       .whileTrue(new ArmToPose(m_arm)
       .alongWith(new CookShooter(m_shooter)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
     
     //Manual Intake
-    subsystemsDriver.rightTrigger().whileTrue(new AutoIntake(m_intake));
+    subsystemsDriver.rightBumper().whileTrue(new ManualIntake(m_intake,m_shooter));
 
     //TODO: DriveTrain Characterization, comment if not used
     /*chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));
