@@ -4,15 +4,12 @@
 
 package frc.robot;
 
-import java.util.Optional;
-
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest.ForwardReference;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
@@ -53,7 +50,6 @@ import frc.robot.commands.ArmCommands.ArmToPose;
 import frc.robot.commands.AutoCommands.AutoIntake;
 import frc.robot.commands.ClimberCommands.ClimberOpenLoop;
 import frc.robot.commands.ClimberCommands.ExtendClimber;
-import frc.robot.commands.ClimberCommands.RetractClimber;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -87,14 +83,6 @@ public class RobotContainer {
    "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE AMP", "6 NOTE AMP", "PID"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
-
-  private final SwerveRequest.RobotCentric robotCentricDrive = new SwerveRequest.RobotCentric()
-      .withDeadband(DriveConstants.MaxSpeed * 0.1)
-      .withRotationalDeadband(DriveConstants.MaxAngularRate * 0.1)
-      .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
-      .withVelocityX(-chassisDriver.getLeftY())
-      .withVelocityY(-chassisDriver.getLeftX())
-      .withRotationalRate(-chassisDriver.getRightX());
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() { 
@@ -148,17 +136,17 @@ public class RobotContainer {
     autoChooser = new SendableChooser<>();
 
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
-    autoChooser.addOption("Interpolated 4 Notes", m_autoNames[1]);
+    //autoChooser.addOption("Interpolated 4 Notes", m_autoNames[1]);
     //autoChooser.addOption("Subwoofer 4 Notes", m_autoNames[4]);
     //autoChooser.addOption("Steal and 3 Notes", m_autoNames[2]);
     //autoChooser.addOption("Complement 2 Notes", m_autoNames[5]);
     //autoChooser.addOption("Complement 3 Notes", m_autoNames[3]);
-    autoChooser.addOption("2 Note Center", m_autoNames[6]);
-    autoChooser.addOption("3 Note Center", m_autoNames[7]);
-    autoChooser.addOption("4 Note Center", m_autoNames[8]);
-    autoChooser.addOption("Safe Complement", m_autoNames[9]);
-    autoChooser.addOption("5 Note AMP", m_autoNames[10]);
-    autoChooser.addOption("6 Note AMP", m_autoNames[11]);
+    autoChooser.addOption("2 Note", m_autoNames[6]);
+    autoChooser.addOption("3 Note", m_autoNames[7]);
+    autoChooser.addOption("4 Note", m_autoNames[8]);
+    autoChooser.addOption("5 Note", m_autoNames[10]);
+    autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
+    //autoChooser.addOption("6 Note AMP", m_autoNames[11]);
     autoChooser.addOption("PID tuner", m_autoNames[12]);
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -252,12 +240,14 @@ public class RobotContainer {
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
-    subsystemsDriver.x().whileTrue(new CookShooter(m_shooter));
+    //subsystemsDriver.x().whileTrue(new CookShooter(m_shooter));
 
     subsystemsDriver.rightBumper()
       .whileTrue(new ArmToPose(m_arm)
-      .alongWith(new ShooterCommand(m_shooter, m_intake, m_arm)))
+      .alongWith(new CookShooter(m_shooter)))//new ShooterCommand(m_shooter, m_intake, m_arm)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+    
+    subsystemsDriver.rightTrigger().whileTrue(new AutoIntake(m_intake));
 
     //TODO: DriveTrain Characterization, comment if not used
     /*chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));
