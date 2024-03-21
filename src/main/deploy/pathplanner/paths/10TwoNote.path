@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.124034975805321,
+        "y": 5.786196203435664
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.2335990320835615,
+        "y": 6.36063806478758
+      },
+      "isLocked": false,
+      "linkedName": "ModularAuto9"
+    },
+    {
+      "anchor": {
+        "x": 3.298723340449226,
+        "y": 6.0473061404138075
+      },
+      "prevControl": {
+        "x": 4.635606217777322,
+        "y": 6.579970411849221
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "ModularAuto8"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.4,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 15.255118703057876,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "ModularAuto",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

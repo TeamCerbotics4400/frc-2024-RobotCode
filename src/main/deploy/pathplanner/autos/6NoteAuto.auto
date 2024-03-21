@@ -68,9 +68,33 @@
                       }
                     },
                     {
+                      "type": "path",
+                      "data": {
+                        "pathName": "7TwoNote"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Alt8TwoNote"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "9TwoNote"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "10TwoNote"
+                      }
+                    },
+                    {
                       "type": "named",
                       "data": {
-                        "name": "IntakeSub"
+                        "name": "LastIntake"
                       }
                     }
                   ]
@@ -82,6 +106,6 @@
       ]
     }
   },
-  "folder": "4 Note",
+  "folder": null,
   "choreoAuto": false
 }
