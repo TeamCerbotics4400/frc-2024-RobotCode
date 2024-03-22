@@ -3,37 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.6,
-        "y": 4.371055665188254
+        "x": 1.22,
+        "y": 5.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5768273382700608,
-        "y": 1.1248314804321913
+        "x": 2.1968273382700607,
+        "y": 0.8033352220550585
       },
       "isLocked": false,
-      "linkedName": "Safe2"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.378792911431978,
-        "y": 2.46
+        "x": 8.38,
+        "y": 0.58
       },
       "prevControl": {
-        "x": 5.715471554254913,
-        "y": 0.9246735705685151
+        "x": 6.050899362154959,
+        "y": 0.48600042268786847
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Safe3"
+      "linkedName": "Safe1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.8,
+      "rotationDegrees": 0,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 19.025606038298328,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "SafeComplement",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

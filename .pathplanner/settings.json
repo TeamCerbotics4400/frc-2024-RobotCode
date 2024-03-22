@@ -4,6 +4,7 @@
   "holonomicMode": true,
   "pathFolders": [
     "ModularAuto",
+    "ModularAutoCopy",
     "Pre-Defined Paths",
     "SafeComplement"
   ],

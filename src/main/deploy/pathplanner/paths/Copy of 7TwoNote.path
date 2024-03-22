@@ -3,52 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2,
-        "y": 5.574358195791997
+        "x": 1.2252593735956716,
+        "y": 5.436685488755594
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.1999999999999997,
-        "y": 5.574358195791997
+        "x": 2.2252593735956716,
+        "y": 5.436685488755594
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ModularAuto6"
     },
     {
       "anchor": {
-        "x": 2.4,
-        "y": 5.57
+        "x": 7.323030030675447,
+        "y": 6.354311170160802
       },
       "prevControl": {
-        "x": 1.4,
-        "y": 5.57
+        "x": 6.208065493054065,
+        "y": 7.005529395674177
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ModularAuto1"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.4,
     "maxAcceleration": 3.0,
@@ -61,10 +43,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "ModularAuto",
+  "folder": "ModularAutoCopy",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

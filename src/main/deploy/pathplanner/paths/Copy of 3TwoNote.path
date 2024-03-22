@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.6,
-        "y": 4.371055665188254
+        "x": 1.2554654495899562,
+        "y": 5.57
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5768273382700608,
-        "y": 1.1248314804321913
+        "x": 1.344617591546165,
+        "y": 6.113056676897948
       },
       "isLocked": false,
-      "linkedName": "Safe2"
+      "linkedName": "ModularAuto2"
     },
     {
       "anchor": {
-        "x": 8.378792911431978,
-        "y": 2.46
+        "x": 2.7,
+        "y": 7.22
       },
       "prevControl": {
-        "x": 5.715471554254913,
-        "y": 0.9246735705685151
+        "x": 1.7000000000000002,
+        "y": 7.22
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Safe3"
+      "linkedName": "ModularAuto3"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0,
       "command": {
         "type": "sequential",
         "data": {
@@ -51,20 +51,20 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.4,
-    "maxAcceleration": 4.25,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 19.025606038298328,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "SafeComplement",
+  "folder": "ModularAutoCopy",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
