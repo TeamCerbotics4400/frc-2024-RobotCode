@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 0.6233758621363413,
-        "y": 4.4795920361071495
+        "y": 4.28
       },
       "prevControl": {
         "x": 1.6051492251741615,
-        "y": 2.328046155407245
+        "y": 2.1284541193000956
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,6 +47,23 @@
           ]
         }
       }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.9,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "LastIntake"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -57,7 +74,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -45.0000000000001,
+    "rotation": -53.2380953408114,
     "rotateFast": false
   },
   "reversed": false,

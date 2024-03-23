@@ -1,5 +1,5 @@
 // Copylower (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
+// Open Soulolrce Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
@@ -38,6 +38,12 @@ public class ShooterSubsystem extends SubsystemBase {
 
     upperConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     lowerConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+
+    upperConfig.CurrentLimits.StatorCurrentLimit = 60;
+    lowerConfig.CurrentLimits.StatorCurrentLimit = 60;
+
+    upperConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+    lowerConfig.CurrentLimits.StatorCurrentLimitEnable = true;
 
     //TODO: Shooter will not reach RPM but will shoot with no problems
     upperConfig.Slot0.kP = ShooterConstants.ukP;

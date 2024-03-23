@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.ManualIntake;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
+import frc.robot.commands.IntakeCommands.SmallIntakeCommand;
 import frc.robot.commands.ShooterCommands.AmpShootCommand;
 import frc.robot.commands.ShooterCommands.CookShooter;
 import frc.robot.commands.ShooterCommands.LastShoot;
@@ -79,7 +80,8 @@ public class RobotContainer {
   private String m_autoSelected;
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
    "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", 
-   "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "6 NOTE AMP", "PID", "6 NOTE CENTER","SAFE 4 NOTE","CENTER COMPLEMENT"}; 
+   "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "6 NOTE AMP", "PID", "6 NOTE CENTER","SAFE 4 NOTE",
+   "CENTER COMPLEMENT"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -118,6 +120,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
       new IntakeCommand(m_intake, m_shooter), 
+      m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
+
+    NamedCommands.registerCommand("SmallIntake", 
+    new ParallelCommandGroup(
+      new SmallIntakeCommand(m_intake, m_shooter), 
       m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
 
     NamedCommands.registerCommand("IntakeSub", 

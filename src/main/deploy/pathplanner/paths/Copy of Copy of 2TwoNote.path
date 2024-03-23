@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2,
-        "y": 5.574358195791997
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 2.1999999999999997,
-        "y": 5.574358195791997
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
         "x": 2.34,
         "y": 5.57
       },
-      "prevControl": {
-        "x": 1.3399999999999999,
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.3659660811629335,
+        "y": 5.555088802485298
+      },
+      "isLocked": false,
+      "linkedName": "ModularAuto1"
+    },
+    {
+      "anchor": {
+        "x": 1.2554654495899562,
         "y": 5.57
+      },
+      "prevControl": {
+        "x": 1.7107215027554143,
+        "y": 5.560315007734153
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ModularAuto1"
+      "linkedName": "ModularAuto2"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "Intake"
+                "name": "ArmIdle"
               }
             }
           ]
@@ -61,10 +61,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "ModularAuto",
+  "folder": "ModularAutoCopy",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
