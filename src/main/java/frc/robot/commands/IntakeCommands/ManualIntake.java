@@ -15,7 +15,8 @@ IntakeSubsystem intake;
 ShooterSubsystem shooter;
 Timer timer = new Timer();
 
-  public ManualIntake(IntakeSubsystem intake, ShooterSubsystem shooter) {
+  public 
+  ManualIntake(IntakeSubsystem intake, ShooterSubsystem shooter) {
 
     this.intake = intake;
     this.shooter = shooter;
