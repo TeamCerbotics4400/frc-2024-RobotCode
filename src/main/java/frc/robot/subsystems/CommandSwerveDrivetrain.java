@@ -39,7 +39,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
 
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
     private final Rotation2d BlueAlliancePerspectiveRotation = Rotation2d.fromDegrees(0);
-    /* Red alliance sees forward as 180 degrees (toward blue alliance wall) */                                  //CHECK THIS LATER   
+    /* Red alliance sees forward as 180 degrees (toward blue alliance wall) */                                  //Check how to fix field centric  
     private final Rotation2d RedAlliancePerspectiveRotation = Rotation2d.fromDegrees(0); 
     /* Keep track if we've ever applied the operator perspective before or not */
     private boolean hasAppliedOperatorPerspective = false;

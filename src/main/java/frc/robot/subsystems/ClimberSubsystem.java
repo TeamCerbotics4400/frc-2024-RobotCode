@@ -83,6 +83,8 @@ public class ClimberSubsystem extends SubsystemBase {
     return climberEncoder.getPosition();
   }
 
+
+    //Redo climber values
   public void extendClimber(){
     climberPIDController.setReference(2100.0, ControlType.kPosition);
   }
@@ -90,6 +92,9 @@ public class ClimberSubsystem extends SubsystemBase {
   public void retractClimber(){
     climberPIDController.setReference(3852.0, ControlType.kPosition);
   }
+//
+
+
 
   public void openLoopClimber(){
     climberMotor.set(openExtendedClimber);

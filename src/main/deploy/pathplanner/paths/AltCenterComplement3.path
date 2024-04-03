@@ -1,0 +1,93 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7604069019797239,
+        "y": 4.242696915887105
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.7999839740486667,
+        "y": 1.6305982907929955
+      },
+      "isLocked": false,
+      "linkedName": "CenterComplement2"
+    },
+    {
+      "anchor": {
+        "x": 8.38,
+        "y": 4.067835220872236
+      },
+      "prevControl": {
+        "x": 5.997054505319775,
+        "y": 0.19326818922696207
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "CenterComplement3"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": 85.00414457576579,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": -16.374163354987445,
+      "rotateFast": true
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 0,
+      "constraints": {
+        "maxVelocity": 5.4,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.45,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SmallIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.4,
+    "maxAcceleration": 4.25,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 60.6283717293792,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "CenterComplement",
+  "previewStartingState": {
+    "rotation": -60.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

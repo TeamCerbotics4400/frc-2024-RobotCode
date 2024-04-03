@@ -525,6 +525,136 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "0,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Climber Mode",
+              "_title": "Climber Mode",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "1,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module 0/backgroundColor",
+              "_title": "Module 0/backgroundColor",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "2,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module 0/RootSpeed/x",
+              "_title": "Module 0/RootSpeed/x",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module 0/RootSpeed/y",
+              "_title": "Module 0/RootSpeed/y",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "4,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module 0/RootSpeed/Speed/angle",
+              "_title": "Module 0/RootSpeed/Speed/angle",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "5,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module 0/RootSpeed/Speed/length",
+              "_title": "Module 0/RootSpeed/Speed/length",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "6,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module 0/RootSpeed/Speed/color",
+              "_title": "Module 0/RootSpeed/Speed/color",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "7,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module 0/RootSpeed/Speed/weight",
+              "_title": "Module 0/RootSpeed/Speed/weight",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module 0/RootDirection/x",
+              "_title": "Module 0/RootDirection/x",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "9,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Module 0/RootDirection/y",
+              "_title": "Module 0/RootDirection/y",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }

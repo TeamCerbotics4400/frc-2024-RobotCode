@@ -81,7 +81,7 @@ public class RobotContainer {
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
    "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", 
    "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "6 NOTE AMP", "PID", "6 NOTE CENTER","SAFE 4 NOTE",
-   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE"}; 
+   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "NOTE CENTER COMPLEMENT"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -96,7 +96,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(160));
     NamedCommands.registerCommand("FastArm", m_arm.goToPosition(160).raceWith(new WaitCommand(1)));
     NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
-    NamedCommands.registerCommand("", m_arm.goToPosition(93).raceWith(new WaitCommand(1)));
     
     //Shooter Commands
     NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter));
@@ -150,15 +149,16 @@ public class RobotContainer {
     autoChooser = new SendableChooser<>();
 
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
-    autoChooser.addOption("2 Note", m_autoNames[6]);
-    autoChooser.addOption("3 Note", m_autoNames[7]);
+    //autoChooser.addOption("2 Note", m_autoNames[6]);
+    //autoChooser.addOption("3 Note", m_autoNames[7]);
     autoChooser.addOption("4 Note", m_autoNames[8]);
     autoChooser.addOption("5 Note", m_autoNames[10]);
     autoChooser.addOption("Safe 4 Note",m_autoNames[14]);
     autoChooser.addOption("Safe Safe 4 Note", m_autoNames[16]);
     autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
     autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
-    autoChooser.addOption("PID tuner", m_autoNames[12]);
+    autoChooser.addOption("2 + 1 Worlds complement", m_autoNames[17]);
+   // autoChooser.addOption("PID tuner", m_autoNames[12]);
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
@@ -218,8 +218,7 @@ public class RobotContainer {
                   .withRotationalDeadband(0))
                   .alongWith(new VelocityOffset(m_drive, () -> chassisDriver.getRightTriggerAxis())));
 
-    
-    
+        
     //Manual Pickup
     chassisDriver.rightBumper()
     .whileTrue(m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)
@@ -320,6 +319,10 @@ public class RobotContainer {
 
       case "CENTER COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("CenterSafeComplement");
+        break;
+
+      case "NOTE CENTER COMPLEMENT":
+        autonomousCommand = new PathPlannerAuto("CenterComplement");
         break;
     }
 
