@@ -43,8 +43,7 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.VisionConstants;
-import frc.robot.commands.AutoAim;
-import frc.robot.commands.AutoPickup;
+
 import frc.robot.commands.FieldCentricDrive;
 import frc.robot.commands.RobotCentricDrive;
 import frc.robot.commands.AligningCommands.VelocityOffset;
@@ -132,18 +131,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("LastIntake", 
     new ManualIntake(m_intake,m_shooter));
 
-    //Aim Commands
-    NamedCommands.registerCommand("AutoAim", 
-      new ParallelRaceGroup(new AutoAim(m_drive, m_vision), new WaitCommand(1)));
-  
-    //PipeLine Commands
-    NamedCommands.registerCommand("MainTracking", 
-    new InstantCommand(
-      () -> m_vision.setCameraPipeline(VisionConstants.main_Pipeline)));
 
-    NamedCommands.registerCommand("FarTracking", 
-    new InstantCommand(
-      () -> m_vision.setCameraPipeline(VisionConstants.far_Pipeline)));
 
  //Selector for Autonomous routine 
     autoChooser = new SendableChooser<>();
@@ -225,7 +213,6 @@ public class RobotContainer {
     .alongWith(new IntakeCommand(m_intake, m_shooter)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
-    chassisDriver.leftBumper().whileTrue(new AutoPickup(m_drive));
 
     //Auto Pickup
     /*chassisDriver.leftBumper().onTrue(m_arm.goToPosition(178)

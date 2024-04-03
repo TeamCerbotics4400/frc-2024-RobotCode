@@ -14,13 +14,10 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.LimelightHelpers;
-import frc.robot.Constants.VisionConstants;
 
 /** Add your docs here. */
 public class VisionSubsystem {
@@ -114,20 +111,6 @@ public class VisionSubsystem {
   
   public void odometryWvision(){
 
-    LimelightHelpers.Results results = 
-        LimelightHelpers.getLatestResults(VisionConstants.tagLimelight).targetingResults;
-
-    if(LimelightHelpers.getTV(VisionConstants.tagLimelight)){
-      Pose2d camPose = LimelightHelpers.toPose2D(results.botpose_wpiblue);
-      m_drive.addVisionMeasurement(camPose, 
-      Timer.getFPGATimestamp() - (results.latency_capture / 1000.0)
-       - (results.latency_pipeline / 1000.0));
-      m_field.getObject("Cam est Pose").setPose(camPose);
-    } else {
-      m_field.getObject("Cam est Pose").setPose(m_drive.getState().Pose);
-    }
-
-    m_field.setRobotPose(m_drive.getState().Pose);
   }
 
   public void setDynamicVisionStdDevs(){
@@ -166,18 +149,15 @@ public class VisionSubsystem {
   public double getDistanceToTarget(){
     double distance = 0.0;
     
-    distance = LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelight).getZ();
+    distance = 0;
 
     return distance;
   }
 
-  public void setCameraPipeline(int pipeline){
-    LimelightHelpers.setPipelineIndex(VisionConstants.tagLimelight, pipeline);
-  }
+
   
   public int getNumofDetectedTargets(){
-    return LimelightHelpers
-    .getLatestResults(VisionConstants.tagLimelight).targetingResults.targets_Fiducials.length;
+    return 0;
   }
 
   public boolean allowedToFilterAuto(){

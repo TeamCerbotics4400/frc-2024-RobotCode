@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Constants.VisionConstants;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -58,8 +57,6 @@ public class Robot extends TimedRobot {
     targetStates = NetworkTableInstance.getDefault()
     .getStructArrayTopic("Target Swerve States", SwerveModuleState.struct).publish();
 
-    m_robotContainer.getVision()
-    .setCameraPipeline(VisionConstants.main_Pipeline); //TODO: In case: Change to day pipeline
 
     Shuffleboard.selectTab("Match Briefing");
   }

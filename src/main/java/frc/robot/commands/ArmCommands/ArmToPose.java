@@ -5,8 +5,6 @@
 package frc.robot.commands.ArmCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.LimelightHelpers;
-import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmToPose extends Command {
@@ -36,12 +34,9 @@ public class ArmToPose extends Command {
   @Override
   public void execute() {
 
-      if(LimelightHelpers.getTV(VisionConstants.tagLimelight) == true && LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelight).getZ() <= 4.35){
-         angle = m_arm.getAngleForDistance(LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.tagLimelight).getZ());
-        }
-       else {
+   
            angle = 160.0;
-        }
+        
      m_arm.updateArmSetpoint(angle);
       } 
       
