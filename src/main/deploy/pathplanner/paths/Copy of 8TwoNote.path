@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.6,
-        "y": 4.04
+        "x": 8.370000000000001,
+        "y": 5.78
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6211553115413944,
-        "y": 4.005446552431567
+        "x": 7.304370176432662,
+        "y": 6.766694281080871
       },
       "isLocked": false,
-      "linkedName": "ModularAuto5"
+      "linkedName": "CopyOf7TwoNote"
     },
     {
       "anchor": {
-        "x": 1.2252593735956716,
-        "y": 5.436685488755594
+        "x": 2.705300795216977,
+        "y": 7.479142650592993
       },
       "prevControl": {
-        "x": 1.2351263164064805,
-        "y": 5.456419374377212
+        "x": 3.159180164514176,
+        "y": 7.331138508430864
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ModularAuto6"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,24 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ArmIdle"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.95,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "parallel",
         "data": {
@@ -58,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "IntakeSub"
+                "name": "90Degree"
               }
             }
           ]
@@ -68,7 +51,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.4,
-    "maxAcceleration": 5.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -78,10 +61,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "ModularAuto",
+  "folder": "ModularAutoCopy",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

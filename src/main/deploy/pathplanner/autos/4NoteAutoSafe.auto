@@ -68,15 +68,15 @@
                       }
                     },
                     {
-                      "type": "named",
+                      "type": "path",
                       "data": {
-                        "name": "IntakeSub"
+                        "pathName": "Copy of 7TwoNote"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Copy of 7TwoNote"
+                        "pathName": "Copy of 8TwoNote"
                       }
                     }
                   ]

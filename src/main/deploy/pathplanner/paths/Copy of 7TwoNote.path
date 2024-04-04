@@ -16,21 +16,39 @@
     },
     {
       "anchor": {
-        "x": 7.323030030675447,
-        "y": 6.354311170160802
+        "x": 8.370000000000001,
+        "y": 5.79
       },
       "prevControl": {
-        "x": 6.208065493054065,
-        "y": 7.005529395674177
+        "x": 5.872589437486568,
+        "y": 6.116173970809481
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "CopyOf7TwoNote"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "SmallIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.4,
     "maxAcceleration": 3.0,
