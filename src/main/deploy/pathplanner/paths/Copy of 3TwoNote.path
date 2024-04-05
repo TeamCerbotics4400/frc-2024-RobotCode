@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.344617591546165,
-        "y": 6.113056676897948
+        "x": 1.2252593735956716,
+        "y": 6.610851683241828
       },
       "isLocked": false,
       "linkedName": "ModularAuto2"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 2.7,
-        "y": 7.22
+        "y": 7.41
       },
       "prevControl": {
         "x": 1.7000000000000002,
-        "y": 7.22
+        "y": 7.41
       },
       "nextControl": null,
       "isLocked": false,

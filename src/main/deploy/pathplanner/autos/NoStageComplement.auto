@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.1969112668610487,
-      "y": 5.574358195791997
+      "x": 0.77,
+      "y": 4.6
     },
-    "rotation": 0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -34,49 +34,31 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "1TwoNote"
+                        "pathName": "CenterComplement1"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "2TwoNote"
+                        "pathName": "CenterComplement2"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "3TwoNote"
+                        "pathName": "AltCenterComplement3"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "4TwoNote"
+                        "pathName": "AltCenterComplement4"
                       }
                     },
                     {
-                      "type": "path",
+                      "type": "named",
                       "data": {
-                        "pathName": "5TwoNote"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "6TwoNote"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Copy of 7TwoNote"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Copy of 8TwoNote"
+                        "name": "LastIntake"
                       }
                     }
                   ]
@@ -88,6 +70,6 @@
       ]
     }
   },
-  "folder": "4 - 6 Notes",
+  "folder": "Worlds Complements",
   "choreoAuto": false
 }

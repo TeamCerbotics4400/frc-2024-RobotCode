@@ -46,13 +46,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "AltCenterComplement3"
+                        "pathName": "CenterComplement3"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "AltCenterComplement4"
+                        "pathName": "CopyCenterComplement4"
                       }
                     },
                     {
@@ -70,6 +70,6 @@
       ]
     }
   },
-  "folder": "Complement",
+  "folder": "Worlds Complements",
   "choreoAuto": false
 }

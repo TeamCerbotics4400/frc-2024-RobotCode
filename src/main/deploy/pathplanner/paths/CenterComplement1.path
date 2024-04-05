@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 8.38,
-        "y": 2.46
+        "y": 2.93
       },
       "prevControl": {
-        "x": 5.776176574774675,
-        "y": 0.9571376990287611
+        "x": 5.073367069811064,
+        "y": 0.3354760555674964
       },
       "nextControl": null,
       "isLocked": false,
@@ -69,10 +69,10 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 15.52411099675424,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "CenterComplement",
+  "folder": "WorldsComplement",
   "previewStartingState": {
     "rotation": -60.0,
     "velocity": 0.0

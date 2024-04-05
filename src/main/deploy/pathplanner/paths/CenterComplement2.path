@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.38,
-        "y": 2.46
+        "y": 2.93
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.104339536033333,
-        "y": 0.7270565213776169
+        "x": 5.122701783865108,
+        "y": 0.5229479689728607
       },
       "isLocked": false,
       "linkedName": "CenterComplement1"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 0.7604069019797239,
-        "y": 4.242696915887105
+        "y": 4.73
       },
       "prevControl": {
         "x": 1.5620976227602696,
-        "y": 2.532516507185482
+        "y": 3.019819591298377
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,11 +47,28 @@
           ]
         }
       }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmIdle"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
     "maxVelocity": 5.4,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 4.25,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -61,10 +78,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "CenterComplement",
+  "folder": "WorldsComplement",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

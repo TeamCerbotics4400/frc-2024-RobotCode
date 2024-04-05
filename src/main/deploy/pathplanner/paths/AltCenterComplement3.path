@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 0.7604069019797239,
-        "y": 4.242696915887105
+        "y": 4.74
       },
       "prevControl": null,
       "nextControl": {
         "x": 1.7999839740486667,
-        "y": 1.6305982907929955
+        "y": 2.1279013749058904
       },
       "isLocked": false,
       "linkedName": "CenterComplement2"
     },
     {
       "anchor": {
-        "x": 8.38,
-        "y": 4.067835220872236
+        "x": 8.47,
+        "y": 4.64
       },
       "prevControl": {
-        "x": 5.997054505319775,
-        "y": 0.19326818922696207
+        "x": 6.087054505319775,
+        "y": 0.7654329683547261
       },
       "nextControl": null,
       "isLocked": false,
@@ -81,10 +81,10 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 60.6283717293792,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "CenterComplement",
+  "folder": "WorldsComplement",
   "previewStartingState": {
     "rotation": -60.0,
     "velocity": 0

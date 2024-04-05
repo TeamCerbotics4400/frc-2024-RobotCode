@@ -30,6 +30,7 @@ import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.commands.IntakeCommands.SmallIntakeCommand;
 import frc.robot.commands.ShooterCommands.AmpShootCommand;
 import frc.robot.commands.ShooterCommands.CookShooter;
+import frc.robot.commands.ShooterCommands.FeederShooter;
 import frc.robot.commands.ShooterCommands.LastShoot;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.generated.TunerConstants;
@@ -79,7 +80,7 @@ public class RobotContainer {
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
    "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", 
    "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "6 NOTE AMP", "PID", "6 NOTE CENTER","SAFE 4 NOTE",
-   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "NOTE CENTER COMPLEMENT"}; 
+   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "YES STAGE COMPLEMENT", "NO STAGE COMPLEMENT"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -138,13 +139,14 @@ public class RobotContainer {
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
     //autoChooser.addOption("2 Note", m_autoNames[6]);
     //autoChooser.addOption("3 Note", m_autoNames[7]);
-    autoChooser.addOption("4 Note", m_autoNames[8]);
+    autoChooser.addOption("4 + 1 Note", m_autoNames[8]);
     autoChooser.addOption("5 Note", m_autoNames[10]);
-    autoChooser.addOption("Safe 4 Note",m_autoNames[14]);
-    autoChooser.addOption("Safe Safe 4 Note", m_autoNames[16]);
+    //autoChooser.addOption("4 + 1 Note",m_autoNames[14]);
+    //autoChooser.addOption("Safe Safe 4 Note", m_autoNames[16]);
     autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
     autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
-    autoChooser.addOption("2 + 1 Worlds complement", m_autoNames[17]);
+    autoChooser.addOption("2 + 1 Worlds stage complement", m_autoNames[17]);
+    autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
    // autoChooser.addOption("PID tuner", m_autoNames[12]);
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -194,7 +196,6 @@ public class RobotContainer {
 
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
-    
      
       chassisDriver.b().whileTrue(
       m_drive.applyRequest(
@@ -235,6 +236,13 @@ public class RobotContainer {
     subsystemsDriver.x()
       .whileTrue(new ArmToPose(m_arm)
       .alongWith(new CookShooter(m_shooter)))
+      .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+
+    subsystemsDriver.y()
+      .whileTrue(m_arm.goToPosition(113.0));
+
+    subsystemsDriver.povLeft()
+      .whileTrue(new FeederShooter(m_shooter))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
     
     //Manual Intake
@@ -307,8 +315,12 @@ public class RobotContainer {
         autonomousCommand = new PathPlannerAuto("CenterSafeComplement");
         break;
 
-      case "NOTE CENTER COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("CenterComplement");
+      case "YES STAGE COMPLEMENT":
+        autonomousCommand = new PathPlannerAuto("StageComplement");
+        break;
+      
+      case "NO STAGE COMPLEMENT":
+        autonomousCommand = new PathPlannerAuto("NoStageComplement");
         break;
     }
 
