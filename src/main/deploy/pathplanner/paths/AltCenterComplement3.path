@@ -20,26 +20,15 @@
         "y": 4.64
       },
       "prevControl": {
-        "x": 6.087054505319775,
-        "y": 0.7654329683547261
+        "x": 7.314493897987849,
+        "y": -0.5837252653841478
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "CenterComplement3"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.7,
-      "rotationDegrees": 85.00414457576579,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": -16.374163354987445,
-      "rotateFast": true
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "New Constraints Zone",
@@ -81,7 +70,7 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 60.6283717293792,
-    "rotateFast": true
+    "rotateFast": false
   },
   "reversed": false,
   "folder": "WorldsComplement",

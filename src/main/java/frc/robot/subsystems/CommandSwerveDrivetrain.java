@@ -182,7 +182,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
         /* Otherwise, only check and apply the operator perspective if the DS is disabled */
         /* This ensures driving behavior doesn't change until an explicit disable event occurs during testing*/
 
-        if (!hasAppliedOperatorPerspective || DriverStation.isDisabled()) {
+        if (!hasAppliedOperatorPerspective || DriverStation.isTeleop()) {
             DriverStation.getAlliance().ifPresent((allianceColor) -> {
                 this.setOperatorPerspectiveForward(
                         allianceColor == Alliance.Red ? RedAlliancePerspectiveRotation

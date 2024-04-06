@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.28,
-        "y": 5.91
+        "x": 7.92,
+        "y": 5.870830972431175
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.21437017643266,
-        "y": 6.896694281080871
+        "x": 6.854370176432661,
+        "y": 6.857525253512046
       },
       "isLocked": false,
       "linkedName": "CopyOf7TwoNote"

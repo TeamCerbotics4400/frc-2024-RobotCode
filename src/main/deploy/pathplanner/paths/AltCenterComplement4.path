@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.936907173634976,
-        "y": 1.731773914489533
+        "x": 7.480901115648386,
+        "y": 0.029600828432426184
       },
       "isLocked": false,
       "linkedName": "CenterComplement3"
@@ -31,23 +31,6 @@
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.95,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "IntakeSub"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "name": "New Event Marker",
       "waypointRelativePos": 0,
