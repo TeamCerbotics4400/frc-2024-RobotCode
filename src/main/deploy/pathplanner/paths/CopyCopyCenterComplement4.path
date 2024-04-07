@@ -8,36 +8,36 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.801105097594811,
-        "y": 3.3044944412965758
+        "x": 7.34810691467537,
+        "y": 4.232918465836932
       },
       "isLocked": false,
       "linkedName": "CenterComplement3"
     },
     {
       "anchor": {
-        "x": 3.672261190676229,
-        "y": 5.545221859674489
+        "x": 3.9,
+        "y": 4.98
       },
       "prevControl": {
-        "x": 4.422219340383224,
-        "y": 5.2674595820052295
+        "x": 5.884087999176111,
+        "y": 3.8103229731903205
       },
       "nextControl": {
-        "x": 3.4058537347843942,
-        "y": 5.6438912877825755
+        "x": 2.9914421367304285,
+        "y": 5.515621031242063
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.1759246595416282,
-        "y": 5.545221859674489
+        "x": 1.1660577167308197,
+        "y": 5.653758230593384
       },
       "prevControl": {
-        "x": 2.1724858834333065,
-        "y": 5.4860202028096365
+        "x": 2.498094996189994,
+        "y": 5.407084660323167
       },
       "nextControl": null,
       "isLocked": false,
@@ -51,25 +51,20 @@
       "rotateFast": false
     }
   ],
-  "constraintZones": [],
-  "eventMarkers": [
+  "constraintZones": [
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.95,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "IntakeSub"
-              }
-            }
-          ]
-        }
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.8,
+      "maxWaypointRelativePos": 1.3,
+      "constraints": {
+        "maxVelocity": 5.4,
+        "maxAcceleration": 4.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
       }
-    },
+    }
+  ],
+  "eventMarkers": [
     {
       "name": "New Event Marker",
       "waypointRelativePos": 0,

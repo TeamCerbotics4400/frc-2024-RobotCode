@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.03,
-        "y": 4.57
+        "x": 2.65,
+        "y": 6.22
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.040901115648385,
-        "y": -0.04039917156757321
+        "x": 3.4058537347811697,
+        "y": 5.387350774701628
       },
       "isLocked": false,
-      "linkedName": "CenterComplement3"
+      "linkedName": "NewCenterComplement2"
     },
     {
       "anchor": {
-        "x": 0.7880166432978614,
-        "y": 4.6
+        "x": 7.92,
+        "y": 4.28
       },
       "prevControl": {
-        "x": 3.548990775111595,
-        "y": 1.0567498641723738
+        "x": 6.4350051777026644,
+        "y": 3.709970496864071
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "NewCenterComplement3"
     }
   ],
   "rotationTargets": [],
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ArmIdle"
+                "name": "SmallIntake"
               }
             }
           ]
@@ -51,20 +51,20 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.4,
-    "maxAcceleration": 4.25,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -60.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "WorldsComplement",
   "previewStartingState": {
     "rotation": 0,
-    "velocity": 0
+    "velocity": 5.0
   },
   "useDefaultConstraints": false
 }

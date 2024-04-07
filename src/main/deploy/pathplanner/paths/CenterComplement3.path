@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7604069019797239,
-        "y": 4.74
+        "x": 0.27,
+        "y": 4.46
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5706023719739761,
-        "y": 4.009934724760791
+        "x": 1.080195469994252,
+        "y": 3.729934724760791
       },
       "isLocked": false,
       "linkedName": "CenterComplement2"
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 8.47,
-        "y": 4.64
+        "x": 8.02,
+        "y": 4.57
       },
       "prevControl": {
-        "x": 7.561034172837577,
-        "y": 4.686679931234992
+        "x": 7.111034172837576,
+        "y": 4.616679931234993
       },
       "nextControl": null,
       "isLocked": false,
@@ -51,7 +51,19 @@
       "rotateFast": true
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.65,
+      "maxWaypointRelativePos": 1.25,
+      "constraints": {
+        "maxVelocity": 5.4,
+        "maxAcceleration": 5.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "New Event Marker",

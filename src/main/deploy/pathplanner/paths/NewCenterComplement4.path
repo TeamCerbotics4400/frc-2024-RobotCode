@@ -3,73 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.03,
-        "y": 4.57
+        "x": 7.92,
+        "y": 4.279999999999999
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.801105097594811,
-        "y": 3.3044944412965758
+        "x": 6.3314222074598,
+        "y": 2.829559406811121
       },
       "isLocked": false,
-      "linkedName": "CenterComplement3"
+      "linkedName": "NewCenterComplement3"
     },
     {
       "anchor": {
-        "x": 3.672261190676229,
-        "y": 5.545221859674489
+        "x": 0.8009808327308976,
+        "y": 5.515621031242063
       },
       "prevControl": {
-        "x": 4.422219340383224,
-        "y": 5.2674595820052295
-      },
-      "nextControl": {
-        "x": 3.4058537347843942,
-        "y": 5.6438912877825755
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.1759246595416282,
-        "y": 5.545221859674489
-      },
-      "prevControl": {
-        "x": 2.1724858834333065,
-        "y": 5.4860202028096365
+        "x": 3.494656220081672,
+        "y": 7.449541822160567
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.85,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.95,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "IntakeSub"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "name": "New Event Marker",
       "waypointRelativePos": 0,
@@ -86,6 +47,23 @@
           ]
         }
       }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeSub"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -96,7 +74,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
@@ -105,5 +83,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

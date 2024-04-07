@@ -69,7 +69,7 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
  // private final ClimberSubsystem m_climber = new ClimberSubsystem();
-  private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
+  //private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
   SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
   .withDriveRequestType(DriveRequestType.Velocity);
@@ -80,7 +80,7 @@ public class RobotContainer {
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
    "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", 
    "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "6 NOTE AMP", "PID", "6 NOTE CENTER","SAFE 4 NOTE",
-   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "YES STAGE COMPLEMENT", "NO STAGE COMPLEMENT"}; 
+   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "YES STAGE COMPLEMENT", "NO STAGE COMPLEMENT", "COMPLEXT STAGE COMPLEMENT"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -96,6 +96,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("FastArm", m_arm.goToPosition(160).raceWith(new WaitCommand(1)));
     NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
     NamedCommands.registerCommand("90Degree", m_arm.goToPosition(93));
+    NamedCommands.registerCommand("155Degree", m_arm.goToPosition(155));
     //Shooter Commands
     NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter));
 
@@ -145,9 +146,10 @@ public class RobotContainer {
     //autoChooser.addOption("Safe Safe 4 Note", m_autoNames[16]);
     autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
     autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
-    autoChooser.addOption("2 + 1 Worlds stage complement", m_autoNames[17]);
+    autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
+    autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[18]);
     autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
-   // autoChooser.addOption("PID tuner", m_autoNames[12]);
+    autoChooser.addOption("PID tuner", m_autoNames[12]);
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
@@ -244,7 +246,6 @@ public class RobotContainer {
     subsystemsDriver.povLeft()
       .whileTrue(new FeederShooter(m_shooter))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
-    
     //Manual Intake
     subsystemsDriver.rightBumper().whileTrue(new ManualIntake(m_intake,m_shooter));
 
@@ -316,11 +317,15 @@ public class RobotContainer {
         break;
 
       case "YES STAGE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("StageComplement");
+        autonomousCommand = new PathPlannerAuto("SimpleStageComplement");
         break;
       
       case "NO STAGE COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("NoStageComplement");
+        break;
+
+      case "COMPLEXT STAGE COMPLEMENT":
+        autonomousCommand = new PathPlannerAuto("ComplexStageComplement");
         break;
     }
 
@@ -335,7 +340,8 @@ public class RobotContainer {
     return m_intake;
   }
 
-  public VisionSubsystem getVision(){
+ /*  public VisionSubsystem getVision(){
     return m_vision;
   }
+    */
 }
