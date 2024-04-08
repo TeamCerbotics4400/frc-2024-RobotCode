@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.VisionConstants;
+import frc.robot.LimelightHelpers;
 
 /** Add your docs here. */
 public class VisionSubsystem {
@@ -152,6 +154,14 @@ public class VisionSubsystem {
     distance = 0;
 
     return distance;
+  }
+
+  public double getDistanceToNote(){
+    double noteDistance = 0.0;
+
+     noteDistance = LimelightHelpers.getTargetPose3d_CameraSpace(VisionConstants.neuralLimelight).getZ();
+
+     return noteDistance;
   }
 
 

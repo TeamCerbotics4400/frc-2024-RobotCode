@@ -44,7 +44,7 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.VisionConstants;
-
+import frc.robot.commands.AutoPickup;
 import frc.robot.commands.FieldCentricDrive;
 import frc.robot.commands.RobotCentricDrive;
 import frc.robot.commands.AligningCommands.VelocityOffset;
@@ -217,12 +217,12 @@ public class RobotContainer {
 
 
     //Auto Pickup
-    /*chassisDriver.leftBumper().onTrue(m_arm.goToPosition(178)
-    .alongWith(new IntakeCommand(m_intake, m_shooter))
+    chassisDriver.leftBumper().whileTrue(new AutoPickup(m_drive));
+    /* .alongWith(new IntakeCommand(m_intake, m_shooter))
     .alongWith(new AutoPickup(m_drive, -chassisDriver.getLeftY() * DriveConstants.MaxSpeed,
                                     -chassisDriver.getLeftX() * DriveConstants.MaxSpeed)))
-    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));*/
-
+    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+*/
   // Joystick 2
     subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
     subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter));
