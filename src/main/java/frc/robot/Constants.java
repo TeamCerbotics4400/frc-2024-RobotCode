@@ -66,8 +66,8 @@ public final class Constants {
     }
 
   public static final class ShooterConstants {
-    public static byte UPPER_MOTOR_ID = 14;
-    public static byte LOWER_MOTOR_ID = 13;
+    public static byte UPPER_MOTOR_ID = 13;   //CHANGED   14
+    public static byte LOWER_MOTOR_ID = 14;   //13
 
     public static final double kTimeToShoot = .13; //Time it takes before note leave the shooter
 

@@ -3,11 +3,12 @@
   "robotLength": 0.6096,
   "holonomicMode": true,
   "pathFolders": [
-    "WorldsComplement",
     "ModularAuto",
     "ModularAutoCopy",
+    "CenterComplements",
     "Pre-Defined Paths",
-    "SafeComplement"
+    "SafeComplement",
+    "WorldsComplement"
   ],
   "autoFolders": [
     "1 - 3 Notes",
