@@ -57,13 +57,13 @@ public final class Constants {
                                rotationD = 0.0;
   }
 
-      public static class FieldConstants {
-        public static final Pose2d BLUE_SPEAKER = new Pose2d(Units.inchesToMeters(-1.5), Units.inchesToMeters(218.42), new Rotation2d(0));
-        public static final Pose2d RED_SPEAKER = new Pose2d(Units.inchesToMeters(652.73), Units.inchesToMeters(218.42), new Rotation2d(Math.PI));
+    public static class FieldConstants {
+      public static final Pose2d BLUE_SPEAKER = new Pose2d(Units.inchesToMeters(-1.5), Units.inchesToMeters(218.42), new Rotation2d(0));
+      public static final Pose2d RED_SPEAKER = new Pose2d(Units.inchesToMeters(652.73), Units.inchesToMeters(218.42), new Rotation2d(Math.PI));
 
-        public static final double NOTE_DIAMETER = 14; // Outer diameter of note
+      public static final double NOTE_DIAMETER = 14; // Outer diameter of note
 
-    }
+  }
 
   public static final class ShooterConstants {
     public static byte UPPER_MOTOR_ID = 13;   //CHANGED   14
@@ -130,7 +130,7 @@ public final class Constants {
                          kMaxVelocityLinearPerSecond = 0,
                          kMaxAccelerationMetersPerSecondSquared = 1;
 
-    public static double CLIMBER_GEARBOX = 20.0/1.0;
+    public static double CLIMBER_GEARBOX = 20.0 / 1.0;
 
     public static double CLIMBER_THRESHOLD = 0.35;
   }

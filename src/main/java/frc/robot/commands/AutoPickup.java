@@ -8,24 +8,21 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
-import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 public class AutoPickup extends Command {
   /** Creates a new AutoPickup. */
   CommandSwerveDrivetrain m_drive;
-    private final CommandXboxController chassisDriver = new CommandXboxController(0);
+  private final CommandXboxController chassisDriver = new CommandXboxController(0);
   
-
   private double pidOutput = 0.0;
-
 
   private final PhoenixPIDController m_aimController = new PhoenixPIDController(0.5, 0.0, 0.2);  // 1.2    0.4
 
@@ -55,22 +52,21 @@ public class AutoPickup extends Command {
   if((LimelightHelpers.getTX(VisionConstants.neuralLimelight) > 10.0 || LimelightHelpers.getTX(VisionConstants.neuralLimelight) < -10.0)
                    && LimelightHelpers.getTV(VisionConstants.neuralLimelight)){
    pidOutput = 
-        m_aimController.calculate(LimelightHelpers.getTX(VisionConstants.neuralLimelight), 0.0, Timer.getFPGATimestamp());
-}
-else{
-  pidOutput = 0.0;
-}
+        m_aimController.calculate(Units.degreesToRadians(LimelightHelpers.getTX(VisionConstants.neuralLimelight)), 0.0, Timer.getFPGATimestamp());
+    }
+    else {
+          pidOutput = 0.0;
+    }
 
-      m_drive.setControl(drive.withSpeeds(new ChassisSpeeds(-chassisDriver.getLeftX(), chassisDriver.getLeftY(),-pidOutput)));
+    m_drive.setControl(drive.withSpeeds(new ChassisSpeeds(-chassisDriver.getLeftX(), chassisDriver.getLeftY(), -pidOutput)));
 
-
-      SmartDashboard.putNumber("PidOutput", pidOutput);
+    SmartDashboard.putNumber("PidOutput", pidOutput);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drive.setControl(new SwerveRequest.ApplyChassisSpeeds().withSpeeds(new ChassisSpeeds()));
+    m_drive.getDefaultCommand();//setControl(new SwerveRequest.ApplyChassisSpeeds().withSpeeds(new ChassisSpeeds()));
   }
 
   // Returns true when the command should end.
@@ -78,6 +74,4 @@ else{
   public boolean isFinished() {
     return false;
   }
-
-
 }
