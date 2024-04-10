@@ -33,8 +33,8 @@ public class ShooterSubsystem extends SubsystemBase {
                  lKd = 0.0;*/
 
   public ShooterSubsystem() {
-    upperConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;  
-    lowerConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    upperConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;  
+    lowerConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
     upperConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     lowerConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;

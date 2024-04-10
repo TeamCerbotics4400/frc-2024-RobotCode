@@ -60,6 +60,12 @@
                       "data": {
                         "name": "ArmIdle"
                       }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "3ThreeCenter"
+                      }
                     }
                   ]
                 }

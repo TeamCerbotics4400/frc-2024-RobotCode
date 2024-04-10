@@ -3,52 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7023114046228107,
-        "y": 4.568394521404429
+        "x": 1.26,
+        "y": 5.57
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3337957445145674,
-        "y": 4.134249037728845
+        "x": 2.4598247396494806,
+        "y": 5.30735077470155
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.5276958246224197,
-        "y": 4.09478126648561
+        "x": 3.9,
+        "y": 4.98
       },
       "prevControl": {
-        "x": 2.468494167757568,
-        "y": 4.084914323674802
+        "x": 2.9841330712672347,
+        "y": 5.508175903998451
+      },
+      "nextControl": {
+        "x": 5.86272249467576,
+        "y": 3.8481076962153926
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.03,
+        "y": 4.57
+      },
+      "prevControl": {
+        "x": 7.036888689161994,
+        "y": 4.144115980539654
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "1ThreeCenter"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "SmallIntake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.4,
     "maxAcceleration": 3.0,
@@ -63,7 +61,7 @@
   "reversed": false,
   "folder": "CenterComplements",
   "previewStartingState": {
-    "rotation": -60.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true
