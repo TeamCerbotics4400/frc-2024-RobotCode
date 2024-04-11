@@ -35,7 +35,7 @@ import frc.robot.commands.ShooterCommands.LastShoot;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ArmSubsystem;
-//import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -50,6 +50,8 @@ import frc.robot.commands.RobotCentricDrive;
 import frc.robot.commands.AligningCommands.VelocityOffset;
 import frc.robot.commands.ArmCommands.ArmToPose;
 import frc.robot.commands.AutoCommands.AutoIntake;
+import frc.robot.commands.ClimberCommands.ClimberOpenLoop;
+import frc.robot.commands.ClimberCommands.ExtendClimber;
 
 
 /**
@@ -68,7 +70,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
- // private final ClimberSubsystem m_climber = new ClimberSubsystem();
+  private final ClimberSubsystem m_climber = new ClimberSubsystem();
   //private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
   SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
@@ -80,7 +82,7 @@ public class RobotContainer {
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
    "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", 
    "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "6 NOTE AMP", "PID", "6 NOTE CENTER","SAFE 4 NOTE",
-   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "YES STAGE COMPLEMENT", "NO STAGE COMPLEMENT", "COMPLEXT STAGE COMPLEMENT"}; 
+   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "YES STAGE COMPLEMENT", "NO STAGE COMPLEMENT", "COMPLEXT STAGE COMPLEMENT", "3 CENTER NOTE"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -140,6 +142,7 @@ public class RobotContainer {
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
     //autoChooser.addOption("2 Note", m_autoNames[6]);
     //autoChooser.addOption("3 Note", m_autoNames[7]);
+    autoChooser.addOption("3 Note", m_autoNames[20]);
     autoChooser.addOption("4 + 1 Note", m_autoNames[8]);
     autoChooser.addOption("5 Note", m_autoNames[10]);
     //autoChooser.addOption("4 + 1 Note",m_autoNames[14]);
@@ -147,7 +150,7 @@ public class RobotContainer {
     autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
     autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
     autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
-    autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[18]);
+    autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[19]);
     autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
     autoChooser.addOption("PID tuner", m_autoNames[12]);
 
@@ -228,8 +231,8 @@ public class RobotContainer {
     subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter));
 
     //Climber controls
-  //  subsystemsDriver.povUp().onTrue(new ExtendClimber(m_climber));
-    //subsystemsDriver.povDown().whileTrue(new ClimberOpenLoop(m_climber));
+    subsystemsDriver.povUp().onTrue(new ExtendClimber(m_climber));
+    subsystemsDriver.povDown().whileTrue(new ClimberOpenLoop(m_climber));
 
     subsystemsDriver.leftBumper()
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
@@ -326,6 +329,10 @@ public class RobotContainer {
 
       case "COMPLEXT STAGE COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("ComplexStageComplement");
+        break;
+
+      case "3 CENTER NOTE":
+        autonomousCommand = new PathPlannerAuto("ThreeCenter");
         break;
     }
 

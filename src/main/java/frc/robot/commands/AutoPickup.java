@@ -55,7 +55,7 @@ public class AutoPickup extends Command {
   @Override
   public void execute() {
 
-  if((LimelightHelpers.getTX(VisionConstants.neuralLimelight) > 10.0 || LimelightHelpers.getTX(VisionConstants.neuralLimelight) < -10.0)
+  if((LimelightHelpers.getTX(VisionConstants.neuralLimelight) > 5.0 || LimelightHelpers.getTX(VisionConstants.neuralLimelight) < -5.0)
                    && LimelightHelpers.getTV(VisionConstants.neuralLimelight)){
    pidOutput = 
         m_aimController.calculate(Units.degreesToRadians(LimelightHelpers.getTX(VisionConstants.neuralLimelight)), 0.0, Timer.getFPGATimestamp());

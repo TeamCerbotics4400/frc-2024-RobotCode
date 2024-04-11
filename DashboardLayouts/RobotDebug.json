@@ -1070,6 +1070,19 @@
               "imageWidth": -1,
               "imageHeight": -1
             }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber Position",
+              "_title": "SmartDashboard/Climber Position",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
@@ -1133,6 +1146,19 @@
               "_type": "Text View",
               "_source0": "network_table:///limelight-neural/tx",
               "_title": "/limelight-neural/tx",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "3,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Climber Position",
+              "_title": "SmartDashboard/Climber Position",
               "_glyph": 148,
               "_showGlyph": false
             }
