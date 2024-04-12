@@ -6,6 +6,7 @@ package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 
@@ -13,12 +14,14 @@ public class IntakeCommand extends Command {
   /** Creates a new IntakeCommand. */
   IntakeSubsystem intake;
   ShooterSubsystem shooter;
+  LEDSubsystem m_leds;
 
-  public IntakeCommand(IntakeSubsystem intake, ShooterSubsystem shooter) {
+  public IntakeCommand(IntakeSubsystem intake, ShooterSubsystem shooter, LEDSubsystem m_leds) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
+    this.m_leds = m_leds;
     
-    addRequirements(intake);
+    addRequirements(intake, m_leds);
   }
 
   // Called when the command is initially scheduled.
@@ -30,7 +33,8 @@ public class IntakeCommand extends Command {
   @Override
   public void execute() {
 
-      intake.startIntaking(); 
+    intake.startIntaking(); 
+    m_leds.strobeColor2();
 
   }
 
@@ -38,6 +42,12 @@ public class IntakeCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     intake.stopIntaking();
+    m_leds.setBlueFalse();
+    if(intake.noteInside()){
+      m_leds.breathColor1();
+    } else {
+      m_leds.setBlue();
+    }
   }
 
   // Returns true when the command should end.

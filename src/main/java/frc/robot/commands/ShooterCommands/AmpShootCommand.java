@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class AmpShootCommand extends Command {
@@ -15,14 +16,16 @@ public class AmpShootCommand extends Command {
   ShooterSubsystem shooter;
   IntakeSubsystem intake;
   ArmSubsystem arm;
+  LEDSubsystem m_leds;
   
-  public AmpShootCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm) {
+  public AmpShootCommand(ShooterSubsystem shooter, IntakeSubsystem intake, ArmSubsystem arm, LEDSubsystem m_leds) {
 
     this.shooter = shooter;
     this.intake = intake;
     this.arm = arm;
+    this.m_leds = m_leds;
 
-    addRequirements(shooter, intake);
+    addRequirements(shooter, intake, m_leds);
   }
 
   // Called when the command is initially scheduled.
@@ -35,6 +38,7 @@ public class AmpShootCommand extends Command {
        shooter.setupperSpeed(2000);
        shooter.setlowerSpeed(500);
        intake.startIntaking();
+       m_leds.strobeBlue();
 
   }
   // Called once the command ends or is interrupted.
@@ -43,6 +47,7 @@ public class AmpShootCommand extends Command {
     shooter.stopupper();
     shooter.stoplower();
     intake.stopIntaking();
+    m_leds.setBlue();
   }
 
   // Returns true when the command should end.

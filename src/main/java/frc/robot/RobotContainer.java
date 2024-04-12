@@ -38,6 +38,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.Constants.ArmConstants;
@@ -71,6 +72,7 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooter =  new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
+  private final LEDSubsystem m_led = new LEDSubsystem();
   //private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
   SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
@@ -100,7 +102,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("90Degree", m_arm.goToPosition(93));
     NamedCommands.registerCommand("155Degree", m_arm.goToPosition(155));
     //Shooter Commands
-    NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter));
+    NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter, m_led));
 
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
@@ -120,7 +122,7 @@ public class RobotContainer {
     //Intake Commands
     NamedCommands.registerCommand("Intake", 
     new ParallelCommandGroup(
-      new IntakeCommand(m_intake, m_shooter), 
+      new IntakeCommand(m_intake, m_shooter, m_led), 
       m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
 
     NamedCommands.registerCommand("SmallIntake", 
@@ -215,7 +217,7 @@ public class RobotContainer {
     //Manual Pickup
     chassisDriver.rightBumper()
     .whileTrue(m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)
-    .alongWith(new IntakeCommand(m_intake, m_shooter)))
+    .alongWith(new IntakeCommand(m_intake, m_shooter, m_led)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
 
@@ -228,26 +230,26 @@ public class RobotContainer {
 */
   // Joystick 2
     subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
-    subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter));
+    subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter, m_led));
 
     //Climber controls
     subsystemsDriver.povUp().onTrue(new ExtendClimber(m_climber));
     subsystemsDriver.povDown().whileTrue(new ClimberOpenLoop(m_climber));
 
     subsystemsDriver.leftBumper()
-      .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm))
+      .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm, m_led))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
     subsystemsDriver.x()
       .whileTrue(new ArmToPose(m_arm)
-      .alongWith(new CookShooter(m_shooter)))
+      .alongWith(new CookShooter(m_shooter, m_led)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
     subsystemsDriver.y()
       .whileTrue(m_arm.goToPosition(113.0));
 
     subsystemsDriver.povLeft()
-      .whileTrue(new FeederShooter(m_shooter))
+      .whileTrue(new FeederShooter(m_shooter, m_led))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
     //Manual Intake
     subsystemsDriver.rightBumper().whileTrue(new ManualIntake(m_intake,m_shooter));
@@ -345,6 +347,10 @@ public class RobotContainer {
 
   public IntakeSubsystem getIntake(){
     return m_intake;
+  }
+
+  public LEDSubsystem getLED(){
+    return m_led;
   }
 
  /*  public VisionSubsystem getVision(){

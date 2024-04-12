@@ -6,6 +6,7 @@ package frc.robot.commands.IntakeCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 
@@ -14,9 +15,11 @@ public class SmallIntakeCommand extends Command {
   IntakeSubsystem intake;
   ShooterSubsystem shooter;
 
+
   public SmallIntakeCommand(IntakeSubsystem intake, ShooterSubsystem shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
+
     
     addRequirements(intake);
   }
@@ -31,12 +34,14 @@ public class SmallIntakeCommand extends Command {
   public void execute() {
 
       intake.smallIntake(); 
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     intake.stopIntaking();
+
   }
 
   // Returns true when the command should end.
