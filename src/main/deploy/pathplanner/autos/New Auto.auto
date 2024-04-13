@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.4916668294875064,
+      "y": 5.318282175025889
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SafeComplement3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CopySafeComplement3"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Complement",
+  "choreoAuto": false
+}

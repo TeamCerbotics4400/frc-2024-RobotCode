@@ -90,7 +90,7 @@ public final class Constants {
   public static final class IntakeConstants {
     public static byte INTAKE_ID = 12;
 
-    public static double INTAKE_ANGLE = 181.0;
+    public static double INTAKE_ANGLE = 181.2;
   }
 
   public static final class ArmConstants {

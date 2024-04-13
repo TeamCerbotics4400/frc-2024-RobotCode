@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.77,
+      "x": 0.8,
       "y": 4.6
     },
     "rotation": -60.0
@@ -34,13 +34,19 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "CenterComplement1"
+                        "pathName": "CopySafeComplement3"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "CenterComplement2"
+                        "pathName": "SafeComplement4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "IntakeSub"
                       }
                     },
                     {

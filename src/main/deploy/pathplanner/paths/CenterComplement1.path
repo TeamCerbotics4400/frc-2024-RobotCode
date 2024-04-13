@@ -20,8 +20,8 @@
         "y": 2.68
       },
       "prevControl": {
-        "x": 4.833367069811064,
-        "y": 0.08547605556749638
+        "x": 5.4712687284263675,
+        "y": -1.4294857829325767
       },
       "nextControl": null,
       "isLocked": false,
@@ -58,7 +58,7 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 15.52411099675424,
-    "rotateFast": true
+    "rotateFast": false
   },
   "reversed": false,
   "folder": "WorldsComplement",

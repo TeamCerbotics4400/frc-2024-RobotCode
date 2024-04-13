@@ -99,7 +99,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(160));
     NamedCommands.registerCommand("FastArm", m_arm.goToPosition(160).raceWith(new WaitCommand(1)));
     NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
-    NamedCommands.registerCommand("90Degree", m_arm.goToPosition(93));
+    NamedCommands.registerCommand("90Degree", m_arm.goToPosition(99));
     NamedCommands.registerCommand("155Degree", m_arm.goToPosition(155));
     //Shooter Commands
     NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter, m_led));
@@ -229,7 +229,7 @@ public class RobotContainer {
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 */
   // Joystick 2
-    subsystemsDriver.a().onTrue(m_arm.goToPosition(93));
+    subsystemsDriver.a().onTrue(m_arm.goToPosition(99.0));
     subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter, m_led));
 
     //Climber controls
