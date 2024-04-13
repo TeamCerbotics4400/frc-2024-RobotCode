@@ -144,7 +144,7 @@ public class RobotContainer {
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
     //autoChooser.addOption("2 Note", m_autoNames[6]);
     //autoChooser.addOption("3 Note", m_autoNames[7]);
-    autoChooser.addOption("3 Note", m_autoNames[20]);
+    autoChooser.addOption("4 Note COMPLEMENT", m_autoNames[20]);
     autoChooser.addOption("4 + 1 Note", m_autoNames[8]);
     autoChooser.addOption("5 Note", m_autoNames[10]);
     //autoChooser.addOption("4 + 1 Note",m_autoNames[14]);

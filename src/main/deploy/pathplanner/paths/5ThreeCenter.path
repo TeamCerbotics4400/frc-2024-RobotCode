@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.0630507414861,
-        "y": 5.791895429944707
+        "x": 1.2554654495899562,
+        "y": 5.57
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.7803481760809685,
-        "y": 8.534905531349525
+        "x": 1.344617591546165,
+        "y": 6.113056676897948
       },
       "isLocked": false,
-      "linkedName": "Alt7TwoNote"
+      "linkedName": "ModularAuto2"
     },
     {
       "anchor": {
-        "x": 1.4916668294875064,
-        "y": 5.791895429944707
+        "x": 2.705300795216977,
+        "y": 7.765283992106446
       },
       "prevControl": {
-        "x": 3.292177565893597,
-        "y": 6.751017369727047
+        "x": 1.4673667962720573,
+        "y": 8.12216467048319
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ArmIdle"
+                "name": "SmallIntake"
               }
             }
           ]
@@ -50,8 +50,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.6,
-    "maxAcceleration": 6.0,
+    "maxVelocity": 4.4,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -61,7 +61,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "ModularAuto",
+  "folder": "CenterComplements",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
