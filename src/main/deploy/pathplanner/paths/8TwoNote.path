@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.24936774555483,
-        "y": 7.666187749678298
+        "x": 8.17,
+        "y": 7.74
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.0205935796487,
-        "y": 7.942888962701003
+        "x": 5.211072066094027,
+        "y": 6.90685996756609
       },
       "isLocked": false,
       "linkedName": "ModularAuto7"
     },
     {
       "anchor": {
-        "x": 1.5212676579199327,
-        "y": 5.712959887458236
+        "x": -0.04757624899865017,
+        "y": 5.259080518161037
       },
       "prevControl": {
-        "x": 2.2415544831089678,
-        "y": 5.959633457728454
+        "x": 0.6727105761903889,
+        "y": 5.505754088431255
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.0,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ArmIdle"
+                "name": "150Degree"
               }
             }
           ]
@@ -50,7 +50,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.95,
+      "waypointRelativePos": 0.9,
       "command": {
         "type": "parallel",
         "data": {
@@ -67,20 +67,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.4,
-    "maxAcceleration": 7.0,
+    "maxVelocity": 5.5,
+    "maxAcceleration": 5.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
     "rotation": 0,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "ModularAuto",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 16.94,
     "velocity": 0
   },
   "useDefaultConstraints": false

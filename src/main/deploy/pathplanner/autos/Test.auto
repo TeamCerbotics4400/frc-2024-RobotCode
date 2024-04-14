@@ -42,7 +42,7 @@
                                 {
                                   "type": "named",
                                   "data": {
-                                    "name": "IntakeSub"
+                                    "name": "LastIntake"
                                   }
                                 }
                               ]
@@ -55,60 +55,6 @@
                             }
                           }
                         ]
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "1TwoNote"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "2TwoNote"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "3TwoNote"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "4TwoNote"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "5TwoNote"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "6TwoNote"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "7TwoNote"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "8TwoNote"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "LastIntake"
                       }
                     }
                   ]

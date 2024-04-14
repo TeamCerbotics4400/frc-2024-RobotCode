@@ -84,7 +84,8 @@ public class RobotContainer {
   private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
    "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", 
    "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "6 NOTE AMP", "PID", "6 NOTE CENTER","SAFE 4 NOTE",
-   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "YES STAGE COMPLEMENT", "NO STAGE COMPLEMENT", "COMPLEXT STAGE COMPLEMENT", "3 CENTER NOTE"}; 
+   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "YES STAGE COMPLEMENT", "NO STAGE COMPLEMENT", "COMPLEXT STAGE COMPLEMENT", "3 CENTER NOTE",
+  "TEST"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -101,7 +102,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
     NamedCommands.registerCommand("90Degree", m_arm.goToPosition(99));
     NamedCommands.registerCommand("155Degree", m_arm.goToPosition(155));
-    NamedCommands.registerCommand("150Degree", m_arm.goToPosition(150));
+    NamedCommands.registerCommand("150Degree", m_arm.goToPosition(146));
+    NamedCommands.registerCommand("160Degree", m_arm.goToPosition(160));
     //Shooter Commands
     NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter, m_led));
 
@@ -151,7 +153,7 @@ public class RobotContainer {
     autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
     autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[19]);
     autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
-
+    autoChooser.addOption("Test", m_autoNames[20+1]);
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
     configureBindings();
@@ -256,6 +258,8 @@ public class RobotContainer {
 
     //.whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
+    subsystemsDriver.povRight().whileTrue(m_arm.goToPosition(120));
+
     //TODO: DriveTrain Characterization, comment if not used
     /*chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));
     chassisDriver.start().and(chassisDriver.x()).whileTrue(m_drive.sysIdQuasistatic(Direction.kReverse));
@@ -338,6 +342,10 @@ public class RobotContainer {
       case "3 CENTER NOTE":
         autonomousCommand = new PathPlannerAuto("ThreeCenter");
         break;
+
+      case "TEST":
+        autonomousCommand = new PathPlannerAuto("Test");
+        break; 
     }
 
     return autonomousCommand;
