@@ -44,9 +44,22 @@
                       }
                     },
                     {
-                      "type": "named",
+                      "type": "race",
                       "data": {
-                        "name": "IntakeSub"
+                        "commands": [
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "LastIntake"
+                            }
+                          },
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 0.5
+                            }
+                          }
+                        ]
                       }
                     },
                     {

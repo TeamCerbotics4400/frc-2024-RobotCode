@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LEDSubsystem extends SubsystemBase {
   /** Creates a new LEDSubsystem. */
-  private Spark ledController = new Spark(0);
+  private Spark ledController = new Spark(9);
   private Timer animationTimer = new Timer();
   private boolean blueActive = false;
   public LEDSubsystem() {}

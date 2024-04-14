@@ -8,36 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.1800000000000006,
-        "y": 5.49
+        "x": 2.0639495125144114,
+        "y": 7.794884820538872
       },
       "isLocked": false,
       "linkedName": "ModularAuto6"
     },
     {
       "anchor": {
-        "x": 7.32,
-        "y": 6.35
-      },
-      "prevControl": {
-        "x": 6.186248375706056,
-        "y": 6.965391951857395
-      },
-      "nextControl": {
-        "x": 7.875578828080734,
-        "y": 6.048435943025733
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
         "x": 7.92,
-        "y": 5.870830972431175
+        "y": 6.04
       },
       "prevControl": {
-        "x": 7.880532228756765,
-        "y": 5.890564858052794
+        "x": 6.296867978351342,
+        "y": 6.918157910161974
       },
       "nextControl": null,
       "isLocked": false,
@@ -49,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.55,
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "parallel",
         "data": {

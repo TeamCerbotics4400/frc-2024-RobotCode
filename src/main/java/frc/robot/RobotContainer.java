@@ -101,6 +101,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
     NamedCommands.registerCommand("90Degree", m_arm.goToPosition(99));
     NamedCommands.registerCommand("155Degree", m_arm.goToPosition(155));
+    NamedCommands.registerCommand("150Degree", m_arm.goToPosition(150));
     //Shooter Commands
     NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter, m_led));
 
@@ -142,19 +143,14 @@ public class RobotContainer {
     autoChooser = new SendableChooser<>();
 
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
-    //autoChooser.addOption("2 Note", m_autoNames[6]);
-    //autoChooser.addOption("3 Note", m_autoNames[7]);
     autoChooser.addOption("4 Note COMPLEMENT", m_autoNames[20]);
     autoChooser.addOption("4 + 1 Note", m_autoNames[8]);
     autoChooser.addOption("5 Note", m_autoNames[10]);
-    //autoChooser.addOption("4 + 1 Note",m_autoNames[14]);
-    //autoChooser.addOption("Safe Safe 4 Note", m_autoNames[16]);
     autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
     autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
     autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
     autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[19]);
     autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
-    autoChooser.addOption("PID tuner", m_autoNames[12]);
 
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
@@ -253,6 +249,12 @@ public class RobotContainer {
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
     //Manual Intake
     subsystemsDriver.rightBumper().whileTrue(new ManualIntake(m_intake,m_shooter));
+
+    //DEBUG DELETE BEFORE COMPETITION
+
+   // subsystemsDriver.povRight().whileTrue(m_arm.goToPosition(150).alongWith(new CookShooter(m_shooter, m_led)))
+
+    //.whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
     //TODO: DriveTrain Characterization, comment if not used
     /*chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));

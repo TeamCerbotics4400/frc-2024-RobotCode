@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.7803481760809685,
-        "y": 8.534905531349525
+        "x": 7.1552920028916995,
+        "y": 6.926593853187707
       },
       "isLocked": false,
       "linkedName": "Alt7TwoNote"
@@ -41,7 +41,24 @@
             {
               "type": "named",
               "data": {
-                "name": "ArmIdle"
+                "name": "150Degree"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "LastIntake"
               }
             }
           ]

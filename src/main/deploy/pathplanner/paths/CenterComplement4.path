@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.71,
-        "y": 4.489458978917958
+        "y": 4.49
       },
       "prevControl": null,
       "nextControl": {
         "x": 8.066468208362425,
-        "y": 4.535475214448187
+        "y": 4.536016235530229
       },
       "isLocked": false,
       "linkedName": "CenterComplement3"

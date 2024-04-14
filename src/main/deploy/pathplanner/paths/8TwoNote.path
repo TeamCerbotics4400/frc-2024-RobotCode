@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.23359903208356,
-        "y": 7.634854557240922
+        "x": 6.0205935796487,
+        "y": 7.942888962701003
       },
       "isLocked": false,
       "linkedName": "ModularAuto7"
     },
     {
       "anchor": {
-        "x": 0.88,
-        "y": 5.78
+        "x": 1.5212676579199327,
+        "y": 5.712959887458236
       },
       "prevControl": {
-        "x": 2.0915501075785894,
-        "y": 6.772217760516946
+        "x": 2.2415544831089678,
+        "y": 5.959633457728454
       },
       "nextControl": null,
       "isLocked": false,
@@ -68,7 +68,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.4,
-    "maxAcceleration": 6.0,
+    "maxAcceleration": 7.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
