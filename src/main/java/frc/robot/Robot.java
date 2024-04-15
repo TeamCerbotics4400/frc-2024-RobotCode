@@ -5,6 +5,8 @@
 package frc.robot;
 
 
+import java.sql.Driver;
+
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
@@ -65,6 +67,11 @@ public class Robot extends TimedRobot {
 
 
     Shuffleboard.selectTab("Match Briefing");
+
+       CommandScheduler.getInstance().schedule(m_robotContainer.getArm().goToPosition(160));
+
+    
+
   }
 
   /**
@@ -84,6 +91,7 @@ public class Robot extends TimedRobot {
     batteryVoltage.append(RobotController.getBatteryVoltage());
     measuredStates.set(m_robotContainer.getDrive().getState().ModuleStates);
     targetStates.set(m_robotContainer.getDrive().getState().ModuleTargets);
+    
 
     if(m_robotContainer.getIntake().noteInside()){
       if(!m_robotContainer.getLED().getBlueState())
@@ -110,7 +118,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

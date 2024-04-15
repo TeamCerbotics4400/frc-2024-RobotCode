@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.1552920028916995,
-        "y": 6.926593853187707
+        "x": 6.227799378675683,
+        "y": 6.90685996756609
       },
       "isLocked": false,
       "linkedName": "Alt7TwoNote"
     },
     {
       "anchor": {
-        "x": 1.4916668294875064,
-        "y": 5.791895429944707
+        "x": 2.37,
+        "y": 5.86
       },
       "prevControl": {
-        "x": 3.292177565893597,
-        "y": 6.751017369727047
+        "x": 4.170510736406089,
+        "y": 6.819121939782341
       },
       "nextControl": null,
       "isLocked": false,
@@ -50,7 +50,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "parallel",
         "data": {

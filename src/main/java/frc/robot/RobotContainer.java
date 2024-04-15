@@ -28,6 +28,7 @@ import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.ManualIntake;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.commands.IntakeCommands.SmallIntakeCommand;
+import frc.robot.commands.IntakeCommands.SmallerIntakeCommand;
 import frc.robot.commands.ShooterCommands.AmpShootCommand;
 import frc.robot.commands.ShooterCommands.CookShooter;
 import frc.robot.commands.ShooterCommands.FeederShooter;
@@ -97,12 +98,12 @@ public class RobotContainer {
     m_head.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
 
     //Arm Commands
-    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(160));
+    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(162));
     NamedCommands.registerCommand("FastArm", m_arm.goToPosition(160).raceWith(new WaitCommand(1)));
     NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
     NamedCommands.registerCommand("90Degree", m_arm.goToPosition(99));
     NamedCommands.registerCommand("155Degree", m_arm.goToPosition(155));
-    NamedCommands.registerCommand("150Degree", m_arm.goToPosition(146));
+    NamedCommands.registerCommand("150Degree", m_arm.goToPosition(150));
     NamedCommands.registerCommand("160Degree", m_arm.goToPosition(160));
     //Shooter Commands
     NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter, m_led));
@@ -133,6 +134,11 @@ public class RobotContainer {
       new SmallIntakeCommand(m_intake, m_shooter), 
       m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
 
+          NamedCommands.registerCommand("SmallerIntake", 
+    new ParallelCommandGroup(
+      new SmallerIntakeCommand(m_intake, m_shooter), 
+      m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
+
     NamedCommands.registerCommand("IntakeSub", 
     new AutoIntake(m_intake));
 
@@ -153,7 +159,7 @@ public class RobotContainer {
     autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
     autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[19]);
     autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
-    autoChooser.addOption("Test", m_autoNames[20+1]);
+    autoChooser.addOption("Test", m_autoNames[21]);
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
     configureBindings();
@@ -195,8 +201,8 @@ public class RobotContainer {
 
     chassisDriver.x().whileTrue(new RobotCentricDrive(
       m_drive, 
-      () -> chassisDriver.getLeftY(),
-      () -> chassisDriver.getLeftX(),
+      () -> -chassisDriver.getLeftY(),
+      () -> -chassisDriver.getLeftX(),
       () -> -chassisDriver.getRightX()));
 
     //Joystick 1
@@ -254,11 +260,9 @@ public class RobotContainer {
 
     //DEBUG DELETE BEFORE COMPETITION
 
-   // subsystemsDriver.povRight().whileTrue(m_arm.goToPosition(150).alongWith(new CookShooter(m_shooter, m_led)))
+    //subsystemsDriver.povRight().whileTrue(m_arm.goToPosition(150).alongWith(new CookShooter(m_shooter, m_led))).whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
-    //.whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
-
-    subsystemsDriver.povRight().whileTrue(m_arm.goToPosition(120));
+    chassisDriver.povRight().whileTrue(m_arm.goToPosition(120));
 
     //TODO: DriveTrain Characterization, comment if not used
     /*chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));
@@ -344,7 +348,7 @@ public class RobotContainer {
         break;
 
       case "TEST":
-        autonomousCommand = new PathPlannerAuto("Test");
+        autonomousCommand = new PathPlannerAuto("Copy of 5NoteAuto");
         break; 
     }
 
@@ -361,6 +365,10 @@ public class RobotContainer {
 
   public LEDSubsystem getLED(){
     return m_led;
+  }
+
+  public ArmSubsystem getArm(){
+    return m_arm;
   }
 
  /*  public VisionSubsystem getVision(){
