@@ -5,7 +5,6 @@
 package frc.robot;
 
 
-import java.sql.Driver;
 
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -20,9 +19,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.IntakeCommands.IntakeCommand;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -67,10 +64,6 @@ public class Robot extends TimedRobot {
 
 
     Shuffleboard.selectTab("Match Briefing");
-
-       CommandScheduler.getInstance().schedule(m_robotContainer.getArm().goToPosition(160));
-
-    
 
   }
 

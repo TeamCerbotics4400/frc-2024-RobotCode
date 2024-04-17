@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.22,
-      "y": 5.5
+      "x": 0.7763806672574121,
+      "y": 4.5995078883784535
     },
-    "rotation": 0.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -40,7 +40,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "SafeComplement2"
+                        "pathName": "OriginalSafeComplement2"
                       }
                     },
                     {
@@ -52,13 +52,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "SafeComplement3"
+                        "pathName": "OriginalSafeComplement3"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "SafeComplement4"
+                        "pathName": "OriginalSafeComplement4"
                       }
                     },
                     {

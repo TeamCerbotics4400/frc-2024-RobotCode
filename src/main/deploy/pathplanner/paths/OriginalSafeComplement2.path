@@ -3,33 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.34,
-        "y": 5.57
+        "x": 8.38,
+        "y": 0.58
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3659660811629335,
-        "y": 5.555088802485298
+        "x": 4.674431527324596,
+        "y": 0.3944115980539654
       },
       "isLocked": false,
-      "linkedName": "ModularAuto1"
+      "linkedName": "Safe1"
     },
     {
       "anchor": {
-        "x": 1.2554654495899562,
-        "y": 5.57
+        "x": 0.6,
+        "y": 4.17
       },
       "prevControl": {
-        "x": 1.7107215027554143,
-        "y": 5.560315007734153
+        "x": 1.576827338270061,
+        "y": 1.2197840995681992
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ModularAuto2"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.75,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 5.4,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "New Event Marker",
@@ -47,38 +59,21 @@
           ]
         }
       }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.95,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "IntakeSub"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "globalConstraints": {
     "maxVelocity": 5.4,
-    "maxAcceleration": 5.0,
+    "maxAcceleration": 4.25,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -54.04586423044057,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "ModularAuto",
+  "folder": "SafeComplement",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

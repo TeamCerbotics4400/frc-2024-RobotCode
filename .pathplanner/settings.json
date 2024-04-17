@@ -14,8 +14,9 @@
     "1 - 3 Notes",
     "4 - 6 Notes",
     "Complement",
-    "Worlds Complements",
-    "PID Tuning"
+    "AutosNoUse",
+    "PID Tuning",
+    "Worlds Complements"
   ],
   "defaultMaxVel": 5.4,
   "defaultMaxAccel": 3.0,

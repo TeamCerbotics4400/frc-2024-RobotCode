@@ -103,6 +103,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
     NamedCommands.registerCommand("90Degree", m_arm.goToPosition(99));
     NamedCommands.registerCommand("155Degree", m_arm.goToPosition(155));
+        NamedCommands.registerCommand("152Degree", m_arm.goToPosition(152));
+
     NamedCommands.registerCommand("150Degree", m_arm.goToPosition(150));
     NamedCommands.registerCommand("160Degree", m_arm.goToPosition(160));
     //Shooter Commands
@@ -157,9 +159,9 @@ public class RobotContainer {
     autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
     autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
     autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
-    autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[19]);
+//    autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[19]);
     autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
-    autoChooser.addOption("Test", m_autoNames[21]);
+   // autoChooser.addOption("Test", m_autoNames[21]);
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
     configureBindings();
@@ -199,7 +201,7 @@ public class RobotContainer {
       () -> -chassisDriver.getLeftX(),
       () -> -chassisDriver.getRightX()));
 
-    chassisDriver.x().whileTrue(new RobotCentricDrive(
+    chassisDriver.b().whileTrue(new RobotCentricDrive(
       m_drive, 
       () -> -chassisDriver.getLeftY(),
       () -> -chassisDriver.getLeftX(),
@@ -208,7 +210,7 @@ public class RobotContainer {
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
      
-      chassisDriver.b().whileTrue(
+      chassisDriver.x().whileTrue(
       m_drive.applyRequest(
               () -> m_head.withVelocityX((-chassisDriver.getLeftY() * DriveConstants.MaxSpeed) * 0.5)
                   .withVelocityY((-chassisDriver.getLeftX() * DriveConstants.MaxSpeed) * 0.5)
@@ -227,11 +229,7 @@ public class RobotContainer {
 
     //Auto Pickup
     chassisDriver.leftBumper().whileTrue(new AutoPickup(m_drive));
-    /* .alongWith(new IntakeCommand(m_intake, m_shooter))
-    .alongWith(new AutoPickup(m_drive, -chassisDriver.getLeftY() * DriveConstants.MaxSpeed,
-                                    -chassisDriver.getLeftX() * DriveConstants.MaxSpeed)))
-    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
-*/
+
   // Joystick 2
     subsystemsDriver.a().onTrue(m_arm.goToPosition(99.0));
     subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter, m_led));
@@ -260,9 +258,9 @@ public class RobotContainer {
 
     //DEBUG DELETE BEFORE COMPETITION
 
-    //subsystemsDriver.povRight().whileTrue(m_arm.goToPosition(150).alongWith(new CookShooter(m_shooter, m_led))).whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+    //chassisDriver.povRight().whileTrue(m_arm.goToPosition(150).alongWith(new CookShooter(m_shooter, m_led))).whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
-    chassisDriver.povRight().whileTrue(m_arm.goToPosition(120));
+    //chassisDriver.povRight().whileTrue(m_arm.goToPosition(120));
 
     //TODO: DriveTrain Characterization, comment if not used
     /*chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));
@@ -304,7 +302,7 @@ public class RobotContainer {
       break;
 
       case "5 NOTE CENTER":
-        autonomousCommand = new PathPlannerAuto("5NoteAuto");
+        autonomousCommand = new PathPlannerAuto("Copy of 5NoteAuto");
       break;
 
    /*    case "6 NOTE CENTER":
@@ -348,7 +346,7 @@ public class RobotContainer {
         break;
 
       case "TEST":
-        autonomousCommand = new PathPlannerAuto("Copy of 5NoteAuto");
+        autonomousCommand = new PathPlannerAuto("tEST");
         break; 
     }
 

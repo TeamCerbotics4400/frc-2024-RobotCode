@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.0630507414861,
-        "y": 5.791895429944707
+        "y": 5.79
       },
       "prevControl": null,
       "nextControl": {
         "x": 6.227799378675683,
-        "y": 6.90685996756609
+        "y": 6.9049645376213835
       },
       "isLocked": false,
       "linkedName": "Alt7TwoNote"

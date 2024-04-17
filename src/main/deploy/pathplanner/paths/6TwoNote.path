@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.6,
-        "y": 4.04
+        "x": 2.4,
+        "y": 4.19
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6211553115413944,
-        "y": 4.005446552431567
+        "x": 2.421155311541394,
+        "y": 4.155446552431568
       },
       "isLocked": false,
       "linkedName": "ModularAuto5"
     },
     {
       "anchor": {
-        "x": 1.18,
-        "y": 5.49
+        "x": 1.23,
+        "y": 5.44
       },
       "prevControl": {
-        "x": 1.1898669428108088,
-        "y": 5.5097338856216185
+        "x": 1.239866942810809,
+        "y": 5.459733885621619
       },
       "nextControl": null,
       "isLocked": false,

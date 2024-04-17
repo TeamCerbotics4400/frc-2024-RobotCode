@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.18,
-        "y": 5.49
+        "x": 1.23,
+        "y": 5.44
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0013090795412376,
-        "y": 6.038569000214923
+        "x": 3.0513090795412374,
+        "y": 5.988569000214923
       },
       "isLocked": false,
       "linkedName": "ModularAuto6"
