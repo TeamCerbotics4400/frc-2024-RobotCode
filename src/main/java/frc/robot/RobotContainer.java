@@ -31,6 +31,7 @@ import frc.robot.commands.IntakeCommands.SmallIntakeCommand;
 import frc.robot.commands.IntakeCommands.SmallerIntakeCommand;
 import frc.robot.commands.ShooterCommands.AmpShootCommand;
 import frc.robot.commands.ShooterCommands.CookShooter;
+import frc.robot.commands.ShooterCommands.FeederOverStage;
 import frc.robot.commands.ShooterCommands.FeederShooter;
 import frc.robot.commands.ShooterCommands.LastShoot;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
@@ -74,6 +75,7 @@ public class RobotContainer {
   private final ArmSubsystem m_arm = new ArmSubsystem();
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final LEDSubsystem m_led = new LEDSubsystem();
+  
   //private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
   SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
@@ -82,11 +84,11 @@ public class RobotContainer {
   private final SendableChooser<String> autoChooser;
   private final String m_DefaultAuto = "NO AUTO";
   private String m_autoSelected;
-  private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
-   "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", 
-   "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "6 NOTE AMP", "PID", "6 NOTE CENTER","SAFE 4 NOTE",
-   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "YES STAGE COMPLEMENT", "NO STAGE COMPLEMENT", "COMPLEXT STAGE COMPLEMENT", "3 CENTER NOTE",
-  "TEST"}; 
+  private final String[] m_autoNames = {"NO AUTO", "1", "2",
+   "3", "4", "5", "6", 
+   "7", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "11", "12", "13","14",
+   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "17", "NO STAGE COMPLEMENT", "19", "3 CENTER NOTE",
+  "5 NOTE CORNER", "1 NOTE","1 NOTE LEAVE SOURCE"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -147,22 +149,24 @@ public class RobotContainer {
     NamedCommands.registerCommand("LastIntake", 
     new ManualIntake(m_intake,m_shooter));
 
-
-
  //Selector for Autonomous routine 
     autoChooser = new SendableChooser<>();
 
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
+    autoChooser.addOption("1 Note Auto", m_autoNames[22]);
+    autoChooser.addOption("1 Note auto LEAVE ", m_autoNames[23]);
     autoChooser.addOption("4 Note COMPLEMENT", m_autoNames[20]);
-    autoChooser.addOption("4 + 1 Note", m_autoNames[8]);
+  //  autoChooser.addOption("4 + 1 Note", m_autoNames[8]);
+    autoChooser.addOption("4 Note Safe Safe", m_autoNames[16]);
     autoChooser.addOption("5 Note", m_autoNames[10]);
-    autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
-    autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
-    autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
+    autoChooser.addOption("5 Note Corner", m_autoNames[21]);
+   // autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
+  //  autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
+   // autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
 //    autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[19]);
     autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
-   // autoChooser.addOption("Test", m_autoNames[21]);
     SmartDashboard.putData("Auto Chooser", autoChooser);
+
 
     configureBindings();
   }
@@ -256,6 +260,12 @@ public class RobotContainer {
     //Manual Intake
     subsystemsDriver.rightBumper().whileTrue(new ManualIntake(m_intake,m_shooter));
 
+    subsystemsDriver.povRight()
+      .whileTrue(new FeederOverStage(m_shooter, m_led)
+      .alongWith(m_arm.goToPosition(160)))
+      .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+
+
     //DEBUG DELETE BEFORE COMPETITION
 
     //chassisDriver.povRight().whileTrue(m_arm.goToPosition(150).alongWith(new CookShooter(m_shooter, m_led))).whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
@@ -276,7 +286,7 @@ public class RobotContainer {
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
-   * @return the command to run in autonomous55
+   * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
 
@@ -289,13 +299,6 @@ public class RobotContainer {
         autonomousCommand = null;
       break;
 
-      case "2 NOTE CENTER":
-        autonomousCommand = new PathPlannerAuto("2NoteAuto");
-      break;
-
-      case "3 NOTE CENTER":
-        autonomousCommand = new PathPlannerAuto("3NoteAuto");
-      break;
       
       case "4 NOTE CENTER":
         autonomousCommand = new PathPlannerAuto("4NoteAuto");
@@ -305,14 +308,6 @@ public class RobotContainer {
         autonomousCommand = new PathPlannerAuto("Copy of 5NoteAuto");
       break;
 
-   /*    case "6 NOTE CENTER":
-        autonomousCommand = new PathPlannerAuto("6NoteAuto");
-        break;*/
-
-      case "SAFE 4 NOTE":
-        autonomousCommand = new PathPlannerAuto("4NoteAutoSafe");
-        break;
-      
       case "SAFE SAFE 4 NOTE":
       autonomousCommand = new PathPlannerAuto("Safe4NoteAutoSafe");
       break;
@@ -321,33 +316,30 @@ public class RobotContainer {
         autonomousCommand = new PathPlannerAuto("SafeComplement");
       break;
 
-      case "PID":
-        autonomousCommand = new PathPlannerAuto("PIDTuner");
-      break;
-
       case "CENTER COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("CenterSafeComplement");
-        break;
-
-      case "YES STAGE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("SimpleStageComplement");
-        break;
-      
+      break;
+    
       case "NO STAGE COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("NoStageComplement");
-        break;
-
-      case "COMPLEXT STAGE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("ComplexStageComplement");
         break;
 
       case "3 CENTER NOTE":
         autonomousCommand = new PathPlannerAuto("ThreeCenter");
         break;
 
-      case "TEST":
-        autonomousCommand = new PathPlannerAuto("tEST");
+      case "5 NOTE CORNER":  
+        autonomousCommand = new PathPlannerAuto("5NoteAuto");
         break; 
+
+      case "1 NOTE":
+        autonomousCommand = new PathPlannerAuto("1NoteAuto");
+        break;
+
+      case "1 NOTE LEAVE SOURCE":
+        autonomousCommand = new PathPlannerAuto("1NoteAutoLeave");
+        break;
+      
     }
 
     return autonomousCommand;

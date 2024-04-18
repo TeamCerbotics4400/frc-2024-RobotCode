@@ -71,15 +71,15 @@ public final class Constants {
 
     public static final double kTimeToShoot = .13; //Time it takes before note leave the shooter
 
-    public static double ukP = 1.2,     //For low rpm: 0.046
+    public static double ukP = 1.4,     //For low rpm: 0.046
                          ukI = 0,         // 0
-                         ukD = 0.0,    //0.0003
+                         ukD = 0.025,    //0.0003
                          ukS = 0.50189,
                          ukV = 0.0016926,
                          ukA = 0.00059492,    //0.128
-                         lkP = 1.2,     //0.004
+                         lkP = 1.4,     //0.004
                          lkI = 0,         //0
-                         lkD = 0.0,    //0.0005
+                         lkD = 0.025,    //0.0005
                          lkS = 0.50189,
                          lkV = 0.0016926,
                          lkA = 0.00059492;
@@ -90,7 +90,7 @@ public final class Constants {
   public static final class IntakeConstants {
     public static byte INTAKE_ID = 12;
 
-    public static double INTAKE_ANGLE = 181.0;
+    public static double INTAKE_ANGLE = 180.75;
   }
 
   public static final class ArmConstants {
@@ -118,7 +118,7 @@ public final class Constants {
     public static double INIT_POSITION = 95.0;
     public static double IDLE_UNDER_STAGE = 170.0;
     
-    public static double ARM_THRESHOLD = 1.5;
+    public static double ARM_THRESHOLD = 2.0;
   }
 
   public static final class ClimberConstants{

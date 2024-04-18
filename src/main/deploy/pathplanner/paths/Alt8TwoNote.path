@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.17,
-        "y": 7.74
+        "y": 7.6
       },
       "prevControl": null,
       "nextControl": {
         "x": 6.89578350754666,
-        "y": 7.458001268063606
+        "y": 7.318001268063606
       },
       "isLocked": false,
       "linkedName": "ModularAuto7"
