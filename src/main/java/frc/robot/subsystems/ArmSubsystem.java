@@ -101,8 +101,8 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
     leftMotor.setInverted(true);
     rightMotor.setInverted(false);
 
-    leftMotor.setSmartCurrentLimit(80);
-    rightMotor.setSmartCurrentLimit(80);
+    leftMotor.setSmartCurrentLimit(40);
+    rightMotor.setSmartCurrentLimit(40);
 
     leftMotor.setCANTimeout(0);
     rightMotor.setCANTimeout(0);
@@ -166,7 +166,7 @@ public class ArmSubsystem extends ProfiledPIDSubsystem {
   public double getMeasurement() {
     //Minus 70.5 because that gives us a range betwueen 0-180 degrees, 0 being the left position
     //and 180 the right position while 90 degrees is the idle vertical position
-    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360)  + 50.6;  //45
+    return (m_encoder.getAbsolutePosition().getValueAsDouble() * 360)  + 51.6;  //45
   }
 
   public double getAngleForDistance(double distance){

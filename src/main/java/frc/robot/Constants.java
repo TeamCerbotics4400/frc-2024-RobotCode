@@ -90,11 +90,11 @@ public final class Constants {
   public static final class IntakeConstants {
     public static byte INTAKE_ID = 12;
 
-    public static double INTAKE_ANGLE = 180.75;
+    public static double INTAKE_ANGLE = 181.5;
   }
 
   public static final class ArmConstants {
-    public static byte LEFT_ARM_ID = 9;   //9
+    public static byte LEFT_ARM_ID = 9;   //9   //Do not use motor 10
     public static byte RIGHT_ARM_ID = 10;  //10
 
     //Changed to CANCoder
@@ -118,7 +118,7 @@ public final class Constants {
     public static double INIT_POSITION = 95.0;
     public static double IDLE_UNDER_STAGE = 170.0;
     
-    public static double ARM_THRESHOLD = 2.0;
+    public static double ARM_THRESHOLD = 4.5;
   }
 
   public static final class ClimberConstants{

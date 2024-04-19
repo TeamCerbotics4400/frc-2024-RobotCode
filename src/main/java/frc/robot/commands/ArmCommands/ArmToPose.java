@@ -35,7 +35,7 @@ public class ArmToPose extends Command {
   public void execute() {
 
    
-           angle = 162.0;
+           angle = 160.0;
         
      m_arm.updateArmSetpoint(angle);
       } 

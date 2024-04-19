@@ -35,6 +35,7 @@ import frc.robot.commands.ShooterCommands.FeederOverStage;
 import frc.robot.commands.ShooterCommands.FeederShooter;
 import frc.robot.commands.ShooterCommands.LastShoot;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
+import frc.robot.commands.ShooterCommands.ShooterSafeFail;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -108,13 +109,13 @@ public class RobotContainer {
         NamedCommands.registerCommand("152Degree", m_arm.goToPosition(152));
 
     NamedCommands.registerCommand("150Degree", m_arm.goToPosition(150));
-    NamedCommands.registerCommand("160Degree", m_arm.goToPosition(160));
+    NamedCommands.registerCommand("160Degree", m_arm.goToPosition(164));
     //Shooter Commands
     NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter, m_led));
 
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
-      new ShooterCommand(m_shooter, m_intake, m_arm), 
+      new  ShooterSafeFail(m_shooter, m_intake, m_arm), 
       new ArmToPose(m_arm)));
 
     NamedCommands.registerCommand("LastShoot", 
@@ -309,7 +310,7 @@ public class RobotContainer {
       break;
 
       case "SAFE SAFE 4 NOTE":
-      autonomousCommand = new PathPlannerAuto("Safe4NoteAutoSafe");
+      autonomousCommand = new PathPlannerAuto("Copy of Safe4NoteAutoSafe");
       break;
         
       case "SAFE COMPLEMENT":
