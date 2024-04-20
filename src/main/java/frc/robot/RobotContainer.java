@@ -89,7 +89,7 @@ public class RobotContainer {
    "3", "4", "5", "6", 
    "7", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "11", "12", "13","14",
    "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "17", "NO STAGE COMPLEMENT", "19", "3 CENTER NOTE",
-  "5 NOTE CORNER", "1 NOTE","1 NOTE LEAVE SOURCE"}; 
+  "5 NOTE CORNER", "1 NOTE","1 NOTE LEAVE SOURCE", "2 NOTE COMPLEMENT","1 NOTE LEAVE"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -156,15 +156,17 @@ public class RobotContainer {
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
     autoChooser.addOption("1 Note Auto", m_autoNames[22]);
     autoChooser.addOption("1 Note auto LEAVE ", m_autoNames[23]);
+    autoChooser.addOption("1 Note Auto LEAVE SOURCE SIDE", m_autoNames[25]);
     autoChooser.addOption("4 Note COMPLEMENT", m_autoNames[20]);
   //  autoChooser.addOption("4 + 1 Note", m_autoNames[8]);
     autoChooser.addOption("4 Note Safe Safe", m_autoNames[16]);
-    autoChooser.addOption("5 Note", m_autoNames[10]);
-    autoChooser.addOption("5 Note Corner", m_autoNames[21]);
+   // autoChooser.addOption("5 Note", m_autoNames[10]);
+    //autoChooser.addOption("5 Note Corner", m_autoNames[21]);
    // autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
   //  autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
    // autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
 //    autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[19]);
+    autoChooser.addOption("2 Note COMPLEMENT", m_autoNames[24]);
     autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
@@ -339,6 +341,14 @@ public class RobotContainer {
 
       case "1 NOTE LEAVE SOURCE":
         autonomousCommand = new PathPlannerAuto("1NoteAutoLeave");
+        break;
+
+      case "2 NOTE COMPLEMENT":
+        autonomousCommand = new PathPlannerAuto("2NoteComplement");
+        break;
+
+      case "1 NOTE LEAVE":
+        autonomousCommand = new PathPlannerAuto("1NoteAutoLeaveSource");
         break;
       
     }

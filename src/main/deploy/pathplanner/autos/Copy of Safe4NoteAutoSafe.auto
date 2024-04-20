@@ -100,15 +100,22 @@
                       }
                     },
                     {
-                      "type": "named",
+                      "type": "parallel",
                       "data": {
-                        "name": "IntakeSub"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Copy of Copy of Copy of 7TwoNote"
+                        "commands": [
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "LastIntake"
+                            }
+                          },
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Copy of Copy of Copy of 7TwoNote"
+                            }
+                          }
+                        ]
                       }
                     }
                   ]

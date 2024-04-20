@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.22,
-      "y": 5.5
+      "x": 0.7763806672574121,
+      "y": 4.5995078883784535
     },
-    "rotation": 0.8901598184352715
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -34,31 +34,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Center of SafeComplement1"
+                        "pathName": "SafeComplement1"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
                         "pathName": "OriginalSafeComplement2"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "IntakeSub"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "OriginalSafeComplement3"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "OriginalSafeComplement4"
                       }
                     },
                     {
