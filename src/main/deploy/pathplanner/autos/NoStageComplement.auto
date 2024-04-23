@@ -26,9 +26,35 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "named",
+                      "type": "deadline",
                       "data": {
-                        "name": "Shoot"
+                        "commands": [
+                          {
+                            "type": "sequential",
+                            "data": {
+                              "commands": [
+                                {
+                                  "type": "wait",
+                                  "data": {
+                                    "waitTime": 1.15
+                                  }
+                                },
+                                {
+                                  "type": "named",
+                                  "data": {
+                                    "name": "IntakeSub"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "160Degree"
+                            }
+                          }
+                        ]
                       }
                     },
                     {
@@ -40,13 +66,26 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "SafeComplement4"
+                        "pathName": "Copy of SafeComplement4"
                       }
                     },
                     {
-                      "type": "named",
+                      "type": "race",
                       "data": {
-                        "name": "IntakeSub"
+                        "commands": [
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "LastIntake"
+                            }
+                          },
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 0.25
+                            }
+                          }
+                        ]
                       }
                     },
                     {

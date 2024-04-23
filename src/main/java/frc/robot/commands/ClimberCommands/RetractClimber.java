@@ -38,6 +38,6 @@ public class RetractClimber extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.isInPosition(3852.0);
+    return climber.isInPosition(4680.0);
   }
 }

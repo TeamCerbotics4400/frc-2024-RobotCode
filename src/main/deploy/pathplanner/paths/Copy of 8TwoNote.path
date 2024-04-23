@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.92,
-        "y": 5.870830972431175
+        "y": 6.04
       },
       "prevControl": null,
       "nextControl": {
         "x": 6.854370176432661,
-        "y": 6.857525253512046
+        "y": 7.026694281080871
       },
       "isLocked": false,
       "linkedName": "CopyOf7TwoNote"

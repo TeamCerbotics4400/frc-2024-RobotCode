@@ -5,6 +5,7 @@
 package frc.robot;
 
 
+
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
@@ -18,9 +19,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.IntakeCommands.IntakeCommand;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -65,6 +64,7 @@ public class Robot extends TimedRobot {
 
 
     Shuffleboard.selectTab("Match Briefing");
+
   }
 
   /**
@@ -84,6 +84,7 @@ public class Robot extends TimedRobot {
     batteryVoltage.append(RobotController.getBatteryVoltage());
     measuredStates.set(m_robotContainer.getDrive().getState().ModuleStates);
     targetStates.set(m_robotContainer.getDrive().getState().ModuleTargets);
+    
 
     if(m_robotContainer.getIntake().noteInside()){
       if(!m_robotContainer.getLED().getBlueState())
@@ -110,7 +111,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

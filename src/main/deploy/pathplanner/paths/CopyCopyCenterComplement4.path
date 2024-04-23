@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.71,
-        "y": 4.489458978917958
+        "x": 8.53,
+        "y": 4.07
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.028106914675371,
-        "y": 4.15237744475489
+        "x": 7.84810691467537,
+        "y": 3.7329184658369323
       },
       "isLocked": false,
       "linkedName": "CenterComplement3"

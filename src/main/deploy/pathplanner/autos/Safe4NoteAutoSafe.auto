@@ -108,7 +108,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Copy of 7TwoNote"
+                        "pathName": "Copy of Copy of Copy of 7TwoNote"
                       }
                     }
                   ]
@@ -120,6 +120,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "AutosNoUse",
   "choreoAuto": false
 }

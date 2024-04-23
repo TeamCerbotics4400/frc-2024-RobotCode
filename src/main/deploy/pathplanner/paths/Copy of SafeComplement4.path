@@ -1,0 +1,86 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.556397882026534,
+        "y": 2.012856333404975
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.165158945702509,
+        "y": 0.5525487974052881
+      },
+      "isLocked": false,
+      "linkedName": "Safe3"
+    },
+    {
+      "anchor": {
+        "x": 4.11,
+        "y": 0.53
+      },
+      "prevControl": {
+        "x": 5.407770627617972,
+        "y": 0.39999008300773153
+      },
+      "nextControl": {
+        "x": 1.4225982298118458,
+        "y": 0.7992223676755058
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.8700494324065587,
+        "y": 3.8283738105937757
+      },
+      "prevControl": {
+        "x": 1.4916668294875062,
+        "y": 2.466735702702176
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ArmIdle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 5.4,
+    "maxAcceleration": 4.25,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -54.2940366940722,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "SafeComplement",
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0.0
+  },
+  "useDefaultConstraints": false
+}

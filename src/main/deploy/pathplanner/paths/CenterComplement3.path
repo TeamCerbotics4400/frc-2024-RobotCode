@@ -3,54 +3,48 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7121783474336195,
-        "y": 4.183583751782889
+        "x": 1.04,
+        "y": 4.03
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5223738174278716,
-        "y": 3.45351847654368
+        "x": 1.8501954699942518,
+        "y": 3.2999347247607913
       },
       "isLocked": false,
-      "linkedName": "CenterComplement2"
+      "linkedName": "CopySafeComplement4"
     },
     {
       "anchor": {
-        "x": 3.8992008753248286,
-        "y": 3.3251597272425317
+        "x": 3.9978703034329155,
+        "y": 2.900881186377758
       },
       "prevControl": {
-        "x": 2.9192662510709715,
-        "y": 2.899101194958246
+        "x": 3.0179356791790584,
+        "y": 2.4748226540934724
       },
       "nextControl": {
-        "x": 5.033899298567829,
-        "y": 3.818506867782967
+        "x": 5.132568726675914,
+        "y": 3.3942283269181934
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.71,
-        "y": 4.489458978917958
+        "x": 8.53,
+        "y": 4.07
       },
       "prevControl": {
-        "x": 7.801034172837578,
-        "y": 4.536138910152951
+        "x": 7.621034172837577,
+        "y": 4.116679931234993
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "CenterComplement3"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.9,
-      "rotationDegrees": 0,
-      "rotateFast": true
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "New Constraints Zone",

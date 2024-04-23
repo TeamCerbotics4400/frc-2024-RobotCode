@@ -63,6 +63,10 @@ public class IntakeSubsystem extends SubsystemBase {
   public void smallIntake(){
     intakeMotor.set(-0.80);
   }
+
+  public void smallerIntake(){
+    intakeMotor.set(-0.60);
+  }
   public  boolean noteInside(){
     return !intakeSensor.get();
   }

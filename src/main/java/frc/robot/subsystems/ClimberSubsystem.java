@@ -90,7 +90,7 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void retractClimber(){
-    climberPIDController.setReference(3852.0, ControlType.kPosition);
+    climberPIDController.setReference(4680.0, ControlType.kPosition);
   }
 //
 

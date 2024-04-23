@@ -40,7 +40,26 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "SafeComplement4"
+                        "pathName": "Copy of SafeComplement4"
+                      }
+                    },
+                    {
+                      "type": "race",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "LastIntake"
+                            }
+                          },
+                          {
+                            "type": "wait",
+                            "data": {
+                              "waitTime": 0.5
+                            }
+                          }
+                        ]
                       }
                     },
                     {

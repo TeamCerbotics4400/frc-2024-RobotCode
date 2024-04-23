@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.18,
-        "y": 5.49
+        "x": 1.23,
+        "y": 5.44
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.669271800082063,
-        "y": 6.2063070279986725
+        "x": 1.719271800082063,
+        "y": 6.156307027998673
       },
       "isLocked": false,
       "linkedName": "ModularAuto6"
@@ -20,8 +20,8 @@
         "y": 5.791895429944707
       },
       "prevControl": {
-        "x": 5.48777866786503,
-        "y": 8.140227818917179
+        "x": 4.2885721149473675,
+        "y": 7.518357062391729
       },
       "nextControl": null,
       "isLocked": false,
@@ -51,7 +51,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.4,
-    "maxAcceleration": 5.0,
+    "maxAcceleration": 6.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

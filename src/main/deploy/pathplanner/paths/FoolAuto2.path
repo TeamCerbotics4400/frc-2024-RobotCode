@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7516461186768542,
+        "y": 6.482581426701315
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 0.9292510892714109,
+        "y": 6.956194681620133
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.9322404798655763,
+        "y": 7.715949278052403
+      },
+      "prevControl": {
+        "x": 1.4127312870010371,
+        "y": 7.73568316367402
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 5.4,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Fools Autos",
+  "previewStartingState": {
+    "rotation": 59.03624346792648,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 8.0630507414861,
-        "y": 5.791895429944707
+        "y": 5.79
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.7803481760809685,
-        "y": 8.534905531349525
+        "x": 6.227799378675683,
+        "y": 6.9049645376213835
       },
       "isLocked": false,
       "linkedName": "Alt7TwoNote"
     },
     {
       "anchor": {
-        "x": 1.4916668294875064,
-        "y": 5.791895429944707
+        "x": 2.37,
+        "y": 5.86
       },
       "prevControl": {
-        "x": 3.292177565893597,
-        "y": 6.751017369727047
+        "x": 4.170510736406089,
+        "y": 6.819121939782341
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +41,24 @@
             {
               "type": "named",
               "data": {
-                "name": "ArmIdle"
+                "name": "150Degree"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "LastIntake"
               }
             }
           ]

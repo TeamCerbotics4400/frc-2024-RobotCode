@@ -28,11 +28,14 @@ import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.ManualIntake;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
 import frc.robot.commands.IntakeCommands.SmallIntakeCommand;
+import frc.robot.commands.IntakeCommands.SmallerIntakeCommand;
 import frc.robot.commands.ShooterCommands.AmpShootCommand;
 import frc.robot.commands.ShooterCommands.CookShooter;
+import frc.robot.commands.ShooterCommands.FeederOverStage;
 import frc.robot.commands.ShooterCommands.FeederShooter;
 import frc.robot.commands.ShooterCommands.LastShoot;
 import frc.robot.commands.ShooterCommands.ShooterCommand;
+import frc.robot.commands.ShooterCommands.ShooterSafeFail;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -73,6 +76,7 @@ public class RobotContainer {
   private final ArmSubsystem m_arm = new ArmSubsystem();
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final LEDSubsystem m_led = new LEDSubsystem();
+  
   //private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
   SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
@@ -81,10 +85,11 @@ public class RobotContainer {
   private final SendableChooser<String> autoChooser;
   private final String m_DefaultAuto = "NO AUTO";
   private String m_autoSelected;
-  private final String[] m_autoNames = {"NO AUTO", "4 NOTE INTERPOLATED", "4 NOTE STEAL",
-   "3 NOTE COMPLEMENT", "4 NOTE SUBWOOFER", "2 NOTE COMPLEMENT", "2 NOTE CENTER", 
-   "3 NOTE CENTER", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "6 NOTE AMP", "PID", "6 NOTE CENTER","SAFE 4 NOTE",
-   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "YES STAGE COMPLEMENT", "NO STAGE COMPLEMENT", "COMPLEXT STAGE COMPLEMENT", "3 CENTER NOTE"}; 
+  private final String[] m_autoNames = {"NO AUTO", "1", "2",
+   "3", "4", "5", "6", 
+   "7", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "11", "12", "13","14",
+   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "17", "NO STAGE COMPLEMENT", "19", "3 CENTER NOTE",
+  "5 NOTE CORNER", "1 NOTE","1 NOTE LEAVE SOURCE", "2 NOTE COMPLEMENT","1 NOTE LEAVE"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -96,17 +101,21 @@ public class RobotContainer {
     m_head.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
 
     //Arm Commands
-    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(160));
+    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(162));
     NamedCommands.registerCommand("FastArm", m_arm.goToPosition(160).raceWith(new WaitCommand(1)));
     NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
     NamedCommands.registerCommand("90Degree", m_arm.goToPosition(99));
     NamedCommands.registerCommand("155Degree", m_arm.goToPosition(155));
+        NamedCommands.registerCommand("152Degree", m_arm.goToPosition(152));
+
+    NamedCommands.registerCommand("150Degree", m_arm.goToPosition(150));
+    NamedCommands.registerCommand("160Degree", m_arm.goToPosition(164));
     //Shooter Commands
     NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter, m_led));
 
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
-      new ShooterCommand(m_shooter, m_intake, m_arm), 
+      new  ShooterSafeFail(m_shooter, m_intake, m_arm), 
       new ArmToPose(m_arm)));
 
     NamedCommands.registerCommand("LastShoot", 
@@ -130,33 +139,37 @@ public class RobotContainer {
       new SmallIntakeCommand(m_intake, m_shooter), 
       m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
 
+          NamedCommands.registerCommand("SmallerIntake", 
+    new ParallelCommandGroup(
+      new SmallerIntakeCommand(m_intake, m_shooter), 
+      m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
+
     NamedCommands.registerCommand("IntakeSub", 
     new AutoIntake(m_intake));
 
     NamedCommands.registerCommand("LastIntake", 
     new ManualIntake(m_intake,m_shooter));
 
-
-
  //Selector for Autonomous routine 
     autoChooser = new SendableChooser<>();
 
     autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
-    //autoChooser.addOption("2 Note", m_autoNames[6]);
-    //autoChooser.addOption("3 Note", m_autoNames[7]);
+    autoChooser.addOption("1 Note Auto", m_autoNames[22]);
+    autoChooser.addOption("1 Note auto LEAVE ", m_autoNames[23]);
+    autoChooser.addOption("1 Note Auto LEAVE SOURCE SIDE", m_autoNames[25]);
     autoChooser.addOption("4 Note COMPLEMENT", m_autoNames[20]);
-    autoChooser.addOption("4 + 1 Note", m_autoNames[8]);
-    autoChooser.addOption("5 Note", m_autoNames[10]);
-    //autoChooser.addOption("4 + 1 Note",m_autoNames[14]);
-    //autoChooser.addOption("Safe Safe 4 Note", m_autoNames[16]);
-    autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
-    autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
-    autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
-    autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[19]);
+  //  autoChooser.addOption("4 + 1 Note", m_autoNames[8]);
+    autoChooser.addOption("4 Note Safe Safe", m_autoNames[16]);
+   // autoChooser.addOption("5 Note", m_autoNames[10]);
+    //autoChooser.addOption("5 Note Corner", m_autoNames[21]);
+   // autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
+  //  autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
+   // autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
+//    autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[19]);
+    autoChooser.addOption("2 Note COMPLEMENT", m_autoNames[24]);
     autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
-    autoChooser.addOption("PID tuner", m_autoNames[12]);
-
     SmartDashboard.putData("Auto Chooser", autoChooser);
+
 
     configureBindings();
   }
@@ -195,16 +208,16 @@ public class RobotContainer {
       () -> -chassisDriver.getLeftX(),
       () -> -chassisDriver.getRightX()));
 
-    chassisDriver.x().whileTrue(new RobotCentricDrive(
+    chassisDriver.b().whileTrue(new RobotCentricDrive(
       m_drive, 
-      () -> chassisDriver.getLeftY(),
-      () -> chassisDriver.getLeftX(),
+      () -> -chassisDriver.getLeftY(),
+      () -> -chassisDriver.getLeftX(),
       () -> -chassisDriver.getRightX()));
 
     //Joystick 1
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
      
-      chassisDriver.b().whileTrue(
+      chassisDriver.x().whileTrue(
       m_drive.applyRequest(
               () -> m_head.withVelocityX((-chassisDriver.getLeftY() * DriveConstants.MaxSpeed) * 0.5)
                   .withVelocityY((-chassisDriver.getLeftX() * DriveConstants.MaxSpeed) * 0.5)
@@ -223,11 +236,7 @@ public class RobotContainer {
 
     //Auto Pickup
     chassisDriver.leftBumper().whileTrue(new AutoPickup(m_drive));
-    /* .alongWith(new IntakeCommand(m_intake, m_shooter))
-    .alongWith(new AutoPickup(m_drive, -chassisDriver.getLeftY() * DriveConstants.MaxSpeed,
-                                    -chassisDriver.getLeftX() * DriveConstants.MaxSpeed)))
-    .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
-*/
+
   // Joystick 2
     subsystemsDriver.a().onTrue(m_arm.goToPosition(99.0));
     subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter, m_led));
@@ -254,6 +263,18 @@ public class RobotContainer {
     //Manual Intake
     subsystemsDriver.rightBumper().whileTrue(new ManualIntake(m_intake,m_shooter));
 
+    subsystemsDriver.povRight()
+      .whileTrue(new FeederOverStage(m_shooter, m_led)
+      .alongWith(m_arm.goToPosition(160)))
+      .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+
+
+    //DEBUG DELETE BEFORE COMPETITION
+
+    //chassisDriver.povRight().whileTrue(m_arm.goToPosition(150).alongWith(new CookShooter(m_shooter, m_led))).whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+
+    //chassisDriver.povRight().whileTrue(m_arm.goToPosition(120));
+
     //TODO: DriveTrain Characterization, comment if not used
     /*chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));
     chassisDriver.start().and(chassisDriver.x()).whileTrue(m_drive.sysIdQuasistatic(Direction.kReverse));
@@ -268,7 +289,7 @@ public class RobotContainer {
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
-   * @return the command to run in autonomous55
+   * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
 
@@ -281,61 +302,55 @@ public class RobotContainer {
         autonomousCommand = null;
       break;
 
-      case "2 NOTE CENTER":
-        autonomousCommand = new PathPlannerAuto("2NoteAuto");
-      break;
-
-      case "3 NOTE CENTER":
-        autonomousCommand = new PathPlannerAuto("3NoteAuto");
-      break;
       
       case "4 NOTE CENTER":
         autonomousCommand = new PathPlannerAuto("4NoteAuto");
       break;
 
       case "5 NOTE CENTER":
-        autonomousCommand = new PathPlannerAuto("5NoteAuto");
+        autonomousCommand = new PathPlannerAuto("Copy of 5NoteAuto");
       break;
 
-   /*    case "6 NOTE CENTER":
-        autonomousCommand = new PathPlannerAuto("6NoteAuto");
-        break;*/
-
-      case "SAFE 4 NOTE":
-        autonomousCommand = new PathPlannerAuto("4NoteAutoSafe");
-        break;
-      
       case "SAFE SAFE 4 NOTE":
-      autonomousCommand = new PathPlannerAuto("Safe4NoteAutoSafe");
+      autonomousCommand = new PathPlannerAuto("Copy of Safe4NoteAutoSafe");
       break;
         
       case "SAFE COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("SafeComplement");
       break;
 
-      case "PID":
-        autonomousCommand = new PathPlannerAuto("PIDTuner");
-      break;
-
       case "CENTER COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("CenterSafeComplement");
-        break;
-
-      case "YES STAGE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("SimpleStageComplement");
-        break;
-      
+      break;
+    
       case "NO STAGE COMPLEMENT":
         autonomousCommand = new PathPlannerAuto("NoStageComplement");
-        break;
-
-      case "COMPLEXT STAGE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("ComplexStageComplement");
         break;
 
       case "3 CENTER NOTE":
         autonomousCommand = new PathPlannerAuto("ThreeCenter");
         break;
+
+      case "5 NOTE CORNER":  
+        autonomousCommand = new PathPlannerAuto("5NoteAuto");
+        break; 
+
+      case "1 NOTE":
+        autonomousCommand = new PathPlannerAuto("1NoteAuto");
+        break;
+
+      case "1 NOTE LEAVE SOURCE":
+        autonomousCommand = new PathPlannerAuto("1NoteAutoLeave");
+        break;
+
+      case "2 NOTE COMPLEMENT":
+        autonomousCommand = new PathPlannerAuto("2NoteComplement");
+        break;
+
+      case "1 NOTE LEAVE":
+        autonomousCommand = new PathPlannerAuto("1NoteAutoLeaveSource");
+        break;
+      
     }
 
     return autonomousCommand;
@@ -351,6 +366,10 @@ public class RobotContainer {
 
   public LEDSubsystem getLED(){
     return m_led;
+  }
+
+  public ArmSubsystem getArm(){
+    return m_arm;
   }
 
  /*  public VisionSubsystem getVision(){

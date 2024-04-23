@@ -47,7 +47,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     Rotation2d velocityOffset = new Rotation2d();
 
     private final SwerveRequest.ApplyChassisSpeeds AutoRequest = new SwerveRequest.ApplyChassisSpeeds();
-
+    
     private final SwerveRequest.SysIdSwerveTranslation TranslationCharacterization = new SwerveRequest.SysIdSwerveTranslation();
     private final SwerveRequest.SysIdSwerveRotation RotationCharacterization = new SwerveRequest.SysIdSwerveRotation();
     private final SwerveRequest.SysIdSwerveSteerGains SteerCharacterization = new SwerveRequest.SysIdSwerveSteerGains();
@@ -88,7 +88,7 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     private final SysIdRoutine RoutineToApply = SysIdRoutineRotation;
 
     public CommandSwerveDrivetrain(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
-        super(driveTrainConstants, modules);
+        super(driveTrainConstants , modules);
         configurePathPlanner();
         SignalLogger.start();
         if (Utils.isSimulation()) {

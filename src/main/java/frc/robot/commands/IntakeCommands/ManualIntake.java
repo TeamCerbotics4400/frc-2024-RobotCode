@@ -5,6 +5,7 @@
 package frc.robot.commands.IntakeCommands;
 
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -30,7 +31,11 @@ Timer timer = new Timer();
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.getRPM() >= 3000){
+
+    intake.startIntaking();
+    
+
+    if(DriverStation.isAutonomous()){
       intake.startIntaking();
     }
   }

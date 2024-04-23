@@ -5,7 +5,7 @@
       "x": 1.22,
       "y": 5.5
     },
-    "rotation": 0.0
+    "rotation": 0.8901598184352715
   },
   "command": {
     "type": "sequential",
@@ -40,7 +40,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "SafeComplement2"
+                        "pathName": "OriginalSafeComplement2"
                       }
                     },
                     {
@@ -52,13 +52,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "SafeComplement3"
+                        "pathName": "OriginalSafeComplement3"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "SafeComplement4"
+                        "pathName": "OriginalSafeComplement4"
                       }
                     },
                     {

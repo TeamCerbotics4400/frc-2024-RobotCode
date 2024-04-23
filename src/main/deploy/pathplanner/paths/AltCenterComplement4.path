@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.71,
-        "y": 4.489458978917958
+        "x": 8.52,
+        "y": 4.07
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.433725601297358,
-        "y": 3.305425841620914
+        "x": 8.243725601297356,
+        "y": 2.885966862702956
       },
       "isLocked": false,
       "linkedName": "CenterComplement3"
@@ -20,24 +20,24 @@
         "y": 2.042457161837401
       },
       "prevControl": {
-        "x": 8.201187940837421,
-        "y": 2.466735702702175
+        "x": 8.209868755332089,
+        "y": 2.4597250768350505
       },
       "nextControl": {
-        "x": 6.860062886354701,
-        "y": 0.7706069573269729
+        "x": 5.9613919227838466,
+        "y": -0.2664074558918345
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.7121783474336195,
-        "y": 4.213184580215315
+        "x": 1.3929974013794195,
+        "y": 3.1870225278912105
       },
       "prevControl": {
-        "x": 1.5804693147847853,
-        "y": 0.6906859967566092
+        "x": 1.738340399757724,
+        "y": 1.0261620523241057
       },
       "nextControl": null,
       "isLocked": false,
@@ -57,7 +57,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ArmIdle"
+                "name": "152Degree"
               }
             }
           ]
@@ -84,7 +84,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 5.4,
-    "maxAcceleration": 6.0,
+    "maxAcceleration": 5.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
