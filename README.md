@@ -13,5 +13,6 @@ Each commit represents small or big changes made to improve the robot performanc
 * Field-Centric Drive
 * State Indicating LED-System
 * Apriltag Detection and Odometry Correction
+* ML Implementation For Game Piece Detection
 * Auto-Alignment Features
 * Onboard Logging
