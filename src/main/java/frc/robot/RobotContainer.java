@@ -7,30 +7,20 @@ package frc.robot;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest.ForwardReference;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
-import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.commands.IntakeCommands.IntakeCommand;
 import frc.robot.commands.IntakeCommands.ManualIntake;
 import frc.robot.commands.IntakeCommands.OutakeCommand;
-import frc.robot.commands.IntakeCommands.SmallIntakeCommand;
-import frc.robot.commands.IntakeCommands.SmallerIntakeCommand;
 import frc.robot.commands.ShooterCommands.AmpShootCommand;
 import frc.robot.commands.ShooterCommands.CookShooter;
 import frc.robot.commands.ShooterCommands.FeederOverStage;
 import frc.robot.commands.ShooterCommands.FeederShooter;
-import frc.robot.commands.ShooterCommands.LastShoot;
-import frc.robot.commands.ShooterCommands.ShooterCommand;
-import frc.robot.commands.ShooterCommands.ShooterSafeFail;
+
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -47,7 +37,6 @@ import frc.robot.commands.FieldCentricDrive;
 import frc.robot.commands.RobotCentricDrive;
 import frc.robot.commands.AligningCommands.VelocityOffset;
 import frc.robot.commands.ArmCommands.ArmToPose;
-import frc.robot.commands.AutoCommands.AutoIntake;
 import frc.robot.commands.ClimberCommands.ClimberOpenLoop;
 import frc.robot.commands.ClimberCommands.ExtendClimber;
 
@@ -74,14 +63,6 @@ public class RobotContainer {
   SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
   .withDriveRequestType(DriveRequestType.Velocity);
 
-  private final SendableChooser<String> autoChooser;
-  private final String m_DefaultAuto = "NO AUTO";
-  private String m_autoSelected;
-  private final String[] m_autoNames = {"NO AUTO", "1", "2",
-   "3", "4", "5", "6", 
-   "7", "4 NOTE CENTER","SAFE COMPLEMENT", "5 NOTE CENTER", "11", "12", "13","14",
-   "CENTER COMPLEMENT","SAFE SAFE 4 NOTE", "17", "NO STAGE COMPLEMENT", "19", "3 CENTER NOTE",
-  "5 NOTE CORNER", "1 NOTE","1 NOTE LEAVE SOURCE", "2 NOTE COMPLEMENT","1 NOTE LEAVE"}; 
 
   private final Telemetry logger = new Telemetry(DriveConstants.MaxSpeed);
 
@@ -93,65 +74,7 @@ public class RobotContainer {
     m_head.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
 
 
-
   /** The commands for the autonomous period. */
-
-    //Arm Commands
-    NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(162));
-    NamedCommands.registerCommand("FastArm", m_arm.goToPosition(160).raceWith(new WaitCommand(1)));
-    NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
-    NamedCommands.registerCommand("90Degree", m_arm.goToPosition(99));
-    NamedCommands.registerCommand("155Degree", m_arm.goToPosition(155));
-    NamedCommands.registerCommand("152Degree", m_arm.goToPosition(152));
-    NamedCommands.registerCommand("150Degree", m_arm.goToPosition(150));
-    NamedCommands.registerCommand("160Degree", m_arm.goToPosition(164));
-
-    //Shooter Commands
-    NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter, m_led));
-    NamedCommands.registerCommand("Shoot", 
-    new ParallelDeadlineGroup(
-      new  ShooterSafeFail(m_shooter, m_intake, m_arm), 
-       new ArmToPose(m_arm)));
-    NamedCommands.registerCommand("LastShoot", 
-    new ParallelDeadlineGroup(
-      new LastShoot(m_shooter, m_intake, m_arm), 
-       new ArmToPose(m_arm)));
-    NamedCommands.registerCommand("SubwooferShoot", 
-    new ParallelDeadlineGroup(
-      new ShooterCommand(m_shooter, m_intake,m_arm), 
-       m_arm.goToPosition(160.0)));    
-  
-    //Intake Commands
-    NamedCommands.registerCommand("Intake", 
-    new ParallelCommandGroup(
-      new IntakeCommand(m_intake, m_shooter, m_led), 
-      m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
-    NamedCommands.registerCommand("SmallIntake", 
-    new ParallelCommandGroup(
-      new SmallIntakeCommand(m_intake, m_shooter), 
-      m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
-    NamedCommands.registerCommand("SmallerIntake", 
-    new ParallelCommandGroup(
-      new SmallerIntakeCommand(m_intake, m_shooter), 
-      m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
-    NamedCommands.registerCommand("IntakeSub", 
-    new AutoIntake(m_intake));
-    NamedCommands.registerCommand("LastIntake", 
-    new ManualIntake(m_intake,m_shooter));
-
- //Selector for Autonomous routine 
-    autoChooser = new SendableChooser<>();
-
-    autoChooser.setDefaultOption("No Auto", m_DefaultAuto);
-    autoChooser.addOption("1 Note Auto", m_autoNames[22]);
-    autoChooser.addOption("1 Note auto LEAVE ", m_autoNames[23]);
-    autoChooser.addOption("1 Note Auto LEAVE SOURCE SIDE", m_autoNames[25]);
-    autoChooser.addOption("4 Note COMPLEMENT", m_autoNames[20]);
-    autoChooser.addOption("4 Note Safe Safe", m_autoNames[16]);
-    autoChooser.addOption("2 Note COMPLEMENT", m_autoNames[24]);
-    autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
-    SmartDashboard.putData("Auto Chooser", autoChooser);
-
 
     configureBindings();
   }
@@ -254,68 +177,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
-    Command autonomousCommand = null;
-    m_autoSelected = autoChooser.getSelected();
-    
-    System.out.println("Auto Selected" + m_autoSelected);
-    switch (m_autoSelected) {
-      case "NO AUTO":
-        autonomousCommand = null;
-      break;
+    return null;
 
-      
-      case "4 NOTE CENTER":
-        autonomousCommand = new PathPlannerAuto("4NoteAuto");
-      break;
-
-      case "5 NOTE CENTER":
-        autonomousCommand = new PathPlannerAuto("Copy of 5NoteAuto");
-      break;
-
-      case "SAFE SAFE 4 NOTE":
-      autonomousCommand = new PathPlannerAuto("Copy of Safe4NoteAutoSafe");
-      break;
-        
-      case "SAFE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("SafeComplement");
-      break;
-
-      case "CENTER COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("CenterSafeComplement");
-      break;
-    
-      case "NO STAGE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("NoStageComplement");
-        break;
-
-      case "3 CENTER NOTE":
-        autonomousCommand = new PathPlannerAuto("ThreeCenter");
-        break;
-
-      case "5 NOTE CORNER":  
-        autonomousCommand = new PathPlannerAuto("5NoteAuto");
-        break; 
-
-      case "1 NOTE":
-        autonomousCommand = new PathPlannerAuto("1NoteAuto");
-        break;
-
-      case "1 NOTE LEAVE SOURCE":
-        autonomousCommand = new PathPlannerAuto("1NoteAutoLeave");
-        break;
-
-      case "2 NOTE COMPLEMENT":
-        autonomousCommand = new PathPlannerAuto("2NoteComplement");
-        break;
-
-      case "1 NOTE LEAVE":
-        autonomousCommand = new PathPlannerAuto("1NoteAutoLeaveSource");
-        break;
-      
     }
-
-    return autonomousCommand;
-  }
+  
 
   public CommandSwerveDrivetrain getDrive(){
     return m_drive;
