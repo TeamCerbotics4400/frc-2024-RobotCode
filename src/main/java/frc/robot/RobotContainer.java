@@ -10,16 +10,11 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
-
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -47,7 +42,6 @@ import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.Constants.VisionConstants;
 import frc.robot.commands.AutoPickup;
 import frc.robot.commands.FieldCentricDrive;
 import frc.robot.commands.RobotCentricDrive;
@@ -56,7 +50,6 @@ import frc.robot.commands.ArmCommands.ArmToPose;
 import frc.robot.commands.AutoCommands.AutoIntake;
 import frc.robot.commands.ClimberCommands.ClimberOpenLoop;
 import frc.robot.commands.ClimberCommands.ExtendClimber;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -76,8 +69,7 @@ public class RobotContainer {
   private final ArmSubsystem m_arm = new ArmSubsystem();
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
   private final LEDSubsystem m_led = new LEDSubsystem();
-  
-  //private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
+  private final VisionSubsystem m_vision = new VisionSubsystem(m_drive);
 
   SwerveRequest.FieldCentricFacingAngle m_head = new SwerveRequest.FieldCentricFacingAngle()
   .withDriveRequestType(DriveRequestType.Velocity);
@@ -100,29 +92,30 @@ public class RobotContainer {
     m_head.HeadingController.setPID(8, 0, 0);
     m_head.HeadingController.enableContinuousInput(-Math.PI, Math.PI);
 
+
+
+  /** The commands for the autonomous period. */
+
     //Arm Commands
     NamedCommands.registerCommand("ArmIdle", m_arm.goToPosition(162));
     NamedCommands.registerCommand("FastArm", m_arm.goToPosition(160).raceWith(new WaitCommand(1)));
     NamedCommands.registerCommand("PrepareArm", new ArmToPose(m_arm));
     NamedCommands.registerCommand("90Degree", m_arm.goToPosition(99));
     NamedCommands.registerCommand("155Degree", m_arm.goToPosition(155));
-        NamedCommands.registerCommand("152Degree", m_arm.goToPosition(152));
-
+    NamedCommands.registerCommand("152Degree", m_arm.goToPosition(152));
     NamedCommands.registerCommand("150Degree", m_arm.goToPosition(150));
     NamedCommands.registerCommand("160Degree", m_arm.goToPosition(164));
+
     //Shooter Commands
     NamedCommands.registerCommand("CookShooter", new CookShooter(m_shooter, m_led));
-
     NamedCommands.registerCommand("Shoot", 
     new ParallelDeadlineGroup(
       new  ShooterSafeFail(m_shooter, m_intake, m_arm), 
-      new ArmToPose(m_arm)));
-
+       new ArmToPose(m_arm)));
     NamedCommands.registerCommand("LastShoot", 
     new ParallelDeadlineGroup(
       new LastShoot(m_shooter, m_intake, m_arm), 
-      new ArmToPose(m_arm)));
-
+       new ArmToPose(m_arm)));
     NamedCommands.registerCommand("SubwooferShoot", 
     new ParallelDeadlineGroup(
       new ShooterCommand(m_shooter, m_intake,m_arm), 
@@ -133,20 +126,16 @@ public class RobotContainer {
     new ParallelCommandGroup(
       new IntakeCommand(m_intake, m_shooter, m_led), 
       m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
-
     NamedCommands.registerCommand("SmallIntake", 
     new ParallelCommandGroup(
       new SmallIntakeCommand(m_intake, m_shooter), 
       m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
-
-          NamedCommands.registerCommand("SmallerIntake", 
+    NamedCommands.registerCommand("SmallerIntake", 
     new ParallelCommandGroup(
       new SmallerIntakeCommand(m_intake, m_shooter), 
       m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)));
-
     NamedCommands.registerCommand("IntakeSub", 
     new AutoIntake(m_intake));
-
     NamedCommands.registerCommand("LastIntake", 
     new ManualIntake(m_intake,m_shooter));
 
@@ -158,14 +147,7 @@ public class RobotContainer {
     autoChooser.addOption("1 Note auto LEAVE ", m_autoNames[23]);
     autoChooser.addOption("1 Note Auto LEAVE SOURCE SIDE", m_autoNames[25]);
     autoChooser.addOption("4 Note COMPLEMENT", m_autoNames[20]);
-  //  autoChooser.addOption("4 + 1 Note", m_autoNames[8]);
     autoChooser.addOption("4 Note Safe Safe", m_autoNames[16]);
-   // autoChooser.addOption("5 Note", m_autoNames[10]);
-    //autoChooser.addOption("5 Note Corner", m_autoNames[21]);
-   // autoChooser.addOption("2 + 1 Note Complement", m_autoNames[9]);
-  //  autoChooser.addOption("2 + 1 Center Note Complement", m_autoNames[15]);
-   // autoChooser.addOption("2 + 1 Worlds simple stage complement", m_autoNames[17]);
-//    autoChooser.addOption("2 + 1 Worlds complex stage complement", m_autoNames[19]);
     autoChooser.addOption("2 Note COMPLEMENT", m_autoNames[24]);
     autoChooser.addOption("2 + 1 Worlds NO stage complement", m_autoNames[18]);
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -184,24 +166,9 @@ public class RobotContainer {
    * joysticks}.
    */
 
-   private double addForAlliance() {
-        var alliance = DriverStation.getAlliance();
-        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-            return 180;
-        }
-        return 0;
-    }
-
-    private double invertForAlliance() {
-      var alliance = DriverStation.getAlliance();
-      if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-          return -1;
-      }
-      return 1;
-  }
-
   private void configureBindings() {
 
+  /**   Joystick 1 controls. */
     m_drive.setDefaultCommand(new FieldCentricDrive(
       m_drive,
       () -> -chassisDriver.getLeftY(),
@@ -213,8 +180,7 @@ public class RobotContainer {
       () -> -chassisDriver.getLeftY(),
       () -> -chassisDriver.getLeftX(),
       () -> -chassisDriver.getRightX()));
-
-    //Joystick 1
+   
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
      
       chassisDriver.x().whileTrue(
@@ -226,24 +192,25 @@ public class RobotContainer {
                   .withRotationalDeadband(0))
                   .alongWith(new VelocityOffset(m_drive, () -> chassisDriver.getRightTriggerAxis())));
 
-        
     //Manual Pickup
     chassisDriver.rightBumper()
     .whileTrue(m_arm.goToPosition(IntakeConstants.INTAKE_ANGLE)
     .alongWith(new IntakeCommand(m_intake, m_shooter, m_led)))
     .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
-
-    //Auto Pickup
+    //Auto Align
     chassisDriver.leftBumper().whileTrue(new AutoPickup(m_drive));
 
-  // Joystick 2
-    subsystemsDriver.a().onTrue(m_arm.goToPosition(99.0));
-    subsystemsDriver.b().whileTrue(new OutakeCommand(m_intake, m_shooter, m_led));
+  /**  Joystick 2    */
+    subsystemsDriver.a()
+      .onTrue(m_arm.goToPosition(99.0));
+    subsystemsDriver.b()
+      .whileTrue(new OutakeCommand(m_intake, m_shooter, m_led));
 
-    //Climber controls
-    subsystemsDriver.povUp().onTrue(new ExtendClimber(m_climber));
-    subsystemsDriver.povDown().whileTrue(new ClimberOpenLoop(m_climber));
+    subsystemsDriver.povUp()
+      .onTrue(new ExtendClimber(m_climber));
+    subsystemsDriver.povDown()
+      .whileTrue(new ClimberOpenLoop(m_climber));
 
     subsystemsDriver.leftBumper()
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm, m_led))
@@ -260,20 +227,14 @@ public class RobotContainer {
     subsystemsDriver.povLeft()
       .whileTrue(new FeederShooter(m_shooter, m_led))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
-    //Manual Intake
-    subsystemsDriver.rightBumper().whileTrue(new ManualIntake(m_intake,m_shooter));
+
+    subsystemsDriver.rightBumper()
+      .whileTrue(new ManualIntake(m_intake,m_shooter));
 
     subsystemsDriver.povRight()
       .whileTrue(new FeederOverStage(m_shooter, m_led)
       .alongWith(m_arm.goToPosition(160)))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
-
-
-    //DEBUG DELETE BEFORE COMPETITION
-
-    //chassisDriver.povRight().whileTrue(m_arm.goToPosition(150).alongWith(new CookShooter(m_shooter, m_led))).whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
-
-    //chassisDriver.povRight().whileTrue(m_arm.goToPosition(120));
 
     //TODO: DriveTrain Characterization, comment if not used
     /*chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));
@@ -372,8 +333,8 @@ public class RobotContainer {
     return m_arm;
   }
 
- /*  public VisionSubsystem getVision(){
+  public VisionSubsystem getVision(){
     return m_vision;
   }
-    */
+    
 }

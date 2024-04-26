@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -85,6 +86,7 @@ public class Robot extends TimedRobot {
     measuredStates.set(m_robotContainer.getDrive().getState().ModuleStates);
     targetStates.set(m_robotContainer.getDrive().getState().ModuleTargets);
     
+    SmartDashboard.putNumber("Match time", Timer.getMatchTime());
 
     if(m_robotContainer.getIntake().noteInside()){
       if(!m_robotContainer.getLED().getBlueState())
