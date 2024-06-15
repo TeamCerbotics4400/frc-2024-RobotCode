@@ -27,8 +27,8 @@ public class FeederOverStage extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.setupperSpeed(4500.0);
-    m_shooter.setlowerSpeed(4500.0);
+    m_shooter.setupperSpeed(2000.0);
+    m_shooter.setlowerSpeed(2000.0);
     m_leds.strobeBlue();
   }
 

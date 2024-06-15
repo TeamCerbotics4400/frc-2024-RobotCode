@@ -27,8 +27,8 @@ public class CookShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.setupperSpeed(3200);
-    m_shooter.setlowerSpeed(3200);
+    m_shooter.setupperSpeed(2400);
+    m_shooter.setlowerSpeed(  2400);
     
     if(m_shooter.getRPM() > 2700){
       m_leds.strobeColor1();

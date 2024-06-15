@@ -4,13 +4,17 @@
 
 package frc.robot;
 
+import java.util.logging.Logger;
+
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest.ForwardReference;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.commands.IntakeCommands.IntakeCommand;
@@ -76,7 +80,7 @@ public class RobotContainer {
 
   /** The commands for the autonomous period. */
 
-    configureBindings();
+    EWF54(); 
   }
 
   /**
@@ -89,20 +93,21 @@ public class RobotContainer {
    * joysticks}.
    */
 
-  private void configureBindings() {
+  private void EWF54() {
 
   /**   Joystick 1 controls. */
     m_drive.setDefaultCommand(new FieldCentricDrive(
       m_drive,
-      () -> -chassisDriver.getLeftY(),
-      () -> -chassisDriver.getLeftX(),
-      () -> -chassisDriver.getRightX()));
+      () -> -chassisDriver.getLeftY()*0.5,  
+      () -> -chassisDriver.getLeftX()*0.5,
+      () -> -chassisDriver.getRightX()*0.75));
 
-    chassisDriver.b().whileTrue(new RobotCentricDrive(
+      chassisDriver.b().whileTrue(new RobotCentricDrive(
       m_drive, 
       () -> -chassisDriver.getLeftY(),
       () -> -chassisDriver.getLeftX(),
       () -> -chassisDriver.getRightX()));
+
    
     chassisDriver.a().onTrue(m_drive.runOnce(() -> m_drive.seedFieldRelative()));
      
@@ -130,11 +135,6 @@ public class RobotContainer {
     subsystemsDriver.b()
       .whileTrue(new OutakeCommand(m_intake, m_shooter, m_led));
 
-    subsystemsDriver.povUp()
-      .onTrue(new ExtendClimber(m_climber));
-    subsystemsDriver.povDown()
-      .whileTrue(new ClimberOpenLoop(m_climber));
-
     subsystemsDriver.leftBumper()
       .whileTrue(new AmpShootCommand(m_shooter, m_intake, m_arm, m_led))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
@@ -145,19 +145,19 @@ public class RobotContainer {
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
     subsystemsDriver.y()
-      .whileTrue(m_arm.goToPosition(113.0));
+      .whileTrue(m_arm.goToPosition(181.0));
 
     subsystemsDriver.povLeft()
       .whileTrue(new FeederShooter(m_shooter, m_led))
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
+     subsystemsDriver.povRight()
+      .whileTrue(new FeederOverStage(m_shooter, m_led))
+      .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+      
+
     subsystemsDriver.rightBumper()
       .whileTrue(new ManualIntake(m_intake,m_shooter));
-
-    subsystemsDriver.povRight()
-      .whileTrue(new FeederOverStage(m_shooter, m_led)
-      .alongWith(m_arm.goToPosition(160)))
-      .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
     //TODO: DriveTrain Characterization, comment if not used
     /*chassisDriver.start().and(chassisDriver.y()).whileTrue(m_drive.sysIdQuasistatic(Direction.kForward));

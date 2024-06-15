@@ -1219,8 +1219,7 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul",
-              "Visible data/SmartDashboard/Lower RPM": true
+              "Y-axis/Unit": "ul"
             }
           },
           "3,1": {
@@ -1265,8 +1264,7 @@
               "Y-axis/Automatic bounds": true,
               "Y-axis/Upper bound": 1.0,
               "Y-axis/Lower bound": -1.0,
-              "Y-axis/Unit": "ul",
-              "Visible data/SmartDashboard/Upper RPM ": true
+              "Y-axis/Unit": "ul"
             }
           }
         }
