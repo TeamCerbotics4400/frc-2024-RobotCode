@@ -140,9 +140,7 @@ public class RobotContainer {
       .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
 
     subsystemsDriver.x()
-      .whileTrue(new ArmToPose(m_arm)
-      .alongWith(new CookShooter(m_shooter, m_led)))
-      .whileFalse(m_arm.goToPosition(ArmConstants.IDLE_UNDER_STAGE));
+      .whileTrue(new CookShooter(m_shooter, m_led));
 
     subsystemsDriver.y()
       .whileTrue(m_arm.goToPosition(181.0));

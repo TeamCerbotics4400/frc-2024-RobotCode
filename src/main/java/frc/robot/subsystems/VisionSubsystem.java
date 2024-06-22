@@ -164,8 +164,10 @@ public class VisionSubsystem {
      return noteDistance;
   }
 
+  public int getZero(){
+    return 0;
+  }
 
-  
   public int getNumofDetectedTargets(){
     return 0;
   }
